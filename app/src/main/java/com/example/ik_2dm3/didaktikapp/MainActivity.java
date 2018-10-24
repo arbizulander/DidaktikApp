@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    Button boton;
+    Button btnStart;
     static final int REQ_BTN = 0;
 
     @Override
@@ -15,19 +15,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        boton = (Button) findViewById(R.id.btnHasi);
+        //cogiendo id del boton
+        btnStart = findViewById(R.id.btnHasi);
 
-        boton.setOnClickListener(new View.OnClickListener() {
+        //accion al pulsar el boton
+        btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Intent intent = new Intent(MainActivity.this,menu_main.class);
-
-
-
                 startActivityForResult(intent, REQ_BTN);
-
             }
         });
     }

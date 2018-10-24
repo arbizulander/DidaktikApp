@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">DidaktikApp</string>
+
+    <!-- PANATALLA MAIN-->
+    <string name="btnHasi">Hasi</string>
+    <string name="desc_main">GETXOKO HISTORIA ETA HONDAREAK</string>
+    <string name="des_imgTx">logo Tx</string>
+    <string name="des_imgUpv">logo Upv</string>
+    <string name="des_text">texto main</string>
+
     <string name="title_activity_maps">Map</string>
-    <string name="hasi">hasi</string>
 </resources>
