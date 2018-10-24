@@ -4,6 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".menu_main">
+
+    <Button
+        android:id="@+id/btnGaleria"
+        android:layout_width="262dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="62dp"
+        android:layout_marginBottom="23dp"
+        android:text="Galeria"
+        app:layout_constraintBottom_toTopOf="@+id/btnOndareak"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnOndareak"
+        android:layout_width="262dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="61dp"
+        android:layout_marginEnd="61dp"
+        android:layout_marginBottom="200dp"
+        android:text="Ondareak"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnIbilbidea"
+        android:layout_width="262dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="62dp"
+        android:layout_marginBottom="23dp"
+        android:text="Ibilbidea"
+        app:layout_constraintBottom_toTopOf="@+id/btnGaleria"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="280dp"
+        android:text="Home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="16dp" />
 
 </android.support.constraint.ConstraintLayout>

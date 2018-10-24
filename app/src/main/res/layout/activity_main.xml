@@ -4,15 +4,92 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_light"
+
     tools:context=".MainActivity">
 
-    <TextView
+
+    <Button
+        android:id="@+id/btnHasi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+
+        android:layout_marginStart="139dp"
+        android:layout_marginEnd="157dp"
+        android:layout_marginBottom="41dp"
+        android:backgroundTint="#172dbd"
+
+        android:text="@string/hasi"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/txurdilogo"
+        android:layout_width="147dp"
+        android:layout_height="69dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="36dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/txurdilogo"
+        app:layout_constraintBottom_toTopOf="@+id/btnHasi"
+        app:layout_constraintEnd_toStartOf="@+id/unilogo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getxo" />
+
+    <ImageView
+        android:id="@+id/unilogo"
+        android:layout_width="141dp"
+        android:layout_height="69dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="36dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/unilogo"
+        app:layout_constraintBottom_toTopOf="@+id/btnHasi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txurdilogo"
+        app:layout_constraintTop_toBottomOf="@+id/getxo" />
+
+    <ImageView
+        android:id="@+id/getxo"
+        android:layout_width="306dp"
+        android:layout_height="210dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="38dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/getxo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="274dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="9dp"
+        android:text="Getxoko historia eta ondareak"
+        android:textSize="20dp"
+        android:textStyle="bold|italic"
+
+        app:layout_constraintBottom_toTopOf="@+id/getxo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
 
 </android.support.constraint.ConstraintLayout>
+
