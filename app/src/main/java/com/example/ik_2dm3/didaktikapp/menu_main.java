@@ -3,13 +3,16 @@ package com.example.ik_2dm3.didaktikapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class menu_main extends AppCompatActivity {
-    Button btnHome;
+    //Button btnHome;
     Button btnIbilbidea;
     Button btnGaleria;
+    Button btnOndareak;
 
     static final int REQ_BTN = 0;
 
@@ -19,11 +22,12 @@ public class menu_main extends AppCompatActivity {
         setContentView(R.layout.activity_menu_main);
 
 
-        btnHome = (Button) findViewById(R.id.btnHome);
-        btnIbilbidea = (Button) findViewById(R.id.btnIbilbidea);
-        btnGaleria = (Button) findViewById(R.id.btnGaleria);
+        //btnHome = (Button) findViewById(R.id.btnHome);
+        btnIbilbidea = findViewById(R.id.btnIbilbidea);
+        btnGaleria = findViewById(R.id.btnGaleria);
+        btnOndareak = findViewById(R.id.btnOndareak);
 
-        btnHome.setOnClickListener(new View.OnClickListener() {
+        /*btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -35,7 +39,7 @@ public class menu_main extends AppCompatActivity {
                 startActivityForResult(intent, REQ_BTN);
 
             }
-        });
+        });*/
 
         btnIbilbidea.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,5 +68,31 @@ public class menu_main extends AppCompatActivity {
 
             }
         });
+
+        btnOndareak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent intent = new Intent(menu_main.this,list.class);
+
+
+
+                startActivityForResult(intent, REQ_BTN);
+
+            }
+        });
+
+
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+// Esto es lo que hace mi botón al pulsar ir a atrás
+            Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
+                    Toast.LENGTH_SHORT).show();
+            //return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

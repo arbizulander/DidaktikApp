@@ -6,4 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".list">
 
+    <!--<Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/txtNombre" />-->
+
 </android.support.constraint.ConstraintLayout>
