@@ -4,45 +4,43 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class list extends AppCompatActivity {
 
+    //array donde guardaremos los titulos de las paradas
+    private String[] titulo;
 
-    //Declaración del spinner y su Adapter
-    /*private Spinner spinComentarios;
-    private ArrayAdapter spinnerAdapter;
-
-    //Lista de comentarios y comentario actual
+    //Aqui guardaremos los datos de la BD
     private ArrayList<Paradas> lista_paradas;
-    private Paradas parada;
+    private ListView paradasView;
+
+    //BD
     private MyOpenHelper db;
-    private EditText txtNombre;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        //Iniciamos el controlador de la base de datos
-       /* db=new MyOpenHelper(this);
-        lista_paradas = db.getNombres();
-        txtNombre = findViewById(R.id.txtNombre);
 
-        //Creamos el adapter y lo asociamos al spinner
-        spinnerAdapter=new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,lista_paradas);
-        spinComentarios.setAdapter(spinnerAdapter);
-        //spinComentarios.setOnItemSelectedListener(this);
+        paradasView = findViewById(R.id.paradas_lista);
 
-        //Si hay algun comentario seleccionado mostramos sus valores en la parte inferior
-        if(parada!=null) {
-            txtNombre.setText(parada.getNombre());
-            //txtComentario.setText(parada.getImagen());
-        }*/
+        //Cogemos todos los nombres de las paradas que hay en la BD
+        db=new MyOpenHelper(this);
+        lista_paradas = db.getDatos_Paradas();
+
+        //Los pasamos a un array para poder hacer el ArrayAdapter con el ListView
+        titulo = new String [lista_paradas.size()];
+        for (int i = 0; i<titulo.length; i++){
+            titulo[i] = (i+1)+ "." + lista_paradas.get(i).getNombre();
+        }
+
+        //Pasamos array al ArrayAdapter para que salga en el ListView
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, titulo);
+        paradasView.setAdapter(adapter);
     }
 
     @Override
