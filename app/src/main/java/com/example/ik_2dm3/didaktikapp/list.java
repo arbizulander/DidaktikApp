@@ -1,12 +1,19 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class list extends AppCompatActivity {
@@ -53,4 +60,6 @@ public class list extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+
 }
