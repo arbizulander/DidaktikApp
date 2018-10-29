@@ -1,13 +1,18 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
@@ -48,7 +53,27 @@ public class list extends AppCompatActivity {
         //Pasamos array al ArrayAdapter para que salga en el ListView
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, titulo);
         paradasView.setAdapter(adapter);
+
+        paradasView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                //Intent intent = new Intent(details_list.class);
+                int item = position;
+                String itemval = (String)lista_paradas.get(item).getNombre();
+                //Toast.makeText(getApplicationContext(), "Position: "+ item+" - Valor: "+itemval, Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(list.this, details_list.class);
+                //Toast.makeText(getApplicationContext(), "Position: "+ item+" - Valor: "+lista_paradas.get(item).getId_parada(), Toast.LENGTH_LONG).show();
+                //String id_p = (String)lista_paradas.get(item).getId_parada();
+                intent.putExtra("id_parada", lista_paradas.get(item).getId_parada());
+                startActivity(intent);
+
+            }
+
+        });
     }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
