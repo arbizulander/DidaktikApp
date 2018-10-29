@@ -1,5 +1,7 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import java.sql.Blob;
+
 public class Paradas {
 
     private int id_parada;
@@ -7,9 +9,9 @@ public class Paradas {
     private double latitud;
     private double longitud;
     private boolean realizado;
-    private byte[] imagen;
+    private String imagen;
 
-    public Paradas (int id, String nom, double lat, double longi, boolean real, byte[] img){
+    public Paradas (int id, String nom, double lat, double longi, boolean real, String img){
         id_parada = id;
         nombre = nom;
         latitud = lat;
@@ -58,11 +60,11 @@ public class Paradas {
         this.realizado = realizado;
     }
 
-    public byte[] getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(byte[] imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 

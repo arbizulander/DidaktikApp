@@ -3,19 +3,16 @@ package com.example.ik_2dm3.didaktikapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.mapbox.mapboxsdk.Mapbox;
-import com.mapbox.mapboxsdk.annotations.MarkerOptions;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+
 
 public class MapsActivity extends AppCompatActivity {
     private MapView mapView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Mapbox.getInstance(this, "pk.eyJ1IjoiZGlkYWt0aWthcHAiLCJhIjoiY2pubGdlOXVpMTF3MDN3czVhNTJ4eWV2NCJ9.axDKMhplxotNcdvMT9y6dg");
+        /*Mapbox.getInstance(this, "pk.eyJ1IjoiZGlkYWt0aWthcHAiLCJhIjoiY2pubGdlOXVpMTF3MDN3czVhNTJ4eWV2NCJ9.axDKMhplxotNcdvMT9y6dg");
         setContentView(R.layout.activity_main);
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
@@ -34,7 +31,7 @@ public class MapsActivity extends AppCompatActivity {
                         .snippet("lololo"));
 
             }
-        });
+        });*/
 
     }
     @Override

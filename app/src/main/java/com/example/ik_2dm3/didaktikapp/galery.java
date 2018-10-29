@@ -5,9 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -35,12 +37,12 @@ public class galery extends AppCompatActivity {
 
         db=new MyOpenHelper(this);
         lista_paradas = db.getDatos_Paradas();
-        byte [] data = lista_paradas.get(0).getImagen();
+        String data = lista_paradas.get(0).getImagen();
         //Log.d("mytag",lista_paradas.get(0).getImagen().toString());
         Log.d("mytag", "ARRAY DE BYTE IMAGEN:"+data);
         //btnHome = (Button) findViewById(R.id.btnHome);
         try{
-            toImg(data);
+           toImg(data);
         }catch (IOException e){
 
         }
@@ -61,11 +63,32 @@ public class galery extends AppCompatActivity {
         });*/
     }
 
-    public void toImg(byte[] byteArray) throws IOException {
-        Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+    public void toImg(String byteArray) throws IOException {
+
+        byte[] decodedString = Base64.decode(byteArray, Base64.DEFAULT);
+        ImageView image = (ImageView) findViewById(R.id.imageView);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+        Log.d("mytag","BITMAP: "+decodedByte);
+        image.setImageBitmap(decodedByte);
+
+        /*Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         ImageView image = (ImageView) findViewById(R.id.imageView);
 
-        image.setImageBitmap(Bitmap.createScaledBitmap(bmp, image.getWidth(), image.getHeight(), false));
+        image.setImageBitmap(bmp);*/
+
+        // Convert bytes data into a Bitmap
+       // Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        //ImageView imageView = new ImageView(galery.this);
+        // Set the Bitmap data to the ImageView
+             //   imageView.setImageBitmap(bmp);
+
+        // Get the Root View of the layout
+              //  ViewGroup layout = (ViewGroup) findViewById(android.R.id.content);
+        // Add the ImageView to the Layout
+              //  layout.addView(imageView);
+
+        //image.setImageBitmap(Bitmap.createScaledBitmap(bmp, image.getWidth(), image.getHeight(), false));
 
         //image.setImageResource(R.drawable.error);
     }

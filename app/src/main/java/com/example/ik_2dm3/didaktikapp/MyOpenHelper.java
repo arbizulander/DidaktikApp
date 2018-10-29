@@ -9,10 +9,12 @@ import android.util.Log;
 import android.widget.CursorAdapter;
 import android.widget.SimpleCursorAdapter;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,8 @@ public class MyOpenHelper extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DB_VERSION);
 
       try{
-            copyDataBase(context);
+            createDataBase(context);
+            //copyDataBase(context);
         } catch(IOException e){
             Log.d("mytag", "ERROR COPYDATABASE");
         }
@@ -48,6 +51,33 @@ public class MyOpenHelper extends SQLiteOpenHelper {
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    private void createDataBase (Context context) throws IOException{
+
+        boolean dbExist = checkDataBase();
+        SQLiteDatabase db_Read = null;
+
+        if (dbExist){
+            //la bd ya existe
+        }
+        else
+        {
+            db_Read = this.getReadableDatabase();
+            db_Read.close();
+
+            try{
+                copyDataBase(context);
+            }catch (IOException e){
+                throw new Error ("Error copiando BD");
+            }
+        }
+
+    }
+
+    public boolean checkDataBase(){
+        File dbFile = new File(DB_PATH + DB_NAME);
+        return dbFile.exists();
     }
 
     /**
@@ -122,7 +152,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
                     double lat = c.getDouble(c.getColumnIndex("latitud"));
                     double longi = c.getDouble(c.getColumnIndex("longitud"));
                     int real = c.getInt(c.getColumnIndex("realizado"));
-                    byte[] imagen = c.getBlob(c.getColumnIndex("imagen"));
+                    String imagen = c.getString(c.getColumnIndex("imagen"));
 
                     boolean reali = (real!=0);
 
