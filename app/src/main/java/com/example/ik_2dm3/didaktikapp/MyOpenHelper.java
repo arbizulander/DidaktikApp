@@ -45,7 +45,8 @@ public class MyOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d("mytag", "ESTOY EN ONCREATE MYOPENHELPER");
-        }
+
+    }
 
 
         @Override
@@ -58,11 +59,11 @@ public class MyOpenHelper extends SQLiteOpenHelper {
         boolean dbExist = checkDataBase();
         SQLiteDatabase db_Read = null;
 
-        if (dbExist){
+        /*if (dbExist){
             //la bd ya existe
         }
         else
-        {
+        {*/
             db_Read = this.getReadableDatabase();
             db_Read.close();
 
@@ -71,7 +72,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
             }catch (IOException e){
                 throw new Error ("Error copiando BD");
             }
-        }
+       // }
 
     }
 
@@ -171,5 +172,75 @@ public class MyOpenHelper extends SQLiteOpenHelper {
         return Paradalista;
     }
 
+    public Object getDatos_parada_ID(int id_pr){
+        Paradas pr = new Paradas();
+        String myPath = DB_PATH + DB_NAME;
+        db = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+        db = this.getWritableDatabase();
+
+        //Creamos el cursor
+        Cursor c = db.rawQuery("SELECT * FROM paradas WHERE id_parada ="+id_pr, null);
+
+        if (c != null && c.getCount()>0) {
+            c.moveToFirst();
+            do {
+                //Asignamos el valor en nuestras variables para crear un nuevo objeto Comentario
+                int id=c.getInt(c.getColumnIndex("id_parada"));
+                if (id_pr == id){
+                    String user = c.getString(c.getColumnIndex("nombre"));
+                    double lat = c.getDouble(c.getColumnIndex("latitud"));
+                    double longi = c.getDouble(c.getColumnIndex("longitud"));
+                    int real = c.getInt(c.getColumnIndex("realizado"));
+                    String imagen = c.getString(c.getColumnIndex("imagen"));
+
+                    boolean reali = (real!=0);
+
+                    pr =new Paradas(id,user,lat,longi,reali,imagen);
+                }
+
+            } while (c.moveToNext());
+        }
+
+        //Cerramos el cursor
+        c.close();
+        //cursor.close();
+        db.close();
+        return pr;
+    }
+
+    public Object getDatos_juegos_ID(int id_pr){
+        ArrayList <Juegos>Juegoslista = new ArrayList<Juegos>();
+        String myPath = DB_PATH + DB_NAME;
+        db = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+        db = this.getWritableDatabase();
+
+        //Creamos el cursor
+        Cursor c = db.rawQuery("SELECT * FROM juegos WHERE id_parada ="+id_pr, null);
+
+        if (c != null && c.getCount()>0) {
+            c.moveToFirst();
+            do {
+                //Asignamos el valor en nuestras variables para crear un nuevo objeto Comentario
+                int id=c.getInt(c.getColumnIndex("id_parada"));
+                if (id_pr == id){
+                    int id_juego = c.getInt(c.getColumnIndex("id_juego"));
+                    int real = c.getInt(c.getColumnIndex("realizado"));
+                    String nombre = c.getString(c.getColumnIndex("nombre_juego"));
+
+                    boolean reali = (real!=0);
+
+                    Juegos j =new Juegos(id_juego,nombre,reali,id);
+                    Juegoslista.add(j);
+                }
+
+            } while (c.moveToNext());
+        }
+
+        //Cerramos el cursor
+        c.close();
+        //cursor.close();
+        db.close();
+        return Juegoslista;
+    }
 
 }

@@ -11,6 +11,10 @@ public class Paradas {
     private boolean realizado;
     private String imagen;
 
+    public Paradas(){
+
+    }
+
     public Paradas (int id, String nom, double lat, double longi, boolean real, String img){
         id_parada = id;
         nombre = nom;

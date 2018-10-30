@@ -58,17 +58,14 @@ public class list extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                //Intent intent = new Intent(details_list.class);
                 int item = position;
-                String itemval = (String)lista_paradas.get(item).getNombre();
-                //Toast.makeText(getApplicationContext(), "Position: "+ item+" - Valor: "+itemval, Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(list.this, details_list.class);
-                //Toast.makeText(getApplicationContext(), "Position: "+ item+" - Valor: "+lista_paradas.get(item).getId_parada(), Toast.LENGTH_LONG).show();
-                //String id_p = (String)lista_paradas.get(item).getId_parada();
-                intent.putExtra("id_parada", lista_paradas.get(item).getId_parada());
-                startActivity(intent);
+                int prueba = lista_paradas.get(item).getId_parada();
 
+                //meto el id en los extras para saber que parada es
+                intent.putExtra("id_parada", prueba);
+                startActivity(intent);
             }
 
         });
@@ -78,10 +75,9 @@ public class list extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-// Esto es lo que hace mi botón al pulsar ir a atrás
+            // Esto es lo que hace mi botón al pulsar ir a atrás
             Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
                     Toast.LENGTH_SHORT).show();
-            //return true;
         }
         return super.onKeyDown(keyCode, event);
     }
