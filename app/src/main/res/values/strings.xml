@@ -12,6 +12,8 @@
     <string name="text_Ibilbidea">Ibilbidea</string>
     <string name="text_Galeria">Galeria</string>
     <string name="text_Ondareak">Ondareak</string>
-   <!-- <string name="text_Home">Home</string>-->
     <string name="title_activity_maps">Map</string>
+
+    <!--PANTALLA GALERY-->
+    <string name="text_btnSacarFoto">Sacar foto</string>
 </resources>

@@ -154,10 +154,13 @@ public class MyOpenHelper extends SQLiteOpenHelper {
                     double longi = c.getDouble(c.getColumnIndex("longitud"));
                     int real = c.getInt(c.getColumnIndex("realizado"));
                     String imagen = c.getString(c.getColumnIndex("imagen"));
+                    int scrimagen = c.getInt(c.getColumnIndex("Sacarfoto"));
+                    String txt = c.getString(c.getColumnIndex("texto"));
 
                     boolean reali = (real!=0);
+                    boolean scrFoto = (scrimagen != 0);
 
-                    Paradas com =new Paradas(id,user,lat,longi,reali,imagen);
+                    Paradas com =new Paradas(id,user,lat,longi,reali,imagen, scrFoto, txt);
                     //Añadimos el comentario a la lista
                     Paradalista.add(com);
                     Log.d("mytag", ""+user);
@@ -167,8 +170,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
 
         //Cerramos el cursor
         c.close();
-        //cursor.close();
-            db.close();
+        db.close();
         return Paradalista;
     }
 
@@ -192,10 +194,13 @@ public class MyOpenHelper extends SQLiteOpenHelper {
                     double longi = c.getDouble(c.getColumnIndex("longitud"));
                     int real = c.getInt(c.getColumnIndex("realizado"));
                     String imagen = c.getString(c.getColumnIndex("imagen"));
+                    int scrimagen = c.getInt(c.getColumnIndex("Sacarfoto"));
+                    String txt = c.getString(c.getColumnIndex("texto"));
 
                     boolean reali = (real!=0);
+                    boolean scrFoto = (scrimagen != 0);
 
-                    pr =new Paradas(id,user,lat,longi,reali,imagen);
+                    pr =new Paradas(id,user,lat,longi,reali,imagen, scrFoto, txt);
                 }
 
             } while (c.moveToNext());
@@ -203,7 +208,6 @@ public class MyOpenHelper extends SQLiteOpenHelper {
 
         //Cerramos el cursor
         c.close();
-        //cursor.close();
         db.close();
         return pr;
     }
@@ -238,7 +242,6 @@ public class MyOpenHelper extends SQLiteOpenHelper {
 
         //Cerramos el cursor
         c.close();
-        //cursor.close();
         db.close();
         return Juegoslista;
     }

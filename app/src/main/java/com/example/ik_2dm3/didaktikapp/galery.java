@@ -1,8 +1,13 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -15,8 +20,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class galery extends AppCompatActivity {
     //Button btnHome;
@@ -27,7 +38,11 @@ public class galery extends AppCompatActivity {
     //BD
     private MyOpenHelper db;
 
+    private Button btnCamara;
+
     static final int REQ_BTN = 0;
+    ImageView imgTakenPic;
+    private static final int CAM_REQUEST=1313;
 
 
     @Override
@@ -39,31 +54,65 @@ public class galery extends AppCompatActivity {
         lista_paradas = db.getDatos_Paradas();
         String data = lista_paradas.get(0).getImagen();
         //Log.d("mytag",lista_paradas.get(0).getImagen().toString());
-        Log.d("mytag", "ARRAY DE BYTE IMAGEN:"+data);
+        //Log.d("mytag", "ARRAY DE BYTE IMAGEN:"+data);
         //btnHome = (Button) findViewById(R.id.btnHome);
-        try{
+        btnCamara = (Button) findViewById(R.id.btnCamara);
+        imgTakenPic = (ImageView) findViewById(R.id.imageView);
+        /*try{
            toImg(data);
         }catch (IOException e){
 
-        }
+        }*/
 
-
-        /*btnHome.setOnClickListener(new View.OnClickListener() {
+        btnCamara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                Intent intent = new Intent(galery.this,MainActivity.class);
-
-
-
-                startActivityForResult(intent, REQ_BTN);
+                Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                //i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(image));
+                //i.putExtra("return-data", true);
+                startActivityForResult(i, CAM_REQUEST);
 
             }
-        });*/
+        });
     }
 
-    public void toImg(String byteArray) throws IOException {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode != RESULT_CANCELED) {
+            if (requestCode == CAM_REQUEST) {
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                imgTakenPic.setImageBitmap(bitmap);
+                String ruta = guardarImagen(this, "prueba", bitmap);
+                Log.d("mytag",ruta);
+            }
+        }
+    }
+
+    private String guardarImagen (Context context, String nombre, Bitmap imagen){
+        ContextWrapper cw = new ContextWrapper(context);
+        File dirImages = cw.getDir("galery", Context.MODE_PRIVATE);
+        File myPath = new File(dirImages, "prueba.png");
+
+        FileOutputStream fos = null;
+        try{
+            fos = new FileOutputStream(myPath);
+            //imagen.getRowBytes();
+            imagen.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            //imagen.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+        }catch (FileNotFoundException ex){
+            ex.printStackTrace();
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+        return myPath.getAbsolutePath();
+    }
+
+
+    /*public void toImg(String byteArray) throws IOException {
 
         byte[] decodedString = Base64.decode(byteArray, Base64.DEFAULT);
         ImageView image = (ImageView) findViewById(R.id.imageView);
@@ -72,26 +121,7 @@ public class galery extends AppCompatActivity {
         Log.d("mytag","BITMAP: "+decodedByte);
         image.setImageBitmap(decodedByte);
 
-        /*Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-        ImageView image = (ImageView) findViewById(R.id.imageView);
-
-        image.setImageBitmap(bmp);*/
-
-        // Convert bytes data into a Bitmap
-       // Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-        //ImageView imageView = new ImageView(galery.this);
-        // Set the Bitmap data to the ImageView
-             //   imageView.setImageBitmap(bmp);
-
-        // Get the Root View of the layout
-              //  ViewGroup layout = (ViewGroup) findViewById(android.R.id.content);
-        // Add the ImageView to the Layout
-              //  layout.addView(imageView);
-
-        //image.setImageBitmap(Bitmap.createScaledBitmap(bmp, image.getWidth(), image.getHeight(), false));
-
-        //image.setImageResource(R.drawable.error);
-    }
+    }*/
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

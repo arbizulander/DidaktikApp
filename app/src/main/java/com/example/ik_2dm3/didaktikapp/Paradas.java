@@ -10,18 +10,23 @@ public class Paradas {
     private double longitud;
     private boolean realizado;
     private String imagen;
+    private boolean sacarFoto;
+    private String texto;
 
     public Paradas(){
 
     }
 
-    public Paradas (int id, String nom, double lat, double longi, boolean real, String img){
+
+    public Paradas (int id, String nom, double lat, double longi, boolean real, String img, boolean scrFoto, String txt){
         id_parada = id;
         nombre = nom;
         latitud = lat;
         longitud = longi;
         realizado = real;
         imagen = img;
+        sacarFoto = scrFoto;
+        texto = txt;
     }
 
     public int getId_parada() {
@@ -62,6 +67,22 @@ public class Paradas {
 
     public void setRealizado(boolean realizado) {
         this.realizado = realizado;
+    }
+
+    public boolean isSacarFoto() {
+        return sacarFoto;
+    }
+
+    public void setSacarFoto(boolean sacarFoto) {
+        this.sacarFoto = sacarFoto;
+    }
+
+    public String getTexto() {
+        return texto;
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
     }
 
     public String getImagen() {
