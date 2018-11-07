@@ -166,30 +166,32 @@ public class galery extends AppCompatActivity {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         //File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File storageDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/FotosDidaktikApp");
+        //File storageDir = Environment.getExternalStorageDirectory();
 
-        //File storageDir = new File(getExternalStorageDirectory().getAbsolutePath(),"FotosDidaktikApp");
+        File storageDir = new File(getExternalStorageDirectory().getAbsolutePath(),"FotosDidaktikApp");
 
+        //File storageDir = getDir("FotosDidaktikApp", Context.MODE_PRIVATE);
 
-        if (!storageDir.exists()) {
+       /*if (!storageDir.exists()) {
             try {
                 storageDir.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
 
         if (storageDir.isDirectory()){
             Log.d("mytag", "SOY UN DIRECTORIO");
         }
 
         Log.d("mytag","RUTAMALA "+storageDir.toString());
+        Log.d("mytag", "NOMBREARCHIVO: "+imageFileName);
 
 
         File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir    /* directory */
+                imageFileName,
+                ".jpg",
+                storageDir
         );
 
         // Save a file: path for use with ACTION_VIEW intents
@@ -217,7 +219,7 @@ public class galery extends AppCompatActivity {
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.android.fileprovider",
+                        "com.example.ik_2dm3.didaktikapp",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
