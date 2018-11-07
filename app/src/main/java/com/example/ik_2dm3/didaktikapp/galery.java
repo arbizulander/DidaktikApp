@@ -28,6 +28,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,6 +38,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import static android.content.pm.PackageManager.PERMISSION_DENIED;
+import static android.os.Environment.getExternalStorageDirectory;
 
 public class galery extends AppCompatActivity {
     //Button btnHome;
@@ -45,7 +47,7 @@ public class galery extends AppCompatActivity {
     private ListView paradasView;
 
     //BD
-    private MyOpenHelper db;
+    //private MyOpenHelper db;
 
     private Button btnCamara;
 
@@ -61,9 +63,9 @@ public class galery extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galery);
 
-        db=new MyOpenHelper(this);
-        lista_paradas = db.getDatos_Paradas();
-        String data = lista_paradas.get(0).getImagen();
+        //db=new MyOpenHelper(this);
+        //lista_paradas = db.getDatos_Paradas();
+        //String data = lista_paradas.get(0).getImagen();
         //Log.d("mytag",lista_paradas.get(0).getImagen().toString());
         //Log.d("mytag", "ARRAY DE BYTE IMAGEN:"+data);
         //btnHome = (Button) findViewById(R.id.btnHome);
@@ -80,7 +82,7 @@ public class galery extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                Log.d("mytag", "HOLA HULIO");
+
                 dispatchTakePictureIntent();
                 //Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 //i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.parse(Environment.getExternalStorageDirectory().getAbsolutePath()+"Fotos didaktikapp.jpg"));
@@ -121,7 +123,7 @@ public class galery extends AppCompatActivity {
         }
     }*/
 
-    private String guardarImagen (Context context, String nombre, Bitmap imagen){
+    /*private String guardarImagen (Context context, String nombre, Bitmap imagen){
         ContextWrapper cw = new ContextWrapper(context);
         int i = 0;
         i++;
@@ -143,7 +145,7 @@ public class galery extends AppCompatActivity {
         createDirectoryAndSaveFile(imagen,myPath.getName());
         return myPath.getAbsolutePath();
 
-    }
+    }*/
 
 
     /*public void toImg(String byteArray) throws IOException {
@@ -163,16 +165,36 @@ public class galery extends AppCompatActivity {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        //File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/FotosDidaktikApp");
+
+        //File storageDir = new File(getExternalStorageDirectory().getAbsolutePath(),"FotosDidaktikApp");
+
+
+        if (!storageDir.exists()) {
+            try {
+                storageDir.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (storageDir.isDirectory()){
+            Log.d("mytag", "SOY UN DIRECTORIO");
+        }
+
+        Log.d("mytag","RUTAMALA "+storageDir.toString());
+
+
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
-                storageDir      /* directory */
+                storageDir    /* directory */
         );
 
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
-        Log.d("mytag", mCurrentPhotoPath);
+        Log.d("mytag", "RUTAIMAGEN: "+mCurrentPhotoPath);
         return image;
     }
 
@@ -188,7 +210,9 @@ public class galery extends AppCompatActivity {
                 photoFile = createImageFile();
             } catch (IOException ex) {
                 // Error occurred while creating the File
-                Log.d("mytag", "Error ocurred while creating de File");
+                Log.d("mytag", "Error ocurred while creating the File");
+                ex.printStackTrace();
+                //Log.d("mytag", "Error ocurred while creating the File");
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
@@ -208,7 +232,20 @@ public class galery extends AppCompatActivity {
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
+
+        File direct = new File(getExternalStorageDirectory().getAbsolutePath(),"FotosDidaktikApp");
+        Log.d("mytag", "RUTA. "+direct.toString());
     }
+
+    /* Checks if external storage is available for read and write */
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -220,13 +257,14 @@ public class galery extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
     private void createDirectoryAndSaveFile(Bitmap imageToSave, String fileName) {
 
-        File direct = new File(Environment.getExternalStorageDirectory().getAbsolutePath(),"FotosDidaktikApp");
+        File direct = new File(getExternalStorageDirectory().getAbsolutePath(),"FotosDidaktikApp");
         int result = 0;
 
         if (direct.exists()) {
-            Log.d("myTag","directorio existe en:" + Environment.getExternalStorageDirectory().getAbsolutePath()+"/FotosDidaktikApp");
+            Log.d("myTag","directorio existe en:" + getExternalStorageDirectory().getAbsolutePath()+"/FotosDidaktikApp");
             result = 2;//el fichero existe
         }else{
             try {
@@ -242,7 +280,7 @@ public class galery extends AppCompatActivity {
             }
         }
 
-        File file = new File(new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/FotosDidaktikApp"), fileName);
+        File file = new File(new File(getExternalStorageDirectory().getAbsolutePath()+"/FotosDidaktikApp"), fileName);
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -254,7 +292,7 @@ public class galery extends AppCompatActivity {
             FileOutputStream out = new FileOutputStream(file);
 
             imageToSave.compress(Bitmap.CompressFormat.PNG, 100, out);
-            Log.d("myTag","Imagen comprimida y guardada en "+Environment.getExternalStorageDirectory().getAbsolutePath()+"/FotosDidaktikApp");
+            Log.d("myTag","Imagen comprimida y guardada en "+getExternalStorageDirectory().getAbsolutePath()+"/FotosDidaktikApp");
             out.flush();
             out.close();
         } catch (Exception e) {

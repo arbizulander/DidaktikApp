@@ -43,7 +43,7 @@ public class list extends AppCompatActivity {
         //Cogemos todos los nombres de las paradas que hay en la BD
         db=new MyOpenHelper(this);
         lista_paradas = db.getDatos_Paradas();
-
+        db.close();
         //Los pasamos a un array para poder hacer el ArrayAdapter con el ListView
         titulo = new String [lista_paradas.size()];
         for (int i = 0; i<titulo.length; i++){
