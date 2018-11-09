@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+
 
 
 
@@ -32,17 +32,20 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.plugins.locationlayer.LocationLayerPlugin;
 import com.mapbox.mapboxsdk.plugins.locationlayer.modes.CameraMode;
 import com.mapbox.mapboxsdk.plugins.locationlayer.modes.RenderMode;
+
 import java.util.List;
 
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,LocationEngineListener,
         PermissionsListener {
-    private com.mapbox.mapboxsdk.maps.MapView mapView;
+
+    private MapView mapView;
     private  MapboxMap map;
     private PermissionsManager permissionsManager;
     private LocationEngine locationEngine;
     private LocationLayerPlugin locationLayerPlugin;
     private Location originLocation;
+
 
 
     @Override
@@ -60,7 +63,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
         permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
 
@@ -70,6 +72,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(MapboxMap mapboxMap) {
 
         map = mapboxMap;
+        //locationComponent = mapboxMap.getLocationComponent();
+
+
+
         enableLocation();
 
     }
@@ -112,10 +118,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @SuppressWarnings("MissingPermission")
     private void initializeLocationLayer(){
 
+
         locationLayerPlugin = new LocationLayerPlugin(mapView, map, locationEngine);
         locationLayerPlugin.setLocationLayerEnabled(true);
-        locationLayerPlugin.setCameraMode(com.mapbox.mapboxsdk.plugins.locationlayer.modes.CameraMode.TRACKING_COMPASS);
+        locationLayerPlugin.setCameraMode(CameraMode.TRACKING_COMPASS);
         locationLayerPlugin.setRenderMode(RenderMode.COMPASS);
+
+
 
     }
 
