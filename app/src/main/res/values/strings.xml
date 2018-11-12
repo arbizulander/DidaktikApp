@@ -16,4 +16,11 @@
 
     <!--PANTALLA GALERY-->
     <string name="text_btnSacarFoto">Sacar foto</string>
+
+    <!--PANTALLA MAPA-->
+    <string name="access_token" translatable="false">pk.eyJ1IjoiZGlkYWt0aWthcHAiLCJhIjoiY2pubGdlOXVpMTF3MDN3czVhNTJ4eWV2NCJ9.axDKMhplxotNcdvMT9y6dg</string>
+    <string name="user_location_permission_explanation">This app needs location permissions in order to show its functionality.</string>
+    <string name="user_location_permission_not_granted">You didn\'t grant location permissions.</string>
+    <string name="simple_offline_end_progress_success">End progress success</string>
+    <string name="basic_offline_deleted_toast">Deletes toast</string>
 </resources>

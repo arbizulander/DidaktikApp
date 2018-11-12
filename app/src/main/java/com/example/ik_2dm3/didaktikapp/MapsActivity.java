@@ -5,9 +5,7 @@ import android.support.annotation.NonNull;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-
-
+import android.util.Log;
 
 
 import com.mapbox.android.core.location.LocationEngine;
@@ -20,11 +18,12 @@ import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.mapboxsdk.Mapbox;
 
 
-
+import com.mapbox.mapboxsdk.annotations.PolygonOptions;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
 
+import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
@@ -40,25 +39,58 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         PermissionsListener {
 
     private MapView mapView;
-    private  MapboxMap map;
+    private MapboxMap mapboxMap;
     private PermissionsManager permissionsManager;
     private LocationEngine locationEngine;
     private LocationLayerPlugin locationLayerPlugin;
     private Location originLocation;
 
+    // JSON encoding/decoding
+    //public static final String JSON_CHARSET = "UTF-8";
+    //public static final String JSON_FIELD_REGION_NAME = "Getxo";
+
+    private static final LatLngBounds GETXO_BOUNDS = new LatLngBounds.Builder()
+            .include(new LatLng(43.334930444724705, -3.010872036887065)) // Northeast
+            .include(new LatLng(43.3228968359835, -3.01600064681665)) // Southwest
+            .build();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Mapbox.getInstance(this, "pk.eyJ1IjoiZGlkYWt0aWthcHAiLCJhIjoiY2pubGdlOXVpMTF3MDN3czVhNTJ4eWV2NCJ9.axDKMhplxotNcdvMT9y6dg");
+        Mapbox.getInstance(this, getString(R.string.access_token));
         setContentView(R.layout.activity_maps);
 
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
+        try{
+            Log.d("mytag", "cargando mapa offline");
 
+            // Limites de Getxo
+            mapboxMap.setLatLngBoundsForCameraTarget(GETXO_BOUNDS);
+            mapboxMap.setMinZoomPreference(15);
+            mapboxMap.setMaxZoomPreference(18);
+            // Visualise bounds area
+            showBoundsArea(mapboxMap);
+        }catch(Exception e){
+            Log.d("mytag", "ERROR CARGAR MAPA");
+        }
+
+
+    }
+
+    private void showBoundsArea(MapboxMap mapboxMap) {
+
+        PolygonOptions boundsArea = new PolygonOptions()
+                .add(GETXO_BOUNDS.getNorthWest())
+                .add(GETXO_BOUNDS.getNorthEast())
+                .add(GETXO_BOUNDS.getSouthEast())
+                .add(GETXO_BOUNDS.getSouthWest());
+        // Ajusta la transparencia del area seleccionada | 0 = transparente y 1 = opaco
+        boundsArea.alpha(0f);
+        mapboxMap.addPolygon(boundsArea);
     }
 
     @Override
@@ -71,10 +103,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(MapboxMap mapboxMap) {
 
-        map = mapboxMap;
-        //locationComponent = mapboxMap.getLocationComponent();
-
-
+        this.mapboxMap = mapboxMap;
 
         enableLocation();
 
@@ -119,7 +148,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void initializeLocationLayer(){
 
 
-        locationLayerPlugin = new LocationLayerPlugin(mapView, map, locationEngine);
+        locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap, locationEngine);
         locationLayerPlugin.setLocationLayerEnabled(true);
         locationLayerPlugin.setCameraMode(CameraMode.TRACKING_COMPASS);
         locationLayerPlugin.setRenderMode(RenderMode.COMPASS);
@@ -129,7 +158,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void setCameraPosition(Location location){
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),
+        mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),
                 location.getLongitude()), 13.0));
 
     }
