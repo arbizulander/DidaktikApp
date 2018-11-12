@@ -24,9 +24,13 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -46,10 +50,8 @@ public class details_list extends AppCompatActivity {
     private Paradas pr_actual;
     private ArrayList<Juegos> lista_juegos;
     private ConstraintLayout contenido;
-    private static final int CAMERA_PIC_REQUEST = 1;
-    private static final int SELECT_PICTURE = 2;
-    private static String DB_PATH_GALERY = "/data/data/com.example.ik_2dm3.didaktikapp/";
-    private Uri uriSavedImage;
+    private String txtPrueba;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class details_list extends AppCompatActivity {
         setContentView(R.layout.activity_details_list);
 
         contenido = findViewById(R.id.contenido);
+        textView = findViewById(R.id.textView);
 
         pr_actual = new Paradas();
 
@@ -66,6 +69,9 @@ public class details_list extends AppCompatActivity {
         db=new MyOpenHelper(this);
         pr_actual = (Paradas) db.getDatos_parada_ID(id_parada);
         setTitle(pr_actual.getNombre());
+        txtPrueba = pr_actual.getTexto();
+        textView.setText(txtPrueba);
+
 
         //ponemos como background la imagen de BD de esa parada
         try {
@@ -83,7 +89,6 @@ public class details_list extends AppCompatActivity {
         lista_juegos = (ArrayList<Juegos>) db.getDatos_juegos_ID(id_parada);
         db.close();
         //PopUp(contenido);
-
     }
 
     /*public void PopUp(View v){
