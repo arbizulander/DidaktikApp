@@ -16,8 +16,8 @@
         mapbox:mapbox_cameraTargetLng ="-2.907519"
 
         mapbox:mapbox_styleUrl="mapbox://styles/mapbox/streets-v10"
-        mapbox:mapbox_cameraZoom="12" >
+        mapbox:mapbox_cameraZoom="12" />
 
-    </com.mapbox.mapboxsdk.maps.MapView>
+
 
 </android.support.constraint.ConstraintLayout>

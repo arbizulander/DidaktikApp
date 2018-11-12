@@ -6,6 +6,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
+
 
 
 import com.mapbox.android.core.location.LocationEngine;
@@ -19,6 +23,7 @@ import com.mapbox.mapboxsdk.Mapbox;
 
 
 import com.mapbox.mapboxsdk.annotations.PolygonOptions;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
@@ -32,6 +37,7 @@ import com.mapbox.mapboxsdk.plugins.locationlayer.LocationLayerPlugin;
 import com.mapbox.mapboxsdk.plugins.locationlayer.modes.CameraMode;
 import com.mapbox.mapboxsdk.plugins.locationlayer.modes.RenderMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -44,6 +50,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private LocationEngine locationEngine;
     private LocationLayerPlugin locationLayerPlugin;
     private Location originLocation;
+
+    //BD
+        private MyOpenHelper db;
+
+    //Aqui guardamos los datos de la BD
+        private ArrayList<Paradas> lista_paradas;
+
+    //VALORES DEL SQL
+        private String[] titulo;
 
     // JSON encoding/decoding
     //public static final String JSON_CHARSET = "UTF-8";
@@ -62,6 +77,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
 
         mapView = (MapView) findViewById(R.id.mapView);
+
+        //Cogemos todos los nombres de las paradas desde el SQL
+        db=new MyOpenHelper(this);
+        lista_paradas = db.getDatos_Paradas();
+        db.close();
+
+        //Los pasamos a un array
+        titulo = new String [lista_paradas.size()];
+
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
@@ -104,6 +128,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(MapboxMap mapboxMap) {
 
         this.mapboxMap = mapboxMap;
+
+        for (int i = 0; i<titulo.length;i++){
+            mapboxMap.addMarker(new MarkerOptions()
+            .position(new LatLng(lista_paradas.get(i).getLatitud(),lista_paradas.get(i).getLongitud()))
+            .title(lista_paradas.get(i).getNombre()));
+        }
 
         enableLocation();
 
