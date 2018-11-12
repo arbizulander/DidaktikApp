@@ -24,6 +24,8 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -40,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import static android.view.animation.AnimationUtils.currentAnimationTimeMillis;
 import static okio.HashingSink.md5;
 
 public class details_list extends AppCompatActivity {
@@ -72,6 +75,12 @@ public class details_list extends AppCompatActivity {
         txtPrueba = pr_actual.getTexto();
         textView.setText(txtPrueba);
 
+        //textView.startAnimation(AnimationUtils.loadAnimation(details_list.this, android.R.anim.fade_in));
+
+
+        Animation animacion = AnimationUtils.loadAnimation(this,
+                R.anim.animation);
+        textView.startAnimation(animacion);
 
         //ponemos como background la imagen de BD de esa parada
         try {
