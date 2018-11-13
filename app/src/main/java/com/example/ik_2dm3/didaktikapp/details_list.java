@@ -21,6 +21,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -41,6 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static android.view.animation.AnimationUtils.currentAnimationTimeMillis;
 import static okio.HashingSink.md5;
@@ -75,15 +77,12 @@ public class details_list extends AppCompatActivity {
         txtPrueba = pr_actual.getTexto();
         textView.setText(txtPrueba);
 
-        //textView.startAnimation(AnimationUtils.loadAnimation(details_list.this, android.R.anim.fade_in));
-
-
-        Animation animacion = AnimationUtils.loadAnimation(this,
-                R.anim.animation);
+        Animation animacion = AnimationUtils.loadAnimation(this, R.anim.animation);
         textView.startAnimation(animacion);
+        textView.setMovementMethod(new ScrollingMovementMethod());
 
         //ponemos como background la imagen de BD de esa parada
-        try {
+            try {
             if (pr_actual.getImagen()!= null){
                 toImg(pr_actual.getImagen());
             }
@@ -98,6 +97,8 @@ public class details_list extends AppCompatActivity {
         lista_juegos = (ArrayList<Juegos>) db.getDatos_juegos_ID(id_parada);
         db.close();
         //PopUp(contenido);
+
+        CargarJuegos(lista_juegos);
     }
 
     /*public void PopUp(View v){
@@ -126,5 +127,24 @@ public class details_list extends AppCompatActivity {
         //Convert bitmap to drawable
         Drawable drawable = new BitmapDrawable(getResources(), decodedByte);
         contenido.setBackground(drawable);
+    }
+
+    public void CargarJuegos (ArrayList<Juegos> Listado_juegos){
+        int ID_juego = Listado_juegos.get(0).getId_juego();
+        String titulo = Listado_juegos.get(0).getNombre_juego();
+
+        String nombre_completo = titulo+"_"+ID_juego;
+        nombre_completo = nombre_completo.replace(" ","");
+        Log.d("mytag", "NOMBRE JUEGO: " +nombre_completo);
+        int cont = 0;
+
+            //Log.d("mytag", "NOMBRE JUEGO: " +nombre_completo);
+        Intent i = null;
+        try {
+            i = new Intent(this, Class.forName(nombre_completo.toString()));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        startActivity(i);
     }
 }

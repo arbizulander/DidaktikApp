@@ -23,4 +23,13 @@
     <string name="user_location_permission_not_granted">You didn\'t grant location permissions.</string>
     <string name="simple_offline_end_progress_success">End progress success</string>
     <string name="basic_offline_deleted_toast">Deletes toast</string>
+
+    <!--PARADAS-->
+    <string name="TextView">TextView</string>
+
+    <!--JUEGOS-->
+        <!--Juego 1.1-->
+            <string name="img1">img1</string>
+            <string name="img2">img2</string>
+            <string name="img3">img3</string>
 </resources>

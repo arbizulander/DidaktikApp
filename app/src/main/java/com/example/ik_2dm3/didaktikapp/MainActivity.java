@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnStart;
+    Button btnStart, btnjuego;
     static final int REQ_BTN = 0;
 
     //Controlador de bases de datos
@@ -26,13 +26,21 @@ public class MainActivity extends AppCompatActivity {
 
         //cogiendo id del boton
         btnStart = findViewById(R.id.btnHasi);
-
+        btnjuego = findViewById(R.id.button2);
         //accion al pulsar el boton
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,menu_main.class);
                 startActivityForResult(intent, REQ_BTN);
+            }
+        });
+
+        btnjuego.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,Aukeratuargazkiegokia_1.class);
+                startActivity(intent);
             }
         });
     }

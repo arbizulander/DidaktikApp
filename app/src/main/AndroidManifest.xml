@@ -43,6 +43,11 @@
             android:name=".details_list"
             android:screenOrientation="landscape" />
 
+
+        <!--JUEGOS-->
+        <activity android:name=".Aukeratuargazkiegokia_1"
+            android:screenOrientation="landscape" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.ik_2dm3.didaktikapp"
@@ -52,6 +57,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/paths" />
         </provider>
+
+
     </application>
 
 </manifest>

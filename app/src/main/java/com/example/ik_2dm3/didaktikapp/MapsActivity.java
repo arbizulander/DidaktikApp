@@ -64,9 +64,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     //public static final String JSON_CHARSET = "UTF-8";
     //public static final String JSON_FIELD_REGION_NAME = "Getxo";
 
-    private static final LatLngBounds GETXO_BOUNDS = new LatLngBounds.Builder()
+   /* private static final LatLngBounds GETXO_BOUNDS = new LatLngBounds.Builder()
             .include(new LatLng(43.334930444724705, -3.010872036887065)) // Northeast
             .include(new LatLng(43.3228968359835, -3.01600064681665)) // Southwest
+            .build();*/
+
+   //prueba mapa en bilbao
+    private static final LatLngBounds GETXO_BOUNDS = new LatLngBounds.Builder()
+            .include(new LatLng(43.43586136841853, -3.11061477919111)) // Northeast
+            .include(new LatLng(43.14809108135796, -2.701889190424396)) // Southwest
             .build();
 
 
