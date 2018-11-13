@@ -24,6 +24,8 @@ android {
 
 repositories {
     mavenCentral()
+    
+    maven { url 'https://mapbox.bintray.com/mapbox' }
 }
 
 dependencies {
@@ -38,7 +40,10 @@ dependencies {
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.7.0'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.5.3'
     implementation 'com.google.android.gms:play-services-location:11.0.2'
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation:0.14.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation:0.23.0'
+
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.23.0'
+
 
 
 }

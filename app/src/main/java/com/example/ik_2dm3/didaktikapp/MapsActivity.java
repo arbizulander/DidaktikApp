@@ -6,22 +6,18 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
-
-
 
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineListener;
 import com.mapbox.android.core.location.LocationEnginePriority;
-
 import com.mapbox.android.core.location.LocationEngineProvider;
+
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
+
+import com.mapbox.api.directions.v5.DirectionsCriteria;
+import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
-
-
 import com.mapbox.mapboxsdk.annotations.PolygonOptions;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
@@ -40,9 +36,29 @@ import com.mapbox.mapboxsdk.plugins.locationlayer.modes.RenderMode;
 import java.util.ArrayList;
 import java.util.List;
 
+//Clases para calcular rutas
+
+
+import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute;
+import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigation;
+import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigationOptions;
+import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
+import com.mapbox.api.directions.v5.models.DirectionsResponse;
+import com.mapbox.api.directions.v5.models.DirectionsRoute;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,LocationEngineListener,
         PermissionsListener {
+
+    // variables para calcular la ruta
+    private Point posicionOrigen;
+    private Point posicionDestino;
+    private DirectionsRoute rutaActual;
+    private static final String TAG = "DirectionsActivity";
+    private NavigationMapRoute navigationMapRoute;
+    private MapboxNavigationOptions navigationOptions;
 
     private MapView mapView;
     private MapboxMap mapboxMap;
@@ -135,6 +151,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         this.mapboxMap = mapboxMap;
 
+        //GENERACION DE MARCADORES
         for (int i = 0; i<titulo.length;i++){
             mapboxMap.addMarker(new MarkerOptions()
             .position(new LatLng(lista_paradas.get(i).getLatitud(),lista_paradas.get(i).getLongitud()))
@@ -170,13 +187,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             originLocation = lastLocation;
             setCameraPosition(lastLocation);
-
-
         }else{
             locationEngine.addLocationEngineListener(this);
-
         }
-
     }
 
 
@@ -212,7 +225,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if(location != null){
             originLocation = location;
-            setCameraPosition(location);
+            //setCameraPosition(location);
+            //Funcion para sacar la ruta
+            posicionDestino = Point.fromLngLat(-3.008224,43.327647);
+            posicionOrigen = Point.fromLngLat(originLocation.getLongitude(), originLocation.getLatitude());
+            getRoute(posicionOrigen, posicionDestino);
         }
     }
 
@@ -228,6 +245,48 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
     }
+
+    private void getRoute(Point origin, Point destination) {
+
+        NavigationRoute.builder(this)
+                .accessToken(Mapbox.getAccessToken())
+                .origin(origin)
+                .destination(destination)
+                .profile(DirectionsCriteria.PROFILE_WALKING)
+                .build()
+                .getRoute(new Callback<DirectionsResponse>() {
+                    @Override
+                    public void onResponse(Call<DirectionsResponse> call, Response<DirectionsResponse> response) {
+                        // You can get the generic HTTP info about the response
+                        Log.d(TAG, "Response code: " + response.code());
+                        if (response.body() == null) {
+                            Log.e(TAG, "No routes found, make sure you set the right user and access token.");
+                            return;
+                        } else if (response.body().routes().size() < 1) {
+                            Log.e(TAG, "No routes found");
+                            return;
+                        }
+
+                        rutaActual = response.body().routes().get(0);
+
+
+
+                        // Draw the route on the map
+                        if (navigationMapRoute != null) {
+                            navigationMapRoute.removeRoute();
+                        } else {
+                            navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap, R.style.NavigationMapRoute);
+                        }
+                        navigationMapRoute.addRoute(rutaActual);
+                    }
+
+                    @Override
+                    public void onFailure(Call<DirectionsResponse> call, Throwable throwable) {
+                        Log.e(TAG, "Error: " + throwable.getMessage());
+                    }
+                });
+    }
+
 
 
 
