@@ -1,61 +1,36 @@
 package com.example.ik_2dm3.didaktikapp;
 
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.Manifest;
-import android.content.Context;
-import android.content.ContextWrapper;
+import android.content.ContentValues;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.graphics.Paint;
+import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Environment;
+import android.os.Build;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-
-import static android.content.pm.PackageManager.PERMISSION_DENIED;
-import static android.os.Environment.getExternalStorageDirectory;
+import java.security.Permission;
 
 public class galery extends AppCompatActivity {
-    //Button btnHome;
 
-    private ArrayList<Paradas> lista_paradas;
-    private ListView paradasView;
+    private static final int PERMISSION_CODE =1000;
+    private static final int IMAGE_CAPTURE_CODE =1001;
+    Button mCaptureBtn;
+    ImageView miImageView;
 
-    //BD
-    //private MyOpenHelper db;
+    Uri image_uri;
 
-    private Button btnCamara;
-
-    static final int REQ_BTN = 0;
-    static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 0;
-
-    ImageView imgTakenPic;
-    private static final int CAM_REQUEST=1313;
 
 
     @Override
@@ -63,245 +38,92 @@ public class galery extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galery);
 
-        //db=new MyOpenHelper(this);
-        //lista_paradas = db.getDatos_Paradas();
-        //String data = lista_paradas.get(0).getImagen();
-        //Log.d("mytag",lista_paradas.get(0).getImagen().toString());
-        //Log.d("mytag", "ARRAY DE BYTE IMAGEN:"+data);
-        //btnHome = (Button) findViewById(R.id.btnHome);
-        btnCamara = (Button) findViewById(R.id.btnCamara);
-        imgTakenPic = (ImageView) findViewById(R.id.imageView);
-        /*try{
-           toImg(data);
-        }catch (IOException e){
+        miImageView = findViewById(R.id.miImageView);
+        mCaptureBtn = findViewById(R.id.capture_image);
 
-        }*/
-
-        btnCamara.setOnClickListener(new View.OnClickListener() {
+        //button click
+        mCaptureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                //IF SYSTEM IS >= MARSMALLOW, REQUEST RUNTIME PERMISSION
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    if(checkSelfPermission(Manifest.permission.CAMERA) ==
+                            PackageManager.PERMISSION_DENIED ||
+                            checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                                    PackageManager.PERMISSION_DENIED){
+                        //PERMISSIONS NOT ENABLED, REQUEST IT
+                        String[] permission ={Manifest.permission.CAMERA,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        //SHOW POPUP TO REQUEST PERMISSIONS
+                        requestPermissions(permission,PERMISSION_CODE);
 
-
-                dispatchTakePictureIntent();
-                //Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.parse(Environment.getExternalStorageDirectory().getAbsolutePath()+"Fotos didaktikapp.jpg"));
-                //i.putExtra("return-data", true);
-                //startActivityForResult(i, CAM_REQUEST);
+                    }
+                    else{
+                        //permission already granted
+                        openCamera();
+                    }
+                }
+                else{
+                    //system os < marshmallow
+                    openCamera();
+                }
 
             }
         });
+
     }
 
-   /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        int permissionCheck = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if(permissionCheck == PERMISSION_DENIED){
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-            Log.d("myTag", "ventana de pedir acceso");
+    private void openCamera(){
 
-        }
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE,"New picture");
+        values.put(MediaStore.Images.Media.DESCRIPTION,"From the camera");
+        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        Log.d("mytag","" +image_uri.getPath());
+        //camera intent
 
-        if(resultCode != RESULT_CANCELED) {
-            if (requestCode == CAM_REQUEST) {
-
-                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                imgTakenPic.setImageBitmap(bitmap);
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri );
+        startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE);
 
 
-                dispatchTakePictureIntent();
-
-                //String ruta = guardarImagen(this, "prueba" + i, bitmap);
-                createDirectoryAndSaveFile(bitmap,"Fotos didaktikapp.png");
-                //Log.d("mytag",ruta);
-
-            }
-        }
-    }*/
-
-    /*private String guardarImagen (Context context, String nombre, Bitmap imagen){
-        ContextWrapper cw = new ContextWrapper(context);
-        int i = 0;
-        i++;
-        File dirImages = cw.getDir("galery", Context.MODE_PRIVATE);
-        File myPath = new File(dirImages, "prueba" + i + ".jpg");
-
-        FileOutputStream fos = null;
-        try{
-            fos = new FileOutputStream(myPath);
-            //imagen.getRowBytes();
-            imagen.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            //imagen.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            fos.flush();
-        }catch (FileNotFoundException ex){
-            ex.printStackTrace();
-        }catch (IOException ex){
-            ex.printStackTrace();
-        }
-        createDirectoryAndSaveFile(imagen,myPath.getName());
-        return myPath.getAbsolutePath();
-
-    }*/
-
-
-    /*public void toImg(String byteArray) throws IOException {
-
-        byte[] decodedString = Base64.decode(byteArray, Base64.DEFAULT);
-        ImageView image = (ImageView) findViewById(R.id.imageView);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-
-        Log.d("mytag","BITMAP: "+decodedByte);
-        image.setImageBitmap(decodedByte);
-
-    }*/
-
-    String mCurrentPhotoPath;
-    private File createImageFile() throws IOException {
-
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        //File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        //File storageDir = Environment.getExternalStorageDirectory();
-
-        File storageDir = new File(getExternalStorageDirectory().getAbsolutePath(),"FotosDidaktikApp");
-
-        //File storageDir = getDir("FotosDidaktikApp", Context.MODE_PRIVATE);
-
-       /*if (!storageDir.exists()) {
-            try {
-                storageDir.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }*/
-
-        if (storageDir.isDirectory()){
-            Log.d("mytag", "SOY UN DIRECTORIO");
-        }
-
-        Log.d("mytag","RUTAMALA "+storageDir.toString());
-        Log.d("mytag", "NOMBREARCHIVO: "+imageFileName);
-
-
-        File image = File.createTempFile(
-                imageFileName,
-                ".jpg",
-                storageDir
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        Log.d("mytag", "RUTAIMAGEN: "+mCurrentPhotoPath);
-        return image;
     }
+    //handing permission result
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-    static final int REQUEST_TAKE_PHOTO = 1;
-    private void dispatchTakePictureIntent() {
+        switch (requestCode){
 
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-                Log.d("mytag", "Error ocurred while creating the File");
-                ex.printStackTrace();
-                //Log.d("mytag", "Error ocurred while creating the File");
+            case PERMISSION_CODE:{
+                if(grantResults.length > 0 && grantResults[0] ==
+                        PackageManager.PERMISSION_GRANTED){
+                    //PERMISSIONS FROM POPUP WAS GRANTED
+                    openCamera();
+
+                }
+                else{
+                    //permissions from poup was denied
+                    Toast.makeText(this, "Permission denied...", Toast.LENGTH_SHORT).show();
+                }
+
             }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.ik_2dm3.didaktikapp",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-                galleryAddPic();
-            }
+
         }
-    }
 
-    private void galleryAddPic() {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File f = new File(mCurrentPhotoPath);
-        Uri contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        this.sendBroadcast(mediaScanIntent);
 
-        File direct = new File(getExternalStorageDirectory().getAbsolutePath(),"FotosDidaktikApp");
-        Log.d("mytag", "RUTA. "+direct.toString());
-    }
 
-    /* Checks if external storage is available for read and write */
-    public boolean isExternalStorageWritable() {
-        String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            return true;
-        }
-        return false;
+
     }
 
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-// Esto es lo que hace mi botón al pulsar ir a atrás
-            Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
-                    Toast.LENGTH_SHORT).show();
-            //return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
-    private void createDirectoryAndSaveFile(Bitmap imageToSave, String fileName) {
 
-        File direct = new File(getExternalStorageDirectory().getAbsolutePath(),"FotosDidaktikApp");
-        int result = 0;
-
-        if (direct.exists()) {
-            Log.d("myTag","directorio existe en:" + getExternalStorageDirectory().getAbsolutePath()+"/FotosDidaktikApp");
-            result = 2;//el fichero existe
-        }else{
-            try {
-                if (direct.mkdir()) {
-                    Log.d("myAppName", "directorio creado en:" + direct.toString());
-                    result = 1; // se ha creado fichero
-                } else {
-                    Log.d("myAppName", "creat folder fails:" + direct.toString());
-                    result = 0; // fallo al crear fichero
-                }
-            }catch (Exception ecp){
-                ecp.printStackTrace();
-            }
-        }
-
-        File file = new File(new File(getExternalStorageDirectory().getAbsolutePath()+"/FotosDidaktikApp"), fileName);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-
-            imageToSave.compress(Bitmap.CompressFormat.PNG, 100, out);
-            Log.d("myTag","Imagen comprimida y guardada en "+getExternalStorageDirectory().getAbsolutePath()+"/FotosDidaktikApp");
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if(requestCode == RESULT_OK){
+            //set the captured to our Imageview
+            miImageView.setImageURI(image_uri);
         }
     }
-
-
-
 }
