@@ -133,7 +133,7 @@ public class details_list extends AppCompatActivity {
         int ID_juego = Listado_juegos.get(0).getId_juego();
         String titulo = Listado_juegos.get(0).getNombre_juego();
 
-        String nombre_completo = titulo+"_"+ID_juego;
+        String nombre_completo = titulo+"_"+ID_juego+".class";
         nombre_completo = nombre_completo.replace(" ","");
         Log.d("mytag", "NOMBRE JUEGO: " +nombre_completo);
         int cont = 0;
@@ -141,7 +141,7 @@ public class details_list extends AppCompatActivity {
             //Log.d("mytag", "NOMBRE JUEGO: " +nombre_completo);
         Intent i = null;
         try {
-            i = new Intent(this, Class.forName(nombre_completo.toString()));
+            i = new Intent(this, Class.forName(nombre_completo));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
