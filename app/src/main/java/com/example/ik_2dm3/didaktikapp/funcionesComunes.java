@@ -1,14 +1,26 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
+import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.ImageView;
 
 import java.io.IOException;
 
-public class funcionesComunes {
+public class funcionesComunes extends AppCompatActivity {
+
+
+   /* public void Reproducir_cancion (Context cont, int ID){
+        MediaPlayer mp = null;
+        //ACCIONES AL ACABAR CANCION//
+        mp = MediaPlayer.create(cont,ID);
+        mp.start();
+    }*/
 
     /*public void toImg(String byteArray, ImageView idImagen) throws IOException {
 

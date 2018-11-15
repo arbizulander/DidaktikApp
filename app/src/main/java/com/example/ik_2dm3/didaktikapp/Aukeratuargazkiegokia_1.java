@@ -1,17 +1,26 @@
 package com.example.ik_2dm3.didaktikapp;
 
-import android.os.Handler;
-import android.support.annotation.DrawableRes;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import pl.droidsonroids.gif.GifImageView;
+
 
 public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
 
@@ -26,33 +35,20 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
 
     //para barajar
     //el ArrayList que recoge el resultado de barajar
-    private ArrayList<Integer> arrayAleatorio;
-    private ArrayList<Integer> arrayImagenes;
-
-    ArrayList<Integer> arrayBarajado;
+    private ArrayList<Integer> arrayBarajado;
 
     //durante un segundo se bloquea el juego y no se puede pulsar ningún botón
-    boolean bloqueo = false;
-
-    //para controlar las pausas del juego
-    //final Handler handler = new Handler();
-
-    ImageButton primero;
+    private boolean bloqueo = false;
 
 
+    //funciones comunes
+    funcionesComunes Funcion_Comun;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aukeratu_argazkia_egokia_1);
         cargarImagenes();
-        //cargarBotones();
-        //iniciar();
-
-        /*img1.setImageResource(R.drawable.juego1_1);
-        img2.setImageResource(R.drawable.juego1_2);
-        img3.setImageResource(R.drawable.juego1_3);
-*/
         iniciar();
     }
 
@@ -64,8 +60,6 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
                 R.drawable.juego1_3
         };
        imagen_correcta = R.drawable.juego1_3;
-
-        //fondo = R.drawable.fondo;
     }
 
     public ArrayList<Integer> barajar(int longitud) {
@@ -96,7 +90,6 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
 
         imagenes = new int []{arrayBarajado.get(0),arrayBarajado.get(1),arrayBarajado.get(2)};
 
-        //Collections.shuffle(imagenes);
         //MOSTRAMOS LA IMAGEN
         for(int i=0; i<array_botones.length; i++) {
             array_botones[i].setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -111,25 +104,67 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
             array_botones[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    comprobar(imagenes[j]);
+                    comprobar(imagenes[j], array_botones[j]);
                 }
             });
         }
     }
 
-    public void comprobar(final int ValorImagen){
+    public void comprobar(final int ValorImagen, ImageButton pulsado){
+
+        pulsado.setEnabled(false);
 
         if (ValorImagen == imagen_correcta){
+            int valorcancion = R.raw.correct;
+
+            Animation animacion = AnimationUtils.loadAnimation(this, R.anim.animacion_img);
+            pulsado.startAnimation(animacion);
+
+            Reproducir_cancion(this,valorcancion, pulsado);
             Toast toast = Toast.makeText(getApplicationContext(),
-                    "Has  ganado!!", Toast.LENGTH_LONG);
+                    "Has  ganado!!", Toast.LENGTH_SHORT);
             toast.show();
+
+
         }
         else{
             Toast toast = Toast.makeText(getApplicationContext(),
-                    "ERROR!!", Toast.LENGTH_LONG);
+                    "ERROR!!", Toast.LENGTH_SHORT);
             toast.show();
         }
 
+        pulsado.setEnabled(true);
+    }
+
+    public void Reproducir_cancion (Context cont, int ID,ImageButton pulsado){
+        MediaPlayer mp;
+        //ACCIONES AL ACABAR CANCION//
+        mp = MediaPlayer.create(cont,ID);
+        mp.start();
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+
+                //pulsado.ge
+
+
+                
+                //pulsado.setPivotX(0);
+                // pulsado.setPivotY(0);
+
+                //pulsado.setScaleY(2);
+                //pulsado.setScaleX(2);
+
+                GifImageView gifImageView = (GifImageView) findViewById(R.id.GifImageView);
+                gifImageView.setImageResource(R.drawable.banana);
+
+                Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_gif);
+                gifImageView.startAnimation(animacion);
+
+                gifImageView.setZ(1111);
+                //pulsado.set
+                //pulsado.setImageResource(R.drawable.check);
+            }
+        });
     }
 
 }

@@ -44,6 +44,6 @@ dependencies {
 
     implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.23.0'
 
-
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
 
 }

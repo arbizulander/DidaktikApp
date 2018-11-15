@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".Aukeratuargazkiegokia_1">
 
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/GifImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,31 +20,30 @@
             android:id="@+id/imageButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="true"
             android:layout_weight="1"
-            android:contentDescription="@string/img1" />
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/img1"
+            android:scaleType="centerCrop" />
 
         <ImageButton
             android:id="@+id/imageButton2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="true"
             android:layout_weight="1"
-            android:contentDescription="@string/img2" />
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/img2"
+            android:scaleType="centerCrop" />
 
         <ImageButton
             android:id="@+id/imageButton3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
             android:layout_weight="1"
             android:contentDescription="@string/img3" />
+
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
