@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineListener;
@@ -67,11 +69,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private LocationLayerPlugin locationLayerPlugin;
     private Location originLocation;
 
+    private int cont = 0;
+    private Button butsig;
+    private Button butprev;
+    private Button butcent;
+
     //BD
         private MyOpenHelper db;
 
     //Aqui guardamos los datos de la BD
         private ArrayList<Paradas> lista_paradas;
+
 
     //VALORES DEL SQL
         private String[] titulo;
@@ -99,6 +107,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
 
         mapView = (MapView) findViewById(R.id.mapView);
+        butsig = (Button) findViewById(R.id.butsig);
+        butprev = (Button) findViewById(R.id.butprev);
+        butcent = (Button) findViewById(R.id.butCent);
+
+        butsig.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                subirCont();
+            }});
+        butprev.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                bajarCont();
+            }});
+        butcent.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Centrar();
+            }});
 
         //Cogemos todos los nombres de las paradas desde el SQL
         db=new MyOpenHelper(this);
@@ -142,8 +166,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-
     }
 
     @Override
@@ -225,9 +247,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if(location != null){
             originLocation = location;
-            //setCameraPosition(location);
+            Log.d("mytag","posicion cambiada");
             //Funcion para sacar la ruta
-            posicionDestino = Point.fromLngLat(-3.008224,43.327647);
+            posicionDestino = Point.fromLngLat(lista_paradas.get(cont).getLongitud(),lista_paradas.get(cont).getLatitud());
             posicionOrigen = Point.fromLngLat(originLocation.getLongitude(), originLocation.getLatitude());
             getRoute(posicionOrigen, posicionDestino);
         }
@@ -287,6 +309,28 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 });
     }
 
+    private void subirCont(){
+        if(cont >= 0 && cont < 6 ){
+            cont++;
+            posicionDestino = Point.fromLngLat(lista_paradas.get(cont).getLongitud(),lista_paradas.get(cont).getLatitud());
+            posicionOrigen = Point.fromLngLat(originLocation.getLongitude(), originLocation.getLatitude());
+            getRoute(posicionOrigen, posicionDestino);
+            Log.d("mytag", "objetivo cambiado, ahora es " + cont);
+        }else{}
+    }
+
+    private void bajarCont(){
+        if(cont != 0 && cont <= 6){
+            cont--;
+            posicionDestino = Point.fromLngLat(lista_paradas.get(cont).getLongitud(),lista_paradas.get(cont).getLatitud());
+            posicionOrigen = Point.fromLngLat(originLocation.getLongitude(), originLocation.getLatitude());
+            getRoute(posicionOrigen, posicionDestino);
+            Log.d("mytag", "objetivo cambiado, ahora es " + cont);
+        }else{}
+    }
+    private void Centrar(){
+        setCameraPosition(originLocation);
+    }
 
 
 

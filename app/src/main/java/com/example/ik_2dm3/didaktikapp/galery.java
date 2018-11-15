@@ -79,8 +79,10 @@ public class galery extends AppCompatActivity {
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE,"New picture");
         values.put(MediaStore.Images.Media.DESCRIPTION,"From the camera");
+        //image_uri = getContentResolver().insert(Uri.parse("/storage/emulated/0/Pictures/FotosDidaktikApp"), values);  //Colocar creacion/comprobacion de carpeta
         image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
         Log.d("mytag","" +image_uri.getPath());
+
         //camera intent
 
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
