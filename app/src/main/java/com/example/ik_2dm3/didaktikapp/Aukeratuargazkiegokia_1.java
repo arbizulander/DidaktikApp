@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import pl.droidsonroids.gif.AnimationListener;
 import pl.droidsonroids.gif.GifImageView;
 
 
@@ -141,13 +142,40 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
         //ACCIONES AL ACABAR CANCION//
         mp = MediaPlayer.create(cont,ID);
         mp.start();
+
+        Animation animacion= null;
+
+        for(int i=0; i <array_botones.length; i++){
+            if (!array_botones[i].equals(pulsado)){
+                final int j = i;
+                animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_semitransparent);
+                array_botones[i].startAnimation(animacion);
+
+
+                animacion.setAnimationListener(new Animation.AnimationListener(){
+                    @Override
+                    public void onAnimationStart(Animation arg0) {
+                    }
+                    @Override
+                    public void onAnimationRepeat(Animation arg0) {
+                    }
+                    @Override
+                    public void onAnimationEnd(Animation arg0) {
+                        Double valor = 0.5;
+                        array_botones[j].setAlpha(valor.floatValue());
+
+                    }
+                });
+
+            }
+        }
+
+
+
+
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
 
-                //pulsado.ge
-
-
-                
                 //pulsado.setPivotX(0);
                 // pulsado.setPivotY(0);
 
@@ -158,6 +186,7 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
                 gifImageView.setImageResource(R.drawable.banana);
 
                 Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_gif);
+
                 gifImageView.startAnimation(animacion);
 
                 gifImageView.setZ(1111);
