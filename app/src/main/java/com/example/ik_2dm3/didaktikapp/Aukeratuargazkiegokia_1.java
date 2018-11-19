@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -172,12 +173,38 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
                     @Override
                     public void onAnimationEnd(Animation arg0) {
 
+                        Animation animacion = null;
+                        if (pulsado == img1){
+                            animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_scalex2_img1);
+                        }else if (pulsado == img2){
+                            animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_scalex2_img2);
+                        }else if (pulsado == img3){
+                            animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_scalex2_img3);
+                        }
+
                         //poner pantalla en el centro del layout
                         pulsado.setX(centreX-centreX_Img);
                         pulsado.setY(centreY-centreY_Img);
 
-                        Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_scalex2);
+                        //Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_scalex2);
                         pulsado.startAnimation(animacion);
+                        animacion.setAnimationListener(new Animation.AnimationListener(){
+                            @Override
+                            public void onAnimationStart(Animation arg0) {
+
+                            }
+                            @Override
+                            public void onAnimationRepeat(Animation arg0) {
+                            }
+                            @Override
+                            public void onAnimationEnd(Animation arg0) {
+                            double TamanioX = 1.8;
+                            double TamanioY = 1.8;
+
+                                pulsado.setScaleX( ((float) TamanioX));
+                                pulsado.setScaleY(  ((float) TamanioY));
+                            }
+                        });
                     }
                 });
 
