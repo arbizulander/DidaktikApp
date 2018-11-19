@@ -130,10 +130,11 @@ public class details_list extends AppCompatActivity {
     }
 
     public void CargarJuegos (ArrayList<Juegos> Listado_juegos){
+        Log.d("mytag", "CARGANDO JUEGOSo");
         int ID_juego = Listado_juegos.get(0).getId_juego();
         String titulo = Listado_juegos.get(0).getNombre_juego();
 
-        String nombre_completo = titulo+"_"+ID_juego+".class";
+        String nombre_completo = titulo+"_"+ID_juego;
         nombre_completo = nombre_completo.replace(" ","");
         Log.d("mytag", "NOMBRE JUEGO: " +nombre_completo);
         int cont = 0;
