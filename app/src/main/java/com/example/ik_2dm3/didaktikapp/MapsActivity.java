@@ -1,6 +1,7 @@
 package com.example.ik_2dm3.didaktikapp;
 
 import android.location.Location;
+import android.location.LocationManager;
 import android.support.annotation.NonNull;
 
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineListener;
@@ -69,7 +71,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private LocationLayerPlugin locationLayerPlugin;
     private Location originLocation;
 
-    private int cont = 0;
+
     private Button butsig;
     private Button butprev;
     private Button butcent;
@@ -80,6 +82,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     //Aqui guardamos los datos de la BD
         private ArrayList<Paradas> lista_paradas;
 
+    private int cont = 0;
 
     //VALORES DEL SQL
         private String[] titulo;
@@ -239,12 +242,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @SuppressWarnings("MissingPermission")
     public void onConnected() {
         locationEngine.requestLocationUpdates();
-
     }
 
     @Override
     public void onLocationChanged(Location location) {
-
         if(location != null){
             originLocation = location;
             Log.d("mytag","posicion cambiada");
@@ -252,6 +253,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             posicionDestino = Point.fromLngLat(lista_paradas.get(cont).getLongitud(),lista_paradas.get(cont).getLatitud());
             posicionOrigen = Point.fromLngLat(originLocation.getLongitude(), originLocation.getLatitude());
             getRoute(posicionOrigen, posicionDestino);
+
+            getDistancia();
         }
     }
 
@@ -289,8 +292,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             return;
                         }
 
-                        rutaActual = response.body().routes().get(0);
-
+                       DirectionsRoute rutaActual = response.body().routes().get(0);
+                        /*double distancia = rutaActual.distance();
+                        Log.d("mytag","" + distancia);*/
 
 
                         // Draw the route on the map
@@ -310,29 +314,51 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void subirCont(){
-        if(cont >= 0 && cont < 6 ){
+        if(cont >= 0 && cont < (lista_paradas.size()-1) ){
             cont++;
             posicionDestino = Point.fromLngLat(lista_paradas.get(cont).getLongitud(),lista_paradas.get(cont).getLatitud());
             posicionOrigen = Point.fromLngLat(originLocation.getLongitude(), originLocation.getLatitude());
             getRoute(posicionOrigen, posicionDestino);
             Log.d("mytag", "objetivo cambiado, ahora es " + cont);
+
+            getDistancia();
+
         }else{}
     }
 
     private void bajarCont(){
-        if(cont != 0 && cont <= 6){
+        if(cont != 0 && cont <= (lista_paradas.size()-1)){
             cont--;
             posicionDestino = Point.fromLngLat(lista_paradas.get(cont).getLongitud(),lista_paradas.get(cont).getLatitud());
             posicionOrigen = Point.fromLngLat(originLocation.getLongitude(), originLocation.getLatitude());
             getRoute(posicionOrigen, posicionDestino);
             Log.d("mytag", "objetivo cambiado, ahora es " + cont);
+
+            getDistancia();
         }else{}
     }
+
     private void Centrar(){
-        setCameraPosition(originLocation);
+        if (originLocation != null) {
+            setCameraPosition(originLocation);
+        }else{
+            Toast toast = Toast.makeText(this,"No se ha encontrado señal GPS, compruebe que esta buscando.",Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
+    private void getDistancia(){
 
+        Location destino = new Location(LocationManager.GPS_PROVIDER);
+        destino.setLatitude(lista_paradas.get(cont).getLatitud());
+        destino.setLongitude(lista_paradas.get(cont).getLongitud());
+        float distancia = originLocation.distanceTo(destino);
+        Log.d("mytag","La distancia a " + lista_paradas.get(cont).getNombre()+ " es de " + distancia +" metros.");
+
+        if(distancia <= 15){
+            Log.d("mytag","Estas al lado de " + lista_paradas.get(cont).getNombre() + "!!!");
+        }
+    }
 
     /**********************************************************/
 

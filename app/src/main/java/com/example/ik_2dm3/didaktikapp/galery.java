@@ -81,7 +81,9 @@ public class galery extends AppCompatActivity {
         values.put(MediaStore.Images.Media.DESCRIPTION,"From the camera");
         //image_uri = getContentResolver().insert(Uri.parse("/storage/emulated/0/Pictures/FotosDidaktikApp"), values);  //Colocar creacion/comprobacion de carpeta
         image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
         Log.d("mytag","" +image_uri.getPath());
+
 
         //camera intent
 
@@ -108,14 +110,8 @@ public class galery extends AppCompatActivity {
                     //permissions from poup was denied
                     Toast.makeText(this, "Permission denied...", Toast.LENGTH_SHORT).show();
                 }
-
             }
-
         }
-
-
-
-
     }
 
 
@@ -123,7 +119,7 @@ public class galery extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
 
-        if(requestCode == RESULT_OK){
+        if(resultCode == RESULT_OK){
             //set the captured to our Imageview
             miImageView.setImageURI(image_uri);
         }
