@@ -1,7 +1,9 @@
 package com.example.ik_2dm3.didaktikapp;
 
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.Manifest;
 import android.content.ContentValues;
@@ -19,7 +21,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
+import static android.os.Environment.getExternalStorageDirectory;
+import java.io.File;
+import java.io.OutputStream;
+import java.net.URI;
 import java.security.Permission;
 
 public class galery extends AppCompatActivity {
@@ -76,14 +81,30 @@ public class galery extends AppCompatActivity {
 
     private void openCamera(){
 
-        ContentValues values = new ContentValues();
+
+
+       ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE,"New picture");
         values.put(MediaStore.Images.Media.DESCRIPTION,"From the camera");
+
         //image_uri = getContentResolver().insert(Uri.parse("/storage/emulated/0/Pictures/FotosDidaktikApp"), values);  //Colocar creacion/comprobacion de carpeta
         image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 
         Log.d("mytag","" +image_uri.getPath());
 
+<<<<<<< HEAD
+=======
+        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
+
+
+        Log.d("mytag","" +image_uri.getPath());
+        //Log.d("mytag","" +image_uri.getExternalStorageDirectory());
+
+
+
+
+
+>>>>>>> 729464ca976bc3272324605c2adb3a84fa8d5f2a
 
         //camera intent
 
@@ -92,6 +113,17 @@ public class galery extends AppCompatActivity {
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE);
 
 
+
+    }
+
+    public File getAlbumStorageDir(Context context, String albumName) {
+        // Get the directory for the app's private pictures directory.
+        File file = new File(context.getExternalFilesDir(
+                Environment.DIRECTORY_PICTURES), albumName);
+        if (!file.mkdirs()) {
+            Log.e("mytag", "Directory not created");
+        }
+        return file;
     }
     //handing permission result
     @Override

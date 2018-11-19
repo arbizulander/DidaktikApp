@@ -4,10 +4,14 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -38,17 +42,25 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
     //el ArrayList que recoge el resultado de barajar
     private ArrayList<Integer> arrayBarajado;
 
+    private View pantalla;
+
     //durante un segundo se bloquea el juego y no se puede pulsar ningún botón
     private boolean bloqueo = false;
 
+    private float centreX, centreY;
 
     //funciones comunes
     funcionesComunes Funcion_Comun;
+
+    private Context cont = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aukeratu_argazkia_egokia_1);
+
+        //centreX = pantalla.getPivotX()/2;
+        //centreY = pantalla.getPivotY()/2;
         cargarImagenes();
         iniciar();
     }
@@ -115,11 +127,88 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
 
         pulsado.setEnabled(false);
 
+        pantalla = findViewById(R.id.idLayout);
+
         if (ValorImagen == imagen_correcta){
             int valorcancion = R.raw.correct;
+            //Animation animacion=null;
 
-            Animation animacion = AnimationUtils.loadAnimation(this, R.anim.animacion_img);
-            pulsado.startAnimation(animacion);
+            //Log.d("mytag","COORDX:  "+pantalla.getX()+"  "+pantalla.getWidth());
+            //Log.d("mytag","COORDY:  "+pantalla.getY()+"  "+pantalla.getHeight());
+            //calcular punto del centro del layout
+            centreX=pantalla.getWidth()  / 2;
+            centreY=pantalla.getHeight() / 2;
+
+            float centreX_Img = pulsado.getWidth()/2;
+            float centreY_Img = pulsado.getHeight()/2;
+
+          TranslateAnimation trans = null;
+             if (pulsado == img1){
+                 trans = new TranslateAnimation(pulsado.getX(),centreX-centreX_Img,pulsado.getY(), centreY-centreY_Img);
+            }else if (pulsado == img2){
+                 trans = new TranslateAnimation(0,0,pulsado.getY(), centreY-centreY_Img);
+             }else if (pulsado == img3){
+                 trans = new TranslateAnimation(0,-(centreX-centreX_Img),pulsado.getY(), (centreY-centreY_Img));
+            }
+
+            ///TranslateAnimation trans = new TranslateAnimation(pulsado.getX(),centreX-centreX_Img,pulsado.getY(), centreY-centreY_Img);
+            //Log.d("mytag", "VALORES: "+pulsado.getX()+"  "+(centreX-centreX_Width)+"  "+ pulsado.getY()+"  "+(centreY-centreY_Height));
+
+            Log.d("mytag","VALORES INICIALES: "+pulsado.getX()+"  "+pulsado.getY());
+            Log.d("mytag","VALORES FINALES: "+(centreX-centreX_Img)+"  "+(centreY-centreY_Img));
+
+            trans.setDuration(2000);
+            trans.setStartOffset(4000);
+            pulsado.startAnimation(trans);
+            pulsado.setZ(111);
+
+            trans.setAnimationListener(new Animation.AnimationListener(){
+                    @Override
+                    public void onAnimationStart(Animation arg0) {
+
+                    }
+                    @Override
+                    public void onAnimationRepeat(Animation arg0) {
+                    }
+                    @Override
+                    public void onAnimationEnd(Animation arg0) {
+
+                        Animation animacion = null;
+                        if (pulsado == img1){
+                            animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_scalex2_img1);
+                        }else if (pulsado == img2){
+                            animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_scalex2_img2);
+                        }else if (pulsado == img3){
+                            animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_scalex2_img3);
+                        }
+
+                        //poner pantalla en el centro del layout
+                        pulsado.setX(centreX-centreX_Img);
+                        pulsado.setY(centreY-centreY_Img);
+
+                        //Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_scalex2);
+                        pulsado.startAnimation(animacion);
+                        animacion.setAnimationListener(new Animation.AnimationListener(){
+                            @Override
+                            public void onAnimationStart(Animation arg0) {
+
+                            }
+                            @Override
+                            public void onAnimationRepeat(Animation arg0) {
+                            }
+                            @Override
+                            public void onAnimationEnd(Animation arg0) {
+                            double TamanioX = 1.8;
+                            double TamanioY = 1.8;
+
+                                pulsado.setScaleX( ((float) TamanioX));
+                                pulsado.setScaleY(  ((float) TamanioY));
+                            }
+                        });
+                    }
+                });
+
+            Log.d("mytag", "CENTROPANTALLA:  "+centreX +"  "+centreY);
 
             Reproducir_cancion(this,valorcancion, pulsado);
             Toast toast = Toast.makeText(getApplicationContext(),
@@ -151,7 +240,6 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
                 animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_semitransparent);
                 array_botones[i].startAnimation(animacion);
 
-
                 animacion.setAnimationListener(new Animation.AnimationListener(){
                     @Override
                     public void onAnimationStart(Animation arg0) {
@@ -163,7 +251,6 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
                     public void onAnimationEnd(Animation arg0) {
                         Double valor = 0.5;
                         array_botones[j].setAlpha(valor.floatValue());
-
                     }
                 });
 
@@ -177,10 +264,12 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
             public void onCompletion(MediaPlayer mp) {
 
                 //pulsado.setPivotX(0);
-                // pulsado.setPivotY(0);
+                //pulsado.setPivotY(0);
 
                 //pulsado.setScaleY(2);
                 //pulsado.setScaleX(2);
+
+
 
                 GifImageView gifImageView = (GifImageView) findViewById(R.id.GifImageView);
                 gifImageView.setImageResource(R.drawable.banana);
@@ -190,8 +279,6 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
                 gifImageView.startAnimation(animacion);
 
                 gifImageView.setZ(1111);
-                //pulsado.set
-                //pulsado.setImageResource(R.drawable.check);
             }
         });
     }
