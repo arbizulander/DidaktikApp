@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         btnjuego.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,Aukeratuargazkiegokia_1.class);
+                Intent intent = new Intent(MainActivity.this,Desberdintasunabilatu_4.class);
                 startActivity(intent);
             }
         });

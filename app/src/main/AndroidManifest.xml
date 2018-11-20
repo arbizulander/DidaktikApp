@@ -3,24 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.ik_2dm3.didaktikapp">
 
-
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
-
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        tools:node="replace"  />
+        tools:node="replace" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
 
     <application
         android:allowBackup="true"
@@ -42,14 +37,14 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".details_list"
             android:screenOrientation="landscape" />
 
-
-        <!--JUEGOS-->
-        <activity android:name=".Aukeratuargazkiegokia_1"
+        <!-- JUEGOS -->
+        <activity
+            android:name=".Aukeratuargazkiegokia_1"
             android:screenOrientation="landscape" />
 
         <provider
@@ -61,5 +56,18 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/paths" />
         </provider>
+
+        <activity
+            android:name=".Desberdintasunabilatu_4"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Desberdintasunabilatu_4_argazki1"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Desberdintasunabilatu_4_argazki2"
+            android:screenOrientation="landscape" />
+        <activity android:name=".Desberdintasunabilatu_4_argazki3"
+            android:screenOrientation="landscape"></activity>
     </application>
+
 </manifest>

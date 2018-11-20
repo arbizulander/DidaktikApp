@@ -24,7 +24,7 @@ android {
 
 repositories {
     mavenCentral()
-    
+
     maven { url 'https://mapbox.bintray.com/mapbox' }
 }
 

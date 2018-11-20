@@ -92,8 +92,8 @@ public class galery extends AppCompatActivity {
 
         Log.d("mytag","" +image_uri.getPath());
 
-<<<<<<< HEAD
-=======
+
+
         image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
 
 
@@ -104,7 +104,7 @@ public class galery extends AppCompatActivity {
 
 
 
->>>>>>> 729464ca976bc3272324605c2adb3a84fa8d5f2a
+
 
         //camera intent
 

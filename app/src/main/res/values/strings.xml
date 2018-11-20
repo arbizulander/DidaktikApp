@@ -28,8 +28,10 @@
     <string name="TextView">TextView</string>
 
     <!--JUEGOS-->
-        <!--Juego 1.1-->
-            <string name="img1">img1</string>
-            <string name="img2">img2</string>
-            <string name="img3">img3</string>
+    <!--Juego 1.1-->
+    <string name="img1">img1</string>
+    <string name="img2">img2</string>
+    <string name="img3">img3</string>
+    <!--Juego 2.1 -->
+    <string name="azalpena">Konparatu argazki hauek gaur egungo zubiarekin eta bilatu desberdintasunak. Komentatu zure ikaskideekin</string>
 </resources>
