@@ -104,8 +104,6 @@ public class galery extends AppCompatActivity {
 
 
 
-
-
         //camera intent
 
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

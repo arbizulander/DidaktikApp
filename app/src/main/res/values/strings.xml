@@ -32,6 +32,9 @@
     <string name="img1">img1</string>
     <string name="img2">img2</string>
     <string name="img3">img3</string>
+<<<<<<< Updated upstream
     <!--Juego 2.1 -->
     <string name="azalpena">Konparatu argazki hauek gaur egungo zubiarekin eta bilatu desberdintasunak. Komentatu zure ikaskideekin</string>
+=======
+>>>>>>> Stashed changes
 </resources>

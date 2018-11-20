@@ -47,6 +47,10 @@
             android:name=".Aukeratuargazkiegokia_1"
             android:screenOrientation="landscape" />
 
+        <activity
+            android:name=".ElementuakBilatuArgazkian_2"
+            android:screenOrientation="landscape" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.ik_2dm3.didaktikapp"
@@ -68,6 +72,7 @@
             android:screenOrientation="landscape" />
         <activity android:name=".Desberdintasunabilatu_4_argazki3"
             android:screenOrientation="landscape"></activity>
+
     </application>
 
 </manifest>

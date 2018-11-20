@@ -4,6 +4,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -356,6 +357,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Log.d("mytag","La distancia a " + lista_paradas.get(cont).getNombre()+ " es de " + distancia +" metros.");
 
         if(distancia <= 15){
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setMessage("Estas cerca de " + lista_paradas.get(cont).getNombre() + ", quieres hacer las actividades?" );
+            alert.setPositiveButton("OK",null);
+            alert.show();
             Log.d("mytag","Estas al lado de " + lista_paradas.get(cont).getNombre() + "!!!");
         }
     }
