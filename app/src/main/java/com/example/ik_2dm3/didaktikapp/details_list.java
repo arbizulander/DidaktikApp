@@ -2,6 +2,7 @@ package com.example.ik_2dm3.didaktikapp;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Camera;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -24,10 +26,13 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Base64;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -57,6 +62,10 @@ public class details_list extends AppCompatActivity {
     private ConstraintLayout contenido;
     private String txtPrueba;
     private TextView textView;
+    private MediaPlayer mp;
+    private ImageButton btnNext;
+    private int REQ_OK =  0;
+    private Context cont = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +74,10 @@ public class details_list extends AppCompatActivity {
 
         contenido = findViewById(R.id.contenido);
         textView = findViewById(R.id.textView);
+        btnNext = findViewById(R.id.btnNext);
+
+        btnNext.setEnabled(false);
+        btnNext.setVisibility(View.INVISIBLE);
 
         pr_actual = new Paradas();
 
@@ -76,10 +89,42 @@ public class details_list extends AppCompatActivity {
         setTitle(pr_actual.getNombre());
         txtPrueba = pr_actual.getTexto();
         textView.setText(txtPrueba);
+        textView.setMovementMethod(new ScrollingMovementMethod());
 
         Animation animacion = AnimationUtils.loadAnimation(this, R.anim.animation);
         textView.startAnimation(animacion);
-        textView.setMovementMethod(new ScrollingMovementMethod());
+        animacion.setAnimationListener(new Animation.AnimationListener(){
+            @Override
+            public void onAnimationStart(Animation arg0) {
+
+            }
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+            }
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                String audio = "a"+pr_actual.getId_parada()+"_";
+
+                PlaySound(audio);
+                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    public void onCompletion(MediaPlayer mp) {
+                        btnNext.setEnabled(true);
+                        //btnNext.setVisibility(View.INVISIBLE);
+                        Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation);
+                        btnNext.startAnimation(animacion);
+                        btnNext.setVisibility(View.VISIBLE);
+
+                        btnNext.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                CargarJuegos(lista_juegos);
+                            }
+                        });
+
+                    }
+                });
+            }
+        });
 
         //ponemos como background la imagen de BD de esa parada
             try {
@@ -98,7 +143,16 @@ public class details_list extends AppCompatActivity {
         db.close();
         //PopUp(contenido);
 
-        CargarJuegos(lista_juegos);
+    }
+
+    public void PlaySound(String fileName){
+        int sound_id = this.getResources().getIdentifier(fileName, "raw",
+                this.getPackageName());
+        if(sound_id != 0) {
+            mp = MediaPlayer.create(this, sound_id);
+            mp.start();
+
+        }
     }
 
     /*public void PopUp(View v){
@@ -130,7 +184,7 @@ public class details_list extends AppCompatActivity {
     }
 
     public void CargarJuegos (ArrayList<Juegos> Listado_juegos){
-        Log.d("mytag", "CARGANDO JUEGOSo");
+        Log.d("mytag", "CARGANDO JUEGOS");
         int ID_juego = Listado_juegos.get(0).getId_juego();
         String titulo = Listado_juegos.get(0).getNombre_juego();
 
@@ -142,9 +196,22 @@ public class details_list extends AppCompatActivity {
         Intent i = null;
         try {
             i = new Intent(this, Class.forName(nombre_completo));
+            i.putExtra("Description",Listado_juegos.get(0).getTxtDescripcion());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        startActivity(i);
+        startActivityForResult(i, REQ_OK);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+// Esto es lo que hace mi botón al pulsar ir a atrás
+            Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
+                    Toast.LENGTH_SHORT).show();
+            //return true;
+            mp.stop();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

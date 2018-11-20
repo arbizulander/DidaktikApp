@@ -1,12 +1,14 @@
 package com.example.ik_2dm3.didaktikapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -14,6 +16,7 @@ import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -49,20 +52,77 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
 
     private float centreX, centreY;
 
-    //funciones comunes
-    funcionesComunes Funcion_Comun;
+   private MediaPlayer mp;
 
     private Context cont = this;
+    private TextView txtDescripcion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aukeratu_argazkia_egokia_1);
+        txtDescripcion = findViewById(R.id.txtDescripcion);
 
-        //centreX = pantalla.getPivotX()/2;
-        //centreY = pantalla.getPivotY()/2;
+        String valor = getIntent().getExtras().getString("Description");
+
+        if (valor != null) {
+            txtDescripcion.setText(valor);
+        }
+        else{
+            txtDescripcion.setText("ERROR AL CARGAR TEXTO");
+        }
+
         cargarImagenes();
         iniciar();
+        HabilitarDeshabilitarBtns(false);
+
+        Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation);
+        txtDescripcion.startAnimation(animacion);
+        animacion.setAnimationListener(new Animation.AnimationListener(){
+            @Override
+            public void onAnimationStart(Animation arg0) {
+
+            }
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+
+            }
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                PlaySound("a1_1");
+            }
+        });
+    }
+
+    public void PlaySound(String fileName){
+        int sound_id = this.getResources().getIdentifier(fileName, "raw",
+                this.getPackageName());
+        if(sound_id != 0) {
+            mp = MediaPlayer.create(this, sound_id);
+            mp.start();
+            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                public void onCompletion(MediaPlayer mp) {
+                    HabilitarDeshabilitarBtns(true);
+                    Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_alpha1to0);
+                    txtDescripcion.startAnimation(animacion);
+                    animacion.setAnimationListener(new Animation.AnimationListener(){
+                        @Override
+                        public void onAnimationStart(Animation arg0) {
+
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animation arg0) {
+
+                        }
+                        @Override
+                        public void onAnimationEnd(Animation arg0) {
+                            txtDescripcion.setAlpha(0);
+                        }
+                    });
+
+                }
+            });
+        }
     }
 
     public void cargarImagenes(){
@@ -86,6 +146,19 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
         }
         Collections.shuffle(resultadoA);
         return  resultadoA;
+    }
+
+    public void HabilitarDeshabilitarBtns(Boolean habilitado){
+        if (habilitado){
+            img1.setEnabled(true);
+            img2.setEnabled(true);
+            img3.setEnabled(true);
+        }
+        else{
+            img1.setEnabled(false);
+            img2.setEnabled(false);
+            img3.setEnabled(false);
+        }
     }
 
     public void cargarBotones(){
@@ -281,6 +354,18 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
                 gifImageView.setZ(1111);
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+// Esto es lo que hace mi botón al pulsar ir a atrás
+            Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
+                    Toast.LENGTH_SHORT).show();
+            //return true;
+            mp.stop();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

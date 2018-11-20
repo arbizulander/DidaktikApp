@@ -230,10 +230,11 @@ public class MyOpenHelper extends SQLiteOpenHelper {
                     int id_juego = c.getInt(c.getColumnIndex("id_juego"));
                     int real = c.getInt(c.getColumnIndex("realizado"));
                     String nombre = c.getString(c.getColumnIndex("nombre_juego"));
+                    String txtdesc = c.getString(c.getColumnIndex("texto"));
 
                     boolean reali = (real!=0);
 
-                    Juegos j =new Juegos(id_juego,nombre,reali,id);
+                    Juegos j =new Juegos(id_juego,nombre,reali,id,txtdesc);
                     Juegoslista.add(j);
                 }
 
