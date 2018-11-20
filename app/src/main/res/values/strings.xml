@@ -26,15 +26,15 @@
 
     <!--PARADAS-->
     <string name="TextView">TextView</string>
+    <string name="btnNext">Next</string>
 
     <!--JUEGOS-->
-    <!--Juego 1.1-->
-    <string name="img1">img1</string>
-    <string name="img2">img2</string>
-    <string name="img3">img3</string>
-<<<<<<< Updated upstream
-    <!--Juego 2.1 -->
-    <string name="azalpena">Konparatu argazki hauek gaur egungo zubiarekin eta bilatu desberdintasunak. Komentatu zure ikaskideekin</string>
-=======
->>>>>>> Stashed changes
+        <!--Juego 1.1-->
+        <string name="img1">img1</string>
+        <string name="img2">img2</string>
+        <string name="img3">img3</string>
+        <string name="txtDescripcion">descrip</string>
+        <!--Juego 2.1 -->
+        <string name="azalpena">Konparatu argazki hauek gaur egungo zubiarekin eta bilatu desberdintasunak. Komentatu zure ikaskideekin</string>
+
 </resources>
