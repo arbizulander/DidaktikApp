@@ -134,6 +134,36 @@ public class MyOpenHelper extends SQLiteOpenHelper {
         //db.delete("comments", "_id=?", args);
     }
 
+    /*public void ActualizarJuego_Id(int idJuego){
+
+        String myPath = DB_PATH + DB_NAME;
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+
+        ContentValues cv = new ContentValues();
+        cv.put("realizado",1);
+
+        db.update("juegos", cv, "id_juego="+idJuego, null);
+
+        db.close();
+
+    }*/
+
+    //VUELVE VISIBLE EL SIGIENTE PUNTO Y MARCA COMO TERMINADO EL ACTUAL
+    public void ActualizarJuego_Id(int x){
+
+            String myPath = DB_PATH + DB_NAME;
+            db = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+            db = this.getWritableDatabase();
+            db.execSQL("UPDATE juegos SET realizado=1 WHERE id_juego="+x);
+            db.close();
+    }
+
+
+    /*public void ActualizarJuego_Id(int idJuego){
+        String strSQL = "UPDATE juegos SET realizado = 1 WHERE id = "+ idJuego;
+        db.execSQL(strSQL);
+    }*/
+
     //Obtener la lista de comentarios en la base de datos
     public ArrayList<Paradas> getDatos_Paradas(){
             String myPath = DB_PATH + DB_NAME;

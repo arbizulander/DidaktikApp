@@ -36,5 +36,8 @@
     <string name="txtDescripcion">descrip</string>
     <!--Juego 2.1 -->
     <string name="azalpena">Konparatu argazki hauek gaur egungo zubiarekin eta bilatu desberdintasunak. Komentatu zure ikaskideekin</string>
+    <!--Juego 3.1-->
+    <string name="imagenjuego3">imagenJuego3</string>
+    <string name="imagenboton">imagenboton</string>
 
 </resources>

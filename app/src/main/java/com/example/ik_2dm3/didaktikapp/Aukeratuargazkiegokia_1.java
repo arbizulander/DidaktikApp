@@ -1,5 +1,6 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -29,8 +30,13 @@ import java.util.Collections;
 import pl.droidsonroids.gif.AnimationListener;
 import pl.droidsonroids.gif.GifImageView;
 
+import static android.os.SystemClock.sleep;
+
 
 public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
+
+    //conexion BD
+    private MyOpenHelper db;
 
     //los botones del juego
     private ImageButton img1, img2, img3;
@@ -62,6 +68,8 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aukeratu_argazkia_egokia_1);
         txtDescripcion = findViewById(R.id.txtDescripcion);
+
+        setTitle("Aukeratu argazki egokia");
 
         String valor = getIntent().getExtras().getString("Description");
 
@@ -203,6 +211,11 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
         pantalla = findViewById(R.id.idLayout);
 
         if (ValorImagen == imagen_correcta){
+            int i = 1;
+            db=new MyOpenHelper(this);
+            db.ActualizarJuego_Id(i);
+            db.close();
+
             int valorcancion = R.raw.correct;
             //Animation animacion=null;
 
@@ -276,7 +289,14 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
 
                                 pulsado.setScaleX( ((float) TamanioX));
                                 pulsado.setScaleY(  ((float) TamanioY));
-                            }
+
+                                //sleep(1000);
+
+                                Intent returnIntent = new Intent();
+                                returnIntent.putExtra("result",1);
+                                setResult(Activity.RESULT_OK,returnIntent);
+                                finish();
+                        }
                         });
                     }
                 });
@@ -287,8 +307,6 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
             Toast toast = Toast.makeText(getApplicationContext(),
                     "Has  ganado!!", Toast.LENGTH_SHORT);
             toast.show();
-
-
         }
         else{
             Toast toast = Toast.makeText(getApplicationContext(),

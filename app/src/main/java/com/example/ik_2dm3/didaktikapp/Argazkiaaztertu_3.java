@@ -6,17 +6,21 @@ import android.os.Bundle;
 
 public class Argazkiaaztertu_3 extends AppCompatActivity {
 
+    private MediaPlayer mp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        MediaPlayer mp;
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_argazkiaaztertu_3);
 
         mp = MediaPlayer.create(this, R.raw.a1_4);
         mp.start();
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
 
+            }
+        });
 
     }
 }

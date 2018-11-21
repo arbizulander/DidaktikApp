@@ -59,12 +59,20 @@ public class details_list extends AppCompatActivity {
     //Creamos objeto para coger datos de la parada
     private Paradas pr_actual;
     private ArrayList<Juegos> lista_juegos;
+    private int contJuegos = 0;
+    //para poner la imagen de fondo
     private ConstraintLayout contenido;
-    private String txtPrueba;
+    //nombre parada
+    private String txtParada;
+    //para coger id del textview
     private TextView textView;
+    //mediaplayer para reproducir audio de la parada
     private MediaPlayer mp;
+    //boton para pasar a los juegos
     private ImageButton btnNext;
+
     private int REQ_OK =  0;
+
     private Context cont = this;
 
     @Override
@@ -73,7 +81,6 @@ public class details_list extends AppCompatActivity {
         setContentView(R.layout.activity_details_list);
 
         contenido = findViewById(R.id.contenido);
-        textView = findViewById(R.id.textView);
         btnNext = findViewById(R.id.btnNext);
 
         btnNext.setEnabled(false);
@@ -87,22 +94,8 @@ public class details_list extends AppCompatActivity {
         db=new MyOpenHelper(this);
         pr_actual = (Paradas) db.getDatos_parada_ID(id_parada);
         setTitle(pr_actual.getNombre());
-        txtPrueba = pr_actual.getTexto();
-        textView.setText(txtPrueba);
-        textView.setMovementMethod(new ScrollingMovementMethod());
+        txtParada = pr_actual.getTexto();
 
-        Animation animacion = AnimationUtils.loadAnimation(this, R.anim.animation);
-        textView.startAnimation(animacion);
-        animacion.setAnimationListener(new Animation.AnimationListener(){
-            @Override
-            public void onAnimationStart(Animation arg0) {
-
-            }
-            @Override
-            public void onAnimationRepeat(Animation arg0) {
-            }
-            @Override
-            public void onAnimationEnd(Animation arg0) {
                 String audio = "a"+pr_actual.getId_parada()+"_";
 
                 PlaySound(audio);
@@ -117,14 +110,12 @@ public class details_list extends AppCompatActivity {
                         btnNext.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                CargarJuegos(lista_juegos);
+                                CargarJuegos(lista_juegos,contJuegos);
                             }
                         });
 
                     }
                 });
-            }
-        });
 
         //ponemos como background la imagen de BD de esa parada
             try {
@@ -183,24 +174,65 @@ public class details_list extends AppCompatActivity {
         contenido.setBackground(drawable);
     }
 
-    public void CargarJuegos (ArrayList<Juegos> Listado_juegos){
+    public void CargarJuegos (ArrayList<Juegos> Listado_juegos, int pos){
         Log.d("mytag", "CARGANDO JUEGOS");
-        int ID_juego = Listado_juegos.get(0).getId_juego();
-        String titulo = Listado_juegos.get(0).getNombre_juego();
 
-        String nombre_completo = "com.example.ik_2dm3.didaktikapp."+titulo+"_"+ID_juego;
-        nombre_completo = nombre_completo.replace(" ","");
-        Log.d("mytag", "NOMBRE JUEGO: " +nombre_completo);
-        int cont = 0;
-            //Log.d("mytag", "NOMBRE JUEGO: " +nombre_completo);
-        Intent i = null;
-        try {
-            i = new Intent(this, Class.forName(nombre_completo));
-            i.putExtra("Description",Listado_juegos.get(0).getTxtDescripcion());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        lista_juegos = (ArrayList<Juegos>) db.getDatos_juegos_ID(pr_actual.getId_parada());
+
+            Log.d("mytag","ESTADO JUEGO: "+Listado_juegos.get(pos).isRealizado());
+
+            if (pos < lista_juegos.size()) {
+                if (!Listado_juegos.get(pos).isRealizado()){
+                    int ID_juego = Listado_juegos.get(pos).getId_juego();
+                    String titulo = Listado_juegos.get(pos).getNombre_juego();
+
+                    String nombre_completo = "com.example.ik_2dm3.didaktikapp." + titulo + "_" + ID_juego;
+                    nombre_completo = nombre_completo.replace(" ", "");
+                    Log.d("mytag", "NOMBRE JUEGO: " + nombre_completo);
+                    int cont = 0;
+                    //Log.d("mytag", "NOMBRE JUEGO: " +nombre_completo);
+                    Intent i = null;
+                    try {
+                        i = new Intent(this, Class.forName(nombre_completo));
+                        i.putExtra("Description", Listado_juegos.get(0).getTxtDescripcion());
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    startActivityForResult(i, REQ_OK);
+                } else {
+                    contJuegos += 1;
+                    CargarJuegos(lista_juegos, contJuegos);
+                }
+
+            }
+            else{
+                Log.d("mytag", "Juegos finalizados de parada"+pr_actual.getNombre());
+            }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == REQ_OK) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+
+                Log.d("mytag","HE VUELTO DEL JUEGO ");
+                contJuegos +=1;
+                if (contJuegos < lista_juegos.size()){
+                    CargarJuegos(lista_juegos, contJuegos);
+                }
+                else{
+
+                  Log.d("mytag", "Juegos finalizados de parada"+pr_actual.getNombre());
+                }
+                // The user picked a contact.
+                // The Intent's data Uri identifies which contact was selected.
+
+                // Do something with the contact here (bigger example below)
+            }
         }
-        startActivityForResult(i, REQ_OK);
     }
 
     @Override

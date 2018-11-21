@@ -221,21 +221,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @SuppressWarnings("MissingPermission")
     private void initializeLocationLayer(){
-
-
         locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap, locationEngine);
         locationLayerPlugin.setLocationLayerEnabled(true);
         locationLayerPlugin.setCameraMode(CameraMode.TRACKING_COMPASS);
         locationLayerPlugin.setRenderMode(RenderMode.COMPASS);
-
-
-
     }
 
     private void setCameraPosition(Location location){
         mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),
                 location.getLongitude()), 13.0));
-
     }
 
 

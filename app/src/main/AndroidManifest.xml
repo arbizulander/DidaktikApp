@@ -47,7 +47,7 @@
             android:name=".Aukeratuargazkiegokia_1"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ElementuakBilatuArgazkian_2"
+            android:name=".Elementuakbilatuargazkian_2"
             android:screenOrientation="landscape" />
 
         <provider
