@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         btnjuego.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(MainActivity.this,Desberdintasunabilatu_4.class);
-                Intent intent = new Intent(MainActivity.this,ElementuakBilatuArgazkian_2.class);
+                Intent intent = new Intent(MainActivity.this,Argazkiaaztertu_3.class);
+                //Intent intent = new Intent(MainActivity.this,Aukeratuargazkiegokia_1.class);
                 startActivity(intent);
             }
         });
