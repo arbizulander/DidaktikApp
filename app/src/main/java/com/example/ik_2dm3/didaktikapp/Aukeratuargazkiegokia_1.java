@@ -349,17 +349,8 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
         }
 
 
-
-
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
-
-                //pulsado.setPivotX(0);
-                //pulsado.setPivotY(0);
-
-                //pulsado.setScaleY(2);
-                //pulsado.setScaleX(2);
-
 
 
                 GifImageView gifImageView = (GifImageView) findViewById(R.id.GifImageView);

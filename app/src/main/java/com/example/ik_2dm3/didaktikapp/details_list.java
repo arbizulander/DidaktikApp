@@ -96,16 +96,30 @@ public class details_list extends AppCompatActivity {
         setTitle(pr_actual.getNombre());
         txtParada = pr_actual.getTexto();
 
-                String audio = "a"+pr_actual.getId_parada()+"_";
+               // String audio = "a"+pr_actual.getId_parada()+"_";
 
-                PlaySound(audio);
-                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    public void onCompletion(MediaPlayer mp) {
-                        btnNext.setEnabled(true);
+                //PlaySound(audio);
+               // mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                //    public void onCompletion(MediaPlayer mp) {
+
                         //btnNext.setVisibility(View.INVISIBLE);
                         Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation);
                         btnNext.startAnimation(animacion);
-                        btnNext.setVisibility(View.VISIBLE);
+                        animacion.setAnimationListener(new Animation.AnimationListener(){
+                            @Override
+                            public void onAnimationStart(Animation arg0) {
+
+                            }
+                            @Override
+                            public void onAnimationRepeat(Animation arg0) {
+                            }
+                            @Override
+                            public void onAnimationEnd(Animation arg0) {
+                                btnNext.setEnabled(true);
+                                btnNext.setVisibility(View.VISIBLE);
+                            }
+                        });
+
 
                         btnNext.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -114,8 +128,8 @@ public class details_list extends AppCompatActivity {
                             }
                         });
 
-                    }
-                });
+                    //}
+               // });
 
         //ponemos como background la imagen de BD de esa parada
             try {
@@ -136,7 +150,7 @@ public class details_list extends AppCompatActivity {
 
     }
 
-    public void PlaySound(String fileName){
+    /*public void PlaySound(String fileName){
         int sound_id = this.getResources().getIdentifier(fileName, "raw",
                 this.getPackageName());
         if(sound_id != 0) {
@@ -144,7 +158,7 @@ public class details_list extends AppCompatActivity {
             mp.start();
 
         }
-    }
+    }*/
 
     /*public void PopUp(View v){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -177,6 +191,7 @@ public class details_list extends AppCompatActivity {
     public void CargarJuegos (ArrayList<Juegos> Listado_juegos, int pos){
         Log.d("mytag", "CARGANDO JUEGOS");
 
+        lista_juegos = new ArrayList<Juegos>();
         lista_juegos = (ArrayList<Juegos>) db.getDatos_juegos_ID(pr_actual.getId_parada());
 
             Log.d("mytag","ESTADO JUEGO: "+Listado_juegos.get(pos).isRealizado());
@@ -207,6 +222,11 @@ public class details_list extends AppCompatActivity {
             }
             else{
                 Log.d("mytag", "Juegos finalizados de parada"+pr_actual.getNombre());
+                if (pr_actual.isSacarFoto()){
+                    Intent i = new Intent(this, camera.class);
+                    startActivityForResult(i, REQ_OK);
+                }
+
             }
 
     }
@@ -224,8 +244,11 @@ public class details_list extends AppCompatActivity {
                     CargarJuegos(lista_juegos, contJuegos);
                 }
                 else{
-
                   Log.d("mytag", "Juegos finalizados de parada"+pr_actual.getNombre());
+                    if (pr_actual.isSacarFoto()){
+                        Intent i = new Intent(this, camera.class);
+                        startActivityForResult(i, REQ_OK);
+                    }
                 }
                 // The user picked a contact.
                 // The Intent's data Uri identifies which contact was selected.
