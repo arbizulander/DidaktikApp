@@ -26,6 +26,8 @@ import java.io.File;
 import java.io.OutputStream;
 import java.net.URI;
 import java.security.Permission;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class galery extends AppCompatActivity {
 
@@ -81,27 +83,23 @@ public class galery extends AppCompatActivity {
 
     private void openCamera(){
 
+        // Create an image file name
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
+        String imageFileName = "JPEG_" + timeStamp + "_";
 
 
        ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE,"New picture");
         values.put(MediaStore.Images.Media.DESCRIPTION,"From the camera");
+        values.put(MediaStore.Images.Media.DATA,"/sdcard/"+imageFileName+".jpg");
 
-        //image_uri = getContentResolver().insert(Uri.parse("/storage/emulated/0/Pictures/FotosDidaktikApp"), values);  //Colocar creacion/comprobacion de carpeta
+
+
         image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 
         Log.d("mytag","" +image_uri.getPath());
-
-
-
-        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
-
-
-        Log.d("mytag","" +image_uri.getPath());
-        //Log.d("mytag","" +image_uri.getExternalStorageDirectory());
-
-
-
 
 
         //camera intent
@@ -112,16 +110,6 @@ public class galery extends AppCompatActivity {
 
 
 
-    }
-
-    public File getAlbumStorageDir(Context context, String albumName) {
-        // Get the directory for the app's private pictures directory.
-        File file = new File(context.getExternalFilesDir(
-                Environment.DIRECTORY_PICTURES), albumName);
-        if (!file.mkdirs()) {
-            Log.e("mytag", "Directory not created");
-        }
-        return file;
     }
     //handing permission result
     @Override
