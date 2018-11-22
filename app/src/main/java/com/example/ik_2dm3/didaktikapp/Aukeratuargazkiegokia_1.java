@@ -251,7 +251,6 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
             trans.setAnimationListener(new Animation.AnimationListener(){
                     @Override
                     public void onAnimationStart(Animation arg0) {
-
                     }
                     @Override
                     public void onAnimationRepeat(Animation arg0) {

@@ -191,8 +191,8 @@ public class details_list extends AppCompatActivity {
     public void CargarJuegos (ArrayList<Juegos> Listado_juegos, int pos){
         Log.d("mytag", "CARGANDO JUEGOS");
 
-        lista_juegos = new ArrayList<Juegos>();
-        lista_juegos = (ArrayList<Juegos>) db.getDatos_juegos_ID(pr_actual.getId_parada());
+        //lista_juegos = new ArrayList<Juegos>();
+        //lista_juegos = (ArrayList<Juegos>) db.getDatos_juegos_ID(pr_actual.getId_parada());
 
             Log.d("mytag","ESTADO JUEGO: "+Listado_juegos.get(pos).isRealizado());
 

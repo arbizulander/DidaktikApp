@@ -72,6 +72,7 @@
         <activity
             android:name=".Desberdintasunabilatu_4_argazki3"
             android:screenOrientation="landscape" />
+
         <activity android:name=".Argazkiaaztertu_3"
             android:screenOrientation="landscape"></activity>
     </application>

@@ -1,5 +1,7 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
@@ -62,6 +64,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Point posicionDestino;
     private DirectionsRoute rutaActual;
     private static final String TAG = "DirectionsActivity";
+    private static final int REQ_MAPA = 7;
     private NavigationMapRoute navigationMapRoute;
     private MapboxNavigationOptions navigationOptions;
 
@@ -72,18 +75,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private LocationLayerPlugin locationLayerPlugin;
     private Location originLocation;
 
-
+    private boolean dentrozona;
     private Button butsig;
     private Button butprev;
     private Button butcent;
 
     //BD
+        private details_list listaDetalles;
         private MyOpenHelper db;
+
+
 
     //Aqui guardamos los datos de la BD
         private ArrayList<Paradas> lista_paradas;
-
-    private int cont = 0;
+        private ArrayList<Juegos> lista_juegos;
+        private int cont = 0;
+        int contJuegos = 0;
 
     //VALORES DEL SQL
         private String[] titulo;
@@ -130,6 +137,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //Cogemos todos los nombres de las paradas desde el SQL
         db=new MyOpenHelper(this);
+        listaDetalles = new details_list();
+
         lista_paradas = db.getDatos_Paradas();
         db.close();
 
@@ -183,9 +192,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             .position(new LatLng(lista_paradas.get(i).getLatitud(),lista_paradas.get(i).getLongitud()))
             .title(lista_paradas.get(i).getNombre()));
         }
-
         enableLocation();
-
     }
 
     private void enableLocation(){
@@ -348,21 +355,62 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         destino.setLatitude(lista_paradas.get(cont).getLatitud());
         destino.setLongitude(lista_paradas.get(cont).getLongitud());
         float distancia = originLocation.distanceTo(destino);
+
+        lista_juegos = (ArrayList<Juegos>) db.getDatos_juegos_ID(cont+1);
+Log.d("mytag",""+ lista_juegos);
         Log.d("mytag","La distancia a " + lista_paradas.get(cont).getNombre()+ " es de " + distancia +" metros.");
 
-        if(distancia <= 15){
+        //Comprobacion de que no este ya completado
+    if(!lista_paradas.get(cont).isRealizado()){
+        if(distancia <= 15 && !dentrozona){
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setMessage("Estas cerca de " + lista_paradas.get(cont).getNombre() + ", quieres hacer las actividades?" );
-            alert.setPositiveButton("OK",null);
+            alert.setNegativeButton("NO OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.d("mytag","has pulsado NO OK");
+                }
+            });
+            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    /*Log.d("mytag", "CARGANDO JUEGOS");
+
+                    int ID_juego = lista_juegos.get(0).getId_juego();
+                    String titulo = lista_juegos.get(0).getNombre_juego();
+
+                    String nombre_completo = "com.example.ik_2dm3.didaktikapp."+titulo+"_"+ID_juego;
+                    nombre_completo = nombre_completo.replace(" ","");
+                    Log.d("mytag", "NOMBRE JUEGO: " +nombre_completo);
+                    //Log.d("mytag", "NOMBRE JUEGO: " +nombre_completo);
+                    Intent i = null;
+                    try {
+                        i = new Intent(MapsActivity.this, Class.forName(nombre_completo));
+                        i.putExtra("Description",lista_juegos.get(0).getTxtDescripcion());
+                        i.putExtra("id_parada",cont+1);
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    startActivityForResult(i, REQ_MAPA);*/
+
+                    listaDetalles.CargarJuegos(lista_juegos,0);
+
+                }
+            });
             alert.show();
+            dentrozona = true;
             Log.d("mytag","Estas al lado de " + lista_paradas.get(cont).getNombre() + "!!!");
         }
+        else{dentrozona = false;}
     }
+}
 
     /**********************************************************/
 
     @SuppressWarnings("MissingPermission")
     @Override
+
     public void onStart() {
         super.onStart();
         if(locationEngine != null){
@@ -413,7 +461,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapView.onDestroy();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQ_MAPA){
+            Log.d("mytag","HE VUELTO DEL JUEGO POR EL MAPA");
 
+            contJuegos +=1;
+            Log.d("mytag","contJuegos es " + contJuegos);
+            Log.d("mytag","listajuegos size es " + lista_juegos.size());
 
-
+            if (contJuegos < lista_juegos.size()){
+                listaDetalles.CargarJuegos(lista_juegos, contJuegos);
+            }
+        }
+    }
 }
