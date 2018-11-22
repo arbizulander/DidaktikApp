@@ -1,11 +1,15 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,6 +36,8 @@ public class list extends AppCompatActivity {
 
     //BD
     private MyOpenHelper db;
+
+    private int REQ_OK =  0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +71,22 @@ public class list extends AppCompatActivity {
 
                 //meto el id en los extras para saber que parada es
                 intent.putExtra("id_parada", prueba);
-                startActivity(intent);
+                startActivityForResult(intent, REQ_OK);
             }
 
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == REQ_OK) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                Log.d("mytag","Vuelves de lista detallada");
+
+            }
+        }
     }
 
 

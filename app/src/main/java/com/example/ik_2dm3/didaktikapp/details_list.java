@@ -2,6 +2,7 @@ package com.example.ik_2dm3.didaktikapp;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
@@ -14,8 +15,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
@@ -74,6 +78,12 @@ public class details_list extends AppCompatActivity {
     private int REQ_OK =  0;
 
     private Context cont = this;
+    private Animation animacion;
+
+    //camara
+    private static final int PERMISSION_CODE =1000;
+    private static final int IMAGE_CAPTURE_CODE =1001;
+    Uri image_uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +113,7 @@ public class details_list extends AppCompatActivity {
                 //    public void onCompletion(MediaPlayer mp) {
 
                         //btnNext.setVisibility(View.INVISIBLE);
-                        Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation);
+                        animacion = AnimationUtils.loadAnimation(cont, R.anim.animation);
                         btnNext.startAnimation(animacion);
                         animacion.setAnimationListener(new Animation.AnimationListener(){
                             @Override
@@ -160,9 +170,9 @@ public class details_list extends AppCompatActivity {
         }
     }*/
 
-    /*public void PopUp(View v){
+    public void PopUp(View v){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Mensaje de prueba")
+        builder.setMessage("Ahora sacarás una foto al edificio")
                 .setTitle("TITULO DE PRUEBA")
                 .setCancelable(false)
                 .setNeutralButton("Aceptar",
@@ -170,13 +180,13 @@ public class details_list extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                                 //checkCameraPermission();
-                                abrirCamara();
+                                openCamera();
 
                             }
                         });
         AlertDialog alert = builder.create();
         alert.show();
-    }*/
+    }
 
     public void toImg(String byteArray) throws IOException {
 
@@ -221,14 +231,8 @@ public class details_list extends AppCompatActivity {
 
             }
             else{
-                Log.d("mytag", "Juegos finalizados de parada"+pr_actual.getNombre());
-                if (pr_actual.isSacarFoto()){
-                    Intent i = new Intent(this, camera.class);
-                    startActivityForResult(i, REQ_OK);
-                }
-
+                Log.d("mytag", "Juegos finalizados de parada: "+pr_actual.getNombre());
             }
-
     }
 
     @Override
@@ -244,16 +248,91 @@ public class details_list extends AppCompatActivity {
                     CargarJuegos(lista_juegos, contJuegos);
                 }
                 else{
-                  Log.d("mytag", "Juegos finalizados de parada"+pr_actual.getNombre());
+                  Log.d("mytag", "Juegos finalizados de parada JUEGO:   "+pr_actual.getNombre());
+                  Log.d("mytag", "Juegos finalizados de parada JUEGO opcion CAMARA:   "+pr_actual.isSacarFoto());
+
                     if (pr_actual.isSacarFoto()){
-                        Intent i = new Intent(this, camera.class);
-                        startActivityForResult(i, REQ_OK);
+                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                            if(checkSelfPermission(Manifest.permission.CAMERA) ==
+                                    PackageManager.PERMISSION_DENIED ||
+                                    checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                                            PackageManager.PERMISSION_DENIED){
+                                //PERMISSIONS NOT ENABLED, REQUEST IT
+                                String[] permission ={Manifest.permission.CAMERA,
+                                        Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                                //SHOW POPUP TO REQUEST PERMISSIONS
+                                requestPermissions(permission,PERMISSION_CODE);
+
+                            }
+                            else{
+                                //permission already granted
+                                PopUp(contenido);
+                                //openCamera();
+                            }
+                        }
+                        else{
+                            //system os < marshmallow
+                            PopUp(contenido);
+                            //openCamera();
+                        }
                     }
                 }
                 // The user picked a contact.
                 // The Intent's data Uri identifies which contact was selected.
 
                 // Do something with the contact here (bigger example below)
+            }
+        }
+    }
+
+
+    private void openCamera(){
+
+        // Create an image file name
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
+        String imageFileName = "JPEG_" + timeStamp + "_";
+
+
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE,"New picture");
+        values.put(MediaStore.Images.Media.DESCRIPTION,"From the camera");
+        values.put(MediaStore.Images.Media.DATA,"/sdcard/"+imageFileName+".jpg");
+
+
+
+        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+        Log.d("mytag","" +image_uri.getPath());
+
+
+        //camera intent
+
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri );
+        startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE);
+
+
+
+    }
+    //handing permission result
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        switch (requestCode){
+
+            case PERMISSION_CODE:{
+                if(grantResults.length > 0 && grantResults[0] ==
+                        PackageManager.PERMISSION_GRANTED){
+                    //PERMISSIONS FROM POPUP WAS GRANTED
+                    openCamera();
+
+                }
+                else{
+                    //permissions from poup was denied
+                    Toast.makeText(this, "Permission denied...", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
