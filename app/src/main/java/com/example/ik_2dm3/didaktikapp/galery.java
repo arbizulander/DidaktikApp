@@ -87,11 +87,25 @@ public class galery extends AppCompatActivity {
 
         String imageFileName = "JPEG_" + timeStamp + "_";
 
+        File dir = new File(getExternalStorageDirectory(),"DidaktikAppPrueba");
+        if(!dir.exists()){
+            dir.mkdir();
 
-       ContentValues values = new ContentValues();
+        }
+
+
+
+
+
+
+
+
+
+        ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE,"New picture");
         values.put(MediaStore.Images.Media.DESCRIPTION,"From the camera");
-        values.put(MediaStore.Images.Media.DATA,"/sdcard/"+imageFileName+".jpg");
+        values.put(MediaStore.Images.Media.DATA,getExternalStorageDirectory()+"/DidaktikAppPrueba/"+imageFileName+".jpg");
+        //values.put(MediaStore.Images.Media.DATA,"/sdcard/"+imageFileName+".jpg");
 
 
 
