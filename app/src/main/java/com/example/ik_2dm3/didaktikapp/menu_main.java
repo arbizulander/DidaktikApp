@@ -44,11 +44,14 @@ public class menu_main extends AppCompatActivity {
         btnIbilbidea.setOnClickListener(v -> {
 
 
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
-            Intent intent = new Intent(menu_main.this,MapsActivity.class);
-            startActivity(intent, options.toBundle());
+           /* ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
 
-            //startActivityForResult(intent, REQ_BTN);
+            startActivity(intent, options.toBundle());*/
+            Intent intent = new Intent(menu_main.this,MapsActivity.class);
+            overridePendingTransition(R.anim.zoom_forward_out, R.anim.zoom_forward_in);
+            startActivityForResult(intent, REQ_BTN);
+
+
         });
 
         btnGaleria.setOnClickListener(v -> {
