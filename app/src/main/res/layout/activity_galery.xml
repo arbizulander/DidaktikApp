@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     tools:context=".MainActivity">
+
    <ImageView
        android:id="@+id/miImageView"
        android:layout_width="400dp"

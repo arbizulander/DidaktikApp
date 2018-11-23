@@ -3,6 +3,7 @@ package com.example.ik_2dm3.didaktikapp;
 import android.animation.Animator;
 import android.app.ActivityOptions;
 import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -26,13 +28,15 @@ import android.widget.Toast;
 import static android.os.Environment.getExternalStorageDirectory;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class galery extends AppCompatActivity {
 
     //para la imagen
     private ImageView miImageView;
-    private Uri image_uri;
+    Uri image_uri;
 
     private Context cont = this;
     private FloatingActionButton my_fab;
@@ -51,12 +55,42 @@ public class galery extends AppCompatActivity {
         //Button mCaptureBtn = findViewById(R.id.capture_image);
         my_fab = (FloatingActionButton) findViewById(R.id.my_fab);
 
+        File dir = new File(getExternalStorageDirectory(),"DidaktikApp");
+
+        //dentro del if cargar imagenes en galeria
+        if (dir.exists()){
+            Log.d("mytag","CARGANDO GALERIA...");
+            cargarGaleria(dir);
+        }
 
         final Interpolator interpolador = AnimationUtils.loadInterpolator(getBaseContext(),
                 android.R.interpolator.fast_out_slow_in);
 
         //button click
         my_fab.setOnClickListener(v -> {
+
+            //IF SYSTEM IS >= MARSMALLOW, REQUEST RUNTIME PERMISSION
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if(checkSelfPermission(Manifest.permission.CAMERA) ==
+                        PackageManager.PERMISSION_DENIED ||
+                        checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                                PackageManager.PERMISSION_DENIED){
+                    //PERMISSIONS NOT ENABLED, REQUEST IT
+                    String[] permission ={Manifest.permission.CAMERA,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                    //SHOW POPUP TO REQUEST PERMISSIONS
+                    requestPermissions(permission,PERMISSION_CODE);
+                }
+                else{
+                    //permission already granted
+                    openCamera();
+                }
+            }
+            else{
+                //system os < marshmallow
+                openCamera();
+            }
+
 
             my_fab.animate()
                     .scaleX(0)
@@ -77,29 +111,6 @@ public class galery extends AppCompatActivity {
                                     .setInterpolator(interpolador)
                                     .setDuration(600)
                                     .start();*/
-                            //IF SYSTEM IS >= MARSMALLOW, REQUEST RUNTIME PERMISSION
-                           if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                                if(checkSelfPermission(Manifest.permission.CAMERA) ==
-                                        PackageManager.PERMISSION_DENIED ||
-                                        checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                                                PackageManager.PERMISSION_DENIED){
-                                    //PERMISSIONS NOT ENABLED, REQUEST IT
-                                    String[] permission ={Manifest.permission.CAMERA,
-                                            Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                                    //SHOW POPUP TO REQUEST PERMISSIONS
-                                    requestPermissions(permission,PERMISSION_CODE);
-                                }
-                                else{
-                                    //permission already granted
-                                    openCamera();
-                                }
-                            }
-                            else{
-                                //system os < marshmallow
-                                openCamera();
-                            }
-
-
                         }
 
                         @Override
@@ -112,18 +123,38 @@ public class galery extends AppCompatActivity {
 
                         }
                     });
-
         });
     }
 
+    private void cargarGaleria(File f){
+        // Array TEXTO donde guardaremos los nombres de los ficheros
+        ArrayList<Image> items = new ArrayList<Image>();
 
+        //Defino la ruta donde busco los ficheros
+        //File f = new File(Environment.getExternalStorageDirectory() + "/MiBotiquin/");
+        //Creo el array de tipo File con el contenido de la carpeta
+        File[] files = f.listFiles();
+
+        //Hacemos un Loop por cada fichero para extraer el nombre de cada uno
+        for (int i = 0; i < files.length; i++)
+        {
+            Log.d("mytag", "NOMBRE FICHERO: "+files[i]);
+            //Sacamos del array files un fichero
+            //File file = files[i];
+
+            //Si es directorio...
+           /* if (!file.isDirectory()) {
+                item.add(file.getName() + "/");
+            }*/
+        }
+    }
 
     private void openCamera(){
 
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File dir = new File(getExternalStorageDirectory(),"DidaktikAppPrueba");
+        File dir = new File(getExternalStorageDirectory(),"DidaktikApp");
         if(!dir.exists()){
             dir.mkdir();
         }
@@ -131,7 +162,7 @@ public class galery extends AppCompatActivity {
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE,"New picture");
         values.put(MediaStore.Images.Media.DESCRIPTION,"From the camera");
-        values.put(MediaStore.Images.Media.DATA,getExternalStorageDirectory()+"/DidaktikAppPrueba/"+imageFileName+".jpg");
+        values.put(MediaStore.Images.Media.DATA,getExternalStorageDirectory()+"/DidaktikApp/"+imageFileName+".jpg");
 
         image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 
