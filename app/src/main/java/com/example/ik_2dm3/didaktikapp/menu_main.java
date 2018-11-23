@@ -1,10 +1,10 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -20,7 +20,7 @@ public class menu_main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_main);
-
+        setTitle("Menua");
 
         //btnHome = (Button) findViewById(R.id.btnHome);
         btnIbilbidea = findViewById(R.id.btnIbilbidea);
@@ -41,46 +41,24 @@ public class menu_main extends AppCompatActivity {
             }
         });*/
 
-        btnIbilbidea.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnIbilbidea.setOnClickListener(v -> {
 
 
-                Intent intent = new Intent(menu_main.this,MapsActivity.class);
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
+            Intent intent = new Intent(menu_main.this,MapsActivity.class);
+            startActivity(intent, options.toBundle());
 
-
-
-                startActivityForResult(intent, REQ_BTN);
-
-            }
+            //startActivityForResult(intent, REQ_BTN);
         });
 
-        btnGaleria.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                Intent intent = new Intent(menu_main.this,galery.class);
-
-
-
-                startActivityForResult(intent, REQ_BTN);
-
-            }
+        btnGaleria.setOnClickListener(v -> {
+            Intent intent = new Intent(menu_main.this,galery.class);
+            startActivityForResult(intent, REQ_BTN);
         });
 
-        btnOndareak.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                Intent intent = new Intent(menu_main.this,list.class);
-
-
-
-                startActivityForResult(intent, REQ_BTN);
-
-            }
+        btnOndareak.setOnClickListener(v -> {
+            Intent intent = new Intent(menu_main.this,list.class);
+            startActivityForResult(intent, REQ_BTN);
         });
 
 

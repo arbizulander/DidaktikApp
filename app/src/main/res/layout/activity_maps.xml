@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="centrar"
+        android:text="@string/centrar"
         mapbox:layout_constraintStart_toStartOf="parent"
         mapbox:layout_constraintTop_toBottomOf="@+id/butprev" />
 
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="sig"
+        android:text="@string/sig"
         mapbox:layout_constraintEnd_toEndOf="parent"
         mapbox:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +33,7 @@
         android:layout_height="44dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="prev"
+        android:text="@string/prev"
         mapbox:layout_constraintStart_toStartOf="parent"
         mapbox:layout_constraintTop_toTopOf="parent" />
 

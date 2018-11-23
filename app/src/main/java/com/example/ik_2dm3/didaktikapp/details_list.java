@@ -1,77 +1,61 @@
 package com.example.ik_2dm3.didaktikapp;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Camera;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-
-import static android.view.animation.AnimationUtils.currentAnimationTimeMillis;
-import static okio.HashingSink.md5;
 
 public class details_list extends AppCompatActivity {
 
     //BD
     private MyOpenHelper db;
+
     //Creamos objeto para coger datos de la parada
     private Paradas pr_actual;
+    private int id_parada;
     private ArrayList<Juegos> lista_juegos;
+    private int ID_juego;
+    private String titulo;
+    private String nombre_completo;
+    private Intent i;
     private int contJuegos = 0;
+
     //para poner la imagen de fondo
     private ConstraintLayout contenido;
+
     //nombre parada
     private String txtParada;
     //para coger id del textview
     private TextView textView;
     //mediaplayer para reproducir audio de la parada
-    private MediaPlayer mp;
+    //private MediaPlayer mp;
     //boton para pasar a los juegos
     private ImageButton btnNext;
 
@@ -79,6 +63,14 @@ public class details_list extends AppCompatActivity {
 
     private Context cont = this;
     private Animation animacion;
+
+    private AlertDialog alert;
+    private AlertDialog.Builder builder;
+
+    //img
+    private byte[] decodedString;
+    private Bitmap decodedByte;
+    private Drawable drawable;
 
     //camara
     private static final int PERMISSION_CODE =1000;
@@ -98,7 +90,7 @@ public class details_list extends AppCompatActivity {
 
         pr_actual = new Paradas();
 
-        int id_parada = getIntent().getIntExtra("id_parada", 0);
+        id_parada = getIntent().getIntExtra("id_parada", 0);
 
         //Cogemos todos los nombres de las paradas que hay en la BD
         db=new MyOpenHelper(this);
@@ -171,7 +163,7 @@ public class details_list extends AppCompatActivity {
     }*/
 
     public void PopUp(View v){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder = new AlertDialog.Builder(this);
         builder.setMessage("Ahora sacarás una foto al edificio")
                 .setTitle("TITULO DE PRUEBA")
                 .setCancelable(false)
@@ -184,17 +176,17 @@ public class details_list extends AppCompatActivity {
 
                             }
                         });
-        AlertDialog alert = builder.create();
+        alert = builder.create();
         alert.show();
     }
 
     public void toImg(String byteArray) throws IOException {
 
-        byte[] decodedString = Base64.decode(byteArray, Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        decodedString = Base64.decode(byteArray, Base64.DEFAULT);
+        decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
         //Convert bitmap to drawable
-        Drawable drawable = new BitmapDrawable(getResources(), decodedByte);
+        drawable = new BitmapDrawable(getResources(), decodedByte);
         contenido.setBackground(drawable);
     }
 
@@ -208,15 +200,15 @@ public class details_list extends AppCompatActivity {
 
             if (pos < lista_juegos.size()) {
                 if (!Listado_juegos.get(pos).isRealizado()){
-                    int ID_juego = Listado_juegos.get(pos).getId_juego();
-                    String titulo = Listado_juegos.get(pos).getNombre_juego();
+                    ID_juego = Listado_juegos.get(pos).getId_juego();
+                    titulo = Listado_juegos.get(pos).getNombre_juego();
 
-                    String nombre_completo = "com.example.ik_2dm3.didaktikapp." + titulo + "_" + ID_juego;
+                    nombre_completo = "com.example.ik_2dm3.didaktikapp." + titulo + "_" + ID_juego;
                     nombre_completo = nombre_completo.replace(" ", "");
                     Log.d("mytag", "NOMBRE JUEGO: " + nombre_completo);
-                    int cont = 0;
+                    //int cont = 0;
                     //Log.d("mytag", "NOMBRE JUEGO: " +nombre_completo);
-                    Intent i = null;
+                    i = null;
                     try {
                         i = new Intent(this, Class.forName(nombre_completo));
                         i.putExtra("Description", Listado_juegos.get(0).getTxtDescripcion());
@@ -282,6 +274,11 @@ public class details_list extends AppCompatActivity {
 
                 // Do something with the contact here (bigger example below)
             }
+
+            //resultado de sacar foto
+            if (resultCode ==IMAGE_CAPTURE_CODE){
+                Log.d("mytag","VUELVO DE LA CAMARA");
+            }
         }
     }
 
@@ -289,7 +286,6 @@ public class details_list extends AppCompatActivity {
     private void openCamera(){
 
         // Create an image file name
-
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
         String imageFileName = "JPEG_" + timeStamp + "_";
@@ -312,10 +308,8 @@ public class details_list extends AppCompatActivity {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri );
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE);
-
-
-
     }
+
     //handing permission result
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -344,7 +338,7 @@ public class details_list extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
                     Toast.LENGTH_SHORT).show();
             //return true;
-            mp.stop();
+            //mp.stop();
         }
         return super.onKeyDown(keyCode, event);
     }

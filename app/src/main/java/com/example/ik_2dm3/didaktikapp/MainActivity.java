@@ -3,15 +3,15 @@ package com.example.ik_2dm3.didaktikapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnStart, btnjuego;
-    static final int REQ_BTN = 0;
+    //private Button btnjuego;
+
+    //REQ
+    private static final int REQ_BTN = 0;
 
     //Controlador de bases de datos
     //private MyOpenHelper db;
@@ -25,24 +25,22 @@ public class MainActivity extends AppCompatActivity {
         //db=new MyOpenHelper(this);
 
         //cogiendo id del boton
-        btnStart = findViewById(R.id.btnHasi);
-        btnjuego = findViewById(R.id.button2);
+        //botones
+        Button btnStart = findViewById(R.id.btnHasi);
+        //btnjuego = findViewById(R.id.button2);
         //accion al pulsar el boton
-        btnStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,menu_main.class);
-                startActivityForResult(intent, REQ_BTN);
-            }
+        btnStart.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this,menu_main.class);
+            startActivityForResult(intent, REQ_BTN);
         });
 
-        btnjuego.setOnClickListener(new View.OnClickListener() {
+        /*btnjuego.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,Argazkiaaztertu_3.class);
                 //Intent intent = new Intent(MainActivity.this,Aukeratuargazkiegokia_1.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 }

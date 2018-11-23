@@ -68,6 +68,7 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aukeratu_argazkia_egokia_1);
         txtDescripcion = findViewById(R.id.txtDescripcion);
+        mp = MediaPlayer.create(this, R.raw.a1_1);
 
         setTitle("Aukeratu argazki egokia");
 
@@ -97,16 +98,16 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
             }
             @Override
             public void onAnimationEnd(Animation arg0) {
-                PlaySound("a1_1");
+                PlaySound();
             }
         });
     }
 
-    public void PlaySound(String fileName){
-        int sound_id = this.getResources().getIdentifier(fileName, "raw",
-                this.getPackageName());
-        if(sound_id != 0) {
-            mp = MediaPlayer.create(this, sound_id);
+    public void PlaySound(){
+        /*int sound_id = this.getResources().getIdentifier(fileName, "raw",
+                this.getPackageName());*/
+        //if(sound_id != 0) {
+            //mp = MediaPlayer.create(this, sound_id);
             mp.start();
             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 public void onCompletion(MediaPlayer mp) {
@@ -130,7 +131,7 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
 
                 }
             });
-        }
+        //}
     }
 
     public void cargarImagenes(){
