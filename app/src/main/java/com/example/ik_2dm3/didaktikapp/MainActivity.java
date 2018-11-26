@@ -3,12 +3,13 @@ package com.example.ik_2dm3.didaktikapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    //private Button btnjuego;
+    private Button btnjuego;
 
     //REQ
     private static final int REQ_BTN = 0;
@@ -27,20 +28,20 @@ public class MainActivity extends AppCompatActivity {
         //cogiendo id del boton
         //botones
         Button btnStart = findViewById(R.id.btnHasi);
-        //btnjuego = findViewById(R.id.button2);
+        btnjuego = findViewById(R.id.button2);
         //accion al pulsar el boton
         btnStart.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this,menu_main.class);
             startActivityForResult(intent, REQ_BTN);
         });
 
-        /*btnjuego.setOnClickListener(new View.OnClickListener() {
+        btnjuego.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,Argazkiaaztertu_3.class);
+                Intent intent = new Intent(MainActivity.this,Galderenerantzunaaukeratu_5.class);
                 //Intent intent = new Intent(MainActivity.this,Aukeratuargazkiegokia_1.class);
                 startActivity(intent);
             }
-        });*/
+        });
     }
 }
