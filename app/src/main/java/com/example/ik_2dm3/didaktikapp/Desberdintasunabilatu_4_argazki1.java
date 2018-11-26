@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class Desberdintasunabilatu_4_argazki1 extends AppCompatActivity {
 
-    Button Hurrengoa;
-    Button Atzera;
+
+
+    private ImageButton Hurrengoa;
 
     static final int REQ_TEXT = 0;
 
@@ -19,7 +21,8 @@ public class Desberdintasunabilatu_4_argazki1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desberdintasunabilatu_4_argazki1);
 
-        Hurrengoa = (Button) findViewById(R.id.hurre_argazki1);
+        Hurrengoa = findViewById(R.id.hurre_argazki1);
+
 
 
 

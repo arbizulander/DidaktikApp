@@ -25,17 +25,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
-
-
-    <Button
+    <ImageButton
         android:id="@+id/hurre_argazki1"
-        android:layout_width="117dp"
+        android:layout_width="63dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="16dp"
-        android:text="Hurrengoa"
+
+        android:layout_marginStart="447dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/argazkia1"
+        app:srcCompat="@drawable/img_next" />
 
 </android.support.constraint.ConstraintLayout>
