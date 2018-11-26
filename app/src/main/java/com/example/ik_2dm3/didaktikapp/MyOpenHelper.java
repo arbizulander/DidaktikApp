@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
+import static android.os.Environment.getExternalStorageDirectory;
 
 public class MyOpenHelper extends SQLiteOpenHelper {
 
@@ -59,11 +60,12 @@ public class MyOpenHelper extends SQLiteOpenHelper {
         boolean dbExist = checkDataBase();
         SQLiteDatabase db_Read = null;
 
-        /*if (dbExist){
+        if (dbExist){
+
             //la bd ya existe
         }
         else
-        {*/
+        {
             db_Read = this.getReadableDatabase();
             db_Read.close();
 
@@ -72,7 +74,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
             }catch (IOException e){
                 throw new Error ("Error copiando BD");
             }
-       // }
+        }
 
     }
 
@@ -93,8 +95,8 @@ public class MyOpenHelper extends SQLiteOpenHelper {
     //Copiamos el archivo BD que tenemos guardado en Assest a la memoria local del movil
     private void copyDataBase(Context context) throws IOException {
 
-
         String DB_PATH = context.getDatabasePath(DB_NAME).getPath();
+
         Log.d("mytag", DB_PATH);
         // Open your local db as the input stream
         InputStream myInput = context.getAssets().open(DB_NAME);
@@ -150,12 +152,21 @@ public class MyOpenHelper extends SQLiteOpenHelper {
 
     //VUELVE VISIBLE EL SIGIENTE PUNTO Y MARCA COMO TERMINADO EL ACTUAL
     public void ActualizarJuego_Id(int x){
+        Log.d("mytag", "ACTUALIZANDO JUEGO CON ID..: "+x);
+        String myPath = DB_PATH + DB_NAME;
+        db = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+        db = this.getWritableDatabase();
 
-            String myPath = DB_PATH + DB_NAME;
-            db = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
-            db = this.getWritableDatabase();
-            db.execSQL("UPDATE juegos SET realizado=1 WHERE id_juego="+x);
-            db.close();
+        //Establecemos los campos-valores a actualizar
+        ContentValues valores = new ContentValues();
+        valores.put("realizado",1);
+
+        //Actualizamos el registro en la base de datos
+        db.update("juegos", valores, "id_juego="+x, null);
+
+        //db.execSQL("UPDATE juegos SET realizado=1 WHERE id_juego="+x);
+        db.close();
+        Log.d("mytag", "JUEGO ACTUALIZADO");
     }
 
 

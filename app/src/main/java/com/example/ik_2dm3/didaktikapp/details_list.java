@@ -27,10 +27,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static android.os.Environment.getExternalStorageDirectory;
 
 public class details_list extends AppCompatActivity {
 
@@ -287,24 +291,22 @@ public class details_list extends AppCompatActivity {
 
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-
         String imageFileName = "JPEG_" + timeStamp + "_";
-
+        File dir = new File(getExternalStorageDirectory(),"DidaktikApp");
+        if(!dir.exists()){
+            dir.mkdir();
+        }
 
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE,"New picture");
         values.put(MediaStore.Images.Media.DESCRIPTION,"From the camera");
-        values.put(MediaStore.Images.Media.DATA,"/sdcard/"+imageFileName+".jpg");
-
-
+        values.put(MediaStore.Images.Media.DATA,getExternalStorageDirectory()+"/DidaktikApp/"+imageFileName+".jpg");
 
         image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 
-        Log.d("mytag","" +image_uri.getPath());
+        //Log.d("mytag","" +image_uri.getPath());
 
-
-        //camera intent
-
+        //abrir camara
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri );
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE);
