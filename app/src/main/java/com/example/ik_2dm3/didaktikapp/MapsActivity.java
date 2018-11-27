@@ -2,6 +2,7 @@ package com.example.ik_2dm3.didaktikapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
@@ -27,10 +28,15 @@ import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
 
 import com.mapbox.api.directions.v5.DirectionsCriteria;
+import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.annotations.Icon;
+import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.PolygonOptions;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.annotations.PolylineOptions;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
@@ -44,12 +50,19 @@ import com.mapbox.mapboxsdk.plugins.locationlayer.LocationLayerPlugin;
 import com.mapbox.mapboxsdk.plugins.locationlayer.modes.CameraMode;
 import com.mapbox.mapboxsdk.plugins.locationlayer.modes.RenderMode;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 //Clases para calcular rutas
 
 
+import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
+import com.mapbox.mapboxsdk.style.sources.Source;
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute;
 import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigation;
 import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigationOptions;
@@ -143,8 +156,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //Cogemos todos los nombres de las paradas desde el SQL
         db=new MyOpenHelper(this);
         listaDetalles = new details_list();
-
+Log.d("mytag","LLEGA AQUI");
         lista_paradas = db.getDatos_Paradas();
+
         db.close();
 
         //Los pasamos a un array
@@ -191,17 +205,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         this.mapboxMap = mapboxMap;
 
-        //GENERACION DE MARCADORES
-        for (int i = 0; i<titulo.length;i++){
-            mapboxMap.addMarker(new MarkerOptions()
-            .position(new LatLng(lista_paradas.get(i).getLatitud(),lista_paradas.get(i).getLongitud()))
-            .title(lista_paradas.get(i).getNombre()));
+            //PRUEBA GENERACION LINEAS
+            ArrayList<LatLng> puntos = new ArrayList<>();
+        for (int i = 0; i < titulo.length; i++) {
+            LatLng laln = new LatLng(lista_paradas.get(i).getLatitud(), lista_paradas.get(i).getLongitud());
+            puntos.add(laln);
         }
+            mapboxMap.addPolyline(new PolylineOptions()
+            .addAll(puntos)
+            .color(Color.parseColor("#3bb2d0"))
+            .width(8));
+
+            //GENERACION DE MARCADORES
+            for (int i = 0; i < titulo.length; i++) {
+                mapboxMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(lista_paradas.get(i).getLatitud(), lista_paradas.get(i).getLongitud()))
+                        .title(lista_paradas.get(i).getNombre()));
+            }
         enableLocation();
     }
-
-    private void enableLocation(){
-
+        private void enableLocation(){
         if(PermissionsManager.areLocationPermissionsGranted(this)){
             initializeLocationEngine();
             initializeLocationLayer();
@@ -380,27 +403,11 @@ Log.d("mytag",""+ lista_juegos);
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
-                    /*Log.d("mytag", "CARGANDO JUEGOS");
+                    ////listaDetalles.CargarJuegos(lista_juegos,0);
 
-                    int ID_juego = lista_juegos.get(0).getId_juego();
-                    String titulo = lista_juegos.get(0).getNombre_juego();
-
-                    String nombre_completo = "com.example.ik_2dm3.didaktikapp."+titulo+"_"+ID_juego;
-                    nombre_completo = nombre_completo.replace(" ","");
-                    Log.d("mytag", "NOMBRE JUEGO: " +nombre_completo);
-                    //Log.d("mytag", "NOMBRE JUEGO: " +nombre_completo);
-                    Intent i = null;
-                    try {
-                        i = new Intent(MapsActivity.this, Class.forName(nombre_completo));
-                        i.putExtra("Description",lista_juegos.get(0).getTxtDescripcion());
-                        i.putExtra("id_parada",cont+1);
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    startActivityForResult(i, REQ_MAPA);*/
-
-                    listaDetalles.CargarJuegos(lista_juegos,0);
-
+                    Intent  i = new Intent(MapsActivity.this, details_list.class);
+                    i.putExtra("id_parada",cont+1);
+                    startActivityForResult(i, REQ_MAPA);
                 }
             });
             alert.show();
@@ -491,4 +498,5 @@ Log.d("mytag",""+ lista_juegos);
         }
         return super.onKeyDown(keyCode, event);
     }
+
 }

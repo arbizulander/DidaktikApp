@@ -146,7 +146,7 @@ public class galery extends AppCompatActivity {
 
         //Hacemos un Loop por cada fichero para extraer el nombre de cada uno
         int i = 0;
-        while ( i < 2)
+        while ( i < files.length)
             {
                 Log.d("mytag", "NOMBRE FICHERO: "+files[i].getAbsolutePath());
                 //Sacamos del array files un fichero
@@ -154,21 +154,18 @@ public class galery extends AppCompatActivity {
                 ImageView imageView = new ImageView(this);
                 ImageView imageView2 = new ImageView(this);
 
-                File imgFile = new  File(files[i].toString());
 
-                if(imgFile.exists()){
 
+                    File imgFile = new File(files[i].toString());
                     Bitmap bmImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
                     imageView.setImageBitmap(bmImg);
 
-                }
-                else{
-                    imageView.setImageResource(R.drawable.error);
-                }
+
+
 
                 //imageView.setim;
                 //imageView.setImageResource(R.drawable.error);
-                imageView2.setImageResource(R.drawable.juego1_2);
+                //imageView2.setImageResource(R.drawable.juego1_2);
 
                 //imageView.setMaxHeight(450);
                 //imageView.setMaxWidth(450);
@@ -193,14 +190,18 @@ public class galery extends AppCompatActivity {
 
             lineatabla.addView(imageView, layoutParams);
             i++;
-            if (i < 2){
+            if (i < 5){
+
+                Log.d("mytag","CARGA SEGUNDA IMAGEN");
+                File imgFile2 = new File(files[i].toString());
+                Bitmap bmImg2 = BitmapFactory.decodeFile(imgFile2.getAbsolutePath());
+                imageView2.setImageBitmap(bmImg2);
                 lineatabla.addView(imageView2, layoutParams);
                 i++;
             }
             lineatabla.setGravity(Gravity.CENTER);
             lineatabla.setPadding(0,0,0,50);
             id_tabla.addView(lineatabla);
-
 
         }
     }
