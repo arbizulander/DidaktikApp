@@ -3,6 +3,9 @@ package com.example.ik_2dm3.didaktikapp;
 import android.animation.Animator;
 import android.app.ActivityOptions;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +20,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -24,6 +28,10 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.Toast;
 import static android.os.Environment.getExternalStorageDirectory;
 import java.io.File;
@@ -35,7 +43,7 @@ import java.util.List;
 public class galery extends AppCompatActivity {
 
     //para la imagen
-    private ImageView miImageView;
+    private RelativeLayout pantalla;
     Uri image_uri;
 
     private Context cont = this;
@@ -50,7 +58,8 @@ public class galery extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galery);
 
-        miImageView = findViewById(R.id.miImageView);
+        pantalla = findViewById(R.id.pantalla);
+        //miImageView = findViewById(R.id.miImageView);
         //botones
         //Button mCaptureBtn = findViewById(R.id.capture_image);
         my_fab = (FloatingActionButton) findViewById(R.id.my_fab);
@@ -136,16 +145,63 @@ public class galery extends AppCompatActivity {
         File[] files = f.listFiles();
 
         //Hacemos un Loop por cada fichero para extraer el nombre de cada uno
-        for (int i = 0; i < files.length; i++)
-        {
-            Log.d("mytag", "NOMBRE FICHERO: "+files[i]);
-            //Sacamos del array files un fichero
-            //File file = files[i];
+        int i = 0;
+        while ( i < 2)
+            {
+                Log.d("mytag", "NOMBRE FICHERO: "+files[i].getAbsolutePath());
+                //Sacamos del array files un fichero
+                TableRow lineatabla = new TableRow(this);
+                ImageView imageView = new ImageView(this);
+                ImageView imageView2 = new ImageView(this);
 
-            //Si es directorio...
-           /* if (!file.isDirectory()) {
-                item.add(file.getName() + "/");
-            }*/
+                File imgFile = new  File(files[i].toString());
+
+                if(imgFile.exists()){
+
+                    Bitmap bmImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                    imageView.setImageBitmap(bmImg);
+
+                }
+                else{
+                    imageView.setImageResource(R.drawable.error);
+                }
+
+                //imageView.setim;
+                //imageView.setImageResource(R.drawable.error);
+                imageView2.setImageResource(R.drawable.juego1_2);
+
+                //imageView.setMaxHeight(450);
+                //imageView.setMaxWidth(450);
+                imageView.setPadding(0,0,50,0);
+                imageView.setBackgroundColor(Color.BLUE);
+                imageView2.setBackgroundColor(Color.BLUE);
+
+
+            TableLayout id_tabla = (TableLayout) findViewById(R.id.id_tabla);
+            /*LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );*/
+
+            TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
+                   500,
+                    500
+            );
+
+
+            //layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+            lineatabla.addView(imageView, layoutParams);
+            i++;
+            if (i < 2){
+                lineatabla.addView(imageView2, layoutParams);
+                i++;
+            }
+            lineatabla.setGravity(Gravity.CENTER);
+            lineatabla.setPadding(0,0,0,50);
+            id_tabla.addView(lineatabla);
+
+
         }
     }
 
@@ -201,7 +257,7 @@ public class galery extends AppCompatActivity {
         if(resultCode == RESULT_OK){
 
             //set the captured to our Imageview
-            miImageView.setImageURI(image_uri);
+            //miImageView.setImageURI(image_uri);
         }
     }
 
