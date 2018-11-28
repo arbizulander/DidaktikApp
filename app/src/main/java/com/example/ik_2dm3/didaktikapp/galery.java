@@ -3,6 +3,7 @@ package com.example.ik_2dm3.didaktikapp;
 import android.animation.Animator;
 import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -26,7 +27,9 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -35,6 +38,7 @@ import android.widget.TableRow;
 import android.widget.Toast;
 import static android.os.Environment.getExternalStorageDirectory;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,6 +53,9 @@ public class galery extends AppCompatActivity {
     private Context cont = this;
     private FloatingActionButton my_fab;
 
+    private GridView gridView;
+    private GridViewAdapter gridAdapter;
+
     //REQ
     private static final int PERMISSION_CODE =1000;
     private static final int IMAGE_CAPTURE_CODE =1001;
@@ -58,11 +65,16 @@ public class galery extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galery);
 
-        pantalla = findViewById(R.id.pantalla);
+        //pantalla = findViewById(R.id.pantalla);
         //miImageView = findViewById(R.id.miImageView);
         //botones
         //Button mCaptureBtn = findViewById(R.id.capture_image);
         my_fab = (FloatingActionButton) findViewById(R.id.my_fab);
+        gridView = (GridView) findViewById(R.id.gridView);
+
+
+
+
 
         File dir = new File(getExternalStorageDirectory(),"DidaktikApp");
 
@@ -75,7 +87,8 @@ public class galery extends AppCompatActivity {
         final Interpolator interpolador = AnimationUtils.loadInterpolator(getBaseContext(),
                 android.R.interpolator.fast_out_slow_in);
 
-        //button click
+
+           //button click
         my_fab.setOnClickListener(v -> {
 
             //IF SYSTEM IS >= MARSMALLOW, REQUEST RUNTIME PERMISSION
@@ -133,11 +146,13 @@ public class galery extends AppCompatActivity {
                         }
                     });
         });
+
+
     }
 
     private void cargarGaleria(File f){
         // Array TEXTO donde guardaremos los nombres de los ficheros
-        ArrayList<Image> items = new ArrayList<Image>();
+        final ArrayList<ImageItem> imageItems = new ArrayList<>();
 
         //Defino la ruta donde busco los ficheros
         //File f = new File(Environment.getExternalStorageDirectory() + "/MiBotiquin/");
@@ -145,65 +160,32 @@ public class galery extends AppCompatActivity {
         File[] files = f.listFiles();
 
         //Hacemos un Loop por cada fichero para extraer el nombre de cada uno
-        int i = 0;
-        while ( i < files.length)
-            {
-                Log.d("mytag", "NOMBRE FICHERO: "+files[i].getAbsolutePath());
-                //Sacamos del array files un fichero
-                TableRow lineatabla = new TableRow(this);
-                ImageView imageView = new ImageView(this);
-                ImageView imageView2 = new ImageView(this);
+        for (int i = 0; i < files.length; i++){
 
-
-
-                    File imgFile = new File(files[i].toString());
-                    Bitmap bmImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                    imageView.setImageBitmap(bmImg);
-
-
-
-
-                //imageView.setim;
-                //imageView.setImageResource(R.drawable.error);
-                //imageView2.setImageResource(R.drawable.juego1_2);
-
-                //imageView.setMaxHeight(450);
-                //imageView.setMaxWidth(450);
-                imageView.setPadding(0,0,50,0);
-                imageView.setBackgroundColor(Color.BLUE);
-                imageView2.setBackgroundColor(Color.BLUE);
-
-
-            TableLayout id_tabla = (TableLayout) findViewById(R.id.id_tabla);
-            /*LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );*/
-
-            TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
-                   500,
-                    500
-            );
-
-
-            //layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-
-            lineatabla.addView(imageView, layoutParams);
-            i++;
-            if (i < 5){
-
-                Log.d("mytag","CARGA SEGUNDA IMAGEN");
-                File imgFile2 = new File(files[i].toString());
-                Bitmap bmImg2 = BitmapFactory.decodeFile(imgFile2.getAbsolutePath());
-                imageView2.setImageBitmap(bmImg2);
-                lineatabla.addView(imageView2, layoutParams);
-                i++;
-            }
-            lineatabla.setGravity(Gravity.CENTER);
-            lineatabla.setPadding(0,0,0,50);
-            id_tabla.addView(lineatabla);
-
+            File imgFile = new File(files[i].toString());
+            Bitmap bmImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            imageItems.add(new ImageItem(bmImg, "Image#" + i));
         }
+
+
+        gridAdapter = new GridViewAdapter(this, R.layout.grid_item_layout, imageItems);
+        gridView.setAdapter(gridAdapter);
+
+        gridView.setOnItemClickListener((parent, v, position, id) -> {
+            ImageItem item = (ImageItem) parent.getItemAtPosition(position);
+            //Create intent
+            Intent intent = new Intent(galery.this, DetailsActivity.class);
+            intent.putExtra("title", item.getTitle());
+            intent.putExtra("image", item.getImage());
+
+            try {
+                //Start details activity
+                startActivity(intent);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        });
+
     }
 
     private void openCamera(){
