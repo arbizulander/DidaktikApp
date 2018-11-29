@@ -42,11 +42,24 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
 
 
         mp = MediaPlayer.create(this, R.raw.a2_2);
+
+
+
+
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                //spinner.setEnabled(false);
+                spinner.setEnabled(true);
+                Log.d("mitag","Dentro del onCompletion");
+            }
+        });
         mp.start();
 
 
-
         spinner = findViewById(R.id.spinner);
+        spinner.setEnabled(false);
+
 
         List<String> categorias = new ArrayList<>();
         categorias.add(0, "Kolorea aukeratu");
