@@ -37,6 +37,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
 import static android.os.Environment.getExternalStorageDirectory;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -172,20 +174,27 @@ public class galery extends AppCompatActivity {
         gridView.setAdapter(gridAdapter);
 
         gridView.setOnItemClickListener((parent, v, position, id) -> {
-            ImageItem item = (ImageItem) parent.getItemAtPosition(position);
-            //Create intent
-            Intent intent = new Intent(galery.this, DetailsActivity.class);
-            intent.putExtra("title", item.getTitle());
-            intent.putExtra("image", item.getImage());
+            Log.d("mytag", "... Onclick de GRIDVIEW ...");
 
-            try {
-                //Start details activity
-                startActivity(intent);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+                    ImageItem item = (ImageItem) parent.getItemAtPosition(position);
+                    //Create intent
+                    Intent intent = new Intent(galery.this, DetailsActivity.class);
+                    intent.putExtra("title", item.getTitle());
+
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    item.getImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] byteArray = stream.toByteArray();
+
+                    intent.putExtra("rutaimg", files[position].toString());
+
+                    try {
+                        //Start details activity
+                        AbrirLayout thread = new AbrirLayout(intent, 0);
+                        thread.start();
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
         });
-
     }
 
     private void openCamera(){
@@ -239,8 +248,36 @@ public class galery extends AppCompatActivity {
         my_fab.setScaleY(1);
         if(resultCode == RESULT_OK){
 
+            Log.d("mytag", "... FOTO SACADA ...");
+            File dir = new File(getExternalStorageDirectory(),"DidaktikApp");
+
+            //dentro del if cargar imagenes en galeria
+            if (dir.exists()){
+                Log.d("mytag","CARGANDO GALERIA...");
+                cargarGaleria(dir);
+            }
             //set the captured to our Imageview
             //miImageView.setImageURI(image_uri);
+        }
+    }
+
+    class AbrirLayout extends Thread {
+        private Intent i;
+        private int req;
+
+        public AbrirLayout(Intent i, int req) {
+            this.i = i;
+            this.req = req;
+        }
+
+        @Override
+        public void run() {
+            runOnUiThread(new Runnable() {
+                @Override public void run() {
+                    Log.d("mytag", "... ABRIENDO INTENT...");
+                    startActivityForResult(i,req);
+                }
+            });
         }
     }
 

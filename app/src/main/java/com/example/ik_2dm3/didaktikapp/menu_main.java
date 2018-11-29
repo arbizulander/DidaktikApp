@@ -2,11 +2,15 @@ package com.example.ik_2dm3.didaktikapp;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
 
 public class menu_main extends AppCompatActivity {
     //Button btnHome;
@@ -40,32 +44,58 @@ public class menu_main extends AppCompatActivity {
 
             }
         });*/
-
         btnIbilbidea.setOnClickListener(v -> {
-
 
            /* ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
 
             startActivity(intent, options.toBundle());*/
             Intent intent = new Intent(menu_main.this,MapsActivity.class);
             overridePendingTransition(R.anim.zoom_forward_out, R.anim.zoom_forward_in);
-            startActivityForResult(intent, REQ_BTN);
+
+            AbrirLayout thread = new AbrirLayout(intent, REQ_BTN);
+            thread.start();
+            //startActivityForResult(intent, REQ_BTN);
 
 
         });
 
         btnGaleria.setOnClickListener(v -> {
             Intent intent = new Intent(menu_main.this,galery.class);
-            startActivityForResult(intent, REQ_BTN);
+            AbrirLayout thread = new AbrirLayout(intent, REQ_BTN);
+            thread.start();
+            //startActivityForResult(intent, REQ_BTN);
         });
 
         btnOndareak.setOnClickListener(v -> {
             Intent intent = new Intent(menu_main.this,list.class);
-            startActivityForResult(intent, REQ_BTN);
+            AbrirLayout thread = new AbrirLayout(intent, REQ_BTN);
+            thread.start();
+            //startActivityForResult(intent, REQ_BTN);
         });
 
 
     }
+
+    class AbrirLayout extends Thread {
+        private Intent i;
+        private int req;
+
+        public AbrirLayout(Intent i, int req) {
+            this.i = i;
+            this.req = req;
+        }
+
+        @Override
+        public void run() {
+            runOnUiThread(new Runnable() {
+                @Override public void run() {
+                    Log.d("mytag", "... ABRIENDO INTENT...");
+                    startActivityForResult(i,req);
+                }
+            });
+        }
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {

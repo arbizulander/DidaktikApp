@@ -3,6 +3,7 @@ package com.example.ik_2dm3.didaktikapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -32,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
         //accion al pulsar el boton
         btnStart.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this,menu_main.class);
-            startActivityForResult(intent, REQ_BTN);
+            AbrirLayout thread = new AbrirLayout(intent);
+            thread.start();
+            //startActivityForResult(intent, REQ_BTN);
         });
 
         btnjuego.setOnClickListener(new View.OnClickListener() {
@@ -40,8 +44,28 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,Galderenerantzunaaukeratu_5.class);
                 //Intent intent = new Intent(MainActivity.this,Aukeratuargazkiegokia_1.class);
-                startActivity(intent);
+                AbrirLayout thread = new AbrirLayout(intent);
+                thread.start();
+                //startActivity(intent);
             }
         });
+    }
+
+    class AbrirLayout extends Thread {
+        private Intent i;
+
+        public AbrirLayout(Intent i) {
+            this.i = i;
+        }
+
+        @Override
+        public void run() {
+            runOnUiThread(new Runnable() {
+                @Override public void run() {
+                    Log.d("mytag", "... ABRIENDO INTENT...");
+                   startActivityForResult(i,REQ_BTN);
+                }
+            });
+        }
     }
 }
