@@ -1,13 +1,12 @@
 package com.example.ik_2dm3.didaktikapp;
 
 import android.animation.Animator;
-import android.app.ActivityOptions;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.res.TypedArray;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.media.Image;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -21,42 +20,40 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.animation.Animation;
+import android.view.Menu;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
+
+
 import static android.os.Environment.getExternalStorageDirectory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class galery extends AppCompatActivity {
 
     //para la imagen
     private RelativeLayout pantalla;
-    Uri image_uri;
+    private Uri image_uri;
 
     private Context cont = this;
     private FloatingActionButton my_fab;
 
     private GridView gridView;
     private GridViewAdapter gridAdapter;
+    private ProgressBar pbarProgreso;
+    private ProgressDialog pDialog;
+
+    //private MiTareaAsincrona tarea;
 
     //REQ
     private static final int PERMISSION_CODE =1000;
@@ -67,23 +64,20 @@ public class galery extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galery);
 
-        //pantalla = findViewById(R.id.pantalla);
-        //miImageView = findViewById(R.id.miImageView);
-        //botones
-        //Button mCaptureBtn = findViewById(R.id.capture_image);
         my_fab = (FloatingActionButton) findViewById(R.id.my_fab);
         gridView = (GridView) findViewById(R.id.gridView);
-
-
-
-
 
         File dir = new File(getExternalStorageDirectory(),"DidaktikApp");
 
         //dentro del if cargar imagenes en galeria
         if (dir.exists()){
-            Log.d("mytag","CARGANDO GALERIA...");
-            cargarGaleria(dir);
+
+            //tarea = new MiTareaAsincronaDialog();
+            //tarea.execute();
+            //new MiTareaAsincrona(galery.this).execute("Carga Finalizada X2");
+            //Cargargaleria  cg = new Cargargaleria(dir);
+            //cg.start();
+            //cargarGaleria(dir);
         }
 
         final Interpolator interpolador = AnimationUtils.loadInterpolator(getBaseContext(),
@@ -116,7 +110,7 @@ public class galery extends AppCompatActivity {
             }
 
 
-            my_fab.animate()
+           /* my_fab.animate()
                     .scaleX(0)
                     .scaleY(0)
                     .setInterpolator(interpolador)
@@ -129,12 +123,52 @@ public class galery extends AppCompatActivity {
 
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            /*my_fab.animate()
+                            my_fab.animate()
                                     .scaleY(1)
                                     .scaleX(1)
                                     .setInterpolator(interpolador)
                                     .setDuration(600)
-                                    .start();*/
+                                    .setListener (new Animator.AnimatorListener(){
+                                        @Override
+                                        public void onAnimationStart(Animator animation) {
+
+                                        }
+
+                                        @Override
+                                        public void onAnimationEnd(Animator animation) {
+                                            //IF SYSTEM IS >= MARSMALLOW, REQUEST RUNTIME PERMISSION
+                                            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                                                if(checkSelfPermission(Manifest.permission.CAMERA) ==
+                                                        PackageManager.PERMISSION_DENIED ||
+                                                        checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                                                                PackageManager.PERMISSION_DENIED){
+                                                    //PERMISSIONS NOT ENABLED, REQUEST IT
+                                                    String[] permission ={Manifest.permission.CAMERA,
+                                                            Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                                                    //SHOW POPUP TO REQUEST PERMISSIONS
+                                                    requestPermissions(permission,PERMISSION_CODE);
+                                                }
+                                                else{
+                                                    //permission already granted
+                                                    openCamera();
+                                                }
+                                            }
+                                            else{
+                                                //system os < marshmallow
+                                                openCamera();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onAnimationCancel(Animator animation) {
+
+                                        }
+
+                                        @Override
+                                        public void onAnimationRepeat(Animator animation) {
+
+                                        }
+                                    });
                         }
 
                         @Override
@@ -146,56 +180,88 @@ public class galery extends AppCompatActivity {
                         public void onAnimationRepeat(Animator animation) {
 
                         }
-                    });
+                    });*/
         });
 
+        File[] files = dir.listFiles();
+        gridView.setOnItemClickListener((parent, v, position, id) -> {
 
+            //new MiTareaAsincrona(galery.this).execute("Carga Finalizada X2");
+
+            Log.d("mytag", "... Onclick de GRIDVIEW ...");
+
+            ImageItem item = (ImageItem) parent.getItemAtPosition(position);
+            //Create intent
+            Intent intent = new Intent(galery.this, DetailsActivity.class);
+            intent.putExtra("title", item.getTitle());
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            item.getImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+
+            intent.putExtra("rutaimg", files[position].toString());
+
+            try {
+                //Start details activity
+                AbrirLayout thread = new AbrirLayout(intent, 0);
+                thread.start();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        });
     }
 
-    private void cargarGaleria(File f){
+    /*private
+        //Hacemos un Loop por cada fichero para extraer el nombre de cada uno
+        for (int i = 0; i < files.length; i++){
+
+            File imgFile = new File(files[i].toString());
+            Bitmap bmImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            imageItems.add(new Ima void cargarGaleria(File f){
         // Array TEXTO donde guardaremos los nombres de los ficheros
+        Log.d("mytag","...CARGANDO GALERIA...");
         final ArrayList<ImageItem> imageItems = new ArrayList<>();
 
         //Defino la ruta donde busco los ficheros
         //File f = new File(Environment.getExternalStorageDirectory() + "/MiBotiquin/");
         //Creo el array de tipo File con el contenido de la carpeta
         File[] files = f.listFiles();
-
-        //Hacemos un Loop por cada fichero para extraer el nombre de cada uno
-        for (int i = 0; i < files.length; i++){
-
-            File imgFile = new File(files[i].toString());
-            Bitmap bmImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-            imageItems.add(new ImageItem(bmImg, "Image#" + i));
+geItem(bmImg, "Image#" + i));
+            Log.d("mytag", "... CARGANDO IMG " + i +" ...");
         }
+        Log.d("mytag", "... GALERIA CARGADA ...");
 
 
-        gridAdapter = new GridViewAdapter(this, R.layout.grid_item_layout, imageItems);
+        gridAdapter = new GridViewAdapter(cont, R.layout.grid_item_layout, imageItems);
         gridView.setAdapter(gridAdapter);
 
         gridView.setOnItemClickListener((parent, v, position, id) -> {
+
+            //new MiTareaAsincrona(galery.this).execute("Carga Finalizada X2");
+
             Log.d("mytag", "... Onclick de GRIDVIEW ...");
 
-                    ImageItem item = (ImageItem) parent.getItemAtPosition(position);
-                    //Create intent
-                    Intent intent = new Intent(galery.this, DetailsActivity.class);
-                    intent.putExtra("title", item.getTitle());
+            ImageItem item = (ImageItem) parent.getItemAtPosition(position);
+            //Create intent
+            Intent intent = new Intent(galery.this, DetailsActivity.class);
+            intent.putExtra("title", item.getTitle());
 
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    item.getImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
-                    byte[] byteArray = stream.toByteArray();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            item.getImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
 
-                    intent.putExtra("rutaimg", files[position].toString());
+            intent.putExtra("rutaimg", files[position].toString());
 
-                    try {
-                        //Start details activity
-                        AbrirLayout thread = new AbrirLayout(intent, 0);
-                        thread.start();
-                    }catch(Exception e){
-                        e.printStackTrace();
-                    }
+            try {
+                //Start details activity
+                AbrirLayout thread = new AbrirLayout(intent, 0);
+                thread.start();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         });
-    }
+    }*/
+
 
     private void openCamera(){
 
@@ -254,11 +320,75 @@ public class galery extends AppCompatActivity {
             //dentro del if cargar imagenes en galeria
             if (dir.exists()){
                 Log.d("mytag","CARGANDO GALERIA...");
-                cargarGaleria(dir);
+                //new MiTareaAsincrona(galery.this).execute("Carga Finalizada X2");
+
+                Cargargaleria cg = new Cargargaleria(dir);
+                cg.start();
             }
             //set the captured to our Imageview
             //miImageView.setImageURI(image_uri);
         }
+    }
+
+    class Cargargaleria extends Thread {
+        private File f;
+
+        public Cargargaleria(File f) {
+           this.f = f;
+        }
+
+
+        @Override
+        public void run() {
+            // Array TEXTO donde guardaremos los nombres de los ficheros
+            Log.d("mytag", "...CARGANDO GALERIA...");
+            final ArrayList<ImageItem> imageItems = new ArrayList<>();
+
+            //Defino la ruta donde busco los ficheros
+            //File f = new File(Environment.getExternalStorageDirectory() + "/MiBotiquin/");
+            //Creo el array de tipo File con el contenido de la carpeta
+            File[] files = f.listFiles();
+
+            //Hacemos un Loop por cada fichero para extraer el nombre de cada uno
+            for (int i = 0; i < files.length; i++) {
+
+                File imgFile = new File(files[i].toString());
+                Bitmap bmImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                imageItems.add(new ImageItem(bmImg, "Image#" + i));
+                Log.d("mytag", "... CARGANDO IMG " + i + " ...");
+            }
+            Log.d("mytag", "... GALERIA CARGADA ...");
+
+
+            gridAdapter = new GridViewAdapter(cont, R.layout.grid_item_layout, imageItems);
+            gridView.setAdapter(gridAdapter);
+        }
+            /*@Override
+            public void run() {
+                // Array TEXTO donde guardaremos los nombres de los ficheros
+                Log.d("mytag","...CARGANDO GALERIA...");
+                final ArrayList<ImageItem> imageItems = new ArrayList<>();
+
+                //Defino la ruta donde busco los ficheros
+                //File f = new File(Environment.getExternalStorageDirectory() + "/MiBotiquin/");
+                //Creo el array de tipo File con el contenido de la carpeta
+                File[] files = f.listFiles();
+
+                //Hacemos un Loop por cada fichero para extraer el nombre de cada uno
+                for (int i = 0; i < files.length; i++){
+
+                    File imgFile = new File(files[i].toString());
+                    Bitmap bmImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                    imageItems.add(new ImageItem(bmImg, "Image#" + i));
+                    Log.d("mytag", "... CARGANDO IMG " + i +" ...");
+                }
+                Log.d("mytag", "... GALERIA CARGADA ...");
+
+
+                gridAdapter = new GridViewAdapter(cont, R.layout.grid_item_layout, imageItems);
+                gridView.setAdapter(gridAdapter);
+            }*/
+
     }
 
     class AbrirLayout extends Thread {
@@ -272,12 +402,9 @@ public class galery extends AppCompatActivity {
 
         @Override
         public void run() {
-            runOnUiThread(new Runnable() {
-                @Override public void run() {
-                    Log.d("mytag", "... ABRIENDO INTENT...");
-                    startActivityForResult(i,req);
-                }
-            });
+            Log.d("mytag", "... ABRIENDO INTENT...");
+            startActivityForResult(i,req);
+            //new DownloadFilesTask().execute();
         }
     }
 

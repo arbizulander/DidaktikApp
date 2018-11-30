@@ -14,9 +14,9 @@ import java.io.ByteArrayOutputStream;
 
 public class menu_main extends AppCompatActivity {
     //Button btnHome;
-    Button btnIbilbidea;
-    Button btnGaleria;
-    Button btnOndareak;
+    private Button btnIbilbidea;
+    private Button btnGaleria;
+    private Button btnOndareak;
 
     static final int REQ_BTN = 0;
 
@@ -31,19 +31,20 @@ public class menu_main extends AppCompatActivity {
         btnGaleria = findViewById(R.id.btnGaleria);
         btnOndareak = findViewById(R.id.btnOndareak);
 
-        /*btnHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //btnHome.setOnClickListener(new View.OnClickListener() {
+        //@Override
+        //public void onClick(View v) {
+        //
+        //
+        //Intent intent = new Intent(menu_main.this,MainActivity.class);
+        //
+        //
+        //
+        //startActivityForResult(intent, REQ_BTN);
+        //
+        //}
+        //});Override
 
-
-                Intent intent = new Intent(menu_main.this,MainActivity.class);
-
-
-
-                startActivityForResult(intent, REQ_BTN);
-
-            }
-        });*/
         btnIbilbidea.setOnClickListener(v -> {
 
            /* ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
@@ -55,11 +56,10 @@ public class menu_main extends AppCompatActivity {
             AbrirLayout thread = new AbrirLayout(intent, REQ_BTN);
             thread.start();
             //startActivityForResult(intent, REQ_BTN);
-
-
         });
 
         btnGaleria.setOnClickListener(v -> {
+            Log.d("mytag","... ABRIENDO GALERIA ...");
             Intent intent = new Intent(menu_main.this,galery.class);
             AbrirLayout thread = new AbrirLayout(intent, REQ_BTN);
             thread.start();
@@ -87,14 +87,11 @@ public class menu_main extends AppCompatActivity {
 
         @Override
         public void run() {
-            runOnUiThread(new Runnable() {
-                @Override public void run() {
-                    Log.d("mytag", "... ABRIENDO INTENT...");
-                    startActivityForResult(i,req);
-                }
-            });
+            Log.d("mytag", "... ABRIENDO INTENT...");
+            startActivityForResult(i,req);
         }
     }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
