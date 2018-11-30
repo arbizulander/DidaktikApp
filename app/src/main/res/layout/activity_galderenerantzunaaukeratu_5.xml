@@ -29,7 +29,7 @@
         android:layout_marginStart="6dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Kolore zerrenda"
+        android:text="@string/kolorea"
         android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/spinner"
         app:layout_constraintEnd_toEndOf="parent"

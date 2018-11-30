@@ -29,7 +29,6 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
     private Spinner spinner;
     private MediaPlayer mp;
     private Context cont = this;
-    int valorcancion = R.raw.correct;
     private Button areaClick;
 
 

@@ -78,7 +78,9 @@
         <activity
             android:name=".Galderenerantzunaaukeratu_5"
             android:screenOrientation="landscape" />
-        <activity android:name=".DetailsActivity"></activity>
+        <activity android:name=".DetailsActivity" />
+        <activity android:name=".Esaldizuzenaaukeratu_6"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

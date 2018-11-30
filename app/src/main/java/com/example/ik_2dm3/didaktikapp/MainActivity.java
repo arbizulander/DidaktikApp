@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         btnjuego.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,Galderenerantzunaaukeratu_5.class);
+                Intent intent = new Intent(MainActivity.this,Esaldizuzenaaukeratu_6.class);
                 //Intent intent = new Intent(MainActivity.this,Aukeratuargazkiegokia_1.class);
                 AbrirLayout thread = new AbrirLayout(intent);
                 thread.start();

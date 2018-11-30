@@ -45,5 +45,12 @@
     <string name="imagenjuego3">imagenJuego3</string>
     <string name="imagenboton">imagenboton</string>
 
+    <!--Juego 2.2 galderen erantzuna-->
+    <string name="kolorea">Kolore zerrenda</string>
+
+    <!--Juego 2.3 galderen erantzuna-->
+    <string name="galdera">Bizkaiko zubia ez da beltza izango arrazoi teknikoengatik. Ingeniariek aholkatzen dute beltza kolorea kentzea eguzkiare erradiazioa xurgatzen duelako, bere egitura dilatatuz. El correo 2010</string>
+    <string name="aukera">Galdera Egokia aukeratu</string>
+
 
 </resources>
