@@ -80,18 +80,14 @@
         <activity
             android:name=".Galderenerantzunaaukeratu_5"
             android:screenOrientation="landscape" />
-<<<<<<< HEAD
-        <activity android:name=".DetailsActivity" />
+
+        <activity android:name=".DetailsActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Esaldizuzenaaukeratu_6"
             android:screenOrientation="landscape" />
         <activity android:name=".Argazkiaaztertu_7"></activity>
-=======
-        <activity android:name=".DetailsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Esaldizuzenaaukeratu_6"
-            android:screenOrientation="landscape"></activity>
->>>>>>> parent of 579a9a8... Revert "arreglo en galeria, añadir logo y cambios en diseño"
+
     </application>
 
 </manifest>
