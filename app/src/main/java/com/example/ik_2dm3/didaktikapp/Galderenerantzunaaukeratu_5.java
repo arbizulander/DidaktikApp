@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import java.net.IDN;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import pl.droidsonroids.gif.GifImageView;
