@@ -5,5 +5,5 @@
     <color name="colorAccent">#d81b60</color>
     <color name="blue">#0000ff</color>
     <color name="white">#f6f6f6f6</color>
-    <color name="textonav">#d4e6f1</color>
+    <color name="colorTexto">#d4e6f1</color>
 </resources>
