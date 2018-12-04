@@ -79,8 +79,10 @@
             android:name=".Galderenerantzunaaukeratu_5"
             android:screenOrientation="landscape" />
         <activity android:name=".DetailsActivity" />
-        <activity android:name=".Esaldizuzenaaukeratu_6"
-            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".Esaldizuzenaaukeratu_6"
+            android:screenOrientation="landscape" />
+        <activity android:name=".Argazkiaaztertu_7"></activity>
     </application>
 
 </manifest>
