@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/getxo"
+    android:background="@drawable/getxov2"
     tools:context=".MainActivity">
-
 
     <Button
         android:id="@+id/btnHasi"
@@ -49,8 +48,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:contentDescription="@string/des_imgUpv"
         android:layout_marginBottom="8dp"
+        android:contentDescription="@string/des_imgUpv"
         android:scaleType="fitXY"
         android:src="@drawable/unilogo"
         app:layout_constraintBottom_toBottomOf="parent"

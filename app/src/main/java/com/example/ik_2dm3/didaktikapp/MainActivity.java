@@ -12,11 +12,23 @@ public class MainActivity extends AppCompatActivity {
 
     //REQ
     private static final int REQ_BTN = 0;
+    private boolean blnCargado = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        /*if (!blnCargado) {
+            setTheme(R.style.SplashTheme);
+            blnCargado = true;
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }*/
+
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
