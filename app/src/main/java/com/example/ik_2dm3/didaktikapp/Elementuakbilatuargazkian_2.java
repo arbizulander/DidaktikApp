@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import pl.droidsonroids.gif.GifImageView;
@@ -23,12 +24,17 @@ public class Elementuakbilatuargazkian_2 extends AppCompatActivity {
     private MediaPlayer mp;
     private Button areaClick;
     private Context cont = this;
+    private ImageButton btnNextGame;
+    static final int REQ_BTN = 0;
+    private int pag_anterior;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_elementuak_bilatu_argazkian_2);
         setTitle("Elementuak bilatu argazkian");
+        btnNextGame = findViewById(R.id.btnNextGame);
+        pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
 
         mp = MediaPlayer.create(getApplicationContext(), R.raw.a1_3);
 
@@ -54,13 +60,43 @@ public class Elementuakbilatuargazkian_2 extends AppCompatActivity {
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("result",1);
                         setResult(Activity.RESULT_OK,returnIntent);
-                        finish();
+
+                        switch (pag_anterior){
+                            case 0:
+                                finish();
+                                break;
+                            case 1:
+                                break;
+                        }
+
                     }
                 });
                 areaClick.setBackgroundResource(R.drawable.button_bg_round);
                 areaClick.setEnabled(false);
                 Log.d("mytag", "LE HAS DADO Y SE REVELA SE SUPONE JODER");
             }});
+
+        CargarSegunPag_anterior(pag_anterior);
+
+    }
+
+
+    public void CargarSegunPag_anterior(int u){
+        switch(u){
+            case 0:
+
+                break;
+
+            case 1:
+                btnNextGame.setVisibility(View.VISIBLE);
+                btnNextGame.setOnClickListener(v -> {
+                    mp.stop();
+                    Intent i = new Intent(Elementuakbilatuargazkian_2.this,Argazkiaaztertu_3.class);
+                    i.putExtra("pag_anterior",1);
+                    startActivityForResult(i, REQ_BTN);
+                });
+                break;
+        }
     }
 
     @Override

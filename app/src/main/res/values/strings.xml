@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">GETXOKO HISTORIA</string>
+    <string name="app_name">DIDAKTIKAPP</string>
 
     <!-- PANATALLA MAIN-->
     <string name="btnHasi">Hasi</string>
-    <string name="desc_main">GETXOKO HISTORIA ETA HONDAREAK</string>
+    <string name="desc_main">GETXOKO HISTORIA ETA ONDAREAK</string>
     <string name="des_imgTx">logo Tx</string>
     <string name="des_imgUpv">logo Upv</string>
     <string name="des_text">texto main</string>

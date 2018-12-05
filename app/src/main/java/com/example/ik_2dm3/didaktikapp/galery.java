@@ -248,10 +248,11 @@ geItem(bmImg, "Image#" + i));
         //Log.d("mytag","" +image_uri.getPath());
 
         //abrir camara
-        cg.interrupt();
+
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri );
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE);
+        cg.interrupt();
     }
 
     //handing permission result
@@ -282,7 +283,7 @@ geItem(bmImg, "Image#" + i));
 
             Log.d("mytag", "... FOTO SACADA ...");
             File dir = new File(getExternalStorageDirectory(),"DidaktikApp");
-            deleteCache(this);
+            //deleteCache(this);
             //dentro del if cargar imagenes en galeria
             if (dir.exists()){
                 Log.d("mytag","CARGANDO GALERIA...");
@@ -426,7 +427,7 @@ geItem(bmImg, "Image#" + i));
     }
 
 
-    public static void deleteCache(Context context) {
+    /*public static void deleteCache(Context context) {
         try {
             File dir = context.getCacheDir();
             deleteDir(dir);
@@ -448,13 +449,13 @@ geItem(bmImg, "Image#" + i));
         } else {
             return false;
         }
-    }
+    }*/
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             // Esto es lo que hace mi botón al pulsar ir a atrás
-            deleteCache(this);
+            //deleteCache(this);
             Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
                     Toast.LENGTH_SHORT).show();
         }

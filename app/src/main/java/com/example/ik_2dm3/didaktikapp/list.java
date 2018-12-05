@@ -56,6 +56,7 @@ public class list extends AppCompatActivity {
 
             //meto el id en los extras para saber que parada es
             intent.putExtra("id_parada", prueba);
+            intent.putExtra("pag_anterior",1);
             startActivityForResult(intent, REQ_OK);
         });
     }

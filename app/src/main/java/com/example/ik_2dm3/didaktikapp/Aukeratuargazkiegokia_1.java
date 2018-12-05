@@ -46,6 +46,7 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
     private int imagen_correcta;
     //se guardan duplicadas en un array
     private ImageButton array_botones[];
+    private ImageButton btnNextGame;
 
     //para barajar
     //el ArrayList que recoge el resultado de barajar
@@ -63,44 +64,72 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
     private Context cont = this;
     private TextView txtDescripcion;
 
+    private int pag_anterior;
+    static final int REQ_BTN = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aukeratu_argazkia_egokia_1);
-        txtDescripcion = findViewById(R.id.txtDescripcion);
+        //txtDescripcion = findViewById(R.id.txtDescripcion);
+        btnNextGame = findViewById(R.id.btnNextGame);
+
         mp = MediaPlayer.create(this, R.raw.a1_1);
 
         setTitle("Aukeratu argazki egokia");
 
         String valor = getIntent().getExtras().getString("Description");
+        pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
 
         if (valor != null) {
-            txtDescripcion.setText(valor);
+            //txtDescripcion.setText(valor);
         }
         else{
-            txtDescripcion.setText("ERROR AL CARGAR TEXTO");
+            //txtDescripcion.setText("ERROR AL CARGAR TEXTO");
         }
 
         cargarImagenes();
         iniciar();
         HabilitarDeshabilitarBtns(false);
 
-        Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation);
-        txtDescripcion.startAnimation(animacion);
-        animacion.setAnimationListener(new Animation.AnimationListener(){
-            @Override
-            public void onAnimationStart(Animation arg0) {
+        //PlaySound();
+        CargarSegunPag_anterior(pag_anterior);
 
-            }
-            @Override
-            public void onAnimationRepeat(Animation arg0) {
+    }
 
-            }
-            @Override
-            public void onAnimationEnd(Animation arg0) {
+    public void CargarSegunPag_anterior(int u){
+        switch(u){
+            case 0:
+                Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation);
+                txtDescripcion.startAnimation(animacion);
+                animacion.setAnimationListener(new Animation.AnimationListener(){
+                    @Override
+                    public void onAnimationStart(Animation arg0) {
+
+                    }
+                    @Override
+                    public void onAnimationRepeat(Animation arg0) {
+
+                    }
+                    @Override
+                    public void onAnimationEnd(Animation arg0) {
+                        PlaySound();
+                    }
+                });
+                break;
+
+            case 1:
                 PlaySound();
-            }
-        });
+
+                btnNextGame.setVisibility(View.VISIBLE);
+                btnNextGame.setOnClickListener(v -> {
+                    mp.stop();
+                    Intent i = new Intent(Aukeratuargazkiegokia_1.this,Elementuakbilatuargazkian_2.class);
+                    i.putExtra("pag_anterior",1);
+                    startActivityForResult(i, REQ_BTN);
+                });
+                break;
+        }
     }
 
     public void PlaySound(){
@@ -292,10 +321,21 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
 
                                 //sleep(1000);
 
-                                Intent returnIntent = new Intent();
-                                returnIntent.putExtra("result",1);
-                                setResult(Activity.RESULT_OK,returnIntent);
-                                finish();
+                             switch (pag_anterior){
+
+                                 case 0:
+                                     Intent returnIntent = new Intent();
+                                     returnIntent.putExtra("result",1);
+                                     setResult(Activity.RESULT_OK,returnIntent);
+                                     finish();
+                                     break;
+
+                                 case 1:
+
+                                     break;
+                             }
+
+
                         }
                         });
                     }

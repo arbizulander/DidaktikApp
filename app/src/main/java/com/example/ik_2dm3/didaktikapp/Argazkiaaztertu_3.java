@@ -19,6 +19,7 @@ public class Argazkiaaztertu_3 extends AppCompatActivity {
     private ImageButton btnNext;
     private Context cont = this;
     private MyOpenHelper db;
+    private int pag_anterior;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,42 +28,63 @@ public class Argazkiaaztertu_3 extends AppCompatActivity {
         btnNext = findViewById(R.id.btnNext);
         btnNext.setEnabled(false);
         btnNext.setVisibility(View.INVISIBLE);
+        pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
+
+
+        switch (pag_anterior){
+                case 0:
+
+                    break;
+                case 1:
+                    btnNext.setVisibility(View.VISIBLE);
+                    break;
+            }
 
         mp = MediaPlayer.create(this, R.raw.a1_4);
         mp.start();
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation);
-                btnNext.startAnimation(animacion);
-               animacion.setAnimationListener(new Animation.AnimationListener(){
-                    @Override
-                    public void onAnimationStart(Animation arg0) {
 
-                    }
-                    @Override
-                    public void onAnimationRepeat(Animation arg0) {
-                    }
-                    @Override
-                    public void onAnimationEnd(Animation arg0) {
-                        btnNext.setVisibility(View.VISIBLE);
-                        btnNext.setEnabled(true);
-                        btnNext.setOnClickListener(new View.OnClickListener() {
+                switch (pag_anterior){
+                    case 0:
+                        Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation);
+                        btnNext.startAnimation(animacion);
+                        animacion.setAnimationListener(new Animation.AnimationListener(){
                             @Override
-                            public void onClick(View v) {
-                                int i = 3;
-                                db=new MyOpenHelper(cont);
-                                db.ActualizarJuego_Id(i);
-                                db.close();
+                            public void onAnimationStart(Animation arg0) {
 
-                                Intent returnIntent = new Intent();
-                                returnIntent.putExtra("result",1);
-                                setResult(Activity.RESULT_OK,returnIntent);
-                                finish();
+                            }
+                            @Override
+                            public void onAnimationRepeat(Animation arg0) {
+                            }
+                            @Override
+                            public void onAnimationEnd(Animation arg0) {
+                                btnNext.setVisibility(View.VISIBLE);
+                                btnNext.setEnabled(true);
+                                btnNext.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        int i = 3;
+                                        db=new MyOpenHelper(cont);
+                                        db.ActualizarJuego_Id(i);
+                                        db.close();
+
+                                        Intent returnIntent = new Intent();
+                                        returnIntent.putExtra("result",1);
+                                        setResult(Activity.RESULT_OK,returnIntent);
+                                        finish();
+                                    }
+                                });
                             }
                         });
-                    }
-                });
+                        break;
+                    case 1:
+
+                        break;
+                }
+
+
             }
         });
 

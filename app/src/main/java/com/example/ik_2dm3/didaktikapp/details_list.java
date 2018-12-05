@@ -24,7 +24,9 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +55,8 @@ public class details_list extends AppCompatActivity {
 
     //para poner la imagen de fondo
     private ConstraintLayout contenido;
+    private String[] titulo_juegos;
+    private ListView juegosView;
 
     //nombre parada
     private String txtParada;
@@ -80,6 +84,7 @@ public class details_list extends AppCompatActivity {
     private static final int PERMISSION_CODE =1000;
     private static final int IMAGE_CAPTURE_CODE =1001;
     Uri image_uri;
+    private int pag_anterior;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,14 +92,11 @@ public class details_list extends AppCompatActivity {
         setContentView(R.layout.activity_details_list);
 
         contenido = findViewById(R.id.contenido);
-        btnNext = findViewById(R.id.btnNext);
-
-        btnNext.setEnabled(false);
-        btnNext.setVisibility(View.INVISIBLE);
 
         pr_actual = new Paradas();
 
         id_parada = getIntent().getIntExtra("id_parada", 0);
+        pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
 
         //Cogemos todos los nombres de las paradas que hay en la BD
         db=new MyOpenHelper(this);
@@ -102,43 +104,8 @@ public class details_list extends AppCompatActivity {
         setTitle(pr_actual.getNombre());
         txtParada = pr_actual.getTexto();
 
-               // String audio = "a"+pr_actual.getId_parada()+"_";
-
-                //PlaySound(audio);
-               // mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                //    public void onCompletion(MediaPlayer mp) {
-
-                        //btnNext.setVisibility(View.INVISIBLE);
-                        animacion = AnimationUtils.loadAnimation(cont, R.anim.animation);
-                        btnNext.startAnimation(animacion);
-                        animacion.setAnimationListener(new Animation.AnimationListener(){
-                            @Override
-                            public void onAnimationStart(Animation arg0) {
-
-                            }
-                            @Override
-                            public void onAnimationRepeat(Animation arg0) {
-                            }
-                            @Override
-                            public void onAnimationEnd(Animation arg0) {
-                                btnNext.setEnabled(true);
-                                btnNext.setVisibility(View.VISIBLE);
-                            }
-                        });
-
-
-                        btnNext.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                CargarJuegos(lista_juegos,contJuegos);
-                            }
-                        });
-
-                    //}
-               // });
-
         //ponemos como background la imagen de BD de esa parada
-            try {
+            /*try {
             if (pr_actual.getImagen()!= null){
                 toImg(pr_actual.getImagen());
             }
@@ -148,23 +115,55 @@ public class details_list extends AppCompatActivity {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
         lista_juegos = (ArrayList<Juegos>) db.getDatos_juegos_ID(id_parada);
         db.close();
-        //PopUp(contenido);
+
+        CargarSegunPag_anterior(pag_anterior);
 
     }
 
-    /*public void PlaySound(String fileName){
-        int sound_id = this.getResources().getIdentifier(fileName, "raw",
-                this.getPackageName());
-        if(sound_id != 0) {
-            mp = MediaPlayer.create(this, sound_id);
-            mp.start();
+    public void CargarSegunPag_anterior(int u){
 
+        switch (u){
+            case 0:
+
+                break;
+
+            case 1:
+                juegosView = findViewById(R.id.paradas_lista_juegos);
+                juegosView.setVisibility(View.VISIBLE);
+
+                titulo_juegos = new String [lista_juegos.size()];
+                for (int i = 0; i<titulo_juegos.length; i++){
+                    titulo_juegos[i] = (i+1)+ "." + lista_juegos.get(i).getNombre_juego();
+                }
+
+                //Pasamos array al ArrayAdapter para que salga en el ListView
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, titulo_juegos);
+                juegosView.setAdapter(adapter);
+
+                juegosView.setOnItemClickListener((parent, view, position, id) -> {
+
+                    ID_juego = lista_juegos.get(position).getId_juego();
+                    titulo = lista_juegos.get(position).getNombre_juego();
+                    nombre_completo = "com.example.ik_2dm3.didaktikapp." + titulo + "_" + ID_juego;
+                    nombre_completo = nombre_completo.replace(" ", "");
+                    Log.d("mytag", "NOMBRE JUEGO: " + nombre_completo);
+                    i = null;
+                    try {
+                        i = new Intent(this, Class.forName(nombre_completo));
+                        i.putExtra("Description", lista_juegos.get(0).getTxtDescripcion());
+                        i.putExtra("pag_anterior",1);
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    startActivityForResult(i, REQ_OK);
+                });
+                break;
         }
-    }*/
+    }
 
     public void PopUp(View v){
         builder = new AlertDialog.Builder(this);
@@ -184,7 +183,7 @@ public class details_list extends AppCompatActivity {
         alert.show();
     }
 
-    public void toImg(String byteArray) throws IOException {
+    /*public void toImg(String byteArray) throws IOException {
 
         decodedString = Base64.decode(byteArray, Base64.DEFAULT);
         decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
@@ -192,7 +191,7 @@ public class details_list extends AppCompatActivity {
         //Convert bitmap to drawable
         drawable = new BitmapDrawable(getResources(), decodedByte);
         contenido.setBackground(drawable);
-    }
+    }*/
 
     public void CargarJuegos (ArrayList<Juegos> Listado_juegos, int pos){
         Log.d("mytag", "CARGANDO JUEGOS");
@@ -238,45 +237,57 @@ public class details_list extends AppCompatActivity {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
 
-                Log.d("mytag","HE VUELTO DEL JUEGO ");
-                contJuegos +=1;
-                if (contJuegos < lista_juegos.size()){
-                    CargarJuegos(lista_juegos, contJuegos);
-                }
-                else{
-                  Log.d("mytag", "Juegos finalizados de parada JUEGO:   "+pr_actual.getNombre());
-                  Log.d("mytag", "Juegos finalizados de parada JUEGO opcion CAMARA:   "+pr_actual.isSacarFoto());
+                switch (pag_anterior){
 
-                    if (pr_actual.isSacarFoto()){
-                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                            if(checkSelfPermission(Manifest.permission.CAMERA) ==
-                                    PackageManager.PERMISSION_DENIED ||
-                                    checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                                            PackageManager.PERMISSION_DENIED){
-                                //PERMISSIONS NOT ENABLED, REQUEST IT
-                                String[] permission ={Manifest.permission.CAMERA,
-                                        Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                                //SHOW POPUP TO REQUEST PERMISSIONS
-                                requestPermissions(permission,PERMISSION_CODE);
-
-                            }
-                            else{
-                                //permission already granted
-                                PopUp(contenido);
-                                //openCamera();
-                            }
+                    case 0:
+                        Log.d("mytag","HE VUELTO DEL JUEGO ");
+                        contJuegos +=1;
+                        if (contJuegos < lista_juegos.size()){
+                            CargarJuegos(lista_juegos, contJuegos);
                         }
                         else{
-                            //system os < marshmallow
-                            PopUp(contenido);
-                            //openCamera();
-                        }
-                    }
-                }
-                // The user picked a contact.
-                // The Intent's data Uri identifies which contact was selected.
+                            Log.d("mytag", "Juegos finalizados de parada JUEGO:   "+pr_actual.getNombre());
+                            Log.d("mytag", "Juegos finalizados de parada JUEGO opcion CAMARA:   "+pr_actual.isSacarFoto());
 
-                // Do something with the contact here (bigger example below)
+                            if (pr_actual.isSacarFoto()){
+                                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                                    if(checkSelfPermission(Manifest.permission.CAMERA) ==
+                                            PackageManager.PERMISSION_DENIED ||
+                                            checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                                                    PackageManager.PERMISSION_DENIED){
+                                        //PERMISSIONS NOT ENABLED, REQUEST IT
+                                        String[] permission ={Manifest.permission.CAMERA,
+                                                Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                                        //SHOW POPUP TO REQUEST PERMISSIONS
+                                        requestPermissions(permission,PERMISSION_CODE);
+
+                                    }
+                                    else{
+                                        //permission already granted
+                                        PopUp(contenido);
+                                        //openCamera();
+                                    }
+                                }
+                                else{
+                                    //system os < marshmallow
+                                    PopUp(contenido);
+                                    //openCamera();
+                                }
+                            }
+                        }
+                        // The user picked a contact.
+                        // The Intent's data Uri identifies which contact was selected.
+
+                        // Do something with the contact here (bigger example below)
+                        break;
+
+                    case 1:
+
+                        break;
+                }
+
+
+
             }
 
             //resultado de sacar foto
