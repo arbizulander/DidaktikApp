@@ -80,7 +80,12 @@ public class Argazkiaaztertu_3 extends AppCompatActivity {
                         });
                         break;
                     case 1:
-
+                        btnNext.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //abrir camara
+                            }
+                        });
                         break;
                 }
 

@@ -51,7 +51,7 @@
 
         <activity
             android:name=".details_list"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="portrait" />
 
         <!-- JUEGOS -->
         <activity
