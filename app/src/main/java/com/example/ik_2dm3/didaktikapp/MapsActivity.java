@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.Image;
+import android.os.Parcel;
 import android.support.annotation.NonNull;
 
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +20,9 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mapbox.android.core.location.LocationEngine;
@@ -37,6 +43,7 @@ import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.PolygonOptions;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.annotations.PolylineOptions;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
@@ -47,6 +54,7 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
 import com.mapbox.mapboxsdk.plugins.locationlayer.LocationLayerPlugin;
+import com.mapbox.mapboxsdk.plugins.locationlayer.LocationLayerOptions;
 import com.mapbox.mapboxsdk.plugins.locationlayer.modes.CameraMode;
 import com.mapbox.mapboxsdk.plugins.locationlayer.modes.RenderMode;
 
@@ -90,12 +98,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private PermissionsManager permissionsManager;
     private LocationEngine locationEngine;
     private LocationLayerPlugin locationLayerPlugin;
+    private LocationLayerOptions locationLayerOptions;
     private Location originLocation;
 
     private boolean dentrozona;
-    private Button butsig;
-    private Button butprev;
-    private Button butcent;
+    private ImageButton butsig;
+    private ImageButton butprev;
+    private ImageButton butcent;
+    private Button butact;
+    private TextView textodist;
+    private TextView textodest;
+    private ImageView marcador1;
 
     //BD
         private details_list listaDetalles;
@@ -136,9 +149,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
 
         mapView = (MapView) findViewById(R.id.mapView);
-        butsig = (Button) findViewById(R.id.butsig);
-        butprev = (Button) findViewById(R.id.butprev);
-        butcent = (Button) findViewById(R.id.butCent);
+        butsig = (ImageButton) findViewById(R.id.butsig);
+        butprev = (ImageButton) findViewById(R.id.butprev);
+        butcent = (ImageButton) findViewById(R.id.butCent);
+        butact = (Button) findViewById(R.id.butAct);
+        textodist = (TextView) findViewById(R.id.idTextdistancia);
+        textodest = (TextView) findViewById(R.id.idTextdestino);
+        marcador1 = (ImageView) findViewById(R.id.marcador1);
 
         butsig.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -152,13 +169,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View v) {
                 Centrar();
             }});
+        butact.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                Intent  i = new Intent(MapsActivity.this, details_list.class);
+                i.putExtra("id_parada",cont+1);
+                startActivityForResult(i, REQ_MAPA);
+                Log.d("mytag","Click a actividades");
+            }});
+
 
         //Cogemos todos los nombres de las paradas desde el SQL
         db=new MyOpenHelper(this);
-        listaDetalles = new details_list();
-Log.d("mytag","LLEGA AQUI");
-        lista_paradas = db.getDatos_Paradas();
 
+        listaDetalles = new details_list();
+        lista_paradas = db.getDatos_Paradas();
         db.close();
 
         //Los pasamos a un array
@@ -172,15 +197,13 @@ Log.d("mytag","LLEGA AQUI");
 
             // Limites de Getxo
             mapboxMap.setLatLngBoundsForCameraTarget(GETXO_BOUNDS);
-            mapboxMap.setMinZoomPreference(15);
-            mapboxMap.setMaxZoomPreference(18);
+           // mapboxMap.setMinZoomPreference(10);
+           // mapboxMap.setMaxZoomPreference(14);
             // Visualise bounds area
             showBoundsArea(mapboxMap);
         }catch(Exception e){
             Log.d("mytag", "ERROR CARGAR MAPA");
         }
-
-
     }
 
     private void showBoundsArea(MapboxMap mapboxMap) {
@@ -204,6 +227,12 @@ Log.d("mytag","LLEGA AQUI");
     public void onMapReady(MapboxMap mapboxMap) {
 
         this.mapboxMap = mapboxMap;
+        //Opciones de zoom
+
+
+        mapboxMap.setCameraPosition(new CameraPosition.Builder()
+                .zoom(16)
+                .build());
 
             //PRUEBA GENERACION LINEAS
             ArrayList<LatLng> puntos = new ArrayList<>();
@@ -211,17 +240,30 @@ Log.d("mytag","LLEGA AQUI");
             LatLng laln = new LatLng(lista_paradas.get(i).getLatitud(), lista_paradas.get(i).getLongitud());
             puntos.add(laln);
         }
-            mapboxMap.addPolyline(new PolylineOptions()
+        //Desactivacion de interaccion con el mapa
+        //mapboxMap.getUiSettings().setZoomGesturesEnabled(false);
+
+
+/*  GENERACION DE RUTAS ENTRE PUNTOS (HABRIA QUE OPTIMIZAR CON GEOJSONS DESCARGADOS), dejar desactivado por el momento
+        mapboxMap.addPolyline(new PolylineOptions()
             .addAll(puntos)
             .color(Color.parseColor("#3bb2d0"))
-            .width(8));
+            .width(8));*/
 
             //GENERACION DE MARCADORES
+
             for (int i = 0; i < titulo.length; i++) {
+
                 mapboxMap.addMarker(new MarkerOptions()
                         .position(new LatLng(lista_paradas.get(i).getLatitud(), lista_paradas.get(i).getLongitud()))
                         .title(lista_paradas.get(i).getNombre()));
             }
+        /********************************************/
+            mapboxMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(43.257895,-2.902738))
+                    .title("Marcador Prueba"));
+        /********************************************/
+
         enableLocation();
     }
         private void enableLocation(){
@@ -256,10 +298,18 @@ Log.d("mytag","LLEGA AQUI");
 
     @SuppressWarnings("MissingPermission")
     private void initializeLocationLayer(){
-        locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap, locationEngine);
+
+        LocationLayerOptions options = LocationLayerOptions.builder(this)
+                .maxZoom(16)
+                .minZoom(14)
+                .build();
+
+        locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap, locationEngine, options);
         locationLayerPlugin.setLocationLayerEnabled(true);
         locationLayerPlugin.setCameraMode(CameraMode.TRACKING_COMPASS);
         locationLayerPlugin.setRenderMode(RenderMode.COMPASS);
+
+
     }
 
     private void setCameraPosition(Location location){
@@ -312,7 +362,7 @@ Log.d("mytag","LLEGA AQUI");
                 .getRoute(new Callback<DirectionsResponse>() {
                     @Override
                     public void onResponse(Call<DirectionsResponse> call, Response<DirectionsResponse> response) {
-                        // You can get the generic HTTP info about the response
+
                         Log.d(TAG, "Response code: " + response.code());
                         if (response.body() == null) {
                             Log.e(TAG, "No routes found, make sure you set the right user and access token.");
@@ -380,26 +430,38 @@ Log.d("mytag","LLEGA AQUI");
     private void getDistancia(){
 
         Location destino = new Location(LocationManager.GPS_PROVIDER);
-        destino.setLatitude(lista_paradas.get(cont).getLatitud());
-        destino.setLongitude(lista_paradas.get(cont).getLongitud());
-        float distancia = originLocation.distanceTo(destino);
 
+      //  destino.setLatitude(lista_paradas.get(cont).getLatitud());
+      //  destino.setLongitude(lista_paradas.get(cont).getLongitud());
+
+        destino.setLatitude(43.257895);
+        destino.setLongitude(-2.902738);
+
+        marcarCompletado();
+
+        float distancia = originLocation.distanceTo(destino);
+        String destinotexto = String.format("%.0f", distancia); //Quitamos los decimales
+        textodist.setText("Distancia: " + destinotexto + " metros");
+        textodest.setText( "Parada " + (cont+1) + ": " + lista_paradas.get(cont).getNombre());
+        Log.d("mytag" , "la distancia es " + destinotexto + " metros");
         lista_juegos = (ArrayList<Juegos>) db.getDatos_juegos_ID(cont+1);
-Log.d("mytag",""+ lista_juegos);
+        Log.d("mytag",""+ lista_juegos);
         Log.d("mytag","La distancia a " + lista_paradas.get(cont).getNombre()+ " es de " + distancia +" metros.");
+        Log.d("mytag","ZOOM MAXIMO ES"+ mapboxMap.getMaxZoomLevel());
 
         //Comprobacion de que no este ya completado
+
     if(!lista_paradas.get(cont).isRealizado()){
         if(distancia <= 15 && !dentrozona){
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setMessage("Estas cerca de " + lista_paradas.get(cont).getNombre() + ", quieres hacer las actividades?" );
-            alert.setNegativeButton("NO OK", new DialogInterface.OnClickListener() {
+            alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Log.d("mytag","has pulsado NO OK");
                 }
             });
-            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            alert.setPositiveButton("SI", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -407,6 +469,7 @@ Log.d("mytag",""+ lista_juegos);
 
                     Intent  i = new Intent(MapsActivity.this, details_list.class);
                     i.putExtra("id_parada",cont+1);
+                    i.putExtra("pag_anterior", 0);
                     startActivityForResult(i, REQ_MAPA);
                 }
             });
@@ -416,7 +479,39 @@ Log.d("mytag",""+ lista_juegos);
         }
         else{dentrozona = false;}
     }
+    //CODIGO MARCADOR DE PRUEBA
+        if(distancia <= 50 && !dentrozona && !lista_paradas.get(cont).isRealizado()){
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setMessage("Estas cerca del marcador de prueba quieres hacer las actividades?" );
+            alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.d("mytag","has pulsado NO OK");
+                }
+            });
+            alert.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    ////listaDetalles.CargarJuegos(lista_juegos,0);
+
+                    Intent  i = new Intent(MapsActivity.this, details_list.class);
+                    i.putExtra("id_parada",cont+1);
+                    i.putExtra("pag_anterior", 0);
+                    startActivityForResult(i, REQ_MAPA);
+                }
+            });
+            alert.show();
+            butact.setVisibility(View.VISIBLE);
+            dentrozona = true;
+        }
 }
+
+    private void marcarCompletado(){
+        if (lista_paradas.get(cont).isRealizado()) {
+            marcador1.setImageResource(R.drawable.verde);
+        }
+    }
 
     /**********************************************************/
 

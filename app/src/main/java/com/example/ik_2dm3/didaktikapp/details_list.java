@@ -199,35 +199,35 @@ public class details_list extends AppCompatActivity {
         //lista_juegos = new ArrayList<Juegos>();
         //lista_juegos = (ArrayList<Juegos>) db.getDatos_juegos_ID(pr_actual.getId_parada());
 
-            Log.d("mytag","ESTADO JUEGO: "+Listado_juegos.get(pos).isRealizado());
+        Log.d("mytag","ESTADO JUEGO: "+Listado_juegos.get(pos).isRealizado());
 
-            if (pos < lista_juegos.size()) {
-                if (!Listado_juegos.get(pos).isRealizado()){
-                    ID_juego = Listado_juegos.get(pos).getId_juego();
-                    titulo = Listado_juegos.get(pos).getNombre_juego();
+        if (pos < lista_juegos.size()) {
+            if (!Listado_juegos.get(pos).isRealizado()){
+                ID_juego = Listado_juegos.get(pos).getId_juego();
+                titulo = Listado_juegos.get(pos).getNombre_juego();
 
-                    nombre_completo = "com.example.ik_2dm3.didaktikapp." + titulo + "_" + ID_juego;
-                    nombre_completo = nombre_completo.replace(" ", "");
-                    Log.d("mytag", "NOMBRE JUEGO: " + nombre_completo);
-                    //int cont = 0;
-                    //Log.d("mytag", "NOMBRE JUEGO: " +nombre_completo);
-                    i = null;
-                    try {
-                        i = new Intent(this, Class.forName(nombre_completo));
-                        i.putExtra("Description", Listado_juegos.get(0).getTxtDescripcion());
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    startActivityForResult(i, REQ_OK);
-                } else {
-                    contJuegos += 1;
-                    CargarJuegos(lista_juegos, contJuegos);
+                nombre_completo = "com.example.ik_2dm3.didaktikapp." + titulo + "_" + ID_juego;
+                nombre_completo = nombre_completo.replace(" ", "");
+                Log.d("mytag", "NOMBRE JUEGO: " + nombre_completo);
+                //int cont = 0;
+                //Log.d("mytag", "NOMBRE JUEGO: " +nombre_completo);
+                i = null;
+                try {
+                    i = new Intent(this, Class.forName(nombre_completo));
+                    i.putExtra("Description", Listado_juegos.get(0).getTxtDescripcion());
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
                 }
+                startActivityForResult(i, REQ_OK);
+            } else {
+                contJuegos += 1;
+                CargarJuegos(lista_juegos, contJuegos);
+            }
 
-            }
-            else{
-                Log.d("mytag", "Juegos finalizados de parada: "+pr_actual.getNombre());
-            }
+        }
+        else{
+            Log.d("mytag", "Juegos finalizados de parada: "+pr_actual.getNombre());
+        }
     }
 
     @Override
