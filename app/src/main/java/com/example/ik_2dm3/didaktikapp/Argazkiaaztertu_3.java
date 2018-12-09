@@ -1,9 +1,11 @@
 package com.example.ik_2dm3.didaktikapp;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -12,6 +14,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static android.os.Environment.getExternalStorageDirectory;
 
 public class Argazkiaaztertu_3 extends AppCompatActivity {
 
@@ -36,6 +44,8 @@ public class Argazkiaaztertu_3 extends AppCompatActivity {
 
                     break;
                 case 1:
+                    //btnNext.set
+                    btnNext.setEnabled(true);
                     btnNext.setVisibility(View.VISIBLE);
                     break;
             }
@@ -83,7 +93,7 @@ public class Argazkiaaztertu_3 extends AppCompatActivity {
                         btnNext.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                //abrir camara
+                                finish();
                             }
                         });
                         break;

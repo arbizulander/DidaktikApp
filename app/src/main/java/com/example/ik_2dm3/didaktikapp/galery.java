@@ -318,14 +318,15 @@ geItem(bmImg, "Image#" + i));
                 File[] files = f.listFiles();
 
                 //Hacemos un Loop por cada fichero para extraer el nombre de cada uno
-                for (int i = 0; i < files.length; i++) {
+                    for (int i = 0; i < files.length; i++) {
 
-                    File imgFile = new File(files[i].toString());
-                    Bitmap bmImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                    imageItems.add(new ImageItem(bmImg, "Image#" + i));
-                    Log.d("mytag", "... CARGANDO IMG " + i + " ...");
-                }
-                Log.d("mytag", "... GALERIA CARGADA ...");
+                        File imgFile = new File(files[i].toString());
+                        Bitmap bmImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                        imageItems.add(new ImageItem(bmImg, "Image#" + i));
+                        Log.d("mytag", "... CARGANDO IMG " + i + " ...");
+                    }
+                    Log.d("mytag", "... GALERIA CARGADA ...");
+
 
 
                 gridAdapter = new GridViewAdapter(cont, R.layout.grid_item_layout, imageItems);

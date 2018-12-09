@@ -101,8 +101,8 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
         switch(u){
             case 0:
                 Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation);
-                txtDescripcion.startAnimation(animacion);
-                animacion.setAnimationListener(new Animation.AnimationListener(){
+                //txtDescripcion.startAnimation(animacion);
+                /*animacion.setAnimationListener(new Animation.AnimationListener(){
                     @Override
                     public void onAnimationStart(Animation arg0) {
 
@@ -115,7 +115,7 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
                     public void onAnimationEnd(Animation arg0) {
                         PlaySound();
                     }
-                });
+                });*/
                 break;
 
             case 1:
@@ -142,8 +142,8 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
                 public void onCompletion(MediaPlayer mp) {
                     HabilitarDeshabilitarBtns(true);
                     Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_alpha1to0);
-                    txtDescripcion.startAnimation(animacion);
-                    animacion.setAnimationListener(new Animation.AnimationListener(){
+                    //txtDescripcion.startAnimation(animacion);
+                    /*animacion.setAnimationListener(new Animation.AnimationListener(){
                         @Override
                         public void onAnimationStart(Animation arg0) {
 
@@ -156,7 +156,7 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
                         public void onAnimationEnd(Animation arg0) {
                             txtDescripcion.setAlpha(0);
                         }
-                    });
+                    });*/
 
                 }
             });
