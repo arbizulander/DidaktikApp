@@ -57,6 +57,8 @@ public class galery extends AppCompatActivity {
         my_fab = findViewById(R.id.my_fab);
         gridView = findViewById(R.id.gridView);
 
+        setTitle("Galeria");
+
         File dir = new File(getExternalStorageDirectory(),"DidaktikApp");
 
         //dentro del if cargar imagenes en galeria

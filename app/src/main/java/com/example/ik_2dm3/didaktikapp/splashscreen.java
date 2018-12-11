@@ -2,6 +2,7 @@ package com.example.ik_2dm3.didaktikapp;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Rect;
 
@@ -9,8 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.Explode;
 import android.support.transition.Transition;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.animation.Animation;
+import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ProgressBar;
 
@@ -39,6 +42,9 @@ public class splashscreen extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animator animation) {
 
+                //ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(splashscreen.this);
+                //Intent intent = new Intent(splashscreen.this, MainActivity.class);
+                //startActivity(intent, options.toBundle());
                 Intent intent = new Intent(splashscreen.this,MainActivity.class);
                 AbrirLayout thread = new AbrirLayout(intent);
                 thread.start();
