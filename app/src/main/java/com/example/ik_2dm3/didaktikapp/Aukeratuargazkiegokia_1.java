@@ -80,6 +80,7 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
 
         String valor = getIntent().getExtras().getString("Description");
         pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
+        Log.d("mytag","pag anterior es " + pag_anterior);
 
         if (valor != null) {
             //txtDescripcion.setText(valor);
@@ -102,7 +103,7 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
             case 0:
                 Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation);
                 //txtDescripcion.startAnimation(animacion);
-                /*animacion.setAnimationListener(new Animation.AnimationListener(){
+                animacion.setAnimationListener(new Animation.AnimationListener(){
                     @Override
                     public void onAnimationStart(Animation arg0) {
 
@@ -113,9 +114,12 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
                     }
                     @Override
                     public void onAnimationEnd(Animation arg0) {
-                        PlaySound();
+                        Intent i = new Intent(Aukeratuargazkiegokia_1.this,Elementuakbilatuargazkian_2.class);
+                        i.putExtra("pag_anterior",1);
+                        startActivityForResult(i, REQ_BTN);
+                        finish();
                     }
-                });*/
+                });
                 break;
 
             case 1:

@@ -129,9 +129,24 @@ public class details_list extends AppCompatActivity {
         switch (u){
             case 0:
 
+                try {
+                    ID_juego = lista_juegos.get(u).getId_juego();
+                    titulo = lista_juegos.get(u).getNombre_juego();
+                    nombre_completo = "com.example.ik_2dm3.didaktikapp." + titulo + "_" + ID_juego;
+                    nombre_completo = nombre_completo.replace(" ", "");
+                    i = new Intent(this, Class.forName(nombre_completo));
+                    i.putExtra("Description", lista_juegos.get(0).getTxtDescripcion());
+                    i.putExtra("pag_anterior",0);
+
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                startActivityForResult(i, REQ_OK);
+
                 break;
 
             case 1:
+
                 juegosView = findViewById(R.id.paradas_lista_juegos);
                 juegosView.setVisibility(View.VISIBLE);
 
