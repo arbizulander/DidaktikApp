@@ -51,8 +51,7 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".details_list"
-            android:screenOrientation="portrait" />
+            android:name=".details_list" />
 
         <!-- JUEGOS -->
         <activity

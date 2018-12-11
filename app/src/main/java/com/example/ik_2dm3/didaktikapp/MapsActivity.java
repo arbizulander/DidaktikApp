@@ -468,6 +468,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     ////listaDetalles.CargarJuegos(lista_juegos,0);
 
                     Intent  i = new Intent(MapsActivity.this, details_list.class);
+                    Log.d("mytag", "ID_PARADA: "+cont+1);
                     i.putExtra("id_parada",cont+1);
                     i.putExtra("pag_anterior", 0);
                     startActivityForResult(i, REQ_MAPA);
@@ -494,7 +495,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 public void onClick(DialogInterface dialog, int which) {
 
                     ////listaDetalles.CargarJuegos(lista_juegos,0);
-
+                    Log.d("mytag","ID_PARADA: " +(cont+1));
                     Intent  i = new Intent(MapsActivity.this, details_list.class);
                     i.putExtra("id_parada",cont+1);
                     i.putExtra("pag_anterior", 0);

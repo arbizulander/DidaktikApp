@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -92,6 +93,7 @@ public class Argazkiaaztertu_3 extends AppCompatActivity {
                             }
                             @Override
                             public void onAnimationEnd(Animation arg0) {
+                                Log.d("mytag", "Al pulsar boton abrir camara en juego 3");
                                 btnNext.setVisibility(View.VISIBLE);
                                 btnNext.setEnabled(true);
                                 btnNext.setOnClickListener(new View.OnClickListener() {

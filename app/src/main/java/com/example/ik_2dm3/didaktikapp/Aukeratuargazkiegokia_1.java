@@ -101,9 +101,14 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
     public void CargarSegunPag_anterior(int u){
         switch(u){
             case 0:
-                Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation);
+                PlaySound();
+                //Intent e = new Intent(Aukeratuargazkiegokia_1.this,Elementuakbilatuargazkian_2.class);
+                //e.putExtra("pag_anterior",1);
+                //startActivityForResult(e, REQ_BTN);
+                //finish();
+                //Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation);
                 //txtDescripcion.startAnimation(animacion);
-                animacion.setAnimationListener(new Animation.AnimationListener(){
+                /*animacion.setAnimationListener(new Animation.AnimationListener(){
                     @Override
                     public void onAnimationStart(Animation arg0) {
 
@@ -114,17 +119,13 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
                     }
                     @Override
                     public void onAnimationEnd(Animation arg0) {
-                        Intent i = new Intent(Aukeratuargazkiegokia_1.this,Elementuakbilatuargazkian_2.class);
-                        i.putExtra("pag_anterior",1);
-                        startActivityForResult(i, REQ_BTN);
-                        finish();
+
                     }
-                });
+                });*/
                 break;
 
             case 1:
                 PlaySound();
-
                 btnNextGame.setVisibility(View.VISIBLE);
                 btnNextGame.setOnClickListener(v -> {
                     mp.stop();

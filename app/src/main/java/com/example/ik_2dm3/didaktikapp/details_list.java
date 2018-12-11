@@ -128,8 +128,15 @@ public class details_list extends AppCompatActivity {
 
         switch (u){
             case 0:
-
+                Log.d("mytag", "...Cargando juegos viniendo desde el MAPA...");
+                CargarJuegos(lista_juegos,0);
+                /*Log.d("mytag", "...Cargando juegos viniendo desde el MAPA...");
                 try {
+                    titulo_juegos = new String [lista_juegos.size()];
+                    for (int i = 0; i<titulo_juegos.length; i++){
+                        titulo_juegos[i] = (i+1)+ "." + lista_juegos.get(i).getNombre_juego();
+                    }
+
                     ID_juego = lista_juegos.get(u).getId_juego();
                     titulo = lista_juegos.get(u).getNombre_juego();
                     nombre_completo = "com.example.ik_2dm3.didaktikapp." + titulo + "_" + ID_juego;
@@ -141,12 +148,11 @@ public class details_list extends AppCompatActivity {
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-                startActivityForResult(i, REQ_OK);
+                startActivityForResult(i, REQ_OK);*/
 
                 break;
 
             case 1:
-
                 juegosView = findViewById(R.id.paradas_lista_juegos);
                 juegosView.setVisibility(View.VISIBLE);
 
@@ -214,7 +220,7 @@ public class details_list extends AppCompatActivity {
         //lista_juegos = new ArrayList<Juegos>();
         //lista_juegos = (ArrayList<Juegos>) db.getDatos_juegos_ID(pr_actual.getId_parada());
 
-        Log.d("mytag","ESTADO JUEGO: "+Listado_juegos.get(pos).isRealizado());
+        Log.d("mytag","ESTADO JUEGO numero "+pos+" : "+Listado_juegos.get(0).isRealizado());
 
         if (pos < lista_juegos.size()) {
             if (!Listado_juegos.get(pos).isRealizado()){
@@ -308,6 +314,7 @@ public class details_list extends AppCompatActivity {
             //resultado de sacar foto
             if (resultCode ==IMAGE_CAPTURE_CODE){
                 Log.d("mytag","VUELVO DE LA CAMARA");
+                finish();
             }
         }
     }

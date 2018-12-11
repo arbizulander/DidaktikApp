@@ -21,6 +21,9 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class Elementuakbilatuargazkian_2 extends AppCompatActivity {
 
+    //conexion BD
+    private MyOpenHelper db;
+
     private MediaPlayer mp;
     private Button areaClick;
     private Context cont = this;
@@ -46,6 +49,7 @@ public class Elementuakbilatuargazkian_2 extends AppCompatActivity {
 
         mp = MediaPlayer.create(getApplicationContext(), R.raw.a1_3);
 
+        mp.start();
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -53,24 +57,31 @@ public class Elementuakbilatuargazkian_2 extends AppCompatActivity {
                 //mp.release();
             }
         });
-        mp.start();
 
         areaClick = (Button) findViewById(R.id.areaClick);
         areaClick.setEnabled(false);
         areaClick.setBackgroundColor(Color.TRANSPARENT);
         areaClick.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                int i = 2;
+                db=new MyOpenHelper(cont);
+                db.ActualizarJuego_Id(i);
+                db.close();
+
                 MediaPlayer mp;
                 mp = MediaPlayer.create(getApplicationContext(), R.raw.correct);
                 mp.start();
                 mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     public void onCompletion(MediaPlayer mp) {
+                        Log.d("mytag","AL ACABAR EL JUEGO FINALIDO Y VUELVO AL LISTADO PARA CARGAR SIGUIENTE...");
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("result",1);
                         setResult(Activity.RESULT_OK,returnIntent);
 
                         switch (pag_anterior){
                             case 0:
+
+
                                 finish();
                                 break;
                             case 1:
