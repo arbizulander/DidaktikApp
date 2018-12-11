@@ -127,6 +127,7 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
                     Intent i = new Intent(Aukeratuargazkiegokia_1.this,Elementuakbilatuargazkian_2.class);
                     i.putExtra("pag_anterior",1);
                     startActivityForResult(i, REQ_BTN);
+                    finish();
                 });
                 break;
         }
@@ -413,6 +414,7 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             //return true;
             mp.stop();
+            finish();
         }
         return super.onKeyDown(keyCode, event);
     }

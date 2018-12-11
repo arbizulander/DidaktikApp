@@ -24,16 +24,23 @@ import static android.os.Environment.getExternalStorageDirectory;
 public class Argazkiaaztertu_3 extends AppCompatActivity {
 
     private MediaPlayer mp;
-    private ImageButton btnNext;
+    private ImageButton btnNext, btnPreviousGame;
     private Context cont = this;
     private MyOpenHelper db;
     private int pag_anterior;
+    static final int REQ_BTN = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_argazkiaaztertu_3);
+        setTitle("Argazkia aztertu");
         btnNext = findViewById(R.id.btnNext);
+        btnPreviousGame = findViewById(R.id.btnPreviousGame);
+
+        btnPreviousGame.setEnabled(false);
+        btnPreviousGame.setVisibility(View.INVISIBLE);
+
         btnNext.setEnabled(false);
         btnNext.setVisibility(View.INVISIBLE);
         pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
@@ -47,6 +54,21 @@ public class Argazkiaaztertu_3 extends AppCompatActivity {
                     //btnNext.set
                     btnNext.setEnabled(true);
                     btnNext.setVisibility(View.VISIBLE);
+                    btnNext.setOnClickListener(v -> {
+                        mp.stop();
+                        finish();
+                    });
+
+                    btnPreviousGame.setEnabled(true);
+                    btnPreviousGame.setVisibility(View.VISIBLE);
+                    btnPreviousGame.setOnClickListener(v -> {
+                        mp.stop();
+                        Intent i = new Intent(Argazkiaaztertu_3.this,Elementuakbilatuargazkian_2.class);
+                        i.putExtra("pag_anterior",1);
+                        startActivityForResult(i, REQ_BTN);
+                        finish();
+                    });
+
                     break;
             }
 

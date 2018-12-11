@@ -24,7 +24,7 @@ public class Elementuakbilatuargazkian_2 extends AppCompatActivity {
     private MediaPlayer mp;
     private Button areaClick;
     private Context cont = this;
-    private ImageButton btnNextGame;
+    private ImageButton btnNextGame, btnPreviousGame;
     static final int REQ_BTN = 0;
     private int pag_anterior;
 
@@ -34,6 +34,14 @@ public class Elementuakbilatuargazkian_2 extends AppCompatActivity {
         setContentView(R.layout.activity_elementuak_bilatu_argazkian_2);
         setTitle("Elementuak bilatu argazkian");
         btnNextGame = findViewById(R.id.btnNextGame);
+        btnPreviousGame = findViewById(R.id.btnPreviousGame);
+
+        btnPreviousGame.setEnabled(false);
+        btnPreviousGame.setVisibility(View.INVISIBLE);
+
+        btnNextGame.setEnabled(false);
+        btnNextGame.setVisibility(View.INVISIBLE);
+
         pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
 
         mp = MediaPlayer.create(getApplicationContext(), R.raw.a1_3);
@@ -88,12 +96,24 @@ public class Elementuakbilatuargazkian_2 extends AppCompatActivity {
                 break;
 
             case 1:
+                btnPreviousGame.setEnabled(true);
+                btnPreviousGame.setVisibility(View.VISIBLE);
+                btnPreviousGame.setOnClickListener(v -> {
+                    mp.stop();
+                    Intent i = new Intent(Elementuakbilatuargazkian_2.this,Aukeratuargazkiegokia_1.class);
+                    i.putExtra("pag_anterior",1);
+                    startActivityForResult(i, REQ_BTN);
+                    finish();
+                });
+
+                btnNextGame.setEnabled(true);
                 btnNextGame.setVisibility(View.VISIBLE);
                 btnNextGame.setOnClickListener(v -> {
                     mp.stop();
                     Intent i = new Intent(Elementuakbilatuargazkian_2.this,Argazkiaaztertu_3.class);
                     i.putExtra("pag_anterior",1);
                     startActivityForResult(i, REQ_BTN);
+                    finish();
                 });
                 break;
         }
@@ -107,6 +127,8 @@ public class Elementuakbilatuargazkian_2 extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                 //return true;
                 mp.stop();
+                finish();
+
             }
             return super.onKeyDown(keyCode, event);
     }

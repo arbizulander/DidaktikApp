@@ -42,7 +42,8 @@
         <activity
             android:name=".galery"
             android:screenOrientation="portrait" />
-        <activity android:name=".list" />
+        <activity android:name=".list"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".MapsActivity"
