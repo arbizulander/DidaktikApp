@@ -25,31 +25,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".splashscreen"
+        <activity
+            android:name=".splashscreen"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity android:name=".menu_main" />
-
         <activity
             android:name=".galery"
             android:screenOrientation="portrait" />
-        <activity android:name=".list"
-            android:screenOrientation="portrait"/>
-
+        <activity
+            android:name=".list"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".details_list" />
 
@@ -96,8 +95,8 @@
             android:name=".Esaldizuzenaaukeratu_6"
             android:screenOrientation="landscape" />
         <activity android:name=".Argazkiaaztertu_7" />
-
-        <activity android:name=".komikia_8"></activity>
+        <activity android:name=".komikia_8" />
+        <activity android:name=".ajustes"></activity>
     </application>
 
 </manifest>

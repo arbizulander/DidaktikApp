@@ -19,6 +19,10 @@
     <string name="SacarFoto">Sacar foto</string>
     <string name="cont_img">Sacar foto</string>
 
+    <!--PANTALLA AJUSTES -->
+    <string name="Sortzaileak">Sortzaileak</string>
+    <string name="Bertsioa_egiaztatu">Bertsioa egiaztatu</string>
+
 
     <!--PANTALLA MAPA-->
     <string name="access_token" translatable="false">pk.eyJ1IjoiZGlkYWt0aWthcHAiLCJhIjoiY2pubGdlOXVpMTF3MDN3czVhNTJ4eWV2NCJ9.axDKMhplxotNcdvMT9y6dg</string>

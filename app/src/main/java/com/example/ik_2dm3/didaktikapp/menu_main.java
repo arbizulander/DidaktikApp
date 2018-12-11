@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -17,6 +19,9 @@ public class menu_main extends AppCompatActivity {
     private Button btnIbilbidea;
     private Button btnGaleria;
     private Button btnOndareak;
+    private ImageButton btnAjustes;
+    static final int REQ_TEXT = 0;
+
 
     static final int REQ_BTN = 0;
 
@@ -30,6 +35,7 @@ public class menu_main extends AppCompatActivity {
         btnIbilbidea = findViewById(R.id.btnIbilbidea);
         btnGaleria = findViewById(R.id.btnGaleria);
         btnOndareak = findViewById(R.id.btnOndareak);
+        btnAjustes = findViewById(R.id.btnAjustes);
 
         //btnHome.setOnClickListener(new View.OnClickListener() {
         //@Override
@@ -74,6 +80,41 @@ public class menu_main extends AppCompatActivity {
         });
 
 
+        btnAjustes.setOnClickListener(v -> {
+            Intent intent = new Intent(menu_main.this,ajustes.class);
+
+            //startActivityForResult(intent, REQ_BTN);
+        });
+
+        btnAjustes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i=new Intent(getBaseContext(), ajustes.class);
+
+                startActivityForResult(i, REQ_TEXT);
+
+
+
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onActivityResult (int requestCode, int resultCode, Intent data){
+        switch (requestCode){
+            case REQ_TEXT:
+                if (resultCode==RESULT_OK){
+                    Log.d("mifiltro","todo bien text");
+                }else {
+                    Log.d("mifiltro","error text");
+                }
+                break;
+
+            default:
+        }
     }
 
     class AbrirLayout extends Thread {
