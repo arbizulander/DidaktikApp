@@ -234,7 +234,11 @@ geItem(bmImg, "Image#" + i));
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File dir = new File(getExternalStorageDirectory(),"DidaktikApp");
-        if(!dir.exists()){
+
+        if (dir.exists()){
+            cg.interrupt();
+        }
+        else if(!dir.exists()){
             dir.mkdir();
         }
 
@@ -245,14 +249,12 @@ geItem(bmImg, "Image#" + i));
 
         image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 
-        //Log.d("mytag","" +image_uri.getPath());
-
+        
         //abrir camara
-
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri );
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE);
-        cg.interrupt();
+
     }
 
     //handing permission result
@@ -318,16 +320,14 @@ geItem(bmImg, "Image#" + i));
                 File[] files = f.listFiles();
 
                 //Hacemos un Loop por cada fichero para extraer el nombre de cada uno
-                    for (int i = 0; i < files.length; i++) {
+                for (int i = 0; i < files.length; i++) {
 
-                        File imgFile = new File(files[i].toString());
-                        Bitmap bmImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                        imageItems.add(new ImageItem(bmImg, "Image#" + i));
-                        Log.d("mytag", "... CARGANDO IMG " + i + " ...");
-                    }
-                    Log.d("mytag", "... GALERIA CARGADA ...");
-
-
+                    File imgFile = new File(files[i].toString());
+                    Bitmap bmImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                    imageItems.add(new ImageItem(bmImg, "Image#" + i));
+                    Log.d("mytag", "... CARGANDO IMG " + i + " ...");
+                }
+                Log.d("mytag", "... GALERIA CARGADA ...");
 
                 gridAdapter = new GridViewAdapter(cont, R.layout.grid_item_layout, imageItems);
                 gridView.setAdapter(gridAdapter);
