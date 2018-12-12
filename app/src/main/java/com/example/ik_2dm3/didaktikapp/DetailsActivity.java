@@ -42,8 +42,8 @@ public class DetailsActivity extends AppCompatActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             // Esto es lo que hace mi botón al pulsar ir a atrás
             //deleteCache(this);
-            Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
-                    Toast.LENGTH_SHORT).show();
+            /*Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
+                    Toast.LENGTH_SHORT).show();*/
             finish();
         }
         return super.onKeyDown(keyCode, event);
