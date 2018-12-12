@@ -248,6 +248,8 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
 
         if (ValorImagen == imagen_correcta){
 
+            HabilitarDeshabilitarBtns(false);
+            //pulsado.setEnabled(false);
 
             int valorcancion = R.raw.correct;
             //Animation animacion=null;
@@ -362,10 +364,11 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
             toast.show();
         }
 
-        pulsado.setEnabled(true);
+        //pulsado.setEnabled(true);
     }
 
     public void Reproducir_cancion (Context cont, int ID,ImageButton pulsado){
+        pulsado.setEnabled(false);
         MediaPlayer mp;
         //ACCIONES AL ACABAR CANCION//
         mp = MediaPlayer.create(cont,ID);
