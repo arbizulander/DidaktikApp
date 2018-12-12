@@ -141,6 +141,7 @@ public class menu_main extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
                     Toast.LENGTH_SHORT).show();
             //return true;
+            finish();
         }
         return super.onKeyDown(keyCode, event);
     }
