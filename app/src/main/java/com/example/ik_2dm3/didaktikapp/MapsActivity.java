@@ -481,6 +481,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         else{dentrozona = false;}
     }
     //CODIGO MARCADOR DE PRUEBA
+        Log.d("mytag","ESTADO DE PARADA 1: " + lista_paradas.get(cont).isRealizado());
         if(distancia <= 50 && !dentrozona && !lista_paradas.get(cont).isRealizado()){
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setMessage("Estas cerca del marcador de prueba quieres hacer las actividades?" );

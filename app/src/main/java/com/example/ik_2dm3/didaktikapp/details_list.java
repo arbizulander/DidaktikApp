@@ -272,6 +272,10 @@ public class details_list extends AppCompatActivity {
                         }
                         else{
 
+                            db=new MyOpenHelper(cont);
+                            db.ActualizarParada_Id(1);
+                            db.close();
+
                             Log.d("mytag", "Juegos finalizados de parada JUEGO:   "+pr_actual.getNombre());
                             Log.d("mytag", "Juegos finalizados de parada JUEGO opcion CAMARA:   "+pr_actual.isSacarFoto());
 

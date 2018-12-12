@@ -166,6 +166,24 @@ public class MyOpenHelper extends SQLiteOpenHelper {
 
     }
 
+    public void ActualizarParada_Id(int x){
+        Log.d("mytag", "ACTUALIZANDO PARADA CON ID..: "+x);
+        String myPath = DB_PATH + DB_NAME;
+        db = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+        db = this.getWritableDatabase();
+
+        //Establecemos los campos-valores a actualizar
+        ContentValues valores = new ContentValues();
+        valores.put("realizado",1);
+
+        //Actualizamos el registro en la base de datos
+        db.update("paradas", valores, "id_parada="+x, null);
+
+        //db.execSQL("UPDATE juegos SET realizado=1 WHERE id_juego="+x);
+        db.close();
+        Log.d("mytag", "PARADA ACTUALIZADO");
+    }
+
     //VUELVE VISIBLE EL SIGIENTE PUNTO Y MARCA COMO TERMINADO EL ACTUAL
     public void ActualizarJuego_Id(int x){
         Log.d("mytag", "ACTUALIZANDO JUEGO CON ID..: "+x);
