@@ -75,7 +75,6 @@ public class MyOpenHelper extends SQLiteOpenHelper {
                 throw new Error ("Error copiando BD");
             }
         }
-
     }
 
     public boolean checkDataBase(){
@@ -149,6 +148,23 @@ public class MyOpenHelper extends SQLiteOpenHelper {
         db.close();
 
     }*/
+
+    public void ResetDatabase (Context context) throws IOException{
+
+        //boolean dbExist = checkDataBase();
+        SQLiteDatabase db_Read = null;
+
+
+        db_Read = this.getReadableDatabase();
+        db_Read.close();
+
+        try{
+            copyDataBase(context);
+        }catch (IOException e){
+            throw new Error ("Error copiando BD");
+        }
+
+    }
 
     //VUELVE VISIBLE EL SIGIENTE PUNTO Y MARCA COMO TERMINADO EL ACTUAL
     public void ActualizarJuego_Id(int x){

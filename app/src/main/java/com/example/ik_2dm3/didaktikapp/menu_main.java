@@ -20,6 +20,7 @@ public class menu_main extends AppCompatActivity {
     private Button btnGaleria;
     private Button btnOndareak;
     private ImageButton btnAjustes;
+
     static final int REQ_TEXT = 0;
 
 
@@ -36,7 +37,6 @@ public class menu_main extends AppCompatActivity {
         btnGaleria = findViewById(R.id.btnGaleria);
         btnOndareak = findViewById(R.id.btnOndareak);
         btnAjustes = findViewById(R.id.btnAjustes);
-
         //btnHome.setOnClickListener(new View.OnClickListener() {
         //@Override
         //public void onClick(View v) {

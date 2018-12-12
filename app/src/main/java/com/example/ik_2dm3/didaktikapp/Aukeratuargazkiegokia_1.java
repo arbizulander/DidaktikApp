@@ -247,10 +247,7 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
         pantalla = findViewById(R.id.idLayout);
 
         if (ValorImagen == imagen_correcta){
-            int i = 1;
-            db=new MyOpenHelper(this);
-            db.ActualizarJuego_Id(i);
-            db.close();
+
 
             int valorcancion = R.raw.correct;
             //Animation animacion=null;
@@ -330,6 +327,11 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
                              switch (pag_anterior){
 
                                  case 0:
+                                     int i = 1;
+                                     db=new MyOpenHelper(cont);
+                                     db.ActualizarJuego_Id(i);
+                                     db.close();
+
                                      Intent returnIntent = new Intent();
                                      returnIntent.putExtra("result",1);
                                      setResult(Activity.RESULT_OK,returnIntent);

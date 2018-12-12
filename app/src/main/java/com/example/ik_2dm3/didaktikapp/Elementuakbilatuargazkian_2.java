@@ -45,6 +45,8 @@ public class Elementuakbilatuargazkian_2 extends AppCompatActivity {
         btnNextGame.setEnabled(false);
         btnNextGame.setVisibility(View.INVISIBLE);
 
+        Log.d("mytag", "ESTOY EN EL JUEGO 2");
+
         pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
 
         mp = MediaPlayer.create(getApplicationContext(), R.raw.a1_3);
@@ -63,25 +65,24 @@ public class Elementuakbilatuargazkian_2 extends AppCompatActivity {
         areaClick.setBackgroundColor(Color.TRANSPARENT);
         areaClick.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                int i = 2;
-                db=new MyOpenHelper(cont);
-                db.ActualizarJuego_Id(i);
-                db.close();
-
                 MediaPlayer mp;
                 mp = MediaPlayer.create(getApplicationContext(), R.raw.correct);
                 mp.start();
                 mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     public void onCompletion(MediaPlayer mp) {
-                        Log.d("mytag","AL ACABAR EL JUEGO FINALIDO Y VUELVO AL LISTADO PARA CARGAR SIGUIENTE...");
-                        Intent returnIntent = new Intent();
-                        returnIntent.putExtra("result",1);
-                        setResult(Activity.RESULT_OK,returnIntent);
+
 
                         switch (pag_anterior){
                             case 0:
+                                int i = 2;
+                                db=new MyOpenHelper(cont);
+                                db.ActualizarJuego_Id(i);
+                                db.close();
 
-
+                                Log.d("mytag","AL ACABAR EL JUEGO FINALIDO Y VUELVO AL LISTADO PARA CARGAR SIGUIENTE...");
+                                Intent returnIntent = new Intent();
+                                returnIntent.putExtra("result",1);
+                                setResult(Activity.RESULT_OK,returnIntent);
                                 finish();
                                 break;
                             case 1:

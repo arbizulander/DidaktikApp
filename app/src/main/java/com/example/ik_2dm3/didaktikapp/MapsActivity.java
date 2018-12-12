@@ -574,13 +574,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if(requestCode == REQ_MAPA){
             Log.d("mytag","HE VUELTO DEL JUEGO POR EL MAPA");
 
-            contJuegos +=1;
+            /*contJuegos +=1;
             Log.d("mytag","contJuegos es " + contJuegos);
             Log.d("mytag","listajuegos size es " + lista_juegos.size());
 
             if (contJuegos < lista_juegos.size()){
                 listaDetalles.CargarJuegos(lista_juegos, contJuegos);
-            }
+            }*/
         }
     }
 

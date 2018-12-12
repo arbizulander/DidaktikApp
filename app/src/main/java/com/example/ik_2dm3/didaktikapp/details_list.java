@@ -194,6 +194,7 @@ public class details_list extends AppCompatActivity {
                 .setNeutralButton("Aceptar",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                finish();
                                 dialog.cancel();
                                 //checkCameraPermission();
                                 openCamera();
@@ -220,7 +221,7 @@ public class details_list extends AppCompatActivity {
         //lista_juegos = new ArrayList<Juegos>();
         //lista_juegos = (ArrayList<Juegos>) db.getDatos_juegos_ID(pr_actual.getId_parada());
 
-        Log.d("mytag","ESTADO JUEGO numero "+pos+" : "+Listado_juegos.get(0).isRealizado());
+        Log.d("mytag","ESTADO JUEGO numero "+pos+" : "+Listado_juegos.get(pos).isRealizado());
 
         if (pos < lista_juegos.size()) {
             if (!Listado_juegos.get(pos).isRealizado()){
@@ -240,11 +241,13 @@ public class details_list extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 startActivityForResult(i, REQ_OK);
-            } else {
-                contJuegos += 1;
-                CargarJuegos(lista_juegos, contJuegos);
             }
-
+            /*else {
+                if (pos < lista_juegos.size()) {
+                    contJuegos += 1;
+                    CargarJuegos(lista_juegos, contJuegos);
+                }
+            }*/
         }
         else{
             Log.d("mytag", "Juegos finalizados de parada: "+pr_actual.getNombre());
@@ -262,11 +265,13 @@ public class details_list extends AppCompatActivity {
 
                     case 0:
                         Log.d("mytag","HE VUELTO DEL JUEGO ");
-                        contJuegos +=1;
+                        contJuegos+=1;
+                        Log.d("mytag", "Contador juegos : "+ contJuegos + " TOtal juegos: "+lista_juegos.size());
                         if (contJuegos < lista_juegos.size()){
                             CargarJuegos(lista_juegos, contJuegos);
                         }
                         else{
+
                             Log.d("mytag", "Juegos finalizados de parada JUEGO:   "+pr_actual.getNombre());
                             Log.d("mytag", "Juegos finalizados de parada JUEGO opcion CAMARA:   "+pr_actual.isSacarFoto());
 
@@ -284,12 +289,14 @@ public class details_list extends AppCompatActivity {
 
                                     }
                                     else{
+                                        Log.d("mytag","POPUP para camara");
                                         //permission already granted
                                         PopUp(contenido);
                                         //openCamera();
                                     }
                                 }
                                 else{
+                                    Log.d("mytag","POPUP para camara");
                                     //system os < marshmallow
                                     PopUp(contenido);
                                     //openCamera();
@@ -374,6 +381,7 @@ public class details_list extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             //return true;
             //mp.stop();
+            finish();
         }
         return super.onKeyDown(keyCode, event);
     }

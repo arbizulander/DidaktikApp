@@ -99,15 +99,23 @@ public class Argazkiaaztertu_3 extends AppCompatActivity {
                                 btnNext.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        int i = 3;
-                                        db=new MyOpenHelper(cont);
-                                        db.ActualizarJuego_Id(i);
-                                        db.close();
 
-                                        Intent returnIntent = new Intent();
-                                        returnIntent.putExtra("result",1);
-                                        setResult(Activity.RESULT_OK,returnIntent);
-                                        finish();
+                                        switch (pag_anterior){
+                                            case 0:
+                                                int i = 3;
+                                                db=new MyOpenHelper(cont);
+                                                db.ActualizarJuego_Id(i);
+                                                db.close();
+
+                                                Intent returnIntent = new Intent();
+                                                returnIntent.putExtra("result",1);
+                                                setResult(Activity.RESULT_OK,returnIntent);
+                                                finish();
+                                                break;
+                                            case 1:
+                                                break;
+                                        }
+
                                     }
                                 });
                             }
