@@ -332,7 +332,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             //Funcion para sacar la ruta
             posicionDestino = Point.fromLngLat(lista_paradas.get(cont).getLongitud(),lista_paradas.get(cont).getLatitud());
             posicionOrigen = Point.fromLngLat(originLocation.getLongitude(), originLocation.getLatitude());
-            getRoute(posicionOrigen, posicionDestino);
+           // getRoute(posicionOrigen, posicionDestino);
 
             getDistancia();
         }
@@ -482,7 +482,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
     //CODIGO MARCADOR DE PRUEBA
         Log.d("mytag","ESTADO DE PARADA 1: " + lista_paradas.get(cont).isRealizado());
-        if(distancia <= 50 && !dentrozona && !lista_paradas.get(cont).isRealizado()){
+        if(distancia <= 60 && !dentrozona && !lista_paradas.get(cont).isRealizado()){
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setMessage("Estas cerca del marcador de prueba quieres hacer las actividades?" );
             alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -507,6 +507,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             butact.setVisibility(View.VISIBLE);
             dentrozona = true;
         }
+        else{dentrozona = false;
+            butact.setVisibility(View.INVISIBLE);}
 }
 
     private void marcarCompletado(){
@@ -574,7 +576,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == REQ_MAPA){
             Log.d("mytag","HE VUELTO DEL JUEGO POR EL MAPA");
-
+            lista_paradas = db.getDatos_Paradas();
+            db.close();
             /*contJuegos +=1;
             Log.d("mytag","contJuegos es " + contJuegos);
             Log.d("mytag","listajuegos size es " + lista_juegos.size());
