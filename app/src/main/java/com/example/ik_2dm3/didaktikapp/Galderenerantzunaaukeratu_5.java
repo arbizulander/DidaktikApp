@@ -15,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -32,10 +33,22 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
     private Context cont = this;
     private Button areaClick;
 
+    private ImageButton btnNext, btnPreviousGame;
+    private MyOpenHelper db;
+    private int pag_anterior;
+    static final int REQ_BTN = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Galdera Egokia aukeratu");
+        
+
+
+
+
+
         setContentView(R.layout.activity_galderenerantzunaaukeratu_5);
         areaClick = (Button) findViewById(R.id.areaClick);
         areaClick.setBackgroundColor(Color.TRANSPARENT);

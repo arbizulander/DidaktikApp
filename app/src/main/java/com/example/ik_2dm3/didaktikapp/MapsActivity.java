@@ -208,6 +208,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void showBoundsArea(MapboxMap mapboxMap) {
 
+        //Delimitamos los limites del mapa en la pantalla -> Getxo
         PolygonOptions boundsArea = new PolygonOptions()
                 .add(GETXO_BOUNDS.getNorthWest())
                 .add(GETXO_BOUNDS.getNorthEast())
@@ -258,7 +259,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         .position(new LatLng(lista_paradas.get(i).getLatitud(), lista_paradas.get(i).getLongitud()))
                         .title(lista_paradas.get(i).getNombre()));
             }
-        /********************************************/
+        /*******************************************
+         * Añadimos un marcador en Txurdinaga PARA DESARROLLO*/
             mapboxMap.addMarker(new MarkerOptions()
                     .position(new LatLng(43.257895,-2.902738))
                     .title("Marcador Prueba"));
@@ -266,18 +268,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         enableLocation();
     }
-        private void enableLocation(){
+
+
+    private void enableLocation(){
+        //condicion para comprobar los permisos que necesita la aplicacion
         if(PermissionsManager.areLocationPermissionsGranted(this)){
             initializeLocationEngine();
             initializeLocationLayer();
-
-
         }else{
+            //La aplicacion no tiene permisos, se piden
             permissionsManager = new PermissionsManager((this));
             permissionsManager.requestLocationPermissions(this);
         }
 
     }
+
     @SuppressWarnings("MissingPermission")
     private void initializeLocationEngine(){
 
@@ -299,11 +304,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @SuppressWarnings("MissingPermission")
     private void initializeLocationLayer(){
 
+        //Definimos el zoom del mapa
         LocationLayerOptions options = LocationLayerOptions.builder(this)
                 .maxZoom(16)
                 .minZoom(14)
                 .build();
 
+
+        //locationPlayerPlugin, el punto de localizacion. En estas líneas le damos formato.
         locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap, locationEngine, options);
         locationLayerPlugin.setLocationLayerEnabled(true);
         locationLayerPlugin.setCameraMode(CameraMode.TRACKING_COMPASS);
