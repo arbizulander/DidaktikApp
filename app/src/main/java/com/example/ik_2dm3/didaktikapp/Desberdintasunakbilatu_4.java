@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
-public class Desberdintasunabilatu_4 extends AppCompatActivity {
+public class Desberdintasunakbilatu_4 extends AppCompatActivity {
 
 
     private ImageButton Hurrengoa;
@@ -27,8 +27,6 @@ public class Desberdintasunabilatu_4 extends AppCompatActivity {
         mp.start();
 
         Hurrengoa = findViewById(R.id.hurrengoa);
-
-
 
         Hurrengoa.setOnClickListener(new View.OnClickListener() {
             @Override

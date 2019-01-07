@@ -72,7 +72,7 @@
         </provider>
 
         <activity
-            android:name=".Desberdintasunabilatu_4"
+            android:name=".Desberdintasunakbilatu_4"
             android:screenOrientation="landscape" />
         <activity
             android:name=".Desberdintasunabilatu_4_argazki1"
