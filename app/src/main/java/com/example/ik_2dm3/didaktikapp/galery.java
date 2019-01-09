@@ -21,12 +21,17 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
+
 import static android.os.Environment.getExternalStorageDirectory;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Properties;
 
 public class galery extends AppCompatActivity {
 
@@ -40,6 +45,12 @@ public class galery extends AppCompatActivity {
     private GridViewAdapter gridAdapter;
 
     private Cargargaleria cg;
+    private AbrirLayout thread;
+    private int REQ_OK =  0;
+    final ArrayList<ImageItem> imageItems = new ArrayList<>();
+    private File[] files;
+    private File dir;
+    private Boolean blnCargado = false;
     //private ProgressBar pbarProgreso;
     //private ProgressDialog pDialog;
 
@@ -59,21 +70,16 @@ public class galery extends AppCompatActivity {
 
         setTitle("Galeria");
 
-        File dir = new File(getExternalStorageDirectory(),"DidaktikApp");
+        dir = new File(getExternalStorageDirectory(),"DidaktikApp");
 
         //dentro del if cargar imagenes en galeria
-        if (dir.exists()){
-
-            //tarea = new MiTareaAsincronaDialog();
-            //tarea.execute();
-            //new MiTareaAsincrona(galery.this).execute("Carga Finalizada X2");
+        if (dir.exists() && blnCargado == false && dir.listFiles().length>0){
+            Log.d("mytag","PRIMER CARGANDO GALERIA...");
+            files = dir.listFiles();
             cg = new Cargargaleria(dir);
             cg.start();
-            //cargarGaleria(dir);
+            blnCargado = true;
         }
-
-        /*final Interpolator interpolador = AnimationUtils.loadInterpolator(getBaseContext(),
-                android.R.interpolator.fast_out_slow_in);*/
 
 
            //button click
@@ -175,7 +181,7 @@ public class galery extends AppCompatActivity {
                     });*/
         });
 
-        File[] files = dir.listFiles();
+        //File[] files = dir.listFiles();
     }
 
     /*private
@@ -238,7 +244,7 @@ geItem(bmImg, "Image#" + i));
         File dir = new File(getExternalStorageDirectory(),"DidaktikApp");
 
         if (dir.exists()){
-            cg.interrupt();
+            //cg.interrupt();
         }
         else if(!dir.exists()){
             dir.mkdir();
@@ -283,17 +289,31 @@ geItem(bmImg, "Image#" + i));
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         my_fab.setScaleX(1);
         my_fab.setScaleY(1);
+
         if(resultCode == RESULT_OK){
 
             Log.d("mytag", "... FOTO SACADA ...");
             File dir = new File(getExternalStorageDirectory(),"DidaktikApp");
+
+            //thread.interrupt();
             //deleteCache(this);
             //dentro del if cargar imagenes en galeria
             if (dir.exists()){
-                Log.d("mytag","CARGANDO GALERIA...");
+                files = dir.listFiles();
+                if (dir.listFiles().length>1){
+                    Log.d("mytag","AÑADIENDO IMAGEN A GALERIA...");
+                    cg.aniadir_imgGaleria();
+                }
+                else{
+                    Log.d("mytag","CARGANDO GALERIA...");
+                    cg = new Cargargaleria(dir);
+                    cg.start();
+                }
+
+
                 //new MiTareaAsincrona(galery.this).execute("Carga Finalizada X2");
-                cg = new Cargargaleria(dir);
-                cg.start();
+                //cg = new Cargargaleria(dir);
+                //cg.start();
                 //GridAdapter.notifyDataSetChanged();
                 //gridView.setAdapter(gridAdapter);
             }
@@ -303,10 +323,10 @@ geItem(bmImg, "Image#" + i));
     }
 
     class Cargargaleria extends Thread {
-        private File f;
+        //private File f;
 
         public Cargargaleria(File f) {
-           this.f = f;
+           //this.f = f;
         }
 
         @Override
@@ -314,21 +334,29 @@ geItem(bmImg, "Image#" + i));
             runOnUiThread(() -> {
                 // Array TEXTO donde guardaremos los nombres de los ficheros
                 Log.d("mytag", "...CARGANDO GALERIA...");
-                final ArrayList<ImageItem> imageItems = new ArrayList<>();
+                //final ArrayList<ImageItem> imageItems = new ArrayList<>();
 
                 //Defino la ruta donde busco los ficheros
                 //File f = new File(Environment.getExternalStorageDirectory() + "/MiBotiquin/");
                 //Creo el array de tipo File con el contenido de la carpeta
-                File[] files = f.listFiles();
+                //files = f.listFiles();
 
-                //Hacemos un Loop por cada fichero para extraer el nombre de cada uno
-                for (int i = 0; i < files.length; i++) {
+                try{
+                    //Hacemos un Loop por cada fichero para extraer el nombre de cada uno
+                    for (int i = 0; i < files.length; i++) {
 
-                    File imgFile = new File(files[i].toString());
-                    Bitmap bmImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                    imageItems.add(new ImageItem(bmImg, "Image#" + i));
-                    Log.d("mytag", "... CARGANDO IMG " + i + " ...");
+                        //Picasso picasso = new Picasso();
+                        //picasso.load(new File(files[i].toString())).fit().error(R.drawable.ajustes).into(this.imageView).memoryPolicy(MemoryPolicy.NO_CACHE);
+
+                        File imgFile = new File(files[i].toString());
+                        Bitmap bmImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                        imageItems.add(new ImageItem(bmImg, "Image#" + i));
+                        Log.d("mytag", "... CARGANDO IMG " + i + " ...");
+                    }
+                }catch(Exception e){
+                    //e.printStackTrace();
                 }
+
                 Log.d("mytag", "... GALERIA CARGADA ...");
 
                 gridAdapter = new GridViewAdapter(cont, R.layout.grid_item_layout, imageItems);
@@ -345,16 +373,24 @@ geItem(bmImg, "Image#" + i));
                     /*ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     item.getImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
                     byte[] byteArray = stream.toByteArray();*/
-                    intent.putExtra("rutaimg", files[position].toString());
-                    try {
+                    try{
+                        intent.putExtra("rutaimg", files[position].toString());
                         //Start details activity
-                        AbrirLayout thread = new AbrirLayout(intent, 0);
-                        thread.start();
-                    }catch(Exception e){
+                        Log.d("mytag", "... ABRIENDO INTENT...");
+                        startActivityForResult(intent,0);
+                    }catch (Exception e){
                         e.printStackTrace();
                     }
                 });
             });
+        }
+
+        public void aniadir_imgGaleria (){
+
+            files = dir.listFiles();
+            File imgFile = new File(files[files.length-1].toString());
+            Bitmap bmImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            imageItems.add(new ImageItem(bmImg, "Image#" + (files.length-1)));
         }
 
 
@@ -430,7 +466,7 @@ geItem(bmImg, "Image#" + i));
     }
 
 
-    /*public static void deleteCache(Context context) {
+    public static void deleteCache(Context context) {
         try {
             File dir = context.getCacheDir();
             deleteDir(dir);
@@ -438,11 +474,13 @@ geItem(bmImg, "Image#" + i));
     }
 
     public static boolean deleteDir(File dir) {
+        Log.d("mytag","ESTOY EN CACHE");
         if (dir != null && dir.isDirectory()) {
             String[] children = dir.list();
             for (int i = 0; i < children.length; i++) {
                 boolean success = deleteDir(new File(dir, children[i]));
                 if (!success) {
+                    Log.d("mytag","ERROR DE CACHE AL BORRAR");
                     return false;
                 }
             }
@@ -452,16 +490,22 @@ geItem(bmImg, "Image#" + i));
         } else {
             return false;
         }
-    }*/
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             // Esto es lo que hace mi botón al pulsar ir a atrás
-            //deleteCache(this);
+
             /*Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
                     Toast.LENGTH_SHORT).show();*/
+            deleteCache(this);
+            if (dir.exists() && blnCargado == false && dir.listFiles().length>0) {
+                cg.interrupt();
+            }
+
             finish();
+
         }
         return super.onKeyDown(keyCode, event);
     }

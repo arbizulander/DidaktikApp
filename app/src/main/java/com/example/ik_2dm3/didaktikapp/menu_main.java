@@ -67,8 +67,10 @@ public class menu_main extends AppCompatActivity {
         btnGaleria.setOnClickListener(v -> {
             Log.d("mytag","... ABRIENDO GALERIA ...");
             Intent intent = new Intent(menu_main.this,galery.class);
-            AbrirLayout thread = new AbrirLayout(intent, REQ_BTN);
-            thread.start();
+            Log.d("mytag", "... ABRIENDO INTENT...");
+            startActivityForResult(intent,REQ_BTN);
+            //AbrirLayout thread = new AbrirLayout(intent, REQ_BTN);
+            //thread.start();
             //startActivityForResult(intent, REQ_BTN);
         });
 

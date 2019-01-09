@@ -50,42 +50,20 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
 
         btnPreviousGame.setEnabled(false);
         btnPreviousGame.setVisibility(View.INVISIBLE);
-        btnPreviousGame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CargarSegunPag_anterior(1);
-            }
-        });
 
         btnNext.setEnabled(false);
         btnNext.setVisibility(View.INVISIBLE);
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CargarSegunPag_anterior(1);
-            }
-        });
 
         Log.d("mytag", "ESTOY EN EL JUEGO 2");
 
         pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
 
-
-
-
-
-
-
-
-        setContentView(R.layout.activity_galderenerantzunaaukeratu_5);
+        //setContentView(R.layout.activity_galderenerantzunaaukeratu_5);
         areaClick = (Button) findViewById(R.id.areaClick);
         areaClick.setBackgroundColor(Color.TRANSPARENT);
 
 
         mp = MediaPlayer.create(this, R.raw.a2_2);
-
-
-
 
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -98,10 +76,8 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
         });
         mp.start();
 
-
         spinner = findViewById(R.id.spinner);
         spinner.setEnabled(false);
-
 
         List<String> categorias = new ArrayList<>();
         categorias.add(0, "Kolorea aukeratu");
@@ -112,13 +88,11 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
         categorias.add("Beltza");
 
         //Style the spinner
-
         ArrayAdapter<String> datataAdapter;
         datataAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, categorias);
 
         //Dropdown layout style
         datataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-
 
         //attaching data adapter to spinner
         spinner.setAdapter(datataAdapter);
@@ -164,6 +138,7 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
             }
         });
 
+        CargarSegunPag_anterior(pag_anterior);
     }
 
     public void CargarSegunPag_anterior(int u){
@@ -239,6 +214,7 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
                                 finish();
                                 break;
                             case 1:
+
                                 break;
                         }
 
@@ -248,8 +224,6 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
                 areaClick.setEnabled(false);
                 Log.d("mytag", "LE HAS DADO Y SE REVELA SE SUPONE JODER");
             }});
-
-        CargarSegunPag_anterior(pag_anterior);
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

@@ -35,14 +35,17 @@ public class MainActivity extends AppCompatActivity {
         Button btnStart = findViewById(R.id.btnHasi);
 
         btnStart.setOnClickListener(v -> {
+
             Intent intent = new Intent(MainActivity.this,menu_main.class);
-            AbrirLayout thread = new AbrirLayout(intent);
-            thread.start();
+            Log.d("mytag", "... ABRIENDO INTENT...");
+            startActivityForResult(intent,REQ_BTN);
+            //AbrirLayout thread = new AbrirLayout(intent);
+            //thread.start();
             //startActivityForResult(intent, REQ_BTN);
         });
     }
 
-    class AbrirLayout extends Thread {
+    /*class AbrirLayout extends Thread {
         private Intent i;
 
         public AbrirLayout(Intent i) {
@@ -56,5 +59,5 @@ public class MainActivity extends AppCompatActivity {
                startActivityForResult(i,REQ_BTN);
             });
         }
-    }
+    }*/
 }
