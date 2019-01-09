@@ -93,15 +93,14 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
         iniciar();
         HabilitarDeshabilitarBtns(false);
 
-        //PlaySound();
         CargarSegunPag_anterior(pag_anterior);
-
+        PlaySound();
     }
 
     public void CargarSegunPag_anterior(int u){
         switch(u){
             case 0:
-                PlaySound();
+                //PlaySound();
                 //Intent e = new Intent(Aukeratuargazkiegokia_1.this,Elementuakbilatuargazkian_2.class);
                 //e.putExtra("pag_anterior",1);
                 //startActivityForResult(e, REQ_BTN);
@@ -125,7 +124,7 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
                 break;
 
             case 1:
-                PlaySound();
+                //PlaySound();
                 btnNextGame.setVisibility(View.VISIBLE);
                 btnNextGame.setOnClickListener(v -> {
                     mp.stop();
@@ -402,15 +401,10 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
 
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
-
-
                 GifImageView gifImageView = (GifImageView) findViewById(R.id.GifImageView);
                 gifImageView.setImageResource(R.drawable.banana);
-
                 Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_gif);
-
                 gifImageView.startAnimation(animacion);
-
                 gifImageView.setZ(1111);
             }
         });

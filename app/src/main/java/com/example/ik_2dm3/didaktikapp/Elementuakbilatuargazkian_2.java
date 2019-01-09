@@ -140,7 +140,6 @@ public class Elementuakbilatuargazkian_2 extends AppCompatActivity {
                 //return true;
                 mp.stop();
                 finish();
-
             }
             return super.onKeyDown(keyCode, event);
     }

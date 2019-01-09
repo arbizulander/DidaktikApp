@@ -72,7 +72,6 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/img2"
             android:scaleType="centerCrop" />
-
         <ImageButton
             android:id="@+id/imageButton3"
             android:layout_width="match_parent"
@@ -81,8 +80,6 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/img3"
             android:scaleType="centerCrop" />
-
-
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
