@@ -42,8 +42,36 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_galderenerantzunaaukeratu_5);
         setTitle("Galdera Egokia aukeratu");
-        
+
+        btnNext = findViewById(R.id.btnNextGame);
+        btnPreviousGame = findViewById(R.id.btnPreviousGame);
+
+        btnPreviousGame.setEnabled(false);
+        btnPreviousGame.setVisibility(View.INVISIBLE);
+        btnPreviousGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CargarSegunPag_anterior(1);
+            }
+        });
+
+        btnNext.setEnabled(false);
+        btnNext.setVisibility(View.INVISIBLE);
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CargarSegunPag_anterior(1);
+            }
+        });
+
+        Log.d("mytag", "ESTOY EN EL JUEGO 2");
+
+        pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
+
+
+
 
 
 
@@ -64,7 +92,8 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
             public void onCompletion(MediaPlayer mp) {
                 //spinner.setEnabled(false);
                 spinner.setEnabled(true);
-                Log.d("mitag","Dentro del onCompletion");
+                Log.d("mytag","Dentro del onCompletion");
+
             }
         });
         mp.start();
@@ -135,11 +164,37 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
             }
         });
 
+    }
 
+    public void CargarSegunPag_anterior(int u){
+        switch(u){
+            case 0:
 
+                break;
 
+            case 1:
+                Log.d("mytag","case: 1");
+                btnPreviousGame.setEnabled(true);
+                btnPreviousGame.setVisibility(View.VISIBLE);
+                btnPreviousGame.setOnClickListener(v -> {
+                    mp.stop();
+                    Intent i = new Intent(Galderenerantzunaaukeratu_5.this,Desberdintasunakbilatu_4.class);
+                    i.putExtra("pag_anterior",1);
+                    startActivityForResult(i, REQ_BTN);
+                    finish();
+                });
 
-
+                btnNext.setEnabled(true);
+                btnNext.setVisibility(View.VISIBLE);
+                btnNext.setOnClickListener(v -> {
+                    mp.stop();
+                    Intent i = new Intent(Galderenerantzunaaukeratu_5.this,Esaldizuzenaaukeratu_6.class);
+                    i.putExtra("pag_anterior",1);
+                    startActivityForResult(i, REQ_BTN);
+                    finish();
+                });
+                break;
+        }
     }
 
     public void Reproducir_cancion (){
@@ -168,10 +223,25 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
                 mp.start();
                 mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     public void onCompletion(MediaPlayer mp) {
-                        Intent returnIntent = new Intent();
-                        returnIntent.putExtra("result",1);
-                        setResult(Activity.RESULT_OK,returnIntent);
-                        finish();
+
+
+                        switch (pag_anterior){
+                            case 0:
+                                int i = 2;
+                                db=new MyOpenHelper(cont);
+                                db.ActualizarJuego_Id(i);
+                                db.close();
+
+                                Log.d("mytag","AL ACABAR EL JUEGO FINALIDO Y VUELVO AL LISTADO PARA CARGAR SIGUIENTE...");
+                                Intent returnIntent = new Intent();
+                                returnIntent.putExtra("result",1);
+                                setResult(Activity.RESULT_OK,returnIntent);
+                                finish();
+                                break;
+                            case 1:
+                                break;
+                        }
+
                     }
                 });
                 areaClick.setBackgroundResource(R.drawable.button_bg_round);
@@ -179,7 +249,7 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
                 Log.d("mytag", "LE HAS DADO Y SE REVELA SE SUPONE JODER");
             }});
 
-
+        CargarSegunPag_anterior(pag_anterior);
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
