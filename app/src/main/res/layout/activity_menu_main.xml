@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondoaplicacion"
     tools:context=".menu_main">
 
     <LinearLayout
@@ -67,6 +68,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnGaleria" />
+
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton

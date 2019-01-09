@@ -1,8 +1,10 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.media.Image;
@@ -10,6 +12,7 @@ import android.os.Parcel;
 import android.support.annotation.NonNull;
 
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,6 +43,7 @@ import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
+import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.PolygonOptions;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.annotations.PolylineOptions;
@@ -110,11 +114,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private TextView textodest;
     private ImageView marcador1;
 
+    private Context contex = this;
+
+
     //BD
         private details_list listaDetalles;
         private MyOpenHelper db;
-
-
 
     //Aqui guardamos los datos de la BD
         private ArrayList<Paradas> lista_paradas;
@@ -124,6 +129,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     //VALORES DEL SQL
         private String[] titulo;
+    //Guardamos los marcadores en una lista para poder configurarlos una vez creados
+        private List<Marker> lista;
 
     // JSON encoding/decoding
     //public static final String JSON_CHARSET = "UTF-8";
@@ -228,8 +235,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(MapboxMap mapboxMap) {
 
         this.mapboxMap = mapboxMap;
-        //Opciones de zoom
-
 
         mapboxMap.setCameraPosition(new CameraPosition.Builder()
                 .zoom(16)
@@ -250,20 +255,57 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             .addAll(puntos)
             .color(Color.parseColor("#3bb2d0"))
             .width(8));*/
+//Convertimos los pngs en iconos para usarlos mas tarde
+        IconFactory iconFactory = IconFactory.getInstance(contex);
+        Icon iconorojo = iconFactory.fromResource(R.drawable.red_marker);
+        Icon iconoamarillo = iconFactory.fromResource(R.drawable.yellow_marker);
+        Icon iconoverde = iconFactory.fromResource(R.drawable.green_marker);
+        Icon iconogris = iconFactory.fromResource(R.drawable.grey_marker);
+
 
             //GENERACION DE MARCADORES
-
             for (int i = 0; i < titulo.length; i++) {
 
                 mapboxMap.addMarker(new MarkerOptions()
                         .position(new LatLng(lista_paradas.get(i).getLatitud(), lista_paradas.get(i).getLongitud()))
-                        .title(lista_paradas.get(i).getNombre()));
+                        .title(lista_paradas.get(i).getNombre())
+                        .setIcon(iconogris));
             }
+
         /*******************************************
          * Añadimos un marcador en Txurdinaga PARA DESARROLLO*/
+
+            //Onclick de marcador
+            mapboxMap.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(@NonNull Marker marker) {
+                    for(int i = 0 ; i < lista.size();i++){
+                        if(lista.get(i).getId() == marker.getId()){
+
+                            Intent  in = new Intent(MapsActivity.this, details_list.class);
+                            Log.d("mytag", "ID_PARADA: "+cont+1);
+                            in.putExtra("id_parada",cont+1);
+                            in.putExtra("pag_anterior", 0);
+                            startActivityForResult(in, REQ_MAPA);
+
+                        }
+                    }
+
+                    marker.getId();
+
+                    return true;
+                }
+            });
+
+            //Llenamos la lista de marcadores
+            lista = mapboxMap.getMarkers();
+
+        /********************************************/
+
             mapboxMap.addMarker(new MarkerOptions()
                     .position(new LatLng(43.257895,-2.902738))
-                    .title("Marcador Prueba"));
+                    .title("Marcador Prueba"))
+                    .setIcon(iconogris);
         /********************************************/
 
         enableLocation();
@@ -304,15 +346,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @SuppressWarnings("MissingPermission")
     private void initializeLocationLayer(){
 
-        //Definimos el zoom del mapa
-        LocationLayerOptions options = LocationLayerOptions.builder(this)
+
+        //OPCIONES DEL ZOOM
+       /* LocationLayerOptions options = LocationLayerOptions.builder(this)
+
                 .maxZoom(16)
                 .minZoom(14)
-                .build();
+                .build();*/
+
 
 
         //locationPlayerPlugin, el punto de localizacion. En estas líneas le damos formato.
-        locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap, locationEngine, options);
+        //locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap, locationEngine, options);
+        locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap, locationEngine);
+
         locationLayerPlugin.setLocationLayerEnabled(true);
         locationLayerPlugin.setCameraMode(CameraMode.TRACKING_COMPASS);
         locationLayerPlugin.setRenderMode(RenderMode.COMPASS);
@@ -406,7 +453,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             cont++;
             posicionDestino = Point.fromLngLat(lista_paradas.get(cont).getLongitud(),lista_paradas.get(cont).getLatitud());
             posicionOrigen = Point.fromLngLat(originLocation.getLongitude(), originLocation.getLatitude());
-            getRoute(posicionOrigen, posicionDestino);
+            //getRoute(posicionOrigen, posicionDestino);
             Log.d("mytag", "objetivo cambiado, ahora es " + cont);
 
             getDistancia();
@@ -419,7 +466,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             cont--;
             posicionDestino = Point.fromLngLat(lista_paradas.get(cont).getLongitud(),lista_paradas.get(cont).getLatitud());
             posicionOrigen = Point.fromLngLat(originLocation.getLongitude(), originLocation.getLatitude());
-            getRoute(posicionOrigen, posicionDestino);
+            //getRoute(posicionOrigen, posicionDestino);
             Log.d("mytag", "objetivo cambiado, ahora es " + cont);
 
             getDistancia();
@@ -437,20 +484,27 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void getDistancia(){
 
+        //Convertimos los pngs en iconos para usarlos mas tarde
+        IconFactory iconFactory = IconFactory.getInstance(contex);
+        Icon iconorojo = iconFactory.fromResource(R.drawable.red_marker);
+
         Location destino = new Location(LocationManager.GPS_PROVIDER);
 
-      //  destino.setLatitude(lista_paradas.get(cont).getLatitud());
-      //  destino.setLongitude(lista_paradas.get(cont).getLongitud());
+        destino.setLatitude(lista_paradas.get(cont).getLatitud());
+        destino.setLongitude(lista_paradas.get(cont).getLongitud());
 
-        destino.setLatitude(43.257895);
-        destino.setLongitude(-2.902738);
+        /*destino.setLatitude(43.257895);
+        destino.setLongitude(-2.902738);*/
 
         marcarCompletado();
 
         float distancia = originLocation.distanceTo(destino);
         String destinotexto = String.format("%.0f", distancia); //Quitamos los decimales
-        textodist.setText("Distancia: " + destinotexto + " metros");
         textodest.setText( "Parada " + (cont+1) + ": " + lista_paradas.get(cont).getNombre());
+        textodist.setText("Distancia: " + destinotexto + " metros");
+
+        lista.get(cont).setIcon(iconorojo);
+
         Log.d("mytag" , "la distancia es " + destinotexto + " metros");
         lista_juegos = (ArrayList<Juegos>) db.getDatos_juegos_ID(cont+1);
         Log.d("mytag",""+ lista_juegos);
@@ -490,7 +544,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
     //CODIGO MARCADOR DE PRUEBA
         Log.d("mytag","ESTADO DE PARADA 1: " + lista_paradas.get(cont).isRealizado());
-        if(distancia <= 60 && !dentrozona && !lista_paradas.get(cont).isRealizado()){
+        if((distancia <= 60 && !dentrozona) && !lista_paradas.get(cont).isRealizado()){
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setMessage("Estas cerca del marcador de prueba quieres hacer las actividades?" );
             alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -516,15 +570,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             dentrozona = true;
         }
         else{dentrozona = false;
-            butact.setVisibility(View.INVISIBLE);}
+            butact.setVisibility(View.INVISIBLE);
+        }
 }
 
     private void marcarCompletado(){
+//Convertimos los pngs en iconos para usarlos mas tarde
+        IconFactory iconFactory = IconFactory.getInstance(contex);
+        Icon iconoverde = iconFactory.fromResource(R.drawable.green_marker);
+
         if (lista_paradas.get(cont).isRealizado()) {
-            marcador1.setImageResource(R.drawable.verde);
+            Log.d("mytag","" +lista_paradas.get(cont).getNombre() + "esta completado");
+            //marcador1.setImageResource(R.drawable.verde);
+            lista.get(cont).setIcon(iconoverde);
+            subirCont();
         }
     }
-
     /**********************************************************/
 
     @SuppressWarnings("MissingPermission")

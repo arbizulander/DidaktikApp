@@ -417,10 +417,16 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
             /*Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
                     Toast.LENGTH_SHORT).show();*/
             //return true;
-            mp.stop();
-            finish();
+            Log.d("mytag","Back disabled");
+            //mp.stop();
+            //finish();
         }
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Log.d("mytag","Back disabled");
+    }
 }
