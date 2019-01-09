@@ -99,7 +99,7 @@
             android:screenOrientation="landscape"/>
 
 
-        <activity android:name=".komikia_8" />
+        <activity android:name=".Komikia_8" />
         <activity android:name=".ajustes"
             android:screenOrientation="portrait"></activity>
 

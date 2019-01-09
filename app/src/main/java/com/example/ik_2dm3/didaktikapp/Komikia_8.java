@@ -9,16 +9,20 @@ import android.widget.LinearLayout;
 
 
 
-public class komikia_8 extends AppCompatActivity {
+public class Komikia_8 extends AppCompatActivity {
 
-
+    ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_komikia_8);
 
-       
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
+
+        viewPager.setAdapter(viewPagerAdapter);
 
 
     }
