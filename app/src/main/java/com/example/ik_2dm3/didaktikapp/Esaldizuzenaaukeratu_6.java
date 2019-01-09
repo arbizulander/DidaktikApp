@@ -1,5 +1,6 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +24,9 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
 
     private Spinner spinner;
     private MediaPlayer mp;
+    private ImageButton btnNext, btnPreviousGame;
+    static final int REQ_BTN = 0;
+    private int pag_anterior;
 
 
     @Override
@@ -29,7 +34,16 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_esaldizuzenaaukeratu_6);
 
+        btnNext = findViewById(R.id.btnNextGame);
+        btnPreviousGame = findViewById(R.id.btnPreviousGame);
 
+        btnPreviousGame.setEnabled(false);
+        btnPreviousGame.setVisibility(View.INVISIBLE);
+
+        btnNext.setEnabled(false);
+        btnNext.setVisibility(View.INVISIBLE);
+
+        pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
 
         mp = MediaPlayer.create(this, R.raw.a2_3);
 
@@ -43,8 +57,6 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
         });
         mp.start();
 
-
-
         spinner = findViewById(R.id.spinner);
         spinner.setEnabled(false);
 
@@ -57,33 +69,23 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
         galderak.add("Kolorez aldatu zen UNESCOk gizadiaren ondarea deklara zezan beste kolore batekoa izan behar zelako");
 
         //Style the spinner
-
         ArrayAdapter<String> datataAdapter;
         datataAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, galderak);
 
         //Dropdown layout style
         datataAdapter.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
 
-
-
         //attaching data adapter to spinner
         spinner.setAdapter(datataAdapter);
-
-
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-
 /*
                     ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
                     ((TextView) parent.getChildAt(0)).setTextSize(10);
-
-
 */
                 if(parent.getItemAtPosition(position).equals("Aukeratu galdera egokia")){
-
 
                     //do nothing
                 }else if(parent.getItemAtPosition(position).equals("Kolorez aldatu zen beltzak erradiazioa xurgatzen zuelako eta beroaren ondorioz bere egitura dilatatzen zelako")){
@@ -108,18 +110,47 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
                 // Todo Auto-generated method stub
-
             }
         });
+
+        CargarSegunPag_anterior(pag_anterior);
+    }
+
+    public void CargarSegunPag_anterior(int u) {
+        switch (u) {
+            case 0:
+
+                break;
+
+            case 1:
+                Log.d("mytag", "case: 1");
+                btnPreviousGame.setEnabled(true);
+                btnPreviousGame.setVisibility(View.VISIBLE);
+                btnPreviousGame.setOnClickListener(v -> {
+                    mp.stop();
+                    Intent i = new Intent(Esaldizuzenaaukeratu_6.this, Galderenerantzunaaukeratu_5.class);
+                    i.putExtra("pag_anterior", 1);
+                    startActivityForResult(i, REQ_BTN);
+                    finish();
+                });
+
+                btnNext.setEnabled(true);
+                btnNext.setVisibility(View.VISIBLE);
+                btnNext.setOnClickListener(v -> {
+                    mp.stop();
+                   /* Intent i = new Intent(Esaldizuzenaaukeratu_6.this, Esaldizuzenaaukeratu_6.class);
+                    i.putExtra("pag_anterior", 1);
+                    startActivityForResult(i, REQ_BTN);*/
+                    finish();
+                });
+                break;
+        }
     }
 
     public void Reproducir_cancion() {
-
         mp = MediaPlayer.create(this, R.raw.correct);
         mp.start();
-
     }
 
     @Override
