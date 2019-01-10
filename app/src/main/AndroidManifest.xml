@@ -25,7 +25,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".splashscreen"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -50,8 +49,7 @@
             android:label="@string/title_activity_maps"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name=".details_list" />
+        <activity android:name=".details_list" />
 
         <!-- JUEGOS -->
         <activity
@@ -95,17 +93,18 @@
         <activity
             android:name=".Esaldizuzenaaukeratu_6"
             android:screenOrientation="landscape" />
-        <activity android:name=".Argazkiaaztertu_7"
-            android:screenOrientation="landscape"/>
-
-
+        <activity
+            android:name=".Argazkiaaztertu_7"
+            android:screenOrientation="landscape" />
         <activity android:name=".Komikia_8" />
-        <activity android:name=".ajustes"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ajustes"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>
