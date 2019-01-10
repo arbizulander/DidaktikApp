@@ -60,6 +60,11 @@
     <!--Juego 2.3 galderen erantzuna-->
     <string name="galdera">Bizkaiko zubia ez da beltza izango arrazoi teknikoengatik. Ingeniariek aholkatzen dute beltza kolorea kentzea eguzkiare erradiazioa xurgatzen duelako, bere egitura dilatatuz. El correo 2010</string>
     <string name="aukera">Galdera Egokia aukeratu</string>
+    <string name="debaterakog1">Berdintasuna zegoen gizonezko eta emakumeen artean?</string>
+    <string name="debaterakog2">Giza eskubideak errespetatzen dira?</string>
+    <string name="debaterakog3">Eta gaur egun berdintasuna dago?</string>
+    <string name="debaterakog4">Zer gauza aldatu ahal dira berdintasunera heltzeko?</string>
+    <string name="komentatu">Zure klasekideekin komenta ezazu!</string>
 
 
 </resources>

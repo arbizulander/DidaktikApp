@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 public class Komikia_8 extends AppCompatActivity {
 
+
     ViewPager viewPager;
 
     @Override

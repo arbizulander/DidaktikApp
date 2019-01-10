@@ -105,6 +105,9 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
+
+        <activity android:name=".Debaterakogalderak_9"></activity>
+
     </application>
 
 </manifest>
