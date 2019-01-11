@@ -10,6 +10,8 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.Manifest;
 import android.content.ContentValues;
@@ -71,6 +73,7 @@ public class galery extends AppCompatActivity {
 
     //REQ
     private static final int PERMISSION_CODE =1000;
+    private static final int REQUEST_PERMISSION =0001;
     private static final int IMAGE_CAPTURE_CODE =1001;
 
     //PRUEBA GALERIA
@@ -87,32 +90,10 @@ public class galery extends AppCompatActivity {
         album_name = "DidaktikApp";
         setTitle(album_name);
 
-        dir = new File(getExternalStorageDirectory(),album_name);
-        //dentro del if cargar imagenes en galeria
-        if (dir.exists()){
-            Log.d("mytag","PRIMER CARGANDO GALERIA...");
-            files = dir.listFiles();
-
-            int iDisplayWidth = getResources().getDisplayMetrics().widthPixels ;
-            Resources resources = getApplicationContext().getResources();
-            DisplayMetrics metrics = resources.getDisplayMetrics();
-            float dp = iDisplayWidth / (metrics.densityDpi / 160f);
-
-            if(dp < 360)
-            {
-                dp = (dp - 17) / 2;
-                float px = com.example.ik_2dm3.didaktikapp.Function.convertDpToPixel(dp, getApplicationContext());
-                gridView.setColumnWidth(Math.round(px));
-            }
-
-            loadAlbumTask = new LoadAlbumImages();
-            loadAlbumTask.execute();
-        }
-
         my_fab = findViewById(R.id.my_fab);
         gridView = findViewById(R.id.gridView);
 
-           //button click
+        //button click
         my_fab.setOnClickListener(v -> {
 
             //IF SYSTEM IS >= MARSMALLOW, REQUEST RUNTIME PERMISSION
@@ -211,6 +192,37 @@ public class galery extends AppCompatActivity {
                     });*/
         });
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    REQUEST_PERMISSION);
+            //dialog.dismiss();
+            return;
+        }else
+        {
+            dir = new File(getExternalStorageDirectory(),album_name);
+            //dentro del if cargar imagenes en galeria
+            if (dir.exists()){
+                Log.d("mytag","PRIMER CARGANDO GALERIA...");
+                files = dir.listFiles();
+
+                int iDisplayWidth = getResources().getDisplayMetrics().widthPixels ;
+                Resources resources = getApplicationContext().getResources();
+                DisplayMetrics metrics = resources.getDisplayMetrics();
+                float dp = iDisplayWidth / (metrics.densityDpi / 160f);
+
+                if(dp < 360)
+                {
+                    dp = (dp - 17) / 2;
+                    float px = com.example.ik_2dm3.didaktikapp.Function.convertDpToPixel(dp, getApplicationContext());
+                    gridView.setColumnWidth(Math.round(px));
+                }
+
+                loadAlbumTask = new LoadAlbumImages();
+                loadAlbumTask.execute();
+            }
+        }
+
         //File[] files = dir.listFiles();
     }
 
@@ -222,8 +234,11 @@ public class galery extends AppCompatActivity {
         }
 
         protected String doInBackground(String... args) {
+            Log.d("mytag", "ESTOY EN EL DOINBACKGROUND");
             String xml = "";
 
+            files = dir.listFiles();
+            Boolean blnExiste = false;
             String path = null;
             String album = null;
             String timestamp = null;
@@ -241,12 +256,24 @@ public class galery extends AppCompatActivity {
                 path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA));
                 album = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME));
                 timestamp = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATE_MODIFIED));
-                /*if (timestamp == null){
-                    timestamp = "1546947369";
-                }*/
-                Log.d("mytag", "TIMESTAMP  :"+timestamp);
+                if (timestamp == null){
+                    Long tsLong = System.currentTimeMillis()/1000;
+                    String ts = tsLong.toString();
+                    timestamp = ts;
+                }
+                Log.d("mytag", "PATH  :"+path);
 
-                imageList.add(com.example.ik_2dm3.didaktikapp.Function.mappingInbox(album, path, timestamp, com.example.ik_2dm3.didaktikapp.Function.converToTime(timestamp), null));
+                for (int i = 0; i < files.length; i++){
+                    if (files[i].toString().equals(path)){
+                        Log.d("mytag","IMAGEN EXISTE");
+                        blnExiste = true;
+                    }
+                }
+
+                if (blnExiste){
+                    imageList.add(com.example.ik_2dm3.didaktikapp.Function.mappingInbox(album, path, timestamp, com.example.ik_2dm3.didaktikapp.Function.converToTime(timestamp), null));
+                }
+
             }
             cursor.close();
             Collections.sort(imageList, new MapComparator(com.example.ik_2dm3.didaktikapp.Function.KEY_TIMESTAMP, "dsc")); // Arranging photo album by timestamp decending
@@ -262,9 +289,15 @@ public class galery extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view,
                                         final int position, long id) {
                     Log.d("mytag", "ESTOY DENTRO DEL ON POST EXECUTE");
-                    Intent intent = new Intent(galery.this, Gallerypreview.class);
-                    intent.putExtra("path", imageList.get(+position).get(com.example.ik_2dm3.didaktikapp.Function.KEY_PATH));
-                    startActivity(intent);
+                    Log.d("mytag", "POSICION DE IMAGEN: "+position);
+
+                    try{
+                        Intent intent = new Intent(galery.this, Gallerypreview.class);
+                        intent.putExtra("path", imageList.get(+position).get(com.example.ik_2dm3.didaktikapp.Function.KEY_PATH));
+                        startActivity(intent);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             });
         }
@@ -273,10 +306,6 @@ public class galery extends AppCompatActivity {
 
             files = dir.listFiles();
             File imgFile = new File(files[files.length-1].toString());
-            //files = dir.listFiles();
-            //File imgFile = new File(files[files.length-1].toString());
-            //Bitmap bmImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-            //imageItems.add(new ImageItem(bmImg, "Image#" + (files.length-1)));
 
             Log.d("mytag","RUTA AL VOLVER DE LA CAMARA de ultima img:  " + imgFile);
 
@@ -292,11 +321,12 @@ public class galery extends AppCompatActivity {
             map.put("date", null);
 
             imageList.add(map);
-
         }
+
         class SingleAlbumAdapter extends BaseAdapter {
             private Activity activity;
             private ArrayList<HashMap< String, String >> data;
+
             public SingleAlbumAdapter(Activity a, ArrayList < HashMap < String, String >> d) {
                 activity = a;
                 data = d;
@@ -443,6 +473,36 @@ geItem(bmImg, "Image#" + i));
                     Toast.makeText(this, "Permission denied...", Toast.LENGTH_SHORT).show();
                 }
             }
+            break;
+            case REQUEST_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission granted.
+                    dir = new File(getExternalStorageDirectory(),album_name);
+                    //dentro del if cargar imagenes en galeria
+                    if (dir.exists()){
+                        Log.d("mytag","PRIMER CARGANDO GALERIA...");
+                        files = dir.listFiles();
+
+                        int iDisplayWidth = getResources().getDisplayMetrics().widthPixels ;
+                        Resources resources = getApplicationContext().getResources();
+                        DisplayMetrics metrics = resources.getDisplayMetrics();
+                        float dp = iDisplayWidth / (metrics.densityDpi / 160f);
+
+                        if(dp < 360)
+                        {
+                            dp = (dp - 17) / 2;
+                            float px = com.example.ik_2dm3.didaktikapp.Function.convertDpToPixel(dp, getApplicationContext());
+                            gridView.setColumnWidth(Math.round(px));
+                        }
+
+                        loadAlbumTask = new LoadAlbumImages();
+                        loadAlbumTask.execute();
+                    }
+                } else {
+                    finish();
+                    // User refused to grant permission.
+                }
+                break;
         }
     }
 
@@ -463,6 +523,7 @@ geItem(bmImg, "Image#" + i));
             if (dir.exists()){
                 files = dir.listFiles();
                 if (dir.listFiles().length>1){
+                    Log.d("mytag", "AÑADIENDO FOTO A GRIDVIEW");
                     loadAlbumTask.aniadir_imgGaleria();
                     //cg.aniadir_imgGaleria();
                 }
@@ -499,10 +560,6 @@ geItem(bmImg, "Image#" + i));
             //miImageView.setImageURI(image_uri);
         }
     }
-
-
-
-
 
     /*class Cargargaleria extends Thread {
         //private File f;
@@ -567,13 +624,13 @@ geItem(bmImg, "Image#" + i));
             });
         }*/
 
-        public void aniadir_imgGaleria (){
+        /*public void aniadir_imgGaleria (){
 
             files = dir.listFiles();
             File imgFile = new File(files[files.length-1].toString());
             Bitmap bmImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
             imageItems.add(new ImageItem(bmImg, "Image#" + (files.length-1)));
-        }
+        }*/
 
 
 
@@ -648,7 +705,7 @@ geItem(bmImg, "Image#" + i));
     }*/
 
 
-   /* public static void deleteCache(Context context) {
+   public static void deleteCache(Context context) {
         try {
             File dir = context.getCacheDir();
             deleteDir(dir);
@@ -672,7 +729,7 @@ geItem(bmImg, "Image#" + i));
         } else {
             return false;
         }
-    }*/
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -681,11 +738,13 @@ geItem(bmImg, "Image#" + i));
 
             /*Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
                     Toast.LENGTH_SHORT).show();*/
-            //deleteCache(this);
-            if (dir.exists() && blnCargado == false && dir.listFiles().length>0) {
+            deleteCache(this);
+            if (dir.exists() && dir.listFiles().length>0) {
                 //cg.interrupt();
+                Log.d("mytag", "ESTOY EN ONKEYDOWN DE GALERIA CANCELAR ASYNCTASK");
+                //loadAlbumTask.cancel(true);
             }
-            loadAlbumTask.cancel(true);
+
             finish();
 
         }
