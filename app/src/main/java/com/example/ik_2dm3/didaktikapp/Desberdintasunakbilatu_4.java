@@ -46,11 +46,14 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
 
     //variables para guardar tamaño y punto original de la imagen pulsada
     private int heightI, widthI;
+    private MyOpenHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desberdintasuna_bilatu_4);
+
+        setTitle("Desbertintasunak bilatu");
 
         mp = MediaPlayer.create(this, R.raw.a2_1);
         //mp.start();
@@ -305,6 +308,23 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
                 HabilitarDeshabilitarBtns(true);
+                if (pag_anterior == 0){
+                    btnNextGame.setEnabled(true);
+                    btnNextGame.setVisibility(View.VISIBLE);
+
+                    btnNextGame.setOnClickListener(v -> {
+                        int i = 4;
+                        db=new MyOpenHelper(cont);
+                        db.ActualizarJuego_Id(i);
+                        db.close();
+
+                        //mp.stop();
+                        Intent e = new Intent(Desberdintasunakbilatu_4.this,Galderenerantzunaaukeratu_5.class);
+                        e.putExtra("pag_anterior",0);
+                        startActivityForResult(e, REQ_BTN);
+                        finish();
+                    });
+                }
             }
         });
     }

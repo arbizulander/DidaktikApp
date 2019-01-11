@@ -43,7 +43,7 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galderenerantzunaaukeratu_5);
-        setTitle("Galdera Egokia aukeratu");
+        setTitle("Galdera egokia aukeratu");
 
         btnNext = findViewById(R.id.btnNextGame);
         btnPreviousGame = findViewById(R.id.btnPreviousGame);
@@ -101,13 +101,12 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-
                 if(parent.getItemAtPosition(position).equals("Kolorea aukeratu")){
-
 
                     //do nothing
                 }else if(parent.getItemAtPosition(position).equals("Beltza")){
 
+                    spinner.setEnabled(false);
                     //on selecting a spinner item
                     String item = parent.getItemAtPosition(position).toString();
 
@@ -116,9 +115,6 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
                     Toast.makeText(parent.getContext(),"Irabazi duzu:" +item, Toast.LENGTH_SHORT).show();
 
                     Reproducir_cancion();
-
-
-
 
                     //anything else you want to do on item selection do  here
                 }else{
@@ -177,7 +173,6 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
         mp = MediaPlayer.create(this, R.raw.correct);
         mp.start();
 
-
         mp = MediaPlayer.create(getApplicationContext(), R.raw.a2_2_1);
 
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -202,7 +197,7 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
 
                         switch (pag_anterior){
                             case 0:
-                                int i = 2;
+                                int i = 5;
                                 db=new MyOpenHelper(cont);
                                 db.ActualizarJuego_Id(i);
                                 db.close();
@@ -229,8 +224,8 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 // Esto es lo que hace mi botón al pulsar ir a atrás
-            Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
-                    Toast.LENGTH_SHORT).show();
+           /* Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
+                    Toast.LENGTH_SHORT).show();*/
             //return true;
             mp.stop();
         }

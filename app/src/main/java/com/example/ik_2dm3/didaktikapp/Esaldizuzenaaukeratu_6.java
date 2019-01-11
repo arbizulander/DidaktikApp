@@ -1,5 +1,7 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -28,11 +30,16 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
     static final int REQ_BTN = 0;
     private int pag_anterior;
 
+    private MyOpenHelper db;
+    private Context cont = this;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_esaldizuzenaaukeratu_6);
+
+        setTitle("Esaldi zuzena aukeratu");
 
         btnNext = findViewById(R.id.btnNextGame);
         btnPreviousGame = findViewById(R.id.btnPreviousGame);
@@ -90,6 +97,7 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
                     //do nothing
                 }else if(parent.getItemAtPosition(position).equals("Kolorez aldatu zen beltzak erradiazioa xurgatzen zuelako eta beroaren ondorioz bere egitura dilatatzen zelako")){
 
+                    spinner.setEnabled(false);
                     //on selecting a spinner item
                     String item = parent.getItemAtPosition(position).toString();
 
@@ -151,14 +159,40 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
     public void Reproducir_cancion() {
         mp = MediaPlayer.create(this, R.raw.correct);
         mp.start();
+
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+
+
+                switch (pag_anterior) {
+                    case 0:
+                        int i = 6;
+                        db = new MyOpenHelper(cont);
+                        db.ActualizarJuego_Id(i);
+                        db.close();
+
+                        Log.d("mytag", "AL ACABAR EL JUEGO FINALIDO Y VUELVO AL LISTADO PARA CARGAR SIGUIENTE...");
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("result", 1);
+                        setResult(Activity.RESULT_OK, returnIntent);
+                        finish();
+                        break;
+                    case 1:
+
+                        break;
+                }
+
+            }
+        });
     }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
     // Esto es lo que hace mi botón al pulsar ir a atrás
-            Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
-                    Toast.LENGTH_SHORT).show();
+            /*Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
+                    Toast.LENGTH_SHORT).show();*/
             //return true;
             mp.stop();
         }

@@ -23,10 +23,11 @@ public class Elementuakbilatuargazkian_2 extends AppCompatActivity {
 
     //conexion BD
     private MyOpenHelper db;
+    private Context cont = this;
 
     private MediaPlayer mp;
     private Button areaClick;
-    private Context cont = this;
+
     private ImageButton btnNextGame, btnPreviousGame;
     static final int REQ_BTN = 0;
     private int pag_anterior;
@@ -70,8 +71,6 @@ public class Elementuakbilatuargazkian_2 extends AppCompatActivity {
                 mp.start();
                 mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     public void onCompletion(MediaPlayer mp) {
-
-
                         switch (pag_anterior){
                             case 0:
                                 int i = 2;
@@ -88,7 +87,6 @@ public class Elementuakbilatuargazkian_2 extends AppCompatActivity {
                             case 1:
                                 break;
                         }
-
                     }
                 });
                 areaClick.setBackgroundResource(R.drawable.button_bg_round);
@@ -106,7 +104,6 @@ public class Elementuakbilatuargazkian_2 extends AppCompatActivity {
             case 0:
 
                 break;
-
             case 1:
                 btnPreviousGame.setEnabled(true);
                 btnPreviousGame.setVisibility(View.VISIBLE);
