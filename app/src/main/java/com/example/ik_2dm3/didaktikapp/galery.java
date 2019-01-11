@@ -1,8 +1,13 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+import android.database.Cursor;
+import android.database.MergeCursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -15,14 +20,19 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import static android.os.Environment.getExternalStorageDirectory;
 
@@ -30,8 +40,11 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Properties;
+import java.util.function.Function;
 
 public class galery extends AppCompatActivity {
 
@@ -44,8 +57,8 @@ public class galery extends AppCompatActivity {
     private GridView gridView;
     private GridViewAdapter gridAdapter;
 
-    private Cargargaleria cg;
-    private AbrirLayout thread;
+    //private Cargargaleria cg;
+    //private AbrirLayout thread;
     private int REQ_OK =  0;
     final ArrayList<ImageItem> imageItems = new ArrayList<>();
     private File[] files;
@@ -60,27 +73,44 @@ public class galery extends AppCompatActivity {
     private static final int PERMISSION_CODE =1000;
     private static final int IMAGE_CAPTURE_CODE =1001;
 
+    //PRUEBA GALERIA
+    ArrayList<HashMap<String, String>> imageList = new ArrayList<HashMap<String, String>>();
+    String album_name = "";
+    LoadAlbumImages loadAlbumTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galery);
 
-        my_fab = findViewById(R.id.my_fab);
-        gridView = findViewById(R.id.gridView);
+        //setTitle("Galeria");
+        album_name = "DidaktikApp";
+        setTitle(album_name);
 
-        setTitle("Galeria");
-
-        dir = new File(getExternalStorageDirectory(),"DidaktikApp");
-
+        dir = new File(getExternalStorageDirectory(),album_name);
         //dentro del if cargar imagenes en galeria
-        if (dir.exists() && blnCargado == false && dir.listFiles().length>0){
+        if (dir.exists()){
             Log.d("mytag","PRIMER CARGANDO GALERIA...");
             files = dir.listFiles();
-            cg = new Cargargaleria(dir);
-            cg.start();
-            blnCargado = true;
+
+            int iDisplayWidth = getResources().getDisplayMetrics().widthPixels ;
+            Resources resources = getApplicationContext().getResources();
+            DisplayMetrics metrics = resources.getDisplayMetrics();
+            float dp = iDisplayWidth / (metrics.densityDpi / 160f);
+
+            if(dp < 360)
+            {
+                dp = (dp - 17) / 2;
+                float px = com.example.ik_2dm3.didaktikapp.Function.convertDpToPixel(dp, getApplicationContext());
+                gridView.setColumnWidth(Math.round(px));
+            }
+
+            loadAlbumTask = new LoadAlbumImages();
+            loadAlbumTask.execute();
         }
 
+        my_fab = findViewById(R.id.my_fab);
+        gridView = findViewById(R.id.gridView);
 
            //button click
         my_fab.setOnClickListener(v -> {
@@ -184,6 +214,136 @@ public class galery extends AppCompatActivity {
         //File[] files = dir.listFiles();
     }
 
+    class LoadAlbumImages extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            imageList.clear();
+        }
+
+        protected String doInBackground(String... args) {
+            String xml = "";
+
+            String path = null;
+            String album = null;
+            String timestamp = null;
+            Uri uriExternal = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+            Uri uriInternal = android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI;
+
+            String[] projection = { MediaStore.MediaColumns.DATA,
+                    MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore.MediaColumns.DATE_MODIFIED };
+
+            Cursor cursorExternal = getContentResolver().query(uriExternal, projection, "bucket_display_name = \""+album_name+"\"", null, null);
+            Cursor cursorInternal = getContentResolver().query(uriInternal, projection, "bucket_display_name = \""+album_name+"\"", null, null);
+            Cursor cursor = new MergeCursor(new Cursor[]{cursorExternal,cursorInternal});
+            while (cursor.moveToNext()) {
+
+                path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA));
+                album = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME));
+                timestamp = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATE_MODIFIED));
+                /*if (timestamp == null){
+                    timestamp = "1546947369";
+                }*/
+                Log.d("mytag", "TIMESTAMP  :"+timestamp);
+
+                imageList.add(com.example.ik_2dm3.didaktikapp.Function.mappingInbox(album, path, timestamp, com.example.ik_2dm3.didaktikapp.Function.converToTime(timestamp), null));
+            }
+            cursor.close();
+            Collections.sort(imageList, new MapComparator(com.example.ik_2dm3.didaktikapp.Function.KEY_TIMESTAMP, "dsc")); // Arranging photo album by timestamp decending
+            return xml;
+        }
+
+        @Override
+        protected void onPostExecute(String xml) {
+
+            SingleAlbumAdapter adapter = new SingleAlbumAdapter(galery.this, imageList);
+            gridView.setAdapter(adapter);
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view,
+                                        final int position, long id) {
+                    Log.d("mytag", "ESTOY DENTRO DEL ON POST EXECUTE");
+                    Intent intent = new Intent(galery.this, Gallerypreview.class);
+                    intent.putExtra("path", imageList.get(+position).get(com.example.ik_2dm3.didaktikapp.Function.KEY_PATH));
+                    startActivity(intent);
+                }
+            });
+        }
+
+        public void aniadir_imgGaleria (){
+
+            files = dir.listFiles();
+            File imgFile = new File(files[files.length-1].toString());
+            //files = dir.listFiles();
+            //File imgFile = new File(files[files.length-1].toString());
+            //Bitmap bmImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            //imageItems.add(new ImageItem(bmImg, "Image#" + (files.length-1)));
+
+            Log.d("mytag","RUTA AL VOLVER DE LA CAMARA de ultima img:  " + imgFile);
+
+            HashMap<String, String> map = new HashMap<String, String>();
+
+            Long tsLong = System.currentTimeMillis()/1000;
+            String ts = tsLong.toString();
+
+            map.put("album_name", "DidaktikApp");
+            map.put("path", imgFile.toString());
+            map.put("timestamp", ts);
+            map.put("date", null);
+            map.put("date", null);
+
+            imageList.add(map);
+
+        }
+        class SingleAlbumAdapter extends BaseAdapter {
+            private Activity activity;
+            private ArrayList<HashMap< String, String >> data;
+            public SingleAlbumAdapter(Activity a, ArrayList < HashMap < String, String >> d) {
+                activity = a;
+                data = d;
+            }
+            public int getCount() {
+                return data.size();
+            }
+            public Object getItem(int position) {
+                return position;
+            }
+            public long getItemId(int position) {
+                return position;
+            }
+
+            public View getView(int position, View convertView, ViewGroup parent) {
+                SingleAlbumViewHolder holder = null;
+                if (convertView == null) {
+                    holder = new SingleAlbumViewHolder();
+                    convertView = LayoutInflater.from(activity).inflate(
+                            R.layout.grid_item_layout, parent, false);
+
+                    holder.galleryImage = (ImageView) convertView.findViewById(R.id.galleryImage);
+
+                    convertView.setTag(holder);
+                } else {
+                    holder = (SingleAlbumViewHolder) convertView.getTag();
+                }
+                holder.galleryImage.setId(position);
+
+                HashMap < String, String > song = new HashMap < String, String > ();
+                song = data.get(position);
+                try {
+
+                    Glide.with(activity)
+                            .load(new File(song.get(com.example.ik_2dm3.didaktikapp.Function.KEY_PATH))) // Uri of the picture
+                            .into(holder.galleryImage);
+
+
+                } catch (Exception e) {}
+                return convertView;
+            }
+        }
+        class SingleAlbumViewHolder {
+            ImageView galleryImage;
+        }
+    }
+
     /*private
         //Hacemos un Loop por cada fichero para extraer el nombre de cada uno
         for (int i = 0; i < files.length; i++){
@@ -248,6 +408,8 @@ geItem(bmImg, "Image#" + i));
         }
         else if(!dir.exists()){
             dir.mkdir();
+
+
         }
 
         ContentValues values = new ContentValues();
@@ -291,7 +453,7 @@ geItem(bmImg, "Image#" + i));
         my_fab.setScaleY(1);
 
         if(resultCode == RESULT_OK){
-
+            //loadAlbumTask.cancel(true);
             Log.d("mytag", "... FOTO SACADA ...");
             File dir = new File(getExternalStorageDirectory(),"DidaktikApp");
 
@@ -301,13 +463,28 @@ geItem(bmImg, "Image#" + i));
             if (dir.exists()){
                 files = dir.listFiles();
                 if (dir.listFiles().length>1){
-                    Log.d("mytag","AÑADIENDO IMAGEN A GALERIA...");
-                    cg.aniadir_imgGaleria();
+                    loadAlbumTask.aniadir_imgGaleria();
+                    //cg.aniadir_imgGaleria();
                 }
-                else{
+
+                else {
+                    int iDisplayWidth = getResources().getDisplayMetrics().widthPixels ;
+                    Resources resources = getApplicationContext().getResources();
+                    DisplayMetrics metrics = resources.getDisplayMetrics();
+                    float dp = iDisplayWidth / (metrics.densityDpi / 160f);
+
+                    if(dp < 360)
+                    {
+                        dp = (dp - 17) / 2;
+                        float px = com.example.ik_2dm3.didaktikapp.Function.convertDpToPixel(dp, getApplicationContext());
+                        gridView.setColumnWidth(Math.round(px));
+                    }
+
+                    loadAlbumTask = new LoadAlbumImages();
+                    loadAlbumTask.execute();
                     Log.d("mytag","CARGANDO GALERIA...");
-                    cg = new Cargargaleria(dir);
-                    cg.start();
+                    //cg = new Cargargaleria(dir);
+                    //cg.start();
                 }
 
 
@@ -317,12 +494,17 @@ geItem(bmImg, "Image#" + i));
                 //GridAdapter.notifyDataSetChanged();
                 //gridView.setAdapter(gridAdapter);
             }
+
             //set the captured to our Imageview
             //miImageView.setImageURI(image_uri);
         }
     }
 
-    class Cargargaleria extends Thread {
+
+
+
+
+    /*class Cargargaleria extends Thread {
         //private File f;
 
         public Cargargaleria(File f) {
@@ -369,11 +551,11 @@ geItem(bmImg, "Image#" + i));
                     ImageItem item = (ImageItem) parent.getItemAtPosition(position);
                     //Create intent
                     Intent intent = new Intent(galery.this, DetailsActivity.class);
-                    intent.putExtra("title", item.getTitle());
+                    intent.putExtra("title", item.getTitle());*/
                     /*ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     item.getImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
                     byte[] byteArray = stream.toByteArray();*/
-                    try{
+                   /* try{
                         intent.putExtra("rutaimg", files[position].toString());
                         //Start details activity
                         Log.d("mytag", "... ABRIENDO INTENT...");
@@ -383,7 +565,7 @@ geItem(bmImg, "Image#" + i));
                     }
                 });
             });
-        }
+        }*/
 
         public void aniadir_imgGaleria (){
 
@@ -444,11 +626,11 @@ geItem(bmImg, "Image#" + i));
 
                 gridAdapter = new GridViewAdapter(cont, R.layout.grid_item_layout, imageItems);
                 gridView.setAdapter(gridAdapter);
-            }*/
+            }
 
-    }
+    }*/
 
-    class AbrirLayout extends Thread {
+    /*class AbrirLayout extends Thread {
         private Intent i;
         private int req;
 
@@ -463,10 +645,10 @@ geItem(bmImg, "Image#" + i));
                 startActivityForResult(i,req);
             });
         }
-    }
+    }*/
 
 
-    public static void deleteCache(Context context) {
+   /* public static void deleteCache(Context context) {
         try {
             File dir = context.getCacheDir();
             deleteDir(dir);
@@ -490,7 +672,7 @@ geItem(bmImg, "Image#" + i));
         } else {
             return false;
         }
-    }
+    }*/
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -499,11 +681,11 @@ geItem(bmImg, "Image#" + i));
 
             /*Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
                     Toast.LENGTH_SHORT).show();*/
-            deleteCache(this);
+            //deleteCache(this);
             if (dir.exists() && blnCargado == false && dir.listFiles().length>0) {
-                cg.interrupt();
+                //cg.interrupt();
             }
-
+            loadAlbumTask.cancel(true);
             finish();
 
         }
