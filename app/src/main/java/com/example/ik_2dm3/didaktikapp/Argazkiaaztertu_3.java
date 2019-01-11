@@ -86,7 +86,6 @@ public class Argazkiaaztertu_3 extends AppCompatActivity {
                         animacion.setAnimationListener(new Animation.AnimationListener(){
                             @Override
                             public void onAnimationStart(Animation arg0) {
-
                             }
                             @Override
                             public void onAnimationRepeat(Animation arg0) {
