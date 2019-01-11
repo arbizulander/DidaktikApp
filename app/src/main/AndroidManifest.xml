@@ -96,7 +96,8 @@
         <activity
             android:name=".Argazkiaaztertu_7"
             android:screenOrientation="landscape" />
-        <activity android:name=".Komikia_8" />
+        <activity android:name=".Komikia_8"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ajustes"
             android:screenOrientation="portrait" />
