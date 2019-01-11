@@ -65,6 +65,12 @@
     <string name="debaterakog3">Eta gaur egun berdintasuna dago?</string>
     <string name="debaterakog4">Zer gauza aldatu ahal dira berdintasunera heltzeko?</string>
     <string name="komentatu">Zure klasekideekin komenta ezazu!</string>
+    <string name="respuesta_1_11">Xaboiak egiteko fabrika</string>
+    <string name="respuesta_2_11">Zinema eta antzerkirako aretoa</string>
+    <string name="respuesta_3_11">Arropa denda</string>
+    <string name="respuesta_4_11">Liburutegia</string>
+    <string name="respuesta_5_11">Merkatua</string>
+    <string name="respuesta_6_11">Jolas-zentroa</string>
 
 
 </resources>

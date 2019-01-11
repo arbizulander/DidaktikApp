@@ -132,7 +132,8 @@ public class Debaterakogalderak_9 extends AppCompatActivity {
                         })
                     ;}
                 });
-            }});
+            }}
+        );
     }
 }
 
