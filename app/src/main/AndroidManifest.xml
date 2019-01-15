@@ -38,8 +38,9 @@
             android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity android:name=".menu_main"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".menu_main"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".galery"
             android:screenOrientation="portrait" />
@@ -98,26 +99,28 @@
         <activity
             android:name=".Argazkiaaztertu_7"
             android:screenOrientation="landscape" />
-        <activity android:name=".Komikia_8"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Komikia_8"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ajustes"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".Debaterakogalderak_9"
+        <activity
+            android:name=".Debaterakogalderak_9"
             android:screenOrientation="portrait" />
-        <activity android:name=".Argazkia_10"
+        <activity
+            android:name=".Argazkia_10"
             android:screenOrientation="portrait" />
-        <activity android:name=".Erantzunzuzenaaukeratu_11"
-            android:screenOrientation="portrait" >
-
-
-        </activity>
+        <activity
+            android:name=".Erantzunzuzenaaukeratu_11"
+            android:screenOrientation="portrait"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
+        <activity android:name=".Argazkia_sailkatu_13"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>
