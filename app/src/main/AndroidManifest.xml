@@ -113,14 +113,18 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Erantzunzuzenaaukeratu_11"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".Argazkiaktaulansailkatu_12"
+            android:screenOrientation="landscape"/>
+
+        <activity android:name=".Argazkia_sailkatu_13"
+            android:screenOrientation="landscape"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
-        <activity android:name=".Argazkia_sailkatu_13"
-            android:screenOrientation="landscape"></activity>
+        
     </application>
 
 </manifest>

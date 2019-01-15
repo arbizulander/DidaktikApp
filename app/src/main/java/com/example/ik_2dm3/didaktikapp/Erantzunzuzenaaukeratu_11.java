@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -102,27 +103,13 @@ public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
     }
     public void RespuestaCorrecta(Button boton){
         boton.setBackgroundColor(Color.GREEN);
-        SonidoRespuesta(R.raw.correct);
+        SonidoRespuesta(R.raw.correct2);
         DesactivarBotones();
-        switch (pag_anterior){
-            case 0:
-                int i = 11;
-                db=new MyOpenHelper(cont);
-                db.ActualizarJuego_Id(i);
-                db.close();
-                Log.d("mytag","AL ACABAR EL JUEGO FINALIZO Y VUELVO AL LISTADO PARA CARGAR SIGUIENTE...");
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("result",1);
-                setResult(Activity.RESULT_OK,returnIntent);
-                finish();
-                break;
-            case 1:
-                break;
-        }
+
     }
     public void RespuestaIncorrecta(Button boton){
         boton.setBackgroundColor(Color.RED);
-        //SonidoRespuesta(R.raw.incorrect);
+        SonidoRespuesta(R.raw.fail2);
     }
     public void SonidoRespuesta(int sonido){
         mp2 = MediaPlayer.create(getApplicationContext(), sonido);
@@ -131,7 +118,25 @@ public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
         mp2.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                //ActivarBotones();
+                if(sonido == R.raw.correct2){
+                    switch (pag_anterior){
+                        case 0:
+                            int i = 11;
+                            db=new MyOpenHelper(cont);
+                            db.ActualizarJuego_Id(i);
+                            db.close();
+                            Log.d("mytag","AL ACABAR EL JUEGO FINALIZO Y VUELVO AL LISTADO PARA CARGAR SIGUIENTE...");
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtra("result",1);
+                            setResult(Activity.RESULT_OK,returnIntent);
+                            finish();
+                            break;
+                        case 1:
+                            Log.d("mytag","El juego se ha acabado y se inicio desde lista");
+                            break;
+                    }
+                }
+                else{ActivarBotones();}
             }
         });
     }
@@ -150,5 +155,14 @@ public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
         respuesta4.setEnabled(false);
         respuesta5.setEnabled(false);
         respuesta6.setEnabled(false);
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            mp.stop();
+            Log.d("mytag","Has ido atras");
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
