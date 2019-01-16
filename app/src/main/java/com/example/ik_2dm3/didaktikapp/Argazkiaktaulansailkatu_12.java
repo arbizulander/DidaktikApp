@@ -83,8 +83,13 @@ public class Argazkiaktaulansailkatu_12 extends AppCompatActivity {
                 btnNext.setVisibility(View.VISIBLE);
                 btnNext.setOnClickListener(v -> {
                     mp.stop();
+                    Intent i = new Intent(Argazkiaktaulansailkatu_12.this,Argazkiaksailkatu_13.class);
+                    i.putExtra("pag_anterior",1);
+                    startActivityForResult(i, REQ_BTN);
                     finish();
                 });
+
+
 
                 btnPreviousGame.setEnabled(true);
                 btnPreviousGame.setVisibility(View.VISIBLE);

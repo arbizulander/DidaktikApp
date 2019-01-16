@@ -1,6 +1,8 @@
 package com.example.ik_2dm3.didaktikapp;
 
 import android.content.ClipData;
+import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.view.DragEvent;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,13 +21,25 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
 
     private MediaPlayer mp ,mp1,mp2;
     ImageView caja;
-    int Cont=0;
-    int idPuntoJuego;
+    private ImageButton btnNext, btnPreviousGame;
+    private Context cont = this;
+    private MyOpenHelper db;
+    private int pag_anterior;
+    static final int REQ_BTN = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_argazkiaksailkatu_13);
+        setTitle("Argazkiak sailkatu");
+        btnPreviousGame = findViewById(R.id.btnPreviousGame);
+        btnPreviousGame.setEnabled(false);
+        btnPreviousGame.setVisibility(View.INVISIBLE);
+        btnNext = findViewById(R.id.btnNext);
+        btnNext.setEnabled(false);
+        btnNext.setVisibility(View.INVISIBLE);
+
+
         mp2 = MediaPlayer.create(this, R.raw.musica_juego_13 );
         ImageView arpa = findViewById(R.id.arpa);
         ImageView flauta = findViewById(R.id.flauta);
@@ -57,7 +72,34 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
         maraka.setOnLongClickListener(ClickListener3);
         triangulo.setOnLongClickListener(ClickListener3);
         perkuzioa.setOnDragListener(dragListener3);
+/********************************************************************************/
 
+        pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
+
+        switch (pag_anterior){
+            case 0:
+                break;
+            case 1:
+                btnNext.setEnabled(true);
+                btnNext.setVisibility(View.VISIBLE);
+                btnNext.setOnClickListener(v -> {
+                    mp.stop();
+
+                    finish();
+                });
+
+                btnPreviousGame.setEnabled(true);
+                btnPreviousGame.setVisibility(View.VISIBLE);
+                btnPreviousGame.setOnClickListener(v -> {
+                    mp.stop();
+                    Intent i = new Intent(Argazkiaksailkatu_13.this,Argazkiaktaulansailkatu_12.class);
+                    i.putExtra("pag_anterior",1);
+                    startActivityForResult(i, REQ_BTN);
+                    finish();
+                });
+
+                break;
+        }
 
         /*ºººººººººººººººººººººººMEDIAPLAYERººººººººººººººººººººº*/
         mp = MediaPlayer.create(this, R.raw.a4_4);

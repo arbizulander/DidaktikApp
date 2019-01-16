@@ -76,6 +76,9 @@ public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
                 btnNext.setVisibility(View.VISIBLE);
                 btnNext.setOnClickListener(v -> {
                     mp.stop();
+                    Intent i = new Intent(Erantzunzuzenaaukeratu_11.this,Argazkiaktaulansailkatu_12.class);
+                    i.putExtra("pag_anterior",1);
+                    startActivityForResult(i, REQ_BTN);
                     finish();
                 });
 
