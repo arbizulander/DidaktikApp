@@ -9,20 +9,34 @@
 
     <ImageButton
         android:id="@+id/imagen2"
-        android:layout_width="378dp"
+        android:layout_width="357dp"
         android:layout_height="510dp"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/argazkia_10_2"
-        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteX="11dp"
         tools:layout_editor_absoluteY="0dp" />
 
     <ImageButton
         android:id="@+id/imagen1"
-        android:layout_width="379dp"
+        android:layout_width="355dp"
         android:layout_height="517dp"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/argazkia_10_1"
-        tools:layout_editor_absoluteX="4dp"
+        tools:layout_editor_absoluteX="13dp"
         tools:layout_editor_absoluteY="0dp" />
+
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/imgnext" />
 
 </android.support.constraint.ConstraintLayout>

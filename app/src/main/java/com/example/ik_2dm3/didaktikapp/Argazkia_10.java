@@ -1,5 +1,7 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -9,14 +11,42 @@ import android.widget.ImageButton;
 
 public class Argazkia_10 extends AppCompatActivity {
 
-    private ImageButton imagen1, imagen2;
-
+    private ImageButton imagen1, imagen2,btnNext;
+    private Context cont = this;
+    private MyOpenHelper db;
+    private int pag_anterior;
+    static final int REQ_BTN = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_argazkia_10);
+        setTitle("Argazkiak sakatu");
+
+        btnNext = findViewById(R.id.btnNext);
+        btnNext.setEnabled(false);
+        btnNext.setVisibility(View.INVISIBLE);
 
         ImageButton imagen1 = (ImageButton) findViewById(R.id.imagen1);
+
+        pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
+
+        switch (pag_anterior){
+            case 0:
+                break;
+            case 1:
+
+                btnNext.setEnabled(true);
+                btnNext.setVisibility(View.VISIBLE);
+                btnNext.setOnClickListener(v -> {
+
+                    Intent i = new Intent(Argazkia_10.this,Erantzunzuzenaaukeratu_11.class);
+                    i.putExtra("pag_anterior",1);
+                    startActivityForResult(i, REQ_BTN);
+                    finish();
+                });
+
+                break;
+        }
 
 
 
