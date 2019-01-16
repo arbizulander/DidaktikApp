@@ -175,7 +175,7 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                     break;
                 //ACCION QUE HACE CUANDO TERMINA EL DRAG I LOS SUELTAS EN ALGUNA BIÑETA CON DRAG LSITENER
                 case DragEvent.ACTION_DROP:
-                    //Meter los alimentos en la bolsa
+
 
                     if(view.getId()== R.id.arpa || view.getId()== R.id.bateria || view.getId()== R.id.triangulo ||
                             view.getId()== R.id.maraka || view.getId()== R.id.pianoa){
