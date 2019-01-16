@@ -6,6 +6,10 @@ public class ImageItem {
     private Bitmap image;
     private String title;
 
+    ImageItem(){
+
+    }
+
     public ImageItem(Bitmap image, String title) {
         super();
         this.image = image;

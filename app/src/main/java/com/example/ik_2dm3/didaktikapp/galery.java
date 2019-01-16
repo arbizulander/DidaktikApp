@@ -32,6 +32,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -323,7 +324,7 @@ public class galery extends AppCompatActivity {
             imageList.add(map);
         }
 
-        class SingleAlbumAdapter extends BaseAdapter {
+         class SingleAlbumAdapter extends BaseAdapter {
             private Activity activity;
             private ArrayList<HashMap< String, String >> data;
 

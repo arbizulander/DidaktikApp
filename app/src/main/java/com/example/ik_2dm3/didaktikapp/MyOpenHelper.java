@@ -62,8 +62,8 @@ public class MyOpenHelper extends SQLiteOpenHelper {
 
         if (dbExist){
 
-            //la bd ya existe
-        }
+        //            //la bd ya existe
+                }
         else
         {
             db_Read = this.getReadableDatabase();

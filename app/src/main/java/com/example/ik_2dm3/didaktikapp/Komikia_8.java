@@ -1,6 +1,7 @@
 package com.example.ik_2dm3.didaktikapp;
 
 import android.Manifest;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +18,7 @@ public class Komikia_8 extends AppCompatActivity {
     private ViewPager viewPager;
     private ImageButton btnNextGame, btnPreviousGame;
     private int pag_anterior;
-
+    static final int REQ_BTN = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +41,25 @@ public class Komikia_8 extends AppCompatActivity {
 
         viewPager.setAdapter(viewPagerAdapter);
 
+        btnPreviousGame.setEnabled(true);
+        btnPreviousGame.setVisibility(View.VISIBLE);
+        btnPreviousGame.setOnClickListener(v -> {
+            //mp.stop();
+            Intent i = new Intent(Komikia_8.this,Argazkiaaztertu_7.class);
+            i.putExtra("pag_anterior",1);
+            startActivityForResult(i, REQ_BTN);
+            finish();
+        });
+
+        btnNextGame.setEnabled(true);
+        btnNextGame.setVisibility(View.VISIBLE);
+        btnNextGame.setOnClickListener(v -> {
+            //mp.stop();
+            Intent i = new Intent(Komikia_8.this,Debaterakogalderak_9.class);
+            i.putExtra("pag_anterior",1);
+            startActivityForResult(i, REQ_BTN);
+            finish();
+        });
 
     }
 
