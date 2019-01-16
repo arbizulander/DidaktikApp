@@ -118,7 +118,7 @@
         <activity android:name=".Argazkiaktaulansailkatu_12"
             android:screenOrientation="landscape"/>
 
-        <activity android:name=".Argazkia_sailkatu_13"
+        <activity android:name=".Argazkiaksailkatu_13"
             android:screenOrientation="landscape"></activity>
 
         <meta-data
