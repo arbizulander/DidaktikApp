@@ -84,6 +84,9 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                 btnNext.setVisibility(View.VISIBLE);
                 btnNext.setOnClickListener(v -> {
                     mp.stop();
+                    if(mp2.isPlaying())
+                        mp2.stop();
+
 
                     finish();
                 });
@@ -92,6 +95,8 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                 btnPreviousGame.setVisibility(View.VISIBLE);
                 btnPreviousGame.setOnClickListener(v -> {
                     mp.stop();
+                    if(mp2.isPlaying())
+                        mp2.stop();
                     Intent i = new Intent(Argazkiaksailkatu_13.this,Argazkiaktaulansailkatu_12.class);
                     i.putExtra("pag_anterior",1);
                     startActivityForResult(i, REQ_BTN);
