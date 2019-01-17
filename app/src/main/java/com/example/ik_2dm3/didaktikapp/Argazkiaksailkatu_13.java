@@ -19,7 +19,7 @@ import android.widget.Toast;
 public class Argazkiaksailkatu_13 extends AppCompatActivity {
 
 
-    private MediaPlayer mp ,mp1,mp2;
+    private MediaPlayer mp ,mp1,mp2,mp3;
     ImageView caja;
     private ImageButton btnNext, btnPreviousGame;
     private Context cont = this;
@@ -180,7 +180,7 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                     if(view.getId()== R.id.arpa || view.getId()== R.id.bateria || view.getId()== R.id.triangulo ||
                             view.getId()== R.id.maraka || view.getId()== R.id.pianoa){
                         Toast.makeText(getBaseContext(),"TXARTO:" , Toast.LENGTH_SHORT).show();
-
+                        fallo();
                     }
 
                     if (view.getId() == R.id.flauta) {
@@ -245,7 +245,7 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                     if(view.getId()== R.id.clarinete || view.getId()== R.id.bateria || view.getId()== R.id.triangulo ||
                             view.getId()== R.id.maraka || view.getId()== R.id.flauta || view.getId()== R.id.trompeta ){
                         Toast.makeText(getBaseContext(),"TXARTO:" , Toast.LENGTH_SHORT).show();
-
+                        fallo();
                     }
 
                     if (view.getId() == R.id.arpa) {
@@ -313,6 +313,7 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                     if(view.getId()== R.id.arpa || view.getId()== R.id.pianoa || view.getId()== R.id.flauta
                             || view.getId()== R.id.clarinete || view.getId()== R.id.violin || view.getId()== R.id.trompeta   ){
                         Toast.makeText(getBaseContext(),"TXARTO:" , Toast.LENGTH_SHORT).show();
+                        fallo();
 
                     }
 
@@ -348,6 +349,12 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
         mp1.start();
 
 
+    }
+
+    public void fallo (){
+
+        mp1 = MediaPlayer.create(this, R.raw.fail);
+        mp1.start();
     }
 
     public void musica_fondo (){

@@ -1,6 +1,8 @@
 package com.example.ik_2dm3.didaktikapp;
 
 import android.content.ClipData;
+import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.DragEvent;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,11 +19,21 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
 
     ImageView caja;
     private MediaPlayer mp ,mp1,mp2;
+    private ImageButton  btnNext;
+    private Context cont = this;
+    private MyOpenHelper db;
+    private int pag_anterior;
+    static final int REQ_BTN = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_argazkiakordenatu_14);
+        setTitle("Argazkiak sailkatu");
+
+        btnNext = findViewById(R.id.btnNext);
+        btnNext.setEnabled(false);
+        btnNext.setVisibility(View.INVISIBLE);
 
 
         ImageView puerto1 = findViewById(R.id.argazki1);
@@ -33,6 +46,53 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
         ImageView testu2 = findViewById(R.id.testua2);
         ImageView testu3 = findViewById(R.id.testua3);
         ImageView testu4 = findViewById(R.id.testua4);
+
+        pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
+
+        switch (pag_anterior){
+            case 0:
+                break;
+            case 1:
+
+                btnNext.setEnabled(true);
+                btnNext.setVisibility(View.VISIBLE);
+                btnNext.setOnClickListener(v -> {
+                    mp.stop();
+
+                    finish();
+                });
+
+                break;
+        }
+
+
+        /*ºººººººººººººººººººººººMEDIAPLAYERººººººººººººººººººººº*/
+        mp = MediaPlayer.create(this, R.raw.a5_1);
+
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                testu1.setEnabled(true);
+                testu2.setEnabled(true);
+                testu3.setEnabled(true);
+                testu4.setEnabled(true);
+
+
+
+                Log.d("mytag","Dentro del onCompletion");
+
+            }
+        });
+        mp.start();
+
+
+
+
+        testu1.setEnabled(false);
+        testu2.setEnabled(false);
+        testu3.setEnabled(false);
+        testu4.setEnabled(false);
+
 
         //Recojer clicl listeners
         /*ºººººººººººººººClickListenerºººººººººººººººººººººººººººººººº*/
@@ -123,6 +183,7 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
                         correcto();
                     }else{
                         Toast.makeText(getBaseContext(),"TXARTO:" , Toast.LENGTH_SHORT).show();
+                        fallo();
                         Log.d("mytag", "TXARTO TXARTO TXARTO TXARTO TXARTO");
                     }
 
@@ -156,6 +217,7 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
                         correcto();
                     }else{
                         Toast.makeText(getBaseContext(),"TXARTO:" , Toast.LENGTH_SHORT).show();
+                        fallo();
                         Log.d("mytag", "TXARTO TXARTO TXARTO TXARTO TXARTO");
                     }
 
@@ -189,6 +251,7 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
                         correcto();
                     }else{
                         Toast.makeText(getBaseContext(),"TXARTO:" , Toast.LENGTH_SHORT).show();
+                        fallo();
                         Log.d("mytag", "TXARTO TXARTO TXARTO TXARTO TXARTO");
                     }
 
@@ -222,6 +285,7 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
                         correcto();
                     }else{
                         Toast.makeText(getBaseContext(),"TXARTO:" , Toast.LENGTH_SHORT).show();
+                        fallo();
                         Log.d("mytag", "TXARTO TXARTO TXARTO TXARTO TXARTO");
                     }
 
@@ -234,7 +298,12 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
 
         mp1 = MediaPlayer.create(this, R.raw.correct);
         mp1.start();
+    }
 
+    public void fallo (){
+
+        mp1 = MediaPlayer.create(this, R.raw.fail);
+        mp1.start();
     }
 
     @Override
