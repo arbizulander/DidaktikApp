@@ -418,8 +418,8 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();*/
             //return true;
             Log.d("mytag","Back disabled");
-            //mp.stop();
-            //finish();
+            mp.stop();
+            finish();
         }
         return super.onKeyDown(keyCode, event);
     }

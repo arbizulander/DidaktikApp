@@ -20,13 +20,16 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:clickable="true"
         android:columnWidth="400dp"
         android:drawSelectorOnTop="true"
+        android:focusable="true"
         android:gravity="center"
         android:numColumns="auto_fit"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
         android:stretchMode="columnWidth"
         android:verticalSpacing="5dp"
-        android:focusable="true"
-        android:clickable="true" />
+        tools:layout_editor_absoluteX="5dp" />
 
 </android.support.constraint.ConstraintLayout>

@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -75,18 +76,21 @@ public class Debaterakogalderak_9 extends AppCompatActivity {
                     startActivityForResult(i, REQ_BTN);
                     finish();
                 });
-
                 break;
         }
 
         mp = MediaPlayer.create(getApplicationContext(), R.raw.a3_3);
 
         mp.start();
-        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
+        //mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            //@Override
+           // public void onCompletion(MediaPlayer mp) {
                 Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation);
+
+            if (pag_anterior == 0){
                 btnNext.startAnimation(animacion);
+            }
+
                 galdera1.startAnimation(animacion);
                 galdera2.startAnimation(animacion);
                 galdera3.startAnimation(animacion);
@@ -110,30 +114,45 @@ public class Debaterakogalderak_9 extends AppCompatActivity {
                         komenta.setVisibility(View.VISIBLE);
                         fotodebate.setVisibility(View.VISIBLE);
 
-                        btnNext.setVisibility(View.VISIBLE);
-                        btnNext.setEnabled(true);
-                        btnNext.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
+                        if (pag_anterior == 0){
+                            btnNext.setVisibility(View.VISIBLE);
+                            btnNext.setEnabled(true);
+                            btnNext.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
 
-                                switch (pag_anterior) {
-                                    case 0:
-                                        int i = 9;
-                                        db = new MyOpenHelper(cont);
-                                        db.ActualizarJuego_Id(i);
-                                        db.close();
+                                    switch (pag_anterior) {
+                                        case 0:
+                                            int i = 9;
+                                            db = new MyOpenHelper(cont);
+                                            db.ActualizarJuego_Id(i);
+                                            db.close();
 
-                                        Intent returnIntent = new Intent();
-                                        returnIntent.putExtra("result", 1);
-                                        setResult(Activity.RESULT_OK, returnIntent);
-                                        finish();
+                                            Intent returnIntent = new Intent();
+                                            returnIntent.putExtra("result", 1);
+                                            setResult(Activity.RESULT_OK, returnIntent);
+                                            finish();
+                                    }
                                 }
-                            }
-                        })
+                            });
+                        }
+
                     ;}
                 });
-            }}
-        );
+            //}}
+        //);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            // Esto es lo que hace mi botón al pulsar ir a atrás
+            /*Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
+                    Toast.LENGTH_SHORT).show();*/
+            mp.stop();
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
 

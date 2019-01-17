@@ -24,8 +24,10 @@ public class Komikia_8 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_komikia_8);
 
+        setTitle("Komikia");
         btnNextGame = findViewById(R.id.btnNextGame);
         btnPreviousGame = findViewById(R.id.btnPreviousGame);
+
 
         /*btnPreviousGame.setEnabled(false);
         btnPreviousGame.setVisibility(View.INVISIBLE);

@@ -3,7 +3,10 @@ package com.example.ik_2dm3.didaktikapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -106,15 +109,15 @@ public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
     }
     public void RespuestaCorrecta(Button boton){
         boton.setBackgroundColor(Color.GREEN);
-        SonidoRespuesta(R.raw.correct2);
+        SonidoRespuesta(R.raw.correct2, boton);
         DesactivarBotones();
 
     }
     public void RespuestaIncorrecta(Button boton){
         boton.setBackgroundColor(Color.RED);
-        SonidoRespuesta(R.raw.fail2);
+        SonidoRespuesta(R.raw.fail2, boton);
     }
-    public void SonidoRespuesta(int sonido){
+    public void SonidoRespuesta(int sonido, Button boton){
         mp2 = MediaPlayer.create(getApplicationContext(), sonido);
         mp2.start();
         DesactivarBotones();
@@ -139,7 +142,19 @@ public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
                             break;
                     }
                 }
-                else{ActivarBotones();}
+                else{
+                    boton.setBackgroundColor(Color.TRANSPARENT);
+                    Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.rippleeffect);
+
+                    BitmapDrawable background = new BitmapDrawable(getResources(), bitmap);
+                    int actionBarBackground = getResources().getColor(R.color.colorPrimaryDark);
+                    boton.setBackgroundColor(actionBarBackground);
+                    boton.setBackground(background);
+
+                    ActivarBotones();
+                    //respuesta1.setBackground((int)R.drawable.rippleeffect);
+
+                }
             }
         });
     }

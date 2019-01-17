@@ -2,9 +2,132 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Erantzunzuzenaaukeratu_11">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="380dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <Button
+            android:id="@+id/respuesta1"
+            android:layout_width="260dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="65dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/rippleeffect"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="@string/respuesta_2_11"
+            android:textAlignment="center"
+            android:textColor="@color/colorTexto"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/respuesta2"
+            android:layout_width="260dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:textAlignment="center"
+            android:background="@drawable/rippleeffect"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/respuesta1"
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="@string/respuesta_3_11"
+            android:textSize="18sp"
+            android:textColor="@color/colorTexto"/>
+
+        <Button
+            android:id="@+id/respuesta3"
+            android:layout_width="260dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:textAlignment="center"
+            android:background="@drawable/rippleeffect"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/respuesta2"
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="@string/respuesta_1_11"
+            android:textSize="18sp"
+            android:textColor="@color/colorTexto"/>
+
+        <Button
+            android:id="@+id/respuesta4"
+            android:layout_width="260dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:textAlignment="center"
+            android:background="@drawable/rippleeffect"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="@string/respuesta_5_11"
+            android:textSize="18sp"
+            android:textColor="@color/colorTexto"/>
+
+        <Button
+            android:id="@+id/respuesta5"
+            android:layout_width="260dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:textAlignment="center"
+            android:background="@drawable/rippleeffect"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="@string/respuesta_4_11"
+            android:textSize="18sp"
+            android:textColor="@color/colorTexto"/>
+
+        <Button
+            android:id="@+id/respuesta6"
+            android:layout_width="260dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:textAlignment="center"
+            android:background="@drawable/rippleeffect"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="@string/respuesta_6_11"
+            android:textSize="18sp"
+            android:textColor="@color/colorTexto"/>
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnNext"
@@ -29,80 +152,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/imgprev" />
-
-    <Button
-        android:id="@+id/respuesta1"
-        android:layout_width="170dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="172dp"
-        android:layout_marginEnd="39dp"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:text="@string/respuesta_2_11"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/respuesta2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/respuesta2"
-        android:layout_width="170dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="172dp"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:text="@string/respuesta_3_11"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/respuesta1"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/respuesta3"
-        android:layout_width="170dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="11dp"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:text="@string/respuesta_1_11"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/respuesta1" />
-
-    <Button
-        android:id="@+id/respuesta4"
-        android:layout_width="170dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="11dp"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:text="@string/respuesta_5_11"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/respuesta3"
-        app:layout_constraintTop_toBottomOf="@+id/respuesta2" />
-
-    <Button
-        android:id="@+id/respuesta5"
-        android:layout_width="170dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="9dp"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:text="@string/respuesta_4_11"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/respuesta3" />
-
-    <Button
-        android:id="@+id/respuesta6"
-        android:layout_width="170dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="9dp"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:text="@string/respuesta_6_11"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/respuesta5"
-        app:layout_constraintTop_toBottomOf="@+id/respuesta4" />
 
 </android.support.constraint.ConstraintLayout>
