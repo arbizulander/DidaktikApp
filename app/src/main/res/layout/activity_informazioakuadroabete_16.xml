@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/casaej16"
+    tools:context=".Informazioakuadroabete_16">
+
+    <EditText
+        android:id="@+id/texto1"
+        android:layout_width="137dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="472dp"
+        android:layout_marginTop="72dp"
+        android:background="@color/blue"
+        android:ems="10"
+        android:fontFamily="@font/josefin_slab_bold"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/texto2"
+        android:layout_width="42dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="96dp"
+        android:background="@color/blue"
+        android:ems="10"
+        android:fontFamily="@font/josefin_slab_bold"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/texto3"
+        android:layout_width="86dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="488dp"
+        android:layout_marginTop="148dp"
+        android:background="@color/blue"
+        android:ems="10"
+        android:fontFamily="@font/josefin_slab_bold"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/texto4"
+        android:layout_width="158dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="196dp"
+        android:layout_marginEnd="32dp"
+        android:background="@color/blue"
+        android:ems="10"
+        android:fontFamily="@font/josefin_slab_bold"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnPreviousGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/imgprev" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/imgnext" />
+</android.support.constraint.ConstraintLayout>
