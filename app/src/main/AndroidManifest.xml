@@ -137,7 +137,10 @@
         <activity
             android:name=".Paragrafoabetehitzekin_15"
             android:screenOrientation="portrait" />
-        <activity android:name=".Informazioakuadroabete_16"
+        <activity
+            android:name=".Informazioakuadroabete_16"
+            android:screenOrientation="landscape" />
+        <activity android:name=".Egiagezurra_20"
             android:screenOrientation="landscape"></activity>
     </application>
 
