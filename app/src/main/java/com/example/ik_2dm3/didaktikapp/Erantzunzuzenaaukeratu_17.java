@@ -16,27 +16,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
+public class Erantzunzuzenaaukeratu_17 extends AppCompatActivity {
 
     private MediaPlayer mp, mp2;
-    private ImageButton btnNext, btnPreviousGame;
+    private ImageButton btnPreviousGame;
     private Context cont = this;
     private MyOpenHelper db;
     private int pag_anterior;
+    private int puntos = 0;
     static final int REQ_BTN = 0;
-    private Button respuesta1, respuesta2, respuesta3, respuesta4, respuesta5, respuesta6;
+    private Button respuesta1, respuesta2, respuesta3, respuesta4, respuesta5, respuesta6, respuesta7, respuesta8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_erantzunzuzenaaukeratu_11);
-        setTitle("Aukeratu erantzun egokia");
+        setContentView(R.layout.activity_erantzunzuzenaaukeratu_17);
+        setTitle("Erantzun zuzena aukeratu");
         btnPreviousGame = findViewById(R.id.btnPreviousGame);
         btnPreviousGame.setEnabled(false);
         btnPreviousGame.setVisibility(View.INVISIBLE);
-        btnNext = findViewById(R.id.btnNext);
-        btnNext.setEnabled(false);
-        btnNext.setVisibility(View.INVISIBLE);
 
         respuesta1 = findViewById(R.id.respuesta1);
         respuesta2 = findViewById(R.id.respuesta2);
@@ -44,10 +42,12 @@ public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
         respuesta4 = findViewById(R.id.respuesta4);
         respuesta5 = findViewById(R.id.respuesta5);
         respuesta6 = findViewById(R.id.respuesta6);
+        respuesta7 = findViewById(R.id.respuesta7);
+        respuesta8 = findViewById(R.id.respuesta8);
         DesactivarBotones();
 
         respuesta1.setOnClickListener(v -> {
-            RespuestaCorrecta(respuesta1);
+            RespuestaCorrecta(respuesta1,respuesta2);
         });
         respuesta2.setOnClickListener(v -> {
             RespuestaIncorrecta(respuesta2);
@@ -56,13 +56,28 @@ public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
             RespuestaIncorrecta(respuesta3);
         });
         respuesta4.setOnClickListener(v -> {
-            RespuestaIncorrecta(respuesta4);
+            RespuestaCorrecta(respuesta4,respuesta3);
         });
         respuesta5.setOnClickListener(v -> {
-            RespuestaIncorrecta(respuesta5);
+            RespuestaCorrecta(respuesta5,respuesta6);
         });
         respuesta6.setOnClickListener(v -> {
             RespuestaIncorrecta(respuesta6);
+        });
+        respuesta7.setOnClickListener(v -> {
+            RespuestaIncorrecta(respuesta7);
+        });
+        respuesta8.setOnClickListener(v -> {
+            RespuestaCorrecta(respuesta8,respuesta7);
+        });
+
+        mp = MediaPlayer.create(getApplicationContext(), R.raw.a6_3);
+        mp.start();
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                ActivarBotones();
+            }
         });
 
         pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
@@ -71,44 +86,24 @@ public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
             case 0:
                 break;
             case 1:
-                //btnNext.set
-                btnNext.setEnabled(true);
-                btnNext.setVisibility(View.VISIBLE);
-                btnNext.setOnClickListener(v -> {
-                    mp.stop();
-                    Intent i = new Intent(Erantzunzuzenaaukeratu_11.this,Argazkiaktaulansailkatu_12.class);
-                    i.putExtra("pag_anterior",1);
-                    startActivityForResult(i, REQ_BTN);
-                    finish();
-                });
-
                 btnPreviousGame.setEnabled(true);
                 btnPreviousGame.setVisibility(View.VISIBLE);
                 btnPreviousGame.setOnClickListener(v -> {
                     mp.stop();
-                    Intent i = new Intent(Erantzunzuzenaaukeratu_11.this,Argazkia_10.class);
+                    Intent i = new Intent(Erantzunzuzenaaukeratu_17.this,Informazioakuadroabete_16.class);
                     i.putExtra("pag_anterior",1);
                     startActivityForResult(i, REQ_BTN);
                     finish();
                 });
-
                 break;
         }
-        mp = MediaPlayer.create(getApplicationContext(), R.raw.a4_2);
-
-        mp.start();
-        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                ActivarBotones();
-            }
-        });
     }
-    public void RespuestaCorrecta(Button boton){
+    public void RespuestaCorrecta(Button boton, Button boton2){
         boton.setBackgroundColor(Color.GREEN);
         SonidoRespuesta(R.raw.correct2, boton);
-        DesactivarBotones();
-
+        boton.setEnabled(false);
+        boton2.setEnabled(false);
+        puntos++;
     }
     public void RespuestaIncorrecta(Button boton){
         boton.setBackgroundColor(Color.RED);
@@ -117,46 +112,6 @@ public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
     public void SonidoRespuesta(int sonido, Button boton){
         mp2 = MediaPlayer.create(getApplicationContext(), sonido);
         mp2.start();
-        DesactivarBotones();
-        mp2.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                if(sonido == R.raw.correct2){
-                    switch (pag_anterior){
-                        case 0:
-                            int i = 11;
-                            db=new MyOpenHelper(cont);
-                            db.ActualizarJuego_Id(i);
-                            db.close();
-                            Log.d("mytag","AL ACABAR EL JUEGO FINALIZO Y VUELVO AL LISTADO PARA CARGAR SIGUIENTE...");
-                            Intent returnIntent = new Intent();
-                            returnIntent.putExtra("result",1);
-                            setResult(Activity.RESULT_OK,returnIntent);
-                            finish();
-                            break;
-                        case 1:
-                            Log.d("mytag","El juego se ha acabado y se inicio desde lista");
-                            break;
-                    }
-                }
-                else{
-                    Log.d("mytag","JELOUUUU");
-                    boton.setBackgroundColor(Color.TRANSPARENT);
-                    //boton.setBackgroundColor(Color.);
-                    //Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.rippleeffect);
-
-                    //BitmapDrawable background = new BitmapDrawable(getResources(), bitmap);
-                    //int actionBarBackground = getResources().getColor(R.color.colorPrimary);
-                    //boton.setBackgroundColor(actionBarBackground);
-
-                    //boton.setBackground(background);
-
-                    ActivarBotones();
-                    //respuesta1.setBackground((int)R.drawable.rippleeffect);
-
-                }
-            }
-        });
     }
     public void ActivarBotones(){
         respuesta1.setEnabled(true);
@@ -165,6 +120,8 @@ public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
         respuesta4.setEnabled(true);
         respuesta5.setEnabled(true);
         respuesta6.setEnabled(true);
+        respuesta7.setEnabled(true);
+        respuesta8.setEnabled(true);
     }
     public void DesactivarBotones(){
         respuesta1.setEnabled(false);
@@ -173,6 +130,8 @@ public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
         respuesta4.setEnabled(false);
         respuesta5.setEnabled(false);
         respuesta6.setEnabled(false);
+        respuesta7.setEnabled(false);
+        respuesta8.setEnabled(false);
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

@@ -130,13 +130,16 @@ public class Paragrafoabetehitzekin_15 extends AppCompatActivity {
             case 0:
                 break;
             case 1:
+                //btnNext.set
                 btnNext.setEnabled(true);
                 btnNext.setVisibility(View.VISIBLE);
                 btnNext.setOnClickListener(v -> {
                     mp.stop();
+                    Intent i = new Intent(Paragrafoabetehitzekin_15.this,Informazioakuadroabete_16.class);
+                    i.putExtra("pag_anterior",1);
+                    startActivityForResult(i, REQ_BTN);
                     finish();
                 });
-                break;
         }
     }
     public void Comprobartexto(EditText campo, String respuesta){

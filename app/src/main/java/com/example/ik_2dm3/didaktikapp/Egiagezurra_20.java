@@ -1,72 +1,152 @@
 package com.example.ik_2dm3.didaktikapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class Egiagezurra_20 extends AppCompatActivity {
-    MediaPlayer mp;
+
+
+    private MediaPlayer mp, mp2;
+    private ImageButton btnPreviousGame,btnNext;
+    private Context cont = this;
+    private MyOpenHelper db;
+    private int pag_anterior;
+    private int puntos = 0;
+    static final int REQ_BTN = 0;
+    private Button respuesta1, respuesta2, respuesta3, respuesta4, respuesta5, respuesta6, respuesta7, respuesta8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_egiagezurra_20);
 
-        Button egia_1 = (Button) findViewById(R.id.egia_1);
-        Button egia_2 = (Button) findViewById(R.id.egia_2);
-        Button egia_3 = (Button) findViewById(R.id.egia_3);
-        Button egia_4 = (Button) findViewById(R.id.egia_4);
+        respuesta1 = findViewById(R.id.respuesta1);
+        respuesta2 = findViewById(R.id.respuesta2);
+        respuesta3 = findViewById(R.id.respuesta3);
+        respuesta4 = findViewById(R.id.respuesta4);
+        respuesta5 = findViewById(R.id.respuesta5);
+        respuesta6 = findViewById(R.id.respuesta6);
+        respuesta7 = findViewById(R.id.respuesta7);
+        respuesta8 = findViewById(R.id.respuesta8);
+        DesactivarBotones();
 
-        Button gezurra_1 = (Button) findViewById(R.id.gezurra_1);
-        Button gezurra_2 = (Button) findViewById(R.id.gezurra_2);
-        Button gezurra_3 = (Button) findViewById(R.id.gezurra_3);
-        Button gezurra_4 = (Button) findViewById(R.id.gezurra_4);
+        respuesta1.setOnClickListener(v -> {
+            RespuestaCorrecta(respuesta1,respuesta2);
+        });
+        respuesta2.setOnClickListener(v -> {
+            RespuestaIncorrecta(respuesta2);
+        });
+        respuesta3.setOnClickListener(v -> {
+            RespuestaIncorrecta(respuesta3);
+        });
+        respuesta4.setOnClickListener(v -> {
+            RespuestaCorrecta(respuesta4,respuesta3);
+        });
+        respuesta5.setOnClickListener(v -> {
+            RespuestaCorrecta(respuesta5,respuesta6);
+        });
+        respuesta6.setOnClickListener(v -> {
+            RespuestaIncorrecta(respuesta6);
+        });
+        respuesta7.setOnClickListener(v -> {
 
-        /*ºººººººººººººººººººººººMEDIAPLAYERººººººººººººººººººººº*/
-        mp = MediaPlayer.create(this, R.raw.a7_2);
+            RespuestaCorrecta(respuesta7,respuesta8);
+        });
+        respuesta8.setOnClickListener(v -> {
+            RespuestaIncorrecta(respuesta8);
 
+        });
+
+        mp = MediaPlayer.create(getApplicationContext(), R.raw.a7_2);
+        mp.start();
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                egia_1.setEnabled(true);
-                egia_2.setEnabled(true);
-                egia_3.setEnabled(true);
-                egia_4.setEnabled(true);
-
-                gezurra_1.setEnabled(true);
-                gezurra_2.setEnabled(true);
-                gezurra_3.setEnabled(true);
-                gezurra_3.setEnabled(true);
-
-
-
-                Log.d("mytag","Dentro del onCompletion");
-
+                ActivarBotones();
             }
         });
-        mp.start();
 
-        egia_1.setEnabled(false);
-        egia_2.setEnabled(false);
-        egia_3.setEnabled(false);
-        egia_4.setEnabled(false);
+        pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
 
-        gezurra_1.setEnabled(false);
-        gezurra_2.setEnabled(false);
-        gezurra_3.setEnabled(false);
-        gezurra_4.setEnabled(false);
+        switch (pag_anterior) {
+            case 0:
+                break;
+            case 1:
 
-        egia_1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                MediaPlayer mp1;
-                mp1 = MediaPlayer.create(getApplicationContext(), R.raw.correct);
-                mp1.start();
-            }
-        });
+                btnNext.setEnabled(true);
+                btnNext.setVisibility(View.VISIBLE);
+                btnNext.setOnClickListener(v -> {
+                    mp.stop();
+                    finish();
+                });
+
+
+                btnPreviousGame.setEnabled(true);
+                btnPreviousGame.setVisibility(View.VISIBLE);
+                btnPreviousGame.setOnClickListener(v -> {
+                    mp.stop();
+                    Intent i = new Intent(Egiagezurra_20.this, Informazioakuadroabete_19.class);
+                    i.putExtra("pag_anterior", 1);
+                    startActivityForResult(i, REQ_BTN);
+                    finish();
+                });
+                break;
+        }
+
+    }
+
+    public void RespuestaCorrecta(Button boton, Button boton2){
+        boton.setBackgroundColor(Color.GREEN);
+        SonidoRespuesta(R.raw.correct2, boton);
+        boton.setEnabled(false);
+        boton2.setEnabled(false);
+        puntos++;
+    }
+    public void RespuestaIncorrecta(Button boton){
+        boton.setBackgroundColor(Color.RED);
+        SonidoRespuesta(R.raw.fail2, boton);
+    }
+    public void SonidoRespuesta(int sonido, Button boton){
+        mp2 = MediaPlayer.create(getApplicationContext(), sonido);
+        mp2.start();
+    }
+    public void ActivarBotones(){
+        respuesta1.setEnabled(true);
+        respuesta2.setEnabled(true);
+        respuesta3.setEnabled(true);
+        respuesta4.setEnabled(true);
+        respuesta5.setEnabled(true);
+        respuesta6.setEnabled(true);
+        respuesta7.setEnabled(true);
+        respuesta8.setEnabled(true);
+    }
+    public void DesactivarBotones(){
+        respuesta1.setEnabled(false);
+        respuesta2.setEnabled(false);
+        respuesta3.setEnabled(false);
+        respuesta4.setEnabled(false);
+        respuesta5.setEnabled(false);
+        respuesta6.setEnabled(false);
+        respuesta7.setEnabled(false);
+        respuesta8.setEnabled(false);
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            mp.stop();
+            Log.d("mytag","Has ido atras");
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

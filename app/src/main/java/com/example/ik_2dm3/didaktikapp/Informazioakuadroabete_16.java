@@ -104,7 +104,7 @@ public class Informazioakuadroabete_16 extends AppCompatActivity {
                 btnNext.setVisibility(View.VISIBLE);
                 btnNext.setOnClickListener(v -> {
                     mp.stop();
-                    Intent i = new Intent(Informazioakuadroabete_16.this,Argazkiaktaulansailkatu_12.class);
+                    Intent i = new Intent(Informazioakuadroabete_16.this,Erantzunzuzenaaukeratu_17.class);
                     i.putExtra("pag_anterior",1);
                     startActivityForResult(i, REQ_BTN);
                     finish();
@@ -119,11 +119,8 @@ public class Informazioakuadroabete_16 extends AppCompatActivity {
                     startActivityForResult(i, REQ_BTN);
                     finish();
                 });
-
                 break;
         }
-
-
     }
     public void Comprobartexto(EditText campo, String respuesta){
         if(campo.getText().toString().toLowerCase().equals(respuesta)){

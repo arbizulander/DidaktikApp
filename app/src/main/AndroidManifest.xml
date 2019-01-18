@@ -52,8 +52,9 @@
             android:label="@string/title_activity_maps"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".details_list"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".details_list"
+            android:screenOrientation="portrait" />
 
         <!-- JUEGOS -->
         <activity
@@ -143,7 +144,11 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".Egiagezurra_20"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Erantzunzuzenaaukeratu_17"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Informazioakuadroabete_19"></activity>
     </application>
 
 </manifest>
