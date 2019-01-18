@@ -140,8 +140,9 @@
         <activity
             android:name=".Informazioakuadroabete_16"
             android:screenOrientation="landscape" />
-        <activity android:name=".Egiagezurra_20"
-            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".Egiagezurra_20"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>
