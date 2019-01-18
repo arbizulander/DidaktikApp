@@ -7,13 +7,15 @@ public class Juegos {
     private String nombre_juego;
     private int id_parada;
     private String txtDescripcion;
+    private String imagen;
 
-    public Juegos (int id, String nom, boolean real, int id_par, String txtdesc){
+    public Juegos (int id, String nom, boolean real, int id_par, String txtdesc, String img){
         id_juego = id;
         nombre_juego = nom;
         realizado = real;
         id_parada = id_par;
         txtDescripcion = txtdesc;
+        imagen = img;
     }
 
     public int getId_juego() {
@@ -53,6 +55,14 @@ public class Juegos {
     }
     public void setTxtDescripcion(String txtdesc) {
         this.txtDescripcion=txtdesc;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
     public String toString() {

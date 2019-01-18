@@ -1,16 +1,19 @@
 package com.example.ik_2dm3.didaktikapp;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -19,16 +22,25 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.io.IOException;
@@ -79,6 +91,8 @@ public class details_list extends AppCompatActivity {
     private byte[] decodedString;
     private Bitmap decodedByte;
     private Drawable drawable;
+    private GridView gridView;
+    LoadAlbumImages loadAlbumTask;
 
     //camara
     private static final int PERMISSION_CODE =1000;
@@ -86,23 +100,28 @@ public class details_list extends AppCompatActivity {
     Uri image_uri;
     private int pag_anterior;
 
+    private ArrayList<ImageItem> imagenes = new ArrayList<ImageItem>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_list);
 
         contenido = findViewById(R.id.contenido);
-
+        gridView = findViewById(R.id.gridView);
         pr_actual = new Paradas();
 
         id_parada = getIntent().getIntExtra("id_parada", 0);
         pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
 
-        //Cogemos todos los nombres de las paradas que hay en la BD
-        db=new MyOpenHelper(this);
-        pr_actual = (Paradas) db.getDatos_parada_ID(id_parada);
+        Log.d("mytag","ESTOY EN PARADA: "+id_parada);
         setTitle(pr_actual.getNombre());
         txtParada = pr_actual.getTexto();
+        //Cogemos todos los nombres de las paradas que hay en la BD
+        db=new MyOpenHelper(this);
+        lista_juegos = (ArrayList<Juegos>) db.getDatos_juegos_ID(id_parada);
+        pr_actual = (Paradas) db.getDatos_parada_ID(id_parada);
+        db.close();
 
         //ponemos como background la imagen de BD de esa parada
             /*try {
@@ -117,10 +136,22 @@ public class details_list extends AppCompatActivity {
             e.printStackTrace();
         }*/
 
-        lista_juegos = (ArrayList<Juegos>) db.getDatos_juegos_ID(id_parada);
-        db.close();
 
-        CargarSegunPag_anterior(pag_anterior);
+        int iDisplayWidth = getResources().getDisplayMetrics().widthPixels;
+        Resources resources = getApplicationContext().getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float dp = iDisplayWidth / (metrics.densityDpi / 160f);
+
+        if(dp < 360)
+        {
+            dp = (dp - 17) / 2;
+            float px = com.example.ik_2dm3.didaktikapp.Function.convertDpToPixel(dp, getApplicationContext());
+            gridView.setColumnWidth(Math.round(px));
+        }
+
+        loadAlbumTask = new LoadAlbumImages();
+        loadAlbumTask.execute();
+        //CargarSegunPag_anterior(pag_anterior);
 
     }
 
@@ -153,19 +184,19 @@ public class details_list extends AppCompatActivity {
                 break;
 
             case 1:
-                juegosView = findViewById(R.id.paradas_lista_juegos);
-                juegosView.setVisibility(View.VISIBLE);
+                //juegosView = findViewById(R.id.paradas_lista_juegos);
+                //juegosView.setVisibility(View.VISIBLE);
 
-                titulo_juegos = new String [lista_juegos.size()];
+               /* titulo_juegos = new String [lista_juegos.size()];
                 for (int i = 0; i<titulo_juegos.length; i++){
                     titulo_juegos[i] = (i+1)+ "." + lista_juegos.get(i).getNombre_juego();
-                }
+                }*/
 
                 //Pasamos array al ArrayAdapter para que salga en el ListView
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, titulo_juegos);
-                juegosView.setAdapter(adapter);
+               //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, titulo_juegos);
+               // juegosView.setAdapter(adapter);
 
-                juegosView.setOnItemClickListener((parent, view, position, id) -> {
+                /*juegosView.setOnItemClickListener((parent, view, position, id) -> {
 
                     ID_juego = lista_juegos.get(position).getId_juego();
                     titulo = lista_juegos.get(position).getNombre_juego();
@@ -182,7 +213,7 @@ public class details_list extends AppCompatActivity {
                     }
                     startActivityForResult(i, REQ_OK);
                 });
-                break;
+                break;*/
         }
     }
 
@@ -214,6 +245,154 @@ public class details_list extends AppCompatActivity {
         drawable = new BitmapDrawable(getResources(), decodedByte);
         contenido.setBackground(drawable);
     }*/
+
+    public Bitmap toImg(byte[] byteArray) throws IOException {
+        Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+       /* View convertView = LayoutInflater.from(this).inflate(
+                R.layout.grid_item_card_list, parent, false);*/
+        //ImageView image = (ImageView) findViewById(R.id.galleryImage);
+        //image.setImageBitmap(Bitmap.createScaledBitmap(bmp, image.getWidth(), image.getHeight(), false));
+        //image.setImageResource(R.drawable.error);
+        return bmp;
+    }
+
+
+    class LoadAlbumImages extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            imagenes.clear();
+
+        }
+
+        protected String doInBackground(String... args) {
+            Log.d("mytag", "ESTOY EN EL DOINBACKGROUND");
+            String xml = "";
+
+            db=new MyOpenHelper(cont);
+            lista_juegos = (ArrayList<Juegos>) db.getDatos_juegos_ID(id_parada);
+            db.close();
+
+            //imagenes = new ImageItem();
+            for (int i = 0; i<lista_juegos.size(); i++){
+                //titulo[i] = (i+1)+ "." + lista_paradas.get(i).getNombre();
+                byte [] data = lista_juegos.get(i).getImagen().getBytes();
+                //String prueba = lista_juegos.get(i).getImagen();
+
+                //byte [] data = prueba.getBytes();
+                byte[] decodedString = Base64.decode(data, Base64.DEFAULT);
+
+                if (data == null){
+                    Log.d("mytag","IMAGEN DE ERROR");
+                    decodedByte = BitmapFactory.decodeResource(getResources(),
+                            R.drawable.error);
+                }else{
+                    decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                }
+                //Log.d("mytag", "AÑADIENDO A IMANES: "+ lista_paradas.get(i).getImagen());
+                //Bitmap decodedByte = BitmapFactory.decodeByteArray(data, 0, data.length);
+               // Log.d("mytag", "BYTE ARRAY: "+data.length);
+
+                //Log.d("mytag", "BMP: "+bmp.toString());
+                imagenes.add(new ImageItem(decodedByte, lista_juegos.get(i).getNombre_juego()));
+            }
+
+            /*db=new MyOpenHelper(cont);
+            lista_paradas = db.getDatos_Paradas();
+            db.close();
+
+            titulo = new String [lista_paradas.size()];*/
+
+            return xml;
+        }
+
+        @Override
+        protected void onPostExecute(String xml) {
+
+            details_list.LoadAlbumImages.SingleAlbumAdapter adapter = new details_list.LoadAlbumImages.SingleAlbumAdapter(details_list.this, imagenes);
+            gridView.setAdapter(adapter);
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view,
+                                        final int position, long id) {
+                    Log.d("mytag", "ESTOY DENTRO DEL ON POST EXECUTE");
+                    Log.d("mytag", "POSICION DE IMAGEN: "+position);
+
+                    try{
+
+                        CargarJuegos(lista_juegos, position);
+
+                        //Intent intent = new Intent(details_list.this, details_list.class);
+                        //int prueba = lista_juegos.get(position).getId_parada();
+
+                        //meto el id en los extras para saber que parada es
+                        //intent.putExtra("id_parada", prueba);
+                        //intent.putExtra("pag_anterior",1);
+                        //startActivityForResult(intent, REQ_OK);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+        class SingleAlbumAdapter extends BaseAdapter {
+            private Activity activity;
+            private ArrayList<ImageItem> data;
+
+            public SingleAlbumAdapter(Activity a, ArrayList<ImageItem> d) {
+                activity = a;
+                data = d;
+            }
+            public int getCount() {
+                return data.size();
+            }
+            public Object getItem(int position) {
+                return position;
+            }
+            public long getItemId(int position) {
+                return position;
+            }
+
+            public View getView(int position, View convertView, ViewGroup parent) {
+                details_list.LoadAlbumImages.SingleAlbumViewHolder holder = null;
+                if (convertView == null) {
+                    holder = new details_list.LoadAlbumImages.SingleAlbumViewHolder();
+                    convertView = LayoutInflater.from(activity).inflate(
+                            R.layout.grid_item_card_list, parent, false);
+
+                    holder.galleryImage = (ImageView) convertView.findViewById(R.id.galleryImage);
+                    holder.nombre_parada = (TextView) convertView.findViewById(R.id.nombre_parada);
+
+                    convertView.setTag(holder);
+                } else {
+                    holder = (details_list.LoadAlbumImages.SingleAlbumViewHolder) convertView.getTag();
+                }
+                holder.galleryImage.setId(position);
+                holder.nombre_parada.setId(position);
+
+                ImageItem song = new ImageItem();
+                song = data.get(position);
+                Log.d("mytag","IMAGEN: "+position+"   "+song.getImage());
+                Drawable d = new BitmapDrawable(getResources(), song.getImage());
+                //TextView txt = new TextView(activity);
+                //txt.setText(song.getTitle());
+
+                try {
+                    //Glide.with(activity).load((song.getImage()).r.d);
+
+                    Glide.with(activity).load(d).into(holder.galleryImage);
+                    holder.nombre_parada.setText(song.getTitle());
+                    //Glide.with(activity).load(txt).into(holder.nombre_parada);
+
+                } catch (Exception e) {}
+                return convertView;
+            }
+
+        }
+        class SingleAlbumViewHolder {
+            ImageView galleryImage;
+            TextView nombre_parada;
+        }
+    }
 
     public void CargarJuegos (ArrayList<Juegos> Listado_juegos, int pos){
         Log.d("mytag", "CARGANDO JUEGOS");

@@ -44,7 +44,7 @@ public class list extends AppCompatActivity {
 
     //array donde guardaremos los titulos,imagenes de las paradas
     private String[] titulo;
-    private ArrayList<ImageItem> imagenes = new ArrayList<ImageItem>();
+
 
     //Aqui guardaremos los datos de la BD
     private ArrayList<Paradas> lista_paradas;
@@ -57,6 +57,7 @@ public class list extends AppCompatActivity {
     LoadAlbumImages loadAlbumTask;
 
     private Context cont = this;
+    private ArrayList<ImageItem> imagenes = new ArrayList<ImageItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,7 +181,7 @@ public class list extends AppCompatActivity {
                     try{
                         Intent intent = new Intent(list.this, details_list.class);
                         int prueba = lista_paradas.get(position).getId_parada();
-
+                        Log.d("mytag","ID DE LA PARADA PULSADA: "+prueba);
                         //meto el id en los extras para saber que parada es
                         intent.putExtra("id_parada", prueba);
                         intent.putExtra("pag_anterior",1);

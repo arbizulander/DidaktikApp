@@ -60,12 +60,12 @@ public class MyOpenHelper extends SQLiteOpenHelper {
         boolean dbExist = checkDataBase();
         SQLiteDatabase db_Read = null;
 
-        if (dbExist){
+        //if (dbExist){
 
-        //            //la bd ya existe
-                }
-        else
-        {
+                    //la bd ya existe
+          //     }
+       // else
+      //  {
             db_Read = this.getReadableDatabase();
             db_Read.close();
 
@@ -74,7 +74,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
             }catch (IOException e){
                 throw new Error ("Error copiando BD");
             }
-        }
+     //   }
     }
 
     public boolean checkDataBase(){
@@ -306,10 +306,11 @@ public class MyOpenHelper extends SQLiteOpenHelper {
                     int real = c.getInt(c.getColumnIndex("realizado"));
                     String nombre = c.getString(c.getColumnIndex("nombre_juego"));
                     String txtdesc = c.getString(c.getColumnIndex("texto"));
+                    String img = c.getString(c.getColumnIndex("imagen"));
 
                     boolean reali = (real!=0);
 
-                    Juegos j =new Juegos(id_juego,nombre,reali,id,txtdesc);
+                    Juegos j =new Juegos(id_juego,nombre,reali,id,txtdesc, img);
                     Juegoslista.add(j);
                 }
 
