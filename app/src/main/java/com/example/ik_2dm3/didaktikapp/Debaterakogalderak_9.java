@@ -31,7 +31,7 @@ public class Debaterakogalderak_9 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_debaterakogalderak_9);
-        setTitle("Eztabaidatu zure ikaskideekin");
+        setTitle("Debaterako galderak");
         btnNext = findViewById(R.id.btnNext);
         btnPreviousGame = findViewById(R.id.btnPreviousGame);
         btnPreviousGame.setEnabled(false);

@@ -151,7 +151,7 @@ public class details_list extends AppCompatActivity {
 
         loadAlbumTask = new LoadAlbumImages();
         loadAlbumTask.execute();
-        //CargarSegunPag_anterior(pag_anterior);
+        CargarSegunPag_anterior(pag_anterior);
 
     }
 
@@ -415,6 +415,7 @@ public class details_list extends AppCompatActivity {
                 i = null;
                 try {
                     i = new Intent(this, Class.forName(nombre_completo));
+                    i.putExtra("pag_anterior",pag_anterior);
                     i.putExtra("Description", Listado_juegos.get(0).getTxtDescripcion());
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();

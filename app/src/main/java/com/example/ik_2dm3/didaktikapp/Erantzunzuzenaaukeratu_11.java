@@ -33,7 +33,7 @@ public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_erantzunzuzenaaukeratu_11);
-        setTitle("Entzun eta aukeratu erantzun egokia");
+        setTitle("Aukeratu erantzun egokia");
         btnPreviousGame = findViewById(R.id.btnPreviousGame);
         btnPreviousGame.setEnabled(false);
         btnPreviousGame.setVisibility(View.INVISIBLE);
@@ -143,13 +143,16 @@ public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
                     }
                 }
                 else{
+                    Log.d("mytag","JELOUUUU");
                     boton.setBackgroundColor(Color.TRANSPARENT);
-                    Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.rippleeffect);
+                    //boton.setBackgroundColor(Color.);
+                    //Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.rippleeffect);
 
-                    BitmapDrawable background = new BitmapDrawable(getResources(), bitmap);
-                    int actionBarBackground = getResources().getColor(R.color.colorPrimaryDark);
-                    boton.setBackgroundColor(actionBarBackground);
-                    boton.setBackground(background);
+                    //BitmapDrawable background = new BitmapDrawable(getResources(), bitmap);
+                    //int actionBarBackground = getResources().getColor(R.color.colorPrimary);
+                    //boton.setBackgroundColor(actionBarBackground);
+
+                    //boton.setBackground(background);
 
                     ActivarBotones();
                     //respuesta1.setBackground((int)R.drawable.rippleeffect);

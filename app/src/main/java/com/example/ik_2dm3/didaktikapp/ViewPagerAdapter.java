@@ -28,11 +28,14 @@ public class ViewPagerAdapter extends PagerAdapter {
     private Button button;
     private GifImageView gifImageView;
     private boolean gif = false;
+    private int pag_anterior;
 
 
-    public ViewPagerAdapter(Context context) {
+    public ViewPagerAdapter(Context context, int e) {
         this.context = context;
+        this.pag_anterior = e;
     }
+
 
     @Override
     public int getCount(){
@@ -96,7 +99,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
         }
 
-        if(position == 3){
+        if(position == 3 && pag_anterior == 0){
 
             button.setEnabled(true);
             button.setVisibility(View.VISIBLE);

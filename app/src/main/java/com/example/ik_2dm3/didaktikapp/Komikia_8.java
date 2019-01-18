@@ -39,7 +39,7 @@ public class Komikia_8 extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this, pag_anterior);
 
         viewPager.setAdapter(viewPagerAdapter);
 
