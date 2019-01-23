@@ -6,59 +6,69 @@
     android:layout_height="match_parent"
     tools:context=".Argazkiaksailkatu_13">
 
+
+        android:layout_width="501dp"
+        android:layout_height="112dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toStartOf="@+id/btnNext"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toEndOf="@+id/btnPreviousGame"
+        tools:layout_editor_absoluteY="192dp">
+
     <TextView
         android:id="@+id/aire"
-        android:layout_width="128dp"
-        android:layout_height="79dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:contentDescription="aire"
+        android:layout_width="122dp"
+        android:layout_height="71dp"
 
-        android:text="AIREZKOAK"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="aire"
+        android:text="HAIZEZKOA"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.062"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.879" />
+        app:layout_constraintEnd_toStartOf="@+id/perkuzioa"
+        app:layout_constraintHorizontal_bias="0.456"
+        app:layout_constraintStart_toEndOf="@+id/cuerda" />
 
     <TextView
         android:id="@+id/cuerda"
-        android:layout_width="128dp"
-        android:layout_height="79dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:contentDescription="cuerda"
+        android:layout_width="129dp"
+        android:layout_height="66dp"
 
-        android:text="ARIZKOAK"
+        android:layout_marginStart="72dp"
+        android:layout_marginBottom="28dp"
+        android:contentDescription="cuerda"
+        android:text="HARIZKOA"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.522"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.879" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/perkuzioa"
-        android:layout_width="128dp"
-        android:layout_height="79dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:contentDescription="Perkuzioa"
+        android:layout_width="122dp"
+        android:layout_height="74dp"
 
-        android:text="PERKUZIOZKOAK"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="Perkuzioa"
+        android:text="PERKUSIOZKOA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/img_tabla" />
+
+
+    <ImageView
+        android:id="@+id/img_tabla"
+        android:layout_width="490dp"
+        android:layout_height="132dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.946"
+        app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.879" />
+        app:srcCompat="@drawable/tabla_musica" />
 
     <ImageView
         android:id="@+id/arpa"

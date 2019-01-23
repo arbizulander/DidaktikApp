@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="508dp"
-        android:layout_height="282dp"
+        android:layout_width="529dp"
+        android:layout_height="294dp"
         android:layout_marginTop="17dp"
         android:layout_marginBottom="12dp"
         android:src="@drawable/zirgarriak"
