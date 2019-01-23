@@ -153,8 +153,7 @@ public class details_list extends AppCompatActivity {
             gridView.setColumnWidth(Math.round(px));
         }
 
-        loadAlbumTask = new LoadAlbumImages();
-        loadAlbumTask.execute();
+
         CargarSegunPag_anterior(pag_anterior);
 
     }
@@ -184,10 +183,10 @@ public class details_list extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 startActivityForResult(i, REQ_OK);*/
-
                 break;
-
             case 1:
+                loadAlbumTask = new LoadAlbumImages();
+                loadAlbumTask.execute();
                 //juegosView = findViewById(R.id.paradas_lista_juegos);
                 //juegosView.setVisibility(View.VISIBLE);
 
@@ -227,14 +226,14 @@ public class details_list extends AppCompatActivity {
                 .setTitle("TITULO DE PRUEBA")
                 .setCancelable(false)
                 .setNeutralButton("Aceptar",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                finish();
-                                dialog.cancel();
-                                //checkCameraPermission();
-                                openCamera();
+                                          new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    finish();
+                                    dialog.cancel();
+                                    //checkCameraPermission();
+                                    openCamera();
 
-                            }
+                                }
                         });
         alert = builder.create();
         alert.show();
@@ -426,12 +425,12 @@ public class details_list extends AppCompatActivity {
                 }
                 startActivityForResult(i, REQ_OK);
             }
-            /*else {
+            else {
                 if (pos < lista_juegos.size()) {
                     contJuegos += 1;
                     CargarJuegos(lista_juegos, contJuegos);
                 }
-            }*/
+            }
         }
         else{
             Log.d("mytag", "Juegos finalizados de parada: "+pr_actual.getNombre());

@@ -60,12 +60,12 @@ public class MyOpenHelper extends SQLiteOpenHelper {
         boolean dbExist = checkDataBase();
         SQLiteDatabase db_Read = null;
 
-        //if (dbExist){
+        if (dbExist){
 
                     //la bd ya existe
-          //     }
-        //else
-       // {
+              }
+        else
+        {
             db_Read = this.getReadableDatabase();
             db_Read.close();
 
@@ -74,7 +74,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
             }catch (IOException e){
                 throw new Error ("Error copiando BD");
             }
-        //}
+        }
     }
 
     public boolean checkDataBase(){
