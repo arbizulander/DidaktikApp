@@ -114,14 +114,18 @@ public class details_list extends AppCompatActivity {
         id_parada = getIntent().getIntExtra("id_parada", 0);
         pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
 
-        Log.d("mytag","ESTOY EN PARADA: "+id_parada);
-        setTitle(pr_actual.getNombre());
-        txtParada = pr_actual.getTexto();
-        //Cogemos todos los nombres de las paradas que hay en la BD
         db=new MyOpenHelper(this);
         lista_juegos = (ArrayList<Juegos>) db.getDatos_juegos_ID(id_parada);
         pr_actual = (Paradas) db.getDatos_parada_ID(id_parada);
         db.close();
+
+        Log.d("mytag","ESTOY EN PARADA: "+id_parada);
+        Log.d("mytag","NOMBRE PARADA: "+pr_actual.getNombre());
+
+        setTitle(pr_actual.getNombre());
+        txtParada = pr_actual.getTexto();
+        //Cogemos todos los nombres de las paradas que hay en la BD
+
 
         //ponemos como background la imagen de BD de esa parada
             /*try {
