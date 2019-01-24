@@ -97,6 +97,7 @@ public class details_list extends AppCompatActivity {
     //camara
     private static final int PERMISSION_CODE =1000;
     private static final int IMAGE_CAPTURE_CODE =1001;
+    static final int REQ_BTNATRAS = 12;
     Uri image_uri;
     private int pag_anterior;
 
@@ -440,74 +441,102 @@ public class details_list extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
+
+        /*if (requestCode == REQ_BTNATRAS){
+            Log.d("mytag", "VUELVES DEL ONKEYDOWN2");
+        }*/
         if (requestCode == REQ_OK) {
+            Log.d("mytag", "VUELVES DEL ONKEYDOWN1");
             // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
+            try{
+            Integer resultado = data.getExtras().getInt("keydown",0);
+                Log.d ("mytag", "ONKEYDOWN = "+resultado);
+                if (resultado == REQ_BTNATRAS){
+                    Log.d("mytag", "FINALIZANDO LISTADETALLADA ONKEYDOWN");
+                    finish();
+                }
+                else
+                {
+                    if (resultCode == RESULT_OK) {
 
-                switch (pag_anterior){
+                        switch (pag_anterior){
 
-                    case 0:
-                        Log.d("mytag","HE VUELTO DEL JUEGO ");
-                        contJuegos+=1;
-                        Log.d("mytag", "Contador juegos : "+ contJuegos + " TOtal juegos: "+lista_juegos.size());
-                        if (contJuegos < lista_juegos.size()){
-                            CargarJuegos(lista_juegos, contJuegos);
-                        }
-                        else{
-
-                            db=new MyOpenHelper(cont);
-                            db.ActualizarParada_Id(1);
-                            db.close();
-
-                            Log.d("mytag", "Juegos finalizados de parada JUEGO:   "+pr_actual.getNombre());
-                            Log.d("mytag", "Juegos finalizados de parada JUEGO opcion CAMARA:   "+pr_actual.isSacarFoto());
-
-                            if (pr_actual.isSacarFoto()){
-                                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                                    if(checkSelfPermission(Manifest.permission.CAMERA) ==
-                                            PackageManager.PERMISSION_DENIED ||
-                                            checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                                                    PackageManager.PERMISSION_DENIED){
-                                        //PERMISSIONS NOT ENABLED, REQUEST IT
-                                        String[] permission ={Manifest.permission.CAMERA,
-                                                Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                                        //SHOW POPUP TO REQUEST PERMISSIONS
-                                        requestPermissions(permission,PERMISSION_CODE);
-
-                                    }
-                                    else{
-                                        Log.d("mytag","POPUP para camara");
-                                        //permission already granted
-                                        PopUp(contenido);
-                                        //openCamera();
-                                    }
+                            case 0:
+                                Log.d("mytag","HE VUELTO DEL JUEGO ");
+                                contJuegos+=1;
+                                Log.d("mytag", "Contador juegos : "+ contJuegos + " TOtal juegos: "+lista_juegos.size());
+                                if (contJuegos < lista_juegos.size()){
+                                    CargarJuegos(lista_juegos, contJuegos);
                                 }
                                 else{
-                                    Log.d("mytag","POPUP para camara");
-                                    //system os < marshmallow
-                                    PopUp(contenido);
-                                    //openCamera();
+
+                                    db=new MyOpenHelper(cont);
+                                    db.ActualizarParada_Id(1);
+                                    db.close();
+
+                                    Log.d("mytag", "Juegos finalizados de parada JUEGO:   "+pr_actual.getNombre());
+                                    Log.d("mytag", "Juegos finalizados de parada JUEGO opcion CAMARA:   "+pr_actual.isSacarFoto());
+
+                                    if (pr_actual.isSacarFoto()){
+                                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                                            if(checkSelfPermission(Manifest.permission.CAMERA) ==
+                                                    PackageManager.PERMISSION_DENIED ||
+                                                    checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                                                            PackageManager.PERMISSION_DENIED){
+                                                //PERMISSIONS NOT ENABLED, REQUEST IT
+                                                String[] permission ={Manifest.permission.CAMERA,
+                                                        Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                                                //SHOW POPUP TO REQUEST PERMISSIONS
+                                                requestPermissions(permission,PERMISSION_CODE);
+
+                                            }
+                                            else{
+                                                Log.d("mytag","POPUP para camara");
+                                                //permission already granted
+                                                PopUp(contenido);
+                                                //openCamera();
+                                            }
+                                        }
+                                        else{
+                                            Log.d("mytag","POPUP para camara");
+                                            //system os < marshmallow
+                                            PopUp(contenido);
+                                            //openCamera();
+                                        }
+                                    }
                                 }
-                            }
+                                // The user picked a contact.
+                                // The Intent's data Uri identifies which contact was selected.
+
+                                // Do something with the contact here (bigger example below)
+                                break;
+
+                            case 1:
+
+                                break;
                         }
-                        // The user picked a contact.
-                        // The Intent's data Uri identifies which contact was selected.
 
-                        // Do something with the contact here (bigger example below)
-                        break;
 
-                    case 1:
 
-                        break;
+                    }
+
                 }
 
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+
+
+            if (resultCode == 12){
+                Log.d("mytag", "VUELVES DEL ONKEYDOWN2");
 
 
             }
 
             //resultado de sacar foto
-            if (resultCode ==IMAGE_CAPTURE_CODE){
-                Log.d("mytag","VUELVO DE LA CAMARA");
+            else if (resultCode ==IMAGE_CAPTURE_CODE) {
+                Log.d("mytag", "VUELVO DE LA CAMARA");
                 finish();
             }
         }

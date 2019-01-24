@@ -66,6 +66,7 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
 
     private int pag_anterior;
     static final int REQ_BTN = 0;
+    static final int REQ_BTNATRAS = 12;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -417,7 +418,12 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
             /*Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
                     Toast.LENGTH_SHORT).show();*/
             //return true;
-            Log.d("mytag","Back disabled");
+            if (pag_anterior == 0){
+                Intent i = new Intent();
+                i.putExtra("keydown",REQ_BTNATRAS);
+                setResult(RESULT_OK,i);
+            }
+            //Log.d("mytag","Back disabled");
             mp.stop();
             finish();
         }
