@@ -1,11 +1,17 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,11 +22,18 @@ public class Hizkisalda_18 extends AppCompatActivity {
 
     private LinearLayout l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12;
     private View v1, v2, v3, v5, v6, v7;
+    private MediaPlayer mp;
+    private ImageButton btnNext;
     private boolean kultura,iguarrako,guk,ondarea,amurrio,refort;
     private boolean kultura1,iguarrako2,guk3,ondarea5,amurrio6,refort7;
     private static boolean palabraAcabada = false, palabraChekeada = false, cheked = false;
     private ArrayList<TextView> arr;
     private TextView a1,a2,a3,a5,a6,a7;
+    private Context cont = this;
+    private MyOpenHelper db;
+    private int pag_anterior;
+    static final int REQ_BTN = 0;
+    static final int REQ_BTNATRAS = 12;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +41,30 @@ public class Hizkisalda_18 extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_hizkisalda_18);
 
+        btnNext = findViewById(R.id.btnNext);
+        btnNext.setEnabled(false);
+        btnNext.setVisibility(View.INVISIBLE);
+        mp = MediaPlayer.create(getApplicationContext(), R.raw.a7_2);
+        mp.start();
+
+        pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
+
+        switch (pag_anterior){
+            case 0:
+                break;
+            case 1:
+                //btnNext.set
+                btnNext.setEnabled(true);
+                btnNext.setVisibility(View.VISIBLE);
+                btnNext.setOnClickListener(v -> {
+                    mp.stop();
+                    Intent i = new Intent(Hizkisalda_18.this,Informazioakuadroabete_19.class);
+                    i.putExtra("pag_anterior",1);
+                    startActivityForResult(i, REQ_BTN);
+                    finish();
+                });
+                break;
+        }
         //Instanciar los LinearLayouts
         l1 = findViewById(R.id.actividad7_layout_1);
         l2 = findViewById(R.id.actividad7_layout_2);
@@ -724,8 +761,23 @@ public class Hizkisalda_18 extends AppCompatActivity {
     public void comprobarFinalizado(){
         if(kultura&iguarrako&guk&ondarea&amurrio&refort&
                 kultura1&iguarrako2&guk3&ondarea5&amurrio6&refort7){
-            Toast.makeText(this, "Has acabado todas las palabras, ENHORABUENA!!\nHacer que se vuelva a la principal", Toast.LENGTH_SHORT).show();
-            finish();
+            //Pasar de juego
+            switch (pag_anterior){
+                case 0:
+                    int i = 18;
+                    db=new MyOpenHelper(cont);
+                    db.ActualizarJuego_Id(i);
+                    db.close();
+
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("result",1);
+                    setResult(Activity.RESULT_OK,returnIntent);
+                    finish();
+                    break;
+
+                case 1:
+                    break;
+            }
         }
     }
 
@@ -746,5 +798,18 @@ public class Hizkisalda_18 extends AppCompatActivity {
 
         c.start();
     }
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            if (pag_anterior == 0){
+                Intent i = new Intent();
+                i.putExtra("keydown",REQ_BTNATRAS);
+                setResult(RESULT_OK,i);
+            }
+            mp.stop();
+            Log.d("mytag","Has ido atras");
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
