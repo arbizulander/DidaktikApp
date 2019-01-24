@@ -27,6 +27,7 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
     static final int REQ_TEXT = 0;
     private ImageButton btnNextGame, btnPreviousGame;
     static final int REQ_BTN = 0;
+    static final int REQ_BTNATRAS = 12;
     private int pag_anterior, refrescar;
 
     //las imágenes
@@ -336,6 +337,11 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
             /*Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
                     Toast.LENGTH_SHORT).show();*/
             //return true;
+            if (pag_anterior == 0){
+                Intent i = new Intent();
+                i.putExtra("keydown",REQ_BTNATRAS);
+                setResult(RESULT_OK,i);
+            }
             mp.stop();
             finish();
         }

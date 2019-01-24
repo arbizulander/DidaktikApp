@@ -26,6 +26,7 @@ public class Erantzunzuzenaaukeratu_17 extends AppCompatActivity {
     private int puntos = 0;
     static final int REQ_BTN = 0;
     private Button respuesta1, respuesta2, respuesta3, respuesta4, respuesta5, respuesta6, respuesta7, respuesta8;
+    static final int REQ_BTNATRAS = 12;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +137,11 @@ public class Erantzunzuzenaaukeratu_17 extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            if (pag_anterior == 0){
+                Intent i = new Intent();
+                i.putExtra("keydown",REQ_BTNATRAS);
+                setResult(RESULT_OK,i);
+            }
             mp.stop();
             Log.d("mytag","Has ido atras");
             finish();

@@ -16,6 +16,7 @@ public class Argazkia_10 extends AppCompatActivity {
     private MyOpenHelper db;
     private int pag_anterior;
     static final int REQ_BTN = 0;
+    static final int REQ_BTNATRAS = 12;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +95,11 @@ public class Argazkia_10 extends AppCompatActivity {
 // Esto es lo que hace mi botón al pulsar ir a atrás
                 /*Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
                         Toast.LENGTH_SHORT).show();*/
+            if (pag_anterior == 0){
+                Intent i = new Intent();
+                i.putExtra("keydown",REQ_BTNATRAS);
+                setResult(RESULT_OK,i);
+            }
 
         }
         return super.onKeyDown(keyCode, event);

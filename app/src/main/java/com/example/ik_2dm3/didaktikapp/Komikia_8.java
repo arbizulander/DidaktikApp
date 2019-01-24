@@ -19,6 +19,7 @@ public class Komikia_8 extends AppCompatActivity {
     private ImageButton btnNextGame, btnPreviousGame;
     private int pag_anterior;
     static final int REQ_BTN = 0;
+    static final int REQ_BTNATRAS = 12;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

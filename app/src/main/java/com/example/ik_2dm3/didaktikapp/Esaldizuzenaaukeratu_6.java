@@ -32,6 +32,7 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
 
     private MyOpenHelper db;
     private Context cont = this;
+    static final int REQ_BTNATRAS = 12;
 
 
     @Override
@@ -194,6 +195,11 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
             /*Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
                     Toast.LENGTH_SHORT).show();*/
             //return true;
+            if (pag_anterior == 0){
+                Intent i = new Intent();
+                i.putExtra("keydown",REQ_BTNATRAS);
+                setResult(RESULT_OK,i);
+            }
             mp.stop();
         }
         return super.onKeyDown(keyCode, event);

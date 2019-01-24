@@ -24,6 +24,7 @@ public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
     private MyOpenHelper db;
     private int pag_anterior;
     static final int REQ_BTN = 0;
+    static final int REQ_BTNATRAS = 12;
     private Button respuesta1, respuesta2, respuesta3, respuesta4, respuesta5, respuesta6;
 
     @Override
@@ -177,6 +178,11 @@ public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            if (pag_anterior == 0){
+                Intent i = new Intent();
+                i.putExtra("keydown",REQ_BTNATRAS);
+                setResult(RESULT_OK,i);
+            }
             mp.stop();
             Log.d("mytag","Has ido atras");
             finish();
