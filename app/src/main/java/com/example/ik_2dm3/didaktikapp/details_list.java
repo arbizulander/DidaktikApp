@@ -471,7 +471,7 @@ public class details_list extends AppCompatActivity {
                                 else{
 
                                     db=new MyOpenHelper(cont);
-                                    db.ActualizarParada_Id(1);
+                                    db.ActualizarParada_Id(id_parada);
                                     db.close();
 
                                     Log.d("mytag", "Juegos finalizados de parada JUEGO:   "+pr_actual.getNombre());

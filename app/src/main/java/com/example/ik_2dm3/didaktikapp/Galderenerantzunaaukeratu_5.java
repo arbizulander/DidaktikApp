@@ -202,7 +202,6 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
                                 db=new MyOpenHelper(cont);
                                 db.ActualizarJuego_Id(i);
                                 db.close();
-
                                 Log.d("mytag","AL ACABAR EL JUEGO FINALIDO Y VUELVO AL LISTADO PARA CARGAR SIGUIENTE...");
                                 Intent returnIntent = new Intent();
                                 returnIntent.putExtra("result",1);
