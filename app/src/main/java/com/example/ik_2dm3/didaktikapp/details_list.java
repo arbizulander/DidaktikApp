@@ -527,15 +527,8 @@ public class details_list extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-
-            if (resultCode == 12){
-                Log.d("mytag", "VUELVES DEL ONKEYDOWN2");
-
-
-            }
-
             //resultado de sacar foto
-            else if (resultCode ==IMAGE_CAPTURE_CODE) {
+            if (resultCode ==IMAGE_CAPTURE_CODE) {
                 Log.d("mytag", "VUELVO DE LA CAMARA");
                 finish();
             }
