@@ -24,6 +24,7 @@ public class Debaterakogalderak_9 extends AppCompatActivity {
     private MyOpenHelper db;
     private int pag_anterior;
     static final int REQ_BTN = 0;
+    static final int REQ_BTNATRAS = 12;
     private ImageView fotodebate;
     private TextView galdera1, galdera2, galdera3, galdera4, komenta;
 
@@ -149,6 +150,11 @@ public class Debaterakogalderak_9 extends AppCompatActivity {
             // Esto es lo que hace mi botón al pulsar ir a atrás
             /*Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
                     Toast.LENGTH_SHORT).show();*/
+            if (pag_anterior == 0){
+                Intent i = new Intent();
+                i.putExtra("keydown",REQ_BTNATRAS);
+                setResult(RESULT_OK,i);
+            }
             mp.stop();
             finish();
         }

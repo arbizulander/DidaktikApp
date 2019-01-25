@@ -143,6 +143,9 @@
             android:name=".Informazioakuadroabete_16"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".Hizkisalda_18"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Egiagezurra_20"
             android:screenOrientation="portrait" />
         <activity

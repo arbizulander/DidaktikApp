@@ -1,13 +1,164 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 public class Informazioakuadroabete_19 extends AppCompatActivity {
+
+    private EditText texto1, texto2 ,texto3;
+    private MediaPlayer mp;
+    private ImageButton btnNext, btnPreviousGame;
+    private Context cont = this;
+    private MyOpenHelper db;
+    private int puntos = 0;
+    private int pag_anterior;
+    static final int REQ_BTN = 0;
+    static final int REQ_BTNATRAS = 12;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informazioakuadroabete_19);
+        setTitle("Informazioa kuadroa bete");
+        btnPreviousGame = findViewById(R.id.btnPreviousGame);
+        btnPreviousGame.setEnabled(false);
+        btnPreviousGame.setVisibility(View.INVISIBLE);
+        btnNext = findViewById(R.id.btnNext);
+        btnNext.setEnabled(false);
+        btnNext.setVisibility(View.INVISIBLE);
+
+        mp = MediaPlayer.create(getApplicationContext(), R.raw.a7_2);
+        mp.start();
+
+        texto1 = (EditText)findViewById(R.id.texto1);
+        texto2 = (EditText)findViewById(R.id.texto2);
+        texto3 = (EditText)findViewById(R.id.texto3);
+        texto1.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
+        texto2.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
+        texto3.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
+        texto1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override
+            public void afterTextChanged(Editable s) {
+                Comprobartexto(texto1,"manuel maria smith");
+            }
+        });
+        texto2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override
+            public void afterTextChanged(Editable s) {
+                Comprobartexto(texto2,"1909");
+            }
+        });
+        texto3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override
+            public void afterTextChanged(Editable s) {
+                Comprobartexto(texto3,"ingelesa");
+            }
+        });
+
+        pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
+
+        switch (pag_anterior){
+            case 0:
+                break;
+            case 1:
+                //btnNext.set
+                btnNext.setEnabled(true);
+                btnNext.setVisibility(View.VISIBLE);
+                btnNext.setOnClickListener(v -> {
+                    mp.stop();
+                    Intent i = new Intent(Informazioakuadroabete_19.this,Hizkisalda_18.class);
+                    i.putExtra("pag_anterior",1);
+                    startActivityForResult(i, REQ_BTN);
+                    finish();
+                });
+
+                btnPreviousGame.setEnabled(true);
+                btnPreviousGame.setVisibility(View.VISIBLE);
+                btnPreviousGame.setOnClickListener(v -> {
+                    mp.stop();
+                    Intent i = new Intent(Informazioakuadroabete_19.this,Egiagezurra_20.class);
+                    i.putExtra("pag_anterior",1);
+                    startActivityForResult(i, REQ_BTN);
+                    finish();
+                });
+                break;
+        }
+    }
+    public void Comprobartexto(EditText campo, String respuesta){
+        if(campo.getText().toString().toLowerCase().equals(respuesta)){
+            mp = MediaPlayer.create(getApplicationContext(), R.raw.correct);
+            mp.start();
+            campo.getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);
+            campo.setInputType(InputType.TYPE_NULL);
+            campo.setKeyListener(null);
+            puntos++;
+            campo.setFocusable(false);
+            if(puntos == 3){
+                mp = MediaPlayer.create(getApplicationContext(), R.raw.correct);
+                mp.start();
+                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        //Pasar de juego
+                        switch (pag_anterior){
+                            case 0:
+                                int i = 19;
+                                db=new MyOpenHelper(cont);
+                                db.ActualizarJuego_Id(i);
+                                db.close();
+
+                                Intent returnIntent = new Intent();
+                                returnIntent.putExtra("result",1);
+                                setResult(Activity.RESULT_OK,returnIntent);
+                                finish();
+                                break;
+
+                            case 1:
+                                break;
+                        }
+                    }
+                });
+            }
+        }
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            if (pag_anterior == 0){
+                Intent i = new Intent();
+                i.putExtra("keydown",REQ_BTNATRAS);
+                setResult(RESULT_OK,i);
+            }
+            mp.stop();
+            Log.d("mytag","Has ido atras");
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

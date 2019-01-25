@@ -1,8 +1,10 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,11 +28,35 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
     private MyOpenHelper db;
     private int pag_anterior;
     static final int REQ_BTN = 0;
+    static final int REQ_BTNATRAS = 12;
+
+    BroadcastReceiver miBroadcast = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
+                Log.i("TAG", "Screen ON");
+            }
+            else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+                Log.i("TAG", "Screen OFF");
+                mp.stop();
+                mp2.stop();
+                mp1.stop();
+            }
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_argazkiaksailkatu_13);
+
+        //Aquí registras los eventos que quieres escuchar
+        registerReceiver(miBroadcast, new IntentFilter(Intent.ACTION_SCREEN_ON));
+        registerReceiver(miBroadcast, new IntentFilter(Intent.ACTION_SCREEN_OFF));
+
+
         setTitle("Argazkiak sailkatu");
         btnPreviousGame = findViewById(R.id.btnPreviousGame);
         btnPreviousGame.setEnabled(false);
@@ -374,6 +400,11 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
            /* Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
                     Toast.LENGTH_SHORT).show();*/
             //return true;
+            if (pag_anterior == 0){
+                Intent i = new Intent();
+                i.putExtra("keydown",REQ_BTNATRAS);
+                setResult(RESULT_OK,i);
+            }
             mp.stop();
             if(mp2.isPlaying())
                 mp2.stop();

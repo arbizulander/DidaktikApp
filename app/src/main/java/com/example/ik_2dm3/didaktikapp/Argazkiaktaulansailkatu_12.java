@@ -21,6 +21,7 @@ public class Argazkiaktaulansailkatu_12 extends AppCompatActivity {
     private int pag_anterior;
     static final int REQ_BTN = 0;
     private int contador = 0;
+    static final int REQ_BTNATRAS = 12;
 
 
 
@@ -158,6 +159,11 @@ public class Argazkiaktaulansailkatu_12 extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            if (pag_anterior == 0){
+                Intent i = new Intent();
+                i.putExtra("keydown",REQ_BTNATRAS);
+                setResult(RESULT_OK,i);
+            }
             mp.stop();
             Log.d("mytag","Has ido atras");
             finish();
