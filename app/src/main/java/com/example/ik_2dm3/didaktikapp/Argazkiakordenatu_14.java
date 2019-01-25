@@ -1,5 +1,6 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +23,7 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
     private ImageButton  btnNext;
     private Context cont = this;
     private MyOpenHelper db;
+    int puntos = 0;
     private int pag_anterior;
     static final int REQ_BTN = 0;
     static final int REQ_BTNATRAS = 12;
@@ -299,6 +301,8 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
 
         mp1 = MediaPlayer.create(this, R.raw.correct);
         mp1.start();
+        puntos++;
+        comprobarVictoria();
     }
 
     public void fallo (){
@@ -326,5 +330,23 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+public void comprobarVictoria(){
+        if(puntos == 4){
+            switch (pag_anterior){
+                case 0:
+                        int i = 14;
+                        db=new MyOpenHelper(cont);
+                        db.ActualizarJuego_Id(i);
+                        db.close();
 
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("result",1);
+                        setResult(Activity.RESULT_OK,returnIntent);
+                        finish();
+                    break;
+                case 1:
+                    break;
+            }
+        }
+}
 }

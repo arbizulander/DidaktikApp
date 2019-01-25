@@ -12,18 +12,18 @@
         android:layout_width="357dp"
         android:layout_height="510dp"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/argazkia_10_2"
-        tools:layout_editor_absoluteX="11dp"
-        tools:layout_editor_absoluteY="0dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/argazkia_10_2" />
 
     <ImageButton
         android:id="@+id/imagen1"
         android:layout_width="355dp"
         android:layout_height="517dp"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/argazkia_10_1"
-        tools:layout_editor_absoluteX="13dp"
-        tools:layout_editor_absoluteY="0dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/argazkia_10_1" />
 
 
 

@@ -1,5 +1,6 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.Context;
@@ -29,6 +30,9 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
     private int pag_anterior;
     static final int REQ_BTN = 0;
     static final int REQ_BTNATRAS = 12;
+    int Cont=0;
+    int Cont2=0;
+    int Cont3=0;
 
     BroadcastReceiver miBroadcast = new BroadcastReceiver() {
 
@@ -152,6 +156,8 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
 
                 Log.d("mytag","Dentro del onCompletion");
 
+
+
             }
         });
         mp.start();
@@ -214,18 +220,41 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                         caja = findViewById(R.id.flauta);
                         caja.setVisibility(view.GONE);
                         correcto();
+                        Cont ++;
                     }
                     if (view.getId() == R.id.trompeta) {
                         Log.d("mytag", "ID ARPA"+view.getId());
                         caja = findViewById(R.id.trompeta);
                         caja.setVisibility(view.GONE);
                         correcto();
+                        Cont ++;
                     }
                     if (view.getId() == R.id.clarinete) {
                         Log.d("mytag", "ID ARPA"+view.getId());
                         caja = findViewById(R.id.clarinete);
                         caja.setVisibility(view.GONE);
                         correcto();
+                        Cont ++;
+                    }
+                    if(Cont==9){
+                        switch (pag_anterior){
+                            case 0:
+                                int i = 13;
+                                db=new MyOpenHelper(cont);
+                                db.ActualizarJuego_Id(i);
+                                db.close();
+                                Log.d("mytag","AL ACABAR EL JUEGO FINALIZO Y VUELVO AL LISTADO PARA CARGAR SIGUIENTE...");
+                                Intent returnIntent = new Intent();
+                                returnIntent.putExtra("result",1);
+                                setResult(Activity.RESULT_OK,returnIntent);
+                                mp2.stop();
+                                finish();
+                                break;
+                            case 1:
+                                Log.d("mytag","El juego se ha acabado y se inicio desde lista");
+                                break;
+                        }
+
                     }
 
             }
@@ -279,6 +308,7 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                         caja = findViewById(R.id.arpa);
                         caja.setVisibility(view.GONE);
                         correcto();
+                        Cont ++;
                     }
 
                     if (view.getId() == R.id.violin) {
@@ -286,13 +316,35 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                         caja = findViewById(R.id.violin);
                         caja.setVisibility(view.GONE);
                         correcto();
+                        Cont ++;
                     }
                     if (view.getId() == R.id.pianoa) {
                         Log.d("mytag", "ID ARPA"+view.getId());
                         caja = findViewById(R.id.pianoa);
                         caja.setVisibility(view.GONE);
                         correcto();
+                        Cont ++;
                     }
+                    if(Cont ==9){
+                        switch (pag_anterior){
+                            case 0:
+                                int i = 11;
+                                db=new MyOpenHelper(cont);
+                                db.ActualizarJuego_Id(i);
+                                db.close();
+                                Log.d("mytag","AL ACABAR EL JUEGO FINALIZO Y VUELVO AL LISTADO PARA CARGAR SIGUIENTE...");
+                                Intent returnIntent = new Intent();
+                                returnIntent.putExtra("result",1);
+                                setResult(Activity.RESULT_OK,returnIntent);
+                                finish();
+                                break;
+                            case 1:
+                                Log.d("mytag","El juego se ha acabado y se inicio desde lista");
+                                break;
+                        }
+
+                    }
+
 
 
 
@@ -349,18 +401,44 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                         caja = findViewById(R.id.bateria);
                         caja.setVisibility(view.GONE);
                         correcto();
+                        Cont ++;
                     }
                     if (view.getId() == R.id.maraka) {
                         Log.d("mytag", "ID ARPA"+view.getId());
                         caja = findViewById(R.id.maraka);
                         caja.setVisibility(view.GONE);
                         correcto();
+                        Cont ++;
                     }
                     if (view.getId() == R.id.triangulo) {
                         Log.d("mytag", "ID ARPA"+view.getId());
                         caja = findViewById(R.id.triangulo);
                         caja.setVisibility(view.GONE);
                         correcto();
+                        Cont++;
+                    }
+                    if(Cont ==9){
+                        if(Cont ==9){
+                            switch (pag_anterior){
+                                case 0:
+                                    int i = 11;
+                                    db=new MyOpenHelper(cont);
+                                    db.ActualizarJuego_Id(i);
+                                    db.close();
+                                    Log.d("mytag","AL ACABAR EL JUEGO FINALIZO Y VUELVO AL LISTADO PARA CARGAR SIGUIENTE...");
+                                    Intent returnIntent = new Intent();
+                                    returnIntent.putExtra("result",1);
+                                    setResult(Activity.RESULT_OK,returnIntent);
+                                    finish();
+                                    break;
+                                case 1:
+                                    Log.d("mytag","El juego se ha acabado y se inicio desde lista");
+                                    break;
+                            }
+
+                        }
+
+
                     }
 
             }
@@ -389,8 +467,6 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
         mp2.start();
 
     }
-
-
 
 
     @Override

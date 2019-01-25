@@ -1,5 +1,6 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -123,7 +124,22 @@ public class Argazkiaktaulansailkatu_12 extends AppCompatActivity {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
                         //Siguiente tarea
-                        Log.d("mytag","Juego completado");
+                        switch (pag_anterior){
+                            case 0:
+                                int i = 12;
+                                db=new MyOpenHelper(cont);
+                                db.ActualizarJuego_Id(i);
+                                db.close();
+
+                                Intent returnIntent = new Intent();
+                                returnIntent.putExtra("result",1);
+                                setResult(Activity.RESULT_OK,returnIntent);
+                                finish();
+                                break;
+
+                            case 1:
+                                break;
+                        }
                     }
                 });
                 DesactivarBotones();

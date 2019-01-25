@@ -1,9 +1,12 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,7 +30,7 @@ public class Argazkia_10 extends AppCompatActivity {
         btnNext.setEnabled(false);
         btnNext.setVisibility(View.INVISIBLE);
 
-        ImageButton imagen1 = (ImageButton) findViewById(R.id.imagen1);
+        imagen1 = (ImageButton) findViewById(R.id.imagen1);
 
         pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
 
@@ -35,7 +38,6 @@ public class Argazkia_10 extends AppCompatActivity {
             case 0:
                 break;
             case 1:
-
                 btnNext.setEnabled(true);
                 btnNext.setVisibility(View.VISIBLE);
                 btnNext.setOnClickListener(v -> {
@@ -49,6 +51,35 @@ public class Argazkia_10 extends AppCompatActivity {
                 break;
         }
 
+        new CountDownTimer(5000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+                Log.d("mytag", "HA PASADO 1 SEGUNDO");
+            }
+
+            public void onFinish() {
+                switch (pag_anterior){
+                    case 0:
+                        btnNext.setEnabled(true);
+                        btnNext.setVisibility(View.VISIBLE);
+                        btnNext.setOnClickListener(v -> {
+                            int i = 10;
+                            db=new MyOpenHelper(cont);
+                            db.ActualizarJuego_Id(i);
+                            db.close();
+
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtra("result",1);
+                            setResult(Activity.RESULT_OK,returnIntent);
+                            finish();
+                        });
+                        break;
+                    case 1:
+                        break;
+                }
+            }
+        }.start();
 
 
         imagen1.setOnTouchListener(new View.OnTouchListener() {

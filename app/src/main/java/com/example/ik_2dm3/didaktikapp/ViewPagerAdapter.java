@@ -1,5 +1,6 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
@@ -23,6 +24,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
 
     private Context context;
+    private MyOpenHelper db;
     private LayoutInflater layoutInflater;
     private Integer [] images = {R.drawable.komikia_1,R.drawable.komikia_2,R.drawable.komikia_3,R.drawable.komikia_4};
     private Button button;
@@ -59,7 +61,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         imageView.setImageResource(images[position]);
 
 
-        Button button = (Button) view.findViewById(R.id.button);
+        button = (Button) view.findViewById(R.id.button);
         button.setEnabled(false);
         button.setVisibility(View.INVISIBLE);
 
@@ -88,24 +90,26 @@ public class ViewPagerAdapter extends PagerAdapter {
                 public void onFinish() {
                     gifImageView.setVisibility(View.INVISIBLE);
                     gif=true;
-
                 }
 
             }.start();
-
-
-
-
-
         }
 
         if(position == 3 && pag_anterior == 0){
 
             button.setEnabled(true);
             button.setVisibility(View.VISIBLE);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+
+
         }
         return view;
-
     }
 
 

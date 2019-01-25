@@ -31,6 +31,13 @@ public class Egiagezurra_20 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_egiagezurra_20);
 
+        btnPreviousGame = findViewById(R.id.btnPreviousGame);
+        btnPreviousGame.setEnabled(false);
+        btnPreviousGame.setVisibility(View.INVISIBLE);
+        btnNext = findViewById(R.id.btnNext);
+        btnNext.setEnabled(false);
+        btnNext.setVisibility(View.INVISIBLE);
+
         respuesta1 = findViewById(R.id.respuesta1);
         respuesta2 = findViewById(R.id.respuesta2);
         respuesta3 = findViewById(R.id.respuesta3);
@@ -91,7 +98,6 @@ public class Egiagezurra_20 extends AppCompatActivity {
                     finish();
                 });
 
-
                 btnPreviousGame.setEnabled(true);
                 btnPreviousGame.setVisibility(View.VISIBLE);
                 btnPreviousGame.setOnClickListener(v -> {
@@ -112,6 +118,7 @@ public class Egiagezurra_20 extends AppCompatActivity {
         boton.setEnabled(false);
         boton2.setEnabled(false);
         puntos++;
+        comprobarVictoria();
     }
     public void RespuestaIncorrecta(Button boton){
         boton.setBackgroundColor(Color.RED);
@@ -154,5 +161,26 @@ public class Egiagezurra_20 extends AppCompatActivity {
             finish();
         }
         return super.onKeyDown(keyCode, event);
+    }
+    public void comprobarVictoria(){
+        if(puntos == 4){
+            switch (pag_anterior){
+                case 0:
+                    int i = 20;
+                    db=new MyOpenHelper(cont);
+                    db.ActualizarJuego_Id(i);
+                    db.close();
+                    Log.d("mytag","AL ACABAR EL JUEGO FINALIZO Y VUELVO AL LISTADO PARA CARGAR SIGUIENTE...");
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("result",1);
+                    setResult(Activity.RESULT_OK,returnIntent);
+                    mp2.stop();
+                    finish();
+                    break;
+                case 1:
+                    Log.d("mytag","El juego se ha acabado y se inicio desde lista");
+                    break;
+            }
+        }
     }
 }

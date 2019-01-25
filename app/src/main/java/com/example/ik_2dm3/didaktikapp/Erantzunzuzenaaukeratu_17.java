@@ -105,6 +105,7 @@ public class Erantzunzuzenaaukeratu_17 extends AppCompatActivity {
         boton.setEnabled(false);
         boton2.setEnabled(false);
         puntos++;
+        comprobarVictoria();
     }
     public void RespuestaIncorrecta(Button boton){
         boton.setBackgroundColor(Color.RED);
@@ -147,5 +148,25 @@ public class Erantzunzuzenaaukeratu_17 extends AppCompatActivity {
             finish();
         }
         return super.onKeyDown(keyCode, event);
+    }
+    public void comprobarVictoria(){
+        if(puntos==4){
+            switch (pag_anterior){
+                case 0:
+                    int i = 17;
+                    db=new MyOpenHelper(cont);
+                    db.ActualizarJuego_Id(i);
+                    db.close();
+
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("result",1);
+                    setResult(Activity.RESULT_OK,returnIntent);
+                    finish();
+                    break;
+
+                case 1:
+                    break;
+            }
+        }
     }
 }
