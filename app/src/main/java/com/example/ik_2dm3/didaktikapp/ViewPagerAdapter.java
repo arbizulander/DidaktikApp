@@ -98,7 +98,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
 
 
-        if(position == 3){
+        if(position == 3 && pag_anterior == 0){
 
             //ConstraintLayout ln = (ConstraintLayout) view.findViewById(R.id.id_layoutKomikia);
             button.setEnabled(true);
