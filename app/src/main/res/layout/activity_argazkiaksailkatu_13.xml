@@ -18,57 +18,42 @@
 
     <TextView
         android:id="@+id/aire"
-        android:layout_width="122dp"
-        android:layout_height="71dp"
+        android:layout_width="81dp"
+        android:layout_height="22dp"
 
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="84dp"
         android:contentDescription="aire"
         android:text="HAIZEZKOA"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/perkuzioa"
-        app:layout_constraintHorizontal_bias="0.456"
-        app:layout_constraintStart_toEndOf="@+id/cuerda" />
+        app:layout_constraintEnd_toStartOf="@+id/cuerda"
+        app:layout_constraintTop_toBottomOf="@+id/violin" />
 
     <TextView
         android:id="@+id/cuerda"
-        android:layout_width="129dp"
-        android:layout_height="66dp"
+        android:layout_width="69dp"
+        android:layout_height="22dp"
 
-        android:layout_marginStart="72dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="116dp"
         android:contentDescription="cuerda"
         android:text="HARIZKOA"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trompeta" />
 
     <TextView
         android:id="@+id/perkuzioa"
-        android:layout_width="122dp"
-        android:layout_height="74dp"
+        android:layout_width="106dp"
+        android:layout_height="22dp"
 
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="92dp"
         android:contentDescription="Perkuzioa"
         android:text="PERKUSIOZKOA"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/img_tabla" />
+        app:layout_constraintEnd_toStartOf="@+id/aire"
+        app:layout_constraintTop_toBottomOf="@+id/bateria" />
 
 
-    <ImageView
-        android:id="@+id/img_tabla"
-        android:layout_width="490dp"
-        android:layout_height="132dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.465"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/tabla_musica" />
 
     <ImageView
         android:id="@+id/arpa"
@@ -78,8 +63,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:contentDescription="arpa"
-        android:src="@drawable/arpa"
+        android:contentDescription="arpa3"
+        android:src="@drawable/arpa3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.073"
@@ -94,8 +79,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="332dp"
         android:layout_marginBottom="8dp"
-        android:contentDescription="flauta"
-        android:src="@drawable/flauta"
+        android:contentDescription="flauta3"
+        android:src="@drawable/flauta3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
 
@@ -110,8 +95,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:contentDescription="bateria"
-        android:src="@drawable/bateria"
+        android:contentDescription="bateria3"
+        android:src="@drawable/bateria3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.07"
@@ -126,7 +111,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/pianoa"
+        android:src="@drawable/piano3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
 
@@ -140,7 +125,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="116dp"
         android:layout_marginEnd="8dp"
-        android:src="@drawable/maraka"
+        android:src="@drawable/marakas3"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.984"
@@ -155,7 +140,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/violin"
+        android:src="@drawable/violin3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.573"
@@ -171,7 +156,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/triangulo"
+        android:src="@drawable/triangulo3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.604"
@@ -186,7 +171,7 @@
         android:layout_marginStart="164dp"
         android:layout_marginTop="120dp"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/clarinete"
+        android:src="@drawable/clarinete3"
         app:layout_constraintBottom_toBottomOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"
@@ -201,7 +186,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/trompeta"
+        android:src="@drawable/trompeta3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.791"
@@ -233,5 +218,29 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/imgnext" />
+
+    <ImageView
+        android:id="@+id/ssdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/cesta"
+        tools:layout_editor_absoluteX="70dp"
+        tools:layout_editor_absoluteY="239dp" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/cesta"
+        tools:layout_editor_absoluteX="259dp"
+        tools:layout_editor_absoluteY="239dp" />
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/cesta"
+        tools:layout_editor_absoluteX="412dp"
+        tools:layout_editor_absoluteY="239dp" />
 
 </android.support.constraint.ConstraintLayout>
