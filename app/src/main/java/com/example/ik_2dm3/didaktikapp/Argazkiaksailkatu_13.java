@@ -82,26 +82,30 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
         ImageView trompeta = findViewById(R.id.trompeta);
 
 
-        TextView aire = findViewById(R.id.aire);
+        /*TextView aire = findViewById(R.id.aire);
         TextView cuerda = findViewById(R.id.cuerda);
-        TextView perkuzioa = findViewById(R.id.perkuzioa);
+        TextView perkuzioa = findViewById(R.id.perkuzioa);*/
+
+        ImageView cestaAirea = findViewById(R.id.cestaAire);
+        ImageView cestaHarizkoa = findViewById(R.id.cestaHarizkoa);
+        ImageView cestaPerkuzioa = findViewById(R.id.cestaPerkuzioa);
 
         //Recojer clicl listeners
         /*ºººººººººººººººAIREºººººººººººººººººººººººººººººººº*/
         flauta.setOnLongClickListener(ClickListener1);
         clarinete.setOnLongClickListener(ClickListener1);
         trompeta.setOnLongClickListener(ClickListener1);
-        aire.setOnDragListener(dragListener1);
+        cestaAirea.setOnDragListener(dragListener1);
         /*ºººººººººººººººCUERDAºººººººººººººººººººººººººººººººº*/
         arpa.setOnLongClickListener(ClickListener2);
         pianoa.setOnLongClickListener(ClickListener2);
         violin.setOnLongClickListener(ClickListener2);
-        cuerda.setOnDragListener(dragListener2);
+        cestaHarizkoa.setOnDragListener(dragListener2);
         /*ºººººººººººººººPERKUZIOAºººººººººººººººººººººººººººººººº*/
         bateria.setOnLongClickListener(ClickListener3);
         maraka.setOnLongClickListener(ClickListener3);
         triangulo.setOnLongClickListener(ClickListener3);
-        perkuzioa.setOnDragListener(dragListener3);
+        cestaPerkuzioa.setOnDragListener(dragListener3);
 /********************************************************************************/
 
         pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
@@ -136,6 +140,17 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                 break;
         }
 
+
+        arpa.setEnabled(false);
+        pianoa.setEnabled(false);
+        violin.setEnabled(false);
+        flauta.setEnabled(false);
+        clarinete.setEnabled(false);
+        trompeta.setEnabled(false);
+        bateria.setEnabled(false);
+        maraka.setEnabled(false);
+        triangulo.setEnabled(false);
+
         /*ºººººººººººººººººººººººMEDIAPLAYERººººººººººººººººººººº*/
         mp = MediaPlayer.create(this, R.raw.a4_4);
 
@@ -161,20 +176,6 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
             }
         });
         mp.start();
-
-
-
-
-        arpa.setEnabled(false);
-        pianoa.setEnabled(false);
-        violin.setEnabled(false);
-        flauta.setEnabled(false);
-        clarinete.setEnabled(false);
-        trompeta.setEnabled(false);
-        bateria.setEnabled(false);
-        maraka.setEnabled(false);
-        triangulo.setEnabled(false);
-
     }
 
     //LONGCLICK LISTENER
@@ -193,21 +194,26 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
     };
     /*ºººººººººººººººAIREºººººººººººººººººººººººººººººººº*/
     final View.OnDragListener dragListener1 = new View.OnDragListener() {
+
         //ACCIONES QUE HACE DESPUES DEL LONGCLICK
         @Override
         public boolean onDrag(View v, DragEvent event) {
+            Log.d("mytag","CESTA AIRE");
             final View view = (View) event.getLocalState();
             int dragEvent = event.getAction();
 
 
             switch (dragEvent) {
                 case DragEvent.ACTION_DRAG_ENTERED:
+                    Log.d("mytag","CESTA AIRE -- ACTION_DRAG_ENTERED");
                     break;
                 case DragEvent.ACTION_DRAG_EXITED:
+                    Log.d("mytag","CESTA AIRE -- ACTION_DRAG_EXITED");
                     break;
                 //ACCION QUE HACE CUANDO TERMINA EL DRAG I LOS SUELTAS EN ALGUNA BIÑETA CON DRAG LSITENER
                 case DragEvent.ACTION_DROP:
-
+                    Log.d("mytag","CESTA AIRE -- ACTION_DROP");
+                    Log.d("mytag","CESTA AIRE<--------------- ACTION DROP");
 
                     if(view.getId()== R.id.arpa || view.getId()== R.id.bateria || view.getId()== R.id.triangulo ||
                             view.getId()== R.id.maraka || view.getId()== R.id.pianoa){

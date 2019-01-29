@@ -33,7 +33,7 @@ public class Paragrafoabetehitzekin_15 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paragrafoabetehitzekin_15);
-        setTitle("Paragrafo bete");
+        setTitle("Paragrafoa bete");
         btnNext = findViewById(R.id.btnNext);
         btnNext.setEnabled(false);
         btnNext.setVisibility(View.INVISIBLE);

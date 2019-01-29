@@ -7,51 +7,54 @@
     tools:context=".Argazkiaksailkatu_13">
 
 
-        android:layout_width="501dp"
+        <!--android:layout_width="501dp"
         android:layout_height="112dp"
         android:layout_marginStart="2dp"
         android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toStartOf="@+id/btnNext"
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toEndOf="@+id/btnPreviousGame"
-        tools:layout_editor_absoluteY="192dp">
+        tools:layout_editor_absoluteY="192dp">-->
 
     <TextView
         android:id="@+id/aire"
         android:layout_width="81dp"
         android:layout_height="22dp"
 
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="84dp"
+        android:layout_marginBottom="8dp"
         android:contentDescription="aire"
         android:text="HAIZEZKOA"
         android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/cestaAire"
         app:layout_constraintEnd_toStartOf="@+id/cuerda"
-        app:layout_constraintTop_toBottomOf="@+id/violin" />
+        app:layout_constraintHorizontal_bias="0.656"
+        app:layout_constraintStart_toEndOf="@+id/perkuzioa" />
 
     <TextView
         android:id="@+id/cuerda"
         android:layout_width="69dp"
         android:layout_height="22dp"
 
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="116dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginBottom="8dp"
         android:contentDescription="cuerda"
         android:text="HARIZKOA"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/trompeta" />
+        app:layout_constraintBottom_toTopOf="@+id/cestaHarizkoa"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/perkuzioa"
         android:layout_width="106dp"
         android:layout_height="22dp"
 
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="92dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginBottom="8dp"
         android:contentDescription="Perkuzioa"
         android:text="PERKUSIOZKOA"
-        app:layout_constraintEnd_toStartOf="@+id/aire"
-        app:layout_constraintTop_toBottomOf="@+id/bateria" />
+        app:layout_constraintBottom_toTopOf="@+id/cestaPerkuzioa"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 
@@ -220,27 +223,36 @@
         app:srcCompat="@drawable/imgnext" />
 
     <ImageView
-        android:id="@+id/ssdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/cesta"
-        tools:layout_editor_absoluteX="70dp"
-        tools:layout_editor_absoluteY="239dp" />
+        android:id="@+id/cestaPerkuzioa"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cestaAire"
+        app:srcCompat="@drawable/cesta" />
 
     <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/cesta"
-        tools:layout_editor_absoluteX="259dp"
-        tools:layout_editor_absoluteY="239dp" />
+        android:id="@+id/cestaAire"
+        android:layout_width="55dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cuerda"
+        app:layout_constraintHorizontal_bias="0.387"
+        app:layout_constraintStart_toEndOf="@+id/perkuzioa"
+        app:srcCompat="@drawable/cesta" />
 
     <ImageView
-        android:id="@+id/imageView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/cesta"
-        tools:layout_editor_absoluteX="412dp"
-        tools:layout_editor_absoluteY="239dp" />
+        android:id="@+id/cestaHarizkoa"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cestaAire"
+        app:srcCompat="@drawable/cesta" />
 
 </android.support.constraint.ConstraintLayout>

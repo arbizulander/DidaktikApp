@@ -19,7 +19,7 @@ import android.widget.ImageButton;
 public class Erantzunzuzenaaukeratu_17 extends AppCompatActivity {
 
     private MediaPlayer mp, mp2;
-    private ImageButton btnPreviousGame;
+    private ImageButton btnPreviousGame, btnNext;
     private Context cont = this;
     private MyOpenHelper db;
     private int pag_anterior;
@@ -36,6 +36,9 @@ public class Erantzunzuzenaaukeratu_17 extends AppCompatActivity {
         btnPreviousGame = findViewById(R.id.btnPreviousGame);
         btnPreviousGame.setEnabled(false);
         btnPreviousGame.setVisibility(View.INVISIBLE);
+        btnNext = findViewById(R.id.btnNext);
+        btnNext.setEnabled(false);
+        btnNext.setVisibility(View.INVISIBLE);
 
         respuesta1 = findViewById(R.id.respuesta1);
         respuesta2 = findViewById(R.id.respuesta2);
@@ -96,6 +99,14 @@ public class Erantzunzuzenaaukeratu_17 extends AppCompatActivity {
                     startActivityForResult(i, REQ_BTN);
                     finish();
                 });
+
+                btnNext.setEnabled(true);
+                btnNext.setVisibility(View.VISIBLE);
+                btnNext.setOnClickListener(v -> {
+                    mp.stop();
+                    finish();
+                });
+
                 break;
         }
     }
