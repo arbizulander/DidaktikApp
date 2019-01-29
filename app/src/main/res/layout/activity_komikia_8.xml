@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-    tools:context=".Komikia_8">
+    tools:context=".Komikia_8"
+    android:id="@+id/id_layoutKomikia">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"

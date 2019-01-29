@@ -1,12 +1,16 @@
 package com.example.ik_2dm3.didaktikapp;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Layout;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +25,6 @@ import java.io.InputStream;
 import pl.droidsonroids.gif.GifImageView;
 
 public class ViewPagerAdapter extends PagerAdapter {
-
 
     private Context context;
     private MyOpenHelper db;
@@ -50,8 +53,6 @@ public class ViewPagerAdapter extends PagerAdapter {
         return view == object;
     }
 
-    @NonNull
-    @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
 
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -68,7 +69,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         ViewPager vp = (ViewPager) container;
         vp.addView(view,0);
 
-
+        Context cont;
 
         if(position == 0 && !gif){
 
@@ -95,14 +96,19 @@ public class ViewPagerAdapter extends PagerAdapter {
             }.start();
         }
 
-        if(position == 3 && pag_anterior == 0){
 
+
+        if(position == 3){
+
+            //ConstraintLayout ln = (ConstraintLayout) view.findViewById(R.id.id_layoutKomikia);
             button.setEnabled(true);
             button.setVisibility(View.VISIBLE);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    ((Activity) context).finish();
+                   //finishUpdate(container);
+                    //Komikia_8.FinalizarLayout();
                 }
             });
 
