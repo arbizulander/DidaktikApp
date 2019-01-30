@@ -36,11 +36,11 @@
         android:id="@+id/respuesta2"
         android:layout_width="155dp"
         android:layout_height="41dp"
-        android:layout_marginStart="31dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="27dp"
         android:fontFamily="@font/josefin_slab_bold"
         android:text="2017"
-        app:layout_constraintStart_toEndOf="@+id/respuesta1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <TextView

@@ -12,6 +12,7 @@
         android:layout_height="27dp"
         android:layout_marginStart="19dp"
         android:layout_marginTop="11dp"
+        android:text="@string/Lander"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView19"
         tools:text="@string/Lander" />
@@ -22,6 +23,7 @@
         android:layout_height="27dp"
         android:layout_marginStart="19dp"
         android:layout_marginTop="14dp"
+        android:text="@string/Iñaki"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView20"
         tools:text="@string/Iñaki" />
@@ -32,17 +34,18 @@
         android:layout_height="27dp"
         android:layout_marginStart="19dp"
         android:layout_marginTop="11dp"
+        android:text="@string/Javi"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18"
         tools:text="@string/Javi" />
 
     <TextView
         android:id="@+id/textView18"
-        android:layout_width="320dp"
-        android:layout_height="28dp"
+        android:layout_width="369dp"
+        android:layout_height="32dp"
         android:layout_marginStart="16dp"
         android:text="@string/Txurdinaga"
-        android:textSize="20dp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
@@ -53,6 +56,7 @@
         android:layout_height="29dp"
         android:layout_marginStart="19dp"
         android:layout_marginTop="14dp"
+        android:text="@string/Haizea_Gardeazabal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView16"
         tools:text="@string/Haizea_Gardeazabal" />
@@ -63,6 +67,7 @@
         android:layout_height="29dp"
         android:layout_marginStart="19dp"
         android:layout_marginTop="8dp"
+        android:text="@string/Ane_arce"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12"
         tools:text="@string/Ane_arce" />
@@ -73,6 +78,7 @@
         android:layout_height="29dp"
         android:layout_marginStart="19dp"
         android:layout_marginTop="12dp"
+        android:text="@string/Sara_Aldekoa"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13"
         tools:text="@string/Sara_Aldekoa" />
@@ -83,6 +89,7 @@
         android:layout_height="31dp"
         android:layout_marginStart="19dp"
         android:layout_marginTop="16dp"
+        android:text="@string/Naroa_Da_Costa1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14"
         tools:text="@string/Naroa_Da_Costa1" />
@@ -93,6 +100,7 @@
         android:layout_height="29dp"
         android:layout_marginStart="19dp"
         android:layout_marginTop="10dp"
+        android:text="@string/Nerea_Garcia"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15"
         tools:text="@string/Nerea_Garcia" />
@@ -103,7 +111,7 @@
         android:layout_height="41dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="100dp"
-        android:text="TextView"
+        android:text="@string/Sortzaileak"
         android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -111,12 +119,12 @@
 
     <TextView
         android:id="@+id/textView11"
-        android:layout_width="249dp"
+        android:layout_width="306dp"
         android:layout_height="36dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/Magisteritza"
-        android:textSize="20dp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
@@ -127,6 +135,7 @@
         android:layout_height="29dp"
         android:layout_marginStart="19dp"
         android:layout_marginTop="7dp"
+        android:text="@string/Sheila_Aldekoa"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11"
         tools:text="@string/Sheila_Aldekoa" />
