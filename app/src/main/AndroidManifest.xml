@@ -151,8 +151,10 @@
         <activity
             android:name=".Erantzunzuzenaaukeratu_17"
             android:screenOrientation="portrait" />
-        <activity android:name=".Informazioakuadroabete_19"
-            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".Informazioakuadroabete_19"
+            android:screenOrientation="landscape" />
+        <activity android:name=".Sortzaileak"></activity>
     </application>
 
 </manifest>
