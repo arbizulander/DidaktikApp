@@ -30,6 +30,7 @@ public class Informazioakuadroabete_16 extends AppCompatActivity {
     static final int REQ_BTN = 0;
     static final int REQ_BTNATRAS = 12;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
