@@ -42,13 +42,31 @@ public class Informazioakuadroabete_16 extends AppCompatActivity {
         btnNext.setEnabled(false);
         btnNext.setVisibility(View.INVISIBLE);
 
-        mp = MediaPlayer.create(getApplicationContext(), R.raw.a6_2);
-        mp.start();
+
 
         texto1 = (EditText)findViewById(R.id.texto1);
         texto2 = (EditText)findViewById(R.id.texto2);
         texto3 = (EditText)findViewById(R.id.texto3);
         texto4 = (EditText)findViewById(R.id.texto4);
+
+        texto1.setEnabled(false);
+        texto2.setEnabled(false);
+        texto3.setEnabled(false);
+        texto4.setEnabled(false);
+
+        mp = MediaPlayer.create(getApplicationContext(), R.raw.a6_2);
+        mp.start();
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+
+                texto1.setEnabled(true);
+                texto2.setEnabled(true);
+                texto3.setEnabled(true);
+                texto4.setEnabled(true);
+            }
+        });
+
         texto1.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
         texto2.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
         texto3.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);

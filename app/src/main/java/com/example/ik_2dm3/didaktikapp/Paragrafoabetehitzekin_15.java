@@ -38,9 +38,6 @@ public class Paragrafoabetehitzekin_15 extends AppCompatActivity {
         btnNext.setEnabled(false);
         btnNext.setVisibility(View.INVISIBLE);
 
-        mp = MediaPlayer.create(getApplicationContext(), R.raw.a6_1);
-        mp.start();
-
         texto = (EditText)findViewById(R.id.texto);
         texto1 = (EditText)findViewById(R.id.texto1);
         texto2 = (EditText)findViewById(R.id.texto2);
@@ -48,6 +45,31 @@ public class Paragrafoabetehitzekin_15 extends AppCompatActivity {
         texto4 = (EditText)findViewById(R.id.texto4);
         texto5 = (EditText)findViewById(R.id.texto5);
         texto6 = (EditText)findViewById(R.id.texto6);
+
+        texto.setEnabled(false);
+        texto1.setEnabled(false);
+        texto2.setEnabled(false);
+        texto3.setEnabled(false);
+        texto4.setEnabled(false);
+        texto5.setEnabled(false);
+        texto6.setEnabled(false);
+
+        mp = MediaPlayer.create(getApplicationContext(), R.raw.a6_1);
+        mp.start();
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+
+                texto.setEnabled(true);
+                texto1.setEnabled(true);
+                texto2.setEnabled(true);
+                texto3.setEnabled(true);
+                texto4.setEnabled(true);
+                texto5.setEnabled(true);
+                texto6.setEnabled(true);
+            }
+        });
+
         texto.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
         texto1.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
         texto2.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
