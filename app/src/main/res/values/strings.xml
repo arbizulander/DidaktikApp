@@ -96,6 +96,10 @@
     <string name="Javi">Javi Borja</string>
     <string name="Lander">Lander Arbizu</string>
     <string name="Iñaki">Iñaki Elezkano</string>
+    <string name="Hizkirespuesta1">Etxeko zerbitzuetarako tokia</string>
+    <string name="Hizkirespuesta2">Etxearen umeentzako zonaldea</string>
+    <string name="Hizkirespuesta3">3 arkitektura estiloak</string>
+    <string name="Hizkirespuesta4">"2 arkitekto garrantzitsuen abizenak    "</string>
 
 
 </resources>

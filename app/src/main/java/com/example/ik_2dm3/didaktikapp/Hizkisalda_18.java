@@ -22,16 +22,12 @@ import java.util.ArrayList;
 
 public class Hizkisalda_18 extends AppCompatActivity {
 
-    private LinearLayout l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12;
-    private View v1, v2, v3, v5, v6, v7;
-    private MediaPlayer mp;
+    private MediaPlayer mp, mp2;
     private ImageButton btnNext;
+    private TextView respuesta1, respuesta2, respuesta3, respuesta4;
     private boolean kultura,iguarrako,guk,ondarea,amurrio,refort,nursery;
     private boolean kultura1,iguarrako2,guk3,ondarea5,amurrio6,refort7,nursery8;
     private boolean blnSinValor, blnPulsado, blnPintar;
-    private static boolean palabraAcabada = false, palabraChekeada = false, cheked = false;
-    private ArrayList<TextView> arr;
-    private TextView a1,a2,a3,a5,a6,a7;
     private Context cont = this;
     private MyOpenHelper db;
     private int pag_anterior;
@@ -47,7 +43,8 @@ public class Hizkisalda_18 extends AppCompatActivity {
         btnNext = findViewById(R.id.btnNext);
         btnNext.setEnabled(false);
         btnNext.setVisibility(View.INVISIBLE);
-        mp = MediaPlayer.create(getApplicationContext(), R.raw.a7_2);
+        mp = MediaPlayer.create(getApplicationContext(), R.raw.a7_1);
+        mp2 = MediaPlayer.create(getApplicationContext(), R.raw.correct);
         mp.start();
 
         pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
@@ -90,6 +87,11 @@ public class Hizkisalda_18 extends AppCompatActivity {
         blnSinValor = false;
         blnPulsado = false;
         blnPintar = false;
+
+        respuesta1 = findViewById(R.id.respuesta1);
+        respuesta2 = findViewById(R.id.respuesta2);
+        respuesta3 = findViewById(R.id.respuesta3);
+        respuesta4 = findViewById(R.id.respuesta4);
 
         //FILA 1
         TextView txt1_1Errejionalista = findViewById(R.id.txt1_1);
@@ -386,6 +388,8 @@ public class Hizkisalda_18 extends AppCompatActivity {
                             blnPintar = true;
                             for (int e = 0; e<textViewErrejionalista.length; e++){
                                 textViewErrejionalista[e].setBackgroundColor(Color.BLUE);
+                                kultura1 = true;
+                                comprobarFin();
                             }
                         }
                         else{
@@ -406,6 +410,8 @@ public class Hizkisalda_18 extends AppCompatActivity {
                             blnSinValor = false;
                             for (int e = 0; e<textViewEIngelesa.length; e++){
                                 textViewEIngelesa[e].setBackgroundColor(Color.CYAN);
+                                iguarrako2 = true;
+                                comprobarFin();
                             }
                         }
                         else{
@@ -426,6 +432,8 @@ public class Hizkisalda_18 extends AppCompatActivity {
                             blnSinValor = false;
                             for (int e = 0; e<textViewSmith.length; e++){
                                 textViewSmith[e].setBackgroundColor(Color.GREEN);
+                                guk3 = true;
+                                comprobarFin();
                             }
                         }
                         else{
@@ -446,6 +454,8 @@ public class Hizkisalda_18 extends AppCompatActivity {
                                 blnSinValor = false;
                                 for (int e = 0; e < textViewAchucarro.length; e++) {
                                     textViewAchucarro[e].setBackgroundColor(Color.MAGENTA);
+                                    ondarea5 = true;
+                                    comprobarFin();
                                 }
                             } else {
                                 blnSinValor = true;
@@ -468,6 +478,8 @@ public class Hizkisalda_18 extends AppCompatActivity {
                             Log.d("mytag","PINTANDO EKLEKTIKOA");
                             for (int e = 0; e<textViewEklektikoa.length; e++){
                                 textViewEklektikoa[e].setBackgroundColor(Color.RED);
+                                amurrio6 = true;
+                                comprobarFin();
                             }
                         }
                         else{
@@ -488,6 +500,8 @@ public class Hizkisalda_18 extends AppCompatActivity {
                             blnSinValor = false;
                             for (int e = 0; e<textViewSotoa.length; e++){
                                 textViewSotoa[e].setBackgroundColor(Color.WHITE);
+                                refort7 = true;
+                                comprobarFin();
                             }
                         }
                         else{
@@ -507,6 +521,8 @@ public class Hizkisalda_18 extends AppCompatActivity {
                             blnSinValor = false;
                             for (int e = 0; e<textViewNursery.length; e++){
                                 textViewNursery[e].setBackgroundColor(Color.YELLOW);
+                                nursery8 = true;
+                                comprobarFin();
                             }
                         }
                         else{
@@ -642,7 +658,6 @@ public class Hizkisalda_18 extends AppCompatActivity {
                             blnPulsado = true;
                         }
                     }
-
                 }
             });
         }
@@ -656,9 +671,48 @@ public class Hizkisalda_18 extends AppCompatActivity {
                 setResult(RESULT_OK,i);
             }
             mp.stop();
+            mp2.stop();
             Log.d("mytag","Has ido atras");
             finish();
         }
         return super.onKeyDown(keyCode, event);
+    }
+    public void comprobarFin(){
+
+        //Etxeko zerbitzuetarako tokia
+        if(refort7){
+            respuesta1.setVisibility(View.INVISIBLE);
+        }
+        //Etxearen umeentzako zonaldea
+        if(nursery8){
+            respuesta2.setVisibility(View.INVISIBLE);
+        }
+        //3 arkitektura estiloak
+        if(amurrio6 && kultura1 && iguarrako2){
+            respuesta3.setVisibility(View.INVISIBLE);
+        }
+        //2 arkitekto harrantzitsuen abizenak
+        if(ondarea5 && guk3){
+            respuesta4.setVisibility(View.INVISIBLE);
+        }
+        if(respuesta1.getVisibility() == View.INVISIBLE && respuesta2.getVisibility() == View.INVISIBLE && respuesta3.getVisibility() == View.INVISIBLE && respuesta4.getVisibility() == View.INVISIBLE){
+            mp2.start();
+            mp2.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                public void onCompletion(MediaPlayer mp) {
+                    if (pag_anterior == 0){
+                            int i = 18;
+                            db=new MyOpenHelper(cont);
+                            db.ActualizarJuego_Id(i);
+                            db.close();
+
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtra("result",1);
+                            setResult(Activity.RESULT_OK,returnIntent);
+                            finish();
+                        }
+                    }
+                }
+            );
+        }
     }
 }
