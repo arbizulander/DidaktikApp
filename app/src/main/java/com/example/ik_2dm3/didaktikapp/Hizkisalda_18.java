@@ -28,7 +28,7 @@ public class Hizkisalda_18 extends AppCompatActivity {
     private ImageButton btnNext;
     private boolean kultura,iguarrako,guk,ondarea,amurrio,refort,nursery;
     private boolean kultura1,iguarrako2,guk3,ondarea5,amurrio6,refort7,nursery8;
-    private boolean blnSinValor, blnPulsado;
+    private boolean blnSinValor, blnPulsado, blnPintar;
     private static boolean palabraAcabada = false, palabraChekeada = false, cheked = false;
     private ArrayList<TextView> arr;
     private TextView a1,a2,a3,a5,a6,a7;
@@ -89,6 +89,7 @@ public class Hizkisalda_18 extends AppCompatActivity {
 
         blnSinValor = false;
         blnPulsado = false;
+        blnPintar = false;
 
         //FILA 1
         TextView txt1_1Errejionalista = findViewById(R.id.txt1_1);
@@ -355,14 +356,16 @@ public class Hizkisalda_18 extends AppCompatActivity {
                         colorCode != Color.MAGENTA &&
                         colorCode != Color.RED &&
                         colorCode != Color.WHITE &&
-                        colorCode != Color.YELLOW   ||
+                        colorCode != Color.YELLOW ||
 
 
                         textViewArray[j] == txt6_6Ingelesa && (colorCode == Color.BLUE || colorCode == Color.CYAN)||
                         textViewArray[j] == txt6_12Smith && (colorCode == Color.CYAN || colorCode == Color.GREEN) ||
-                        textViewArray[j] == txt14_14ErrejionalistaEnd && (colorCode == Color.BLUE || colorCode == Color.MAGENTA ||
-                        textViewArray[j] == txt4_4Eklektikoa && (colorCode == Color.BLUE || colorCode == Color.RED ||
-                                {
+                        textViewArray[j] == txt14_14ErrejionalistaEnd && (colorCode == Color.BLUE || colorCode == Color.MAGENTA) ||
+                        textViewArray[j] == txt4_4Eklektikoa && (colorCode == Color.BLUE || colorCode == Color.RED) ||
+                        textViewArray[j] == txt12_4 && (colorCode == Color.RED || colorCode == Color.WHITE) ||
+                        textViewArray[j] == txt8_8Nursery && (colorCode == Color.BLUE || colorCode == Color.YELLOW))
+                        {
 
                         textViewArray[j].setBackgroundColor(Color.GRAY);
 
@@ -376,6 +379,8 @@ public class Hizkisalda_18 extends AppCompatActivity {
                         }
                         if (txt14_14ErrejionalistaEnd == textViewArray[j] && kultura == true){
                             blnSinValor = false;
+                            kultura = false;
+                            blnPintar = true;
                             for (int e = 0; e<textViewErrejionalista.length; e++){
                                 textViewErrejionalista[e].setBackgroundColor(Color.BLUE);
                             }
@@ -421,24 +426,24 @@ public class Hizkisalda_18 extends AppCompatActivity {
                         }
 
                         //ACHUCARRO
-                        if (txt14_14ErrejionalistaEnd == textViewArray[j]){
-                            ondarea = true;
-                            blnSinValor = false;
-                        }
-                        else{
-                            blnSinValor = true;
-                        }
-                        if (txt6_14AchucarroEnd == textViewArray[j] && ondarea == true){
-                            blnSinValor = false;
-                            for (int e = 0; e<textViewAchucarro.length; e++){
-                                textViewAchucarro[e].setBackgroundColor(Color.MAGENTA);
+                        if (!blnPintar) {
+                            if (txt14_14ErrejionalistaEnd == textViewArray[j]) {
+                                ondarea = true;
+                                blnSinValor = false;
+                            } else {
+                                blnSinValor = true;
                             }
+                            if (txt6_14AchucarroEnd == textViewArray[j] && ondarea == true) {
+                                blnSinValor = false;
+                                for (int e = 0; e < textViewAchucarro.length; e++) {
+                                    textViewAchucarro[e].setBackgroundColor(Color.MAGENTA);
+                                }
+                            } else {
+                                blnSinValor = true;
+                            }
+                        }else{
+                            blnPintar = false;
                         }
-                        else{
-                            blnSinValor = true;
-                        }
-
-
                         //EKLEKTIKOA
                         if (txt4_4Eklektikoa == textViewArray[j]){
                             amurrio = true;
@@ -449,8 +454,9 @@ public class Hizkisalda_18 extends AppCompatActivity {
                         }
                         if (txt13_4EklektikoaEnd  == textViewArray[j] && amurrio == true){
                             blnSinValor = false;
-                            for (int e = 0; e<textViewAchucarro.length; e++){
-                                textViewAchucarro[e].setBackgroundColor(Color.RED);
+                            Log.d("mytag","PINTANDO EKLEKTIKOA");
+                            for (int e = 0; e<textViewEklektikoa.length; e++){
+                                textViewEklektikoa[e].setBackgroundColor(Color.RED);
                             }
                         }
                         else{
@@ -467,8 +473,8 @@ public class Hizkisalda_18 extends AppCompatActivity {
                         }
                         if (txt12_5SotoaEnd == textViewArray[j] && refort == true){
                             blnSinValor = false;
-                            for (int e = 0; e<textViewAchucarro.length; e++){
-                                textViewAchucarro[e].setBackgroundColor(Color.WHITE);
+                            for (int e = 0; e<textViewSotoa.length; e++){
+                                textViewSotoa[e].setBackgroundColor(Color.WHITE);
                             }
                         }
                         else{
@@ -484,8 +490,8 @@ public class Hizkisalda_18 extends AppCompatActivity {
                         }
                         if (txt14_8NurseryEnd == textViewArray[j] && nursery == true){
                             blnSinValor = false;
-                            for (int e = 0; e<textViewAchucarro.length; e++){
-                                textViewAchucarro[e].setBackgroundColor(Color.YELLOW);
+                            for (int e = 0; e<textViewNursery.length; e++){
+                                textViewNursery[e].setBackgroundColor(Color.YELLOW);
                             }
                         }
                         else{
@@ -509,11 +515,23 @@ public class Hizkisalda_18 extends AppCompatActivity {
 
                                 if (textViewArray[contLetras[0]] == txt6_6Ingelesa || textViewArray[j] == txt6_6Ingelesa){
                                     txt6_6Ingelesa.setBackgroundColor(Color.BLUE);
-                                }else if (textViewArray[contLetras[0]] == txt6_12Smith || textViewArray[j] == txt6_12Smith ){
+                                }
+                                if (textViewArray[contLetras[0]] == txt6_12Smith || textViewArray[j] == txt6_12Smith){
                                     txt6_12Smith.setBackgroundColor(Color.CYAN);
-                                }else if (textViewArray[contLetras[0]] == txt14_14ErrejionalistaEnd || textViewArray[j] == txt14_14ErrejionalistaEnd){
+                                }
+                                if (textViewArray[contLetras[0]] == txt14_14ErrejionalistaEnd || textViewArray[j] == txt14_14ErrejionalistaEnd){
                                     txt14_14ErrejionalistaEnd.setBackgroundColor(Color.BLUE);
                                 }
+                                if (textViewArray[contLetras[0]] == txt4_4Eklektikoa || textViewArray[j] == txt4_4Eklektikoa){
+                                    txt4_4Eklektikoa.setBackgroundColor(Color.RED);
+                                }
+                                if (textViewArray[contLetras[0]] == txt12_4 || textViewArray[j] == txt12_4){
+                                        txt12_4.setBackgroundColor(Color.WHITE);
+                                }
+                                if (textViewArray[contLetras[0]] == txt8_8Nursery || textViewArray[j] == txt8_8Nursery){
+                                    txt8_8Nursery.setBackgroundColor(Color.YELLOW);
+                                }
+
 
                                 Log.d("mytag","PRIMERA LETRA: "+contLetras[0]);
                                 Log.d("mytag","SEGUNDA LETRA: "+j);
