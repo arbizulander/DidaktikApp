@@ -271,7 +271,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         .title(lista_paradas.get(i).getNombre())
                         .setIcon(iconogris));
             }
-
         /*******************************************
          * Añadimos un marcador en Txurdinaga PARA DESARROLLO*/
 
@@ -279,20 +278,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mapboxMap.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(@NonNull Marker marker) {
+                    //Comprobacion a traves del nombre
+                    if(marker.getTitle().equals(lista_paradas.get(cont).getNombre())){
                     for(int i = 0 ; i < lista.size();i++){
                         if(lista.get(i).getId() == marker.getId()){
-
-                            Intent  in = new Intent(MapsActivity.this, details_list.class);
+                            Intent in = new Intent(MapsActivity.this, details_list.class);
                             Log.d("mytag", "ID_PARADA: "+cont+1);
                             in.putExtra("id_parada",cont+1);
                             in.putExtra("pag_anterior", 0);
                             startActivityForResult(in, REQ_MAPA);
-
                         }
                     }
-
-                    marker.getId();
-
+                }
                     return true;
                 }
             });
@@ -456,7 +453,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             //getRoute(posicionOrigen, posicionDestino);
             Log.d("mytag", "objetivo cambiado, ahora es " + cont);
 
-            getDistancia();
+            //getDistancia();
 
         }else{}
     }
@@ -469,7 +466,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             //getRoute(posicionOrigen, posicionDestino);
             Log.d("mytag", "objetivo cambiado, ahora es " + cont);
 
-            getDistancia();
+            //getDistancia();
         }else{}
     }
 
@@ -487,11 +484,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //Convertimos los pngs en iconos para usarlos mas tarde
         IconFactory iconFactory = IconFactory.getInstance(contex);
         Icon iconorojo = iconFactory.fromResource(R.drawable.red_marker);
+        Icon iconoverde = iconFactory.fromResource(R.drawable.green_marker);
 
         Location destino = new Location(LocationManager.GPS_PROVIDER);
 
         destino.setLatitude(lista_paradas.get(cont).getLatitud());
         destino.setLongitude(lista_paradas.get(cont).getLongitud());
+
+/*
+        if (lista_paradas.get(cont).isRealizado()) {
+            Log.d("mytag","" +lista_paradas.get(cont).getNombre() + "esta completado");
+            lista.get(cont).setIcon(iconoverde);
+            }*/
 
         /*destino.setLatitude(43.257895);
         destino.setLongitude(-2.902738);*/
@@ -502,10 +506,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         String destinotexto = String.format("%.0f", distancia); //Quitamos los decimales
         textodest.setText( "Parada " + (cont+1) + ": " + lista_paradas.get(cont).getNombre());
         textodist.setText("Distancia: " + destinotexto + " metros");
-
         lista.get(cont).setIcon(iconorojo);
+        Log.d("mytag","latitud de " + lista_paradas.get(cont).getNombre() + ": " + lista_paradas.get(cont).getLatitud());
+        Log.d("mytag","longitud de " + lista_paradas.get(cont).getNombre() + ": " + lista_paradas.get(cont).getLongitud());
 
         Log.d("mytag" , "la distancia es " + destinotexto + " metros");
+
         lista_juegos = (ArrayList<Juegos>) db.getDatos_juegos_ID(cont+1);
         Log.d("mytag",""+ lista_juegos);
         Log.d("mytag","La distancia a " + lista_paradas.get(cont).getNombre()+ " es de " + distancia +" metros.");
@@ -537,11 +543,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             });
             alert.show();
+            butact.setVisibility(View.VISIBLE);
             dentrozona = true;
             Log.d("mytag","Estas al lado de " + lista_paradas.get(cont).getNombre() + "!!!");
         }
         else{dentrozona = false;}
     }
+    /*
     //CODIGO MARCADOR DE PRUEBA
         Log.d("mytag","ESTADO DE PARADA 1: " + lista_paradas.get(cont).isRealizado());
         if((distancia <= 60 && !dentrozona) && !lista_paradas.get(cont).isRealizado()){
@@ -572,6 +580,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         else{dentrozona = false;
             butact.setVisibility(View.INVISIBLE);
         }
+        */
+        ultimaParada();
 }
 
     private void marcarCompletado(){
@@ -581,9 +591,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if (lista_paradas.get(cont).isRealizado()) {
             Log.d("mytag","" +lista_paradas.get(cont).getNombre() + "esta completado");
-            //marcador1.setImageResource(R.drawable.verde);
             lista.get(cont).setIcon(iconoverde);
             subirCont();
+            Log.d("mytag","" + cont);
         }
     }
     /**********************************************************/
@@ -668,4 +678,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         return super.onKeyDown(keyCode, event);
     }
 
+    public void ultimaParada(){
+        IconFactory iconFactory = IconFactory.getInstance(contex);
+        Icon iconoverde = iconFactory.fromResource(R.drawable.green_marker);
+        if (lista_paradas.get(lista_paradas.size()-1).isRealizado()){
+            lista.get(cont).setIcon(iconoverde);
+        }
+    }
 }

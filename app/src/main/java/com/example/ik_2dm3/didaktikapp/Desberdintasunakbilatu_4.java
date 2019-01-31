@@ -319,10 +319,9 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
                         db.ActualizarJuego_Id(i);
                         db.close();
 
-                        //mp.stop();
-                        Intent e = new Intent(Desberdintasunakbilatu_4.this,Galderenerantzunaaukeratu_5.class);
-                        e.putExtra("pag_anterior",0);
-                        startActivityForResult(e, REQ_BTN);
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("result",1);
+                        setResult(Activity.RESULT_OK,returnIntent);
                         finish();
                     });
                 }

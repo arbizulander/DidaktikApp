@@ -26,8 +26,8 @@ public class Hizkisalda_18 extends AppCompatActivity {
     private View v1, v2, v3, v5, v6, v7;
     private MediaPlayer mp;
     private ImageButton btnNext;
-    private boolean kultura,iguarrako,guk,ondarea,amurrio,refort;
-    private boolean kultura1,iguarrako2,guk3,ondarea5,amurrio6,refort7;
+    private boolean kultura,iguarrako,guk,ondarea,amurrio,refort,nursery;
+    private boolean kultura1,iguarrako2,guk3,ondarea5,amurrio6,refort7,nursery8;
     private boolean blnSinValor, blnPulsado;
     private static boolean palabraAcabada = false, palabraChekeada = false, cheked = false;
     private ArrayList<TextView> arr;
@@ -76,6 +76,8 @@ public class Hizkisalda_18 extends AppCompatActivity {
         ondarea = false;
         amurrio = false;
         refort = false;
+        nursery = false;
+
 
         kultura1 = false;
         iguarrako2 = false;
@@ -83,6 +85,8 @@ public class Hizkisalda_18 extends AppCompatActivity {
         ondarea5 = false;
         amurrio6 = false;
         refort7 = false;
+        nursery8 = false;
+
         blnSinValor = false;
         blnPulsado = false;
 
@@ -138,7 +142,7 @@ public class Hizkisalda_18 extends AppCompatActivity {
         TextView txt4_1 = findViewById(R.id.txt4_1);
         TextView txt4_2 = findViewById(R.id.txt4_2);
         TextView txt4_3 = findViewById(R.id.txt4_3);
-        TextView txt4_4 = findViewById(R.id.txt4_4);
+        TextView txt4_4Eklektikoa = findViewById(R.id.txt4_4);
         TextView txt4_5 = findViewById(R.id.txt4_5);
         TextView txt4_6 = findViewById(R.id.txt4_6);
         TextView txt4_7 = findViewById(R.id.txt4_7);
@@ -206,7 +210,7 @@ public class Hizkisalda_18 extends AppCompatActivity {
         TextView txt8_5 = findViewById(R.id.txt8_5);
         TextView txt8_6 = findViewById(R.id.txt8_6);
         TextView txt8_7 = findViewById(R.id.txt8_7);
-        TextView txt8_8 = findViewById(R.id.txt8_8);
+        TextView txt8_8Nursery = findViewById(R.id.txt8_8);
         TextView txt8_9 = findViewById(R.id.txt8_9);
         TextView txt8_10 = findViewById(R.id.txt8_10);
         TextView txt8_11 = findViewById(R.id.txt8_11);
@@ -264,11 +268,11 @@ public class Hizkisalda_18 extends AppCompatActivity {
         TextView txt11_14 = findViewById(R.id.txt11_14);
 
         //FILA 12
-        TextView txt12_1 = findViewById(R.id.txt12_1);
+        TextView txt12_1Sotoa = findViewById(R.id.txt12_1);
         TextView txt12_2 = findViewById(R.id.txt12_2);
         TextView txt12_3 = findViewById(R.id.txt12_3);
         TextView txt12_4 = findViewById(R.id.txt12_4);
-        TextView txt12_5 = findViewById(R.id.txt12_5);
+        TextView txt12_5SotoaEnd = findViewById(R.id.txt12_5);
         TextView txt12_6 = findViewById(R.id.txt12_6);
         TextView txt12_7 = findViewById(R.id.txt12_7);
         TextView txt12_8 = findViewById(R.id.txt12_8);
@@ -283,7 +287,7 @@ public class Hizkisalda_18 extends AppCompatActivity {
         TextView txt13_1 = findViewById(R.id.txt13_1);
         TextView txt13_2 = findViewById(R.id.txt13_2);
         TextView txt13_3 = findViewById(R.id.txt13_3);
-        TextView txt13_4 = findViewById(R.id.txt13_4);
+        TextView txt13_4EklektikoaEnd = findViewById(R.id.txt13_4);
         TextView txt13_5 = findViewById(R.id.txt13_5);
         TextView txt13_6 = findViewById(R.id.txt13_6);
         TextView txt13_7 = findViewById(R.id.txt13_7);
@@ -303,7 +307,7 @@ public class Hizkisalda_18 extends AppCompatActivity {
         TextView txt14_5 = findViewById(R.id.txt14_5);
         TextView txt14_6 = findViewById(R.id.txt14_6);
         TextView txt14_7 = findViewById(R.id.txt14_7);
-        TextView txt14_8 = findViewById(R.id.txt14_8);
+        TextView txt14_8NurseryEnd = findViewById(R.id.txt14_8);
         TextView txt14_9 = findViewById(R.id.txt14_9);
         TextView txt14_10 = findViewById(R.id.txt14_10);
         TextView txt14_11 = findViewById(R.id.txt14_11);
@@ -314,22 +318,25 @@ public class Hizkisalda_18 extends AppCompatActivity {
         TextView[] textViewArray = {txt1_1Errejionalista,txt1_2,txt1_3,txt1_4,txt1_5,txt1_6,txt1_7,txt1_8,txt1_9,txt1_10,txt1_11,txt1_12,txt1_13,txt1_14,
                                     txt2_1,txt2_2,txt2_3,txt2_4,txt2_5,txt2_6,txt2_7,txt2_8,txt2_9,txt2_10,txt2_11,txt2_12,txt2_13,txt2_14,
                                     txt3_1,txt3_2,txt3_3,txt3_4,txt3_5,txt3_6,txt3_7,txt3_8,txt3_9,txt3_10,txt3_11,txt3_12,txt3_13,txt3_14,
-                                    txt4_1,txt4_2,txt4_3,txt4_4,txt4_5,txt4_6,txt4_7,txt4_8,txt4_9,txt4_10,txt4_11,txt4_12,txt4_13,txt4_14,
+                                    txt4_1,txt4_2,txt4_3,txt4_4Eklektikoa,txt4_5,txt4_6,txt4_7,txt4_8,txt4_9,txt4_10,txt4_11,txt4_12,txt4_13,txt4_14,
                                     txt5_1,txt5_2,txt5_3,txt5_4,txt5_5,txt5_6,txt5_7,txt5_8,txt5_9,txt5_10,txt5_11,txt5_12,txt5_13,txt5_14,
                                     txt6_1,txt6_2,txt6_3,txt6_4,txt6_5,txt6_6Ingelesa,txt6_7,txt6_8,txt6_9,txt6_10,txt6_11,txt6_12Smith,txt6_13IngelesaEnd,txt6_14AchucarroEnd,
                                     txt7_1,txt7_2,txt7_3,txt7_4,txt7_5,txt7_6,txt7_7,txt7_8,txt7_9,txt7_10,txt7_11,txt7_12,txt7_13,txt7_14,
-                                    txt8_1,txt8_2,txt8_3,txt8_4,txt8_5,txt8_6,txt8_7,txt8_8,txt8_9,txt8_10,txt8_11,txt8_12,txt8_13,txt8_14,
+                                    txt8_1,txt8_2,txt8_3,txt8_4,txt8_5,txt8_6,txt8_7,txt8_8Nursery,txt8_9,txt8_10,txt8_11,txt8_12,txt8_13,txt8_14,
                                     txt9_1,txt9_2,txt9_3,txt9_4,txt9_5,txt9_6,txt9_7,txt9_8,txt9_9,txt9_10,txt9_11,txt9_12,txt9_13,txt9_14,
                                     txt10_1,txt10_2,txt10_3,txt10_4,txt10_5,txt10_6,txt10_7,txt10_8,txt10_9,txt10_10,txt10_11,txt10_12SmithEnd,txt10_13,txt10_14,
                                     txt11_1,txt11_2,txt11_3,txt11_4,txt11_5,txt11_6,txt11_7,txt11_8,txt11_9,txt11_10,txt11_11,txt11_12,txt11_13,txt11_14,
-                                    txt12_1,txt12_2,txt12_3,txt12_4,txt12_5,txt12_6,txt12_7,txt12_8,txt12_9,txt12_10,txt12_11,txt12_12,txt12_13,txt12_14,
-                                    txt13_1,txt13_2,txt13_3,txt13_4,txt13_5,txt13_6,txt13_7,txt13_8,txt13_9,txt13_10,txt13_11,txt13_12,txt13_13,txt13_14,
-                                    txt14_1,txt14_2,txt14_3,txt14_4,txt14_5,txt14_6,txt14_7,txt14_8,txt14_9,txt14_10,txt14_11,txt14_12,txt14_13,txt14_14ErrejionalistaEnd};
+                                    txt12_1Sotoa,txt12_2,txt12_3,txt12_4,txt12_5SotoaEnd,txt12_6,txt12_7,txt12_8,txt12_9,txt12_10,txt12_11,txt12_12,txt12_13,txt12_14,
+                                    txt13_1,txt13_2,txt13_3,txt13_4EklektikoaEnd,txt13_5,txt13_6,txt13_7,txt13_8,txt13_9,txt13_10,txt13_11,txt13_12,txt13_13,txt13_14,
+                                    txt14_1,txt14_2,txt14_3,txt14_4,txt14_5,txt14_6,txt14_7,txt14_8NurseryEnd,txt14_9,txt14_10,txt14_11,txt14_12,txt14_13,txt14_14ErrejionalistaEnd};
 
-        TextView[] textViewErrejionalista = {txt1_1Errejionalista,txt2_2,txt3_3,txt4_4,txt5_5,txt6_6Ingelesa,txt7_7,txt8_8,txt9_9,txt10_10,txt11_11,txt12_12,txt13_13,txt14_14ErrejionalistaEnd};
+        TextView[] textViewErrejionalista = {txt1_1Errejionalista,txt2_2,txt3_3,txt4_4Eklektikoa,txt5_5,txt6_6Ingelesa,txt7_7,txt8_8Nursery,txt9_9,txt10_10,txt11_11,txt12_12,txt13_13,txt14_14ErrejionalistaEnd};
         TextView[] textViewEIngelesa = {txt6_6Ingelesa,txt6_7,txt6_8,txt6_9,txt6_10,txt6_11,txt6_12Smith,txt6_13IngelesaEnd};
-        TextView[] textViewStmith = {txt6_12Smith,txt7_12,txt8_12,txt9_12,txt10_12SmithEnd};
+        TextView[] textViewSmith = {txt6_12Smith,txt7_12,txt8_12,txt9_12,txt10_12SmithEnd};
         TextView[] textViewAchucarro = {txt14_14ErrejionalistaEnd,txt13_14,txt12_14,txt11_14,txt10_14,txt9_14,txt8_14,txt7_14,txt6_14AchucarroEnd};
+        TextView[] textViewEklektikoa = {txt4_4Eklektikoa,txt5_4,txt6_4,txt7_4,txt8_4,txt9_4,txt10_4,txt11_4,txt12_4,txt13_4EklektikoaEnd};
+        TextView[] textViewSotoa = {txt12_1Sotoa,txt12_2,txt12_3,txt12_4,txt12_5SotoaEnd};
+        TextView[] textViewNursery = {txt8_8Nursery,txt9_8,txt10_8,txt11_8,txt12_8,txt13_8,txt14_8NurseryEnd};
         // textViewArray ={txt1_1,txt1_2,txt1_3,txt1_4};
 
         final int[] contLetras = {0} ;
@@ -345,11 +352,17 @@ public class Hizkisalda_18 extends AppCompatActivity {
                     if (colorCode != Color.BLUE &&
                         colorCode != Color.CYAN &&
                         colorCode != Color.GREEN &&
-                        colorCode != Color.MAGENTA ||
+                        colorCode != Color.MAGENTA &&
+                        colorCode != Color.RED &&
+                        colorCode != Color.WHITE &&
+                        colorCode != Color.YELLOW   ||
+
 
                         textViewArray[j] == txt6_6Ingelesa && (colorCode == Color.BLUE || colorCode == Color.CYAN)||
                         textViewArray[j] == txt6_12Smith && (colorCode == Color.CYAN || colorCode == Color.GREEN) ||
-                        textViewArray[j] == txt14_14ErrejionalistaEnd && (colorCode == Color.BLUE || colorCode == Color.MAGENTA)){
+                        textViewArray[j] == txt14_14ErrejionalistaEnd && (colorCode == Color.BLUE || colorCode == Color.MAGENTA ||
+                        textViewArray[j] == txt4_4Eklektikoa && (colorCode == Color.BLUE || colorCode == Color.RED ||
+                                {
 
                         textViewArray[j].setBackgroundColor(Color.GRAY);
 
@@ -399,8 +412,8 @@ public class Hizkisalda_18 extends AppCompatActivity {
                         }
                         if (txt10_12SmithEnd == textViewArray[j] && guk == true){
                             blnSinValor = false;
-                            for (int e = 0; e<textViewStmith.length; e++){
-                                textViewStmith[e].setBackgroundColor(Color.GREEN);
+                            for (int e = 0; e<textViewSmith.length; e++){
+                                textViewSmith[e].setBackgroundColor(Color.GREEN);
                             }
                         }
                         else{
@@ -409,16 +422,70 @@ public class Hizkisalda_18 extends AppCompatActivity {
 
                         //ACHUCARRO
                         if (txt14_14ErrejionalistaEnd == textViewArray[j]){
-                            guk = true;
+                            ondarea = true;
                             blnSinValor = false;
                         }
                         else{
                             blnSinValor = true;
                         }
-                        if (txt6_14AchucarroEnd == textViewArray[j] && guk == true){
+                        if (txt6_14AchucarroEnd == textViewArray[j] && ondarea == true){
                             blnSinValor = false;
                             for (int e = 0; e<textViewAchucarro.length; e++){
                                 textViewAchucarro[e].setBackgroundColor(Color.MAGENTA);
+                            }
+                        }
+                        else{
+                            blnSinValor = true;
+                        }
+
+
+                        //EKLEKTIKOA
+                        if (txt4_4Eklektikoa == textViewArray[j]){
+                            amurrio = true;
+                            blnSinValor = false;
+                        }
+                        else{
+                            blnSinValor = true;
+                        }
+                        if (txt13_4EklektikoaEnd  == textViewArray[j] && amurrio == true){
+                            blnSinValor = false;
+                            for (int e = 0; e<textViewAchucarro.length; e++){
+                                textViewAchucarro[e].setBackgroundColor(Color.RED);
+                            }
+                        }
+                        else{
+                            blnSinValor = true;
+                        }
+
+                        //SOTOA
+                        if (txt12_1Sotoa == textViewArray[j]){
+                            refort = true;
+                            blnSinValor = false;
+                        }
+                        else{
+                            blnSinValor = true;
+                        }
+                        if (txt12_5SotoaEnd == textViewArray[j] && refort == true){
+                            blnSinValor = false;
+                            for (int e = 0; e<textViewAchucarro.length; e++){
+                                textViewAchucarro[e].setBackgroundColor(Color.WHITE);
+                            }
+                        }
+                        else{
+                            blnSinValor = true;
+                        }
+                        //NURSERY
+                        if (txt8_8Nursery == textViewArray[j]){
+                            nursery = true;
+                            blnSinValor = false;
+                        }
+                        else{
+                            blnSinValor = true;
+                        }
+                        if (txt14_8NurseryEnd == textViewArray[j] && nursery == true){
+                            blnSinValor = false;
+                            for (int e = 0; e<textViewAchucarro.length; e++){
+                                textViewAchucarro[e].setBackgroundColor(Color.YELLOW);
                             }
                         }
                         else{

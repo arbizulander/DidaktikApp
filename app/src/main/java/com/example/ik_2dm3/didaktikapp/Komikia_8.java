@@ -33,7 +33,7 @@ public class Komikia_8 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_komikia_8);
 
-        ConstraintLayout ln = (ConstraintLayout)this.findViewById(R.id.id_layoutKomikia);
+        ConstraintLayout ln = (ConstraintLayout) this.findViewById(R.id.id_layoutKomikia);
 
 
         setTitle("Komikia");
@@ -47,7 +47,7 @@ public class Komikia_8 extends AppCompatActivity {
         pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
 
 
-       /* switch (pag_anterior){
+        switch (pag_anterior) {
             case 0:
                 break;
 
@@ -55,8 +55,8 @@ public class Komikia_8 extends AppCompatActivity {
                 btnNextGame.setEnabled(true);
                 btnNextGame.setVisibility(View.VISIBLE);
                 btnNextGame.setOnClickListener(v -> {
-                    Intent i = new Intent(Komikia_8.this,Debaterakogalderak_9.class);
-                    i.putExtra("pag_anterior",1);
+                    Intent i = new Intent(Komikia_8.this, Debaterakogalderak_9.class);
+                    i.putExtra("pag_anterior", 1);
                     startActivityForResult(i, REQ_BTN);
                     finish();
                 });
@@ -64,13 +64,13 @@ public class Komikia_8 extends AppCompatActivity {
                 btnPreviousGame.setEnabled(true);
                 btnPreviousGame.setVisibility(View.VISIBLE);
                 btnPreviousGame.setOnClickListener(v -> {
-                    Intent i = new Intent(Komikia_8.this,Argazkiaaztertu_7.class);
-                    i.putExtra("pag_anterior",1);
+                    Intent i = new Intent(Komikia_8.this, Argazkiaaztertu_7.class);
+                    i.putExtra("pag_anterior", 1);
                     startActivityForResult(i, REQ_BTN);
                     finish();
                 });
                 break;
-        }*/
+        }
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
@@ -78,44 +78,6 @@ public class Komikia_8 extends AppCompatActivity {
 
         viewPager.setAdapter(viewPagerAdapter);
 
-        btnPreviousGame.setEnabled(true);
-        btnPreviousGame.setVisibility(View.VISIBLE);
-        btnPreviousGame.setOnClickListener(v -> {
-            //mp.stop();
-            Intent i = new Intent(Komikia_8.this,Argazkiaaztertu_7.class);
-            i.putExtra("pag_anterior",1);
-            startActivityForResult(i, REQ_BTN);
-            finish();
-        });
-
-        btnNextGame.setEnabled(true);
-        btnNextGame.setVisibility(View.VISIBLE);
-        btnNextGame.setOnClickListener(v -> {
-
-            //mp.stop();
-            Intent i = new Intent(Komikia_8.this,Debaterakogalderak_9.class);
-            i.putExtra("pag_anterior",1);
-            startActivityForResult(i, REQ_BTN);
-            finish();
-
-            switch (pag_anterior){
-                case 0:
-                    int y = 8;
-                    db=new MyOpenHelper(cont);
-                    db.ActualizarJuego_Id(y);
-                    db.close();
-
-                    Intent returnIntent = new Intent();
-                    returnIntent.putExtra("result",1);
-                    setResult(Activity.RESULT_OK,returnIntent);
-                    finish();
-                    break;
-
-                case 1:
-                    break;
-            }
-
-        });
 
     }
 

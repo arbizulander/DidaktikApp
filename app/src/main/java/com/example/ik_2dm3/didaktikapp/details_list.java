@@ -223,8 +223,8 @@ public class details_list extends AppCompatActivity {
 
     public void PopUp(View v){
         builder = new AlertDialog.Builder(this);
-        builder.setMessage("Ahora sacarás una foto al edificio")
-                .setTitle("TITULO DE PRUEBA")
+        builder.setMessage("Une hau argazki batekin gogoratzeko goaz!")
+                .setTitle("Lan ona!")
                 .setCancelable(false)
                 .setNeutralButton("Aceptar",
                                           new DialogInterface.OnClickListener() {
@@ -321,6 +321,7 @@ public class details_list extends AppCompatActivity {
                     Log.d("mytag", "ESTOY DENTRO DEL ON POST EXECUTE");
                     Log.d("mytag", "POSICION DE IMAGEN: "+position);
 
+
                     try{
 
                         CargarJuegos(lista_juegos, position);
@@ -406,6 +407,7 @@ public class details_list extends AppCompatActivity {
 
         Log.d("mytag","ESTADO JUEGO numero "+pos+" : "+Listado_juegos.get(pos).isRealizado());
 
+
         if (pos < lista_juegos.size()) {
             if (!Listado_juegos.get(pos).isRealizado()){
                 ID_juego = Listado_juegos.get(pos).getId_juego();
@@ -428,6 +430,7 @@ public class details_list extends AppCompatActivity {
             }
             else {
                 if (pos < lista_juegos.size()) {
+                    Log.d("mytag", "ESTOY EN EL ELSE");
                     contJuegos += 1;
                     CargarJuegos(lista_juegos, contJuegos);
                 }
@@ -457,6 +460,7 @@ public class details_list extends AppCompatActivity {
                 }
                 else
                 {
+                    Log.d("mytag", "ELSE DETAILSLIST");
                     if (resultCode == RESULT_OK) {
 
                         switch (pag_anterior){

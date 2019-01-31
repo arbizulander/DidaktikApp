@@ -176,17 +176,22 @@ public class list extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view,
                                         final int position, long id) {
                     Log.d("mytag", "ESTOY DENTRO DEL ON POST EXECUTE");
-                    Log.d("mytag", "POSICION DE IMAGEN: "+position);
+                    Log.d("mytag", "POSICION DE IMAGEN: " + position);
 
                     try{
+                        Log.d("mytag","LLEGA HASTA AQUI");
                         Intent intent = new Intent(list.this, details_list.class);
                         int prueba = lista_paradas.get(position).getId_parada();
+
                         Log.d("mytag","ID DE LA PARADA PULSADA: "+prueba);
                         //meto el id en los extras para saber que parada es
                         intent.putExtra("id_parada", prueba);
                         intent.putExtra("pag_anterior",1);
+
                         startActivityForResult(intent, REQ_OK);
+
                     }catch (Exception e){
+                        Log.d("mytag","Estoy en el catch");
                         e.printStackTrace();
                     }
                 }

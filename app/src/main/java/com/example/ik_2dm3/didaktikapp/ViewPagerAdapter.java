@@ -10,6 +10,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.Layout;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,7 +99,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
 
 
-        if(position == 3 && pag_anterior == 0){
+        if(position == 3){
 
             //ConstraintLayout ln = (ConstraintLayout) view.findViewById(R.id.id_layoutKomikia);
             button.setEnabled(true);
@@ -106,9 +107,19 @@ public class ViewPagerAdapter extends PagerAdapter {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int i = 8;
+                    db=new MyOpenHelper(context);
+                    db.ActualizarJuego_Id(i);
+                    db.close();
+
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("result", 1);
+                    if(context instanceof Activity){
+                        ((Activity)context).setResult(Activity.RESULT_OK, returnIntent);
+                        Log.d("mytag","if cumplido");//ESTO FUNCIONA BIEN, PERO MANDA A LISTA VACIA DE ZIRGARRIAK
+                    }
                     ((Activity) context).finish();
-                   //finishUpdate(container);
-                    //Komikia_8.FinalizarLayout();
+
                 }
             });
 
