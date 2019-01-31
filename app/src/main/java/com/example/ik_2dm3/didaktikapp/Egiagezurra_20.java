@@ -31,6 +31,7 @@ public class Egiagezurra_20 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_egiagezurra_20);
 
+        setTitle("Egia edo gezurra");
         btnPreviousGame = findViewById(R.id.btnPreviousGame);
         btnPreviousGame.setEnabled(false);
         btnPreviousGame.setVisibility(View.INVISIBLE);

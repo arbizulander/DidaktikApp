@@ -41,12 +41,29 @@ public class Informazioakuadroabete_19 extends AppCompatActivity {
         btnNext.setEnabled(false);
         btnNext.setVisibility(View.INVISIBLE);
 
-        mp = MediaPlayer.create(getApplicationContext(), R.raw.a7_2);
-        mp.start();
+
 
         texto1 = (EditText)findViewById(R.id.texto1);
         texto2 = (EditText)findViewById(R.id.texto2);
         texto3 = (EditText)findViewById(R.id.texto3);
+
+        texto1.setEnabled(false);
+        texto2.setEnabled(false);
+        texto3.setEnabled(false);
+
+        mp = MediaPlayer.create(getApplicationContext(), R.raw.a7_2);
+        mp.start();
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+
+                texto1.setEnabled(true);
+                texto2.setEnabled(true);
+                texto3.setEnabled(true);
+            }
+        });
+
+
         texto1.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
         texto2.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
         texto3.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
@@ -92,7 +109,7 @@ public class Informazioakuadroabete_19 extends AppCompatActivity {
                 btnNext.setVisibility(View.VISIBLE);
                 btnNext.setOnClickListener(v -> {
                     mp.stop();
-                    Intent i = new Intent(Informazioakuadroabete_19.this,Hizkisalda_18.class);
+                    Intent i = new Intent(Informazioakuadroabete_19.this,Egiagezurra_20.class);
                     i.putExtra("pag_anterior",1);
                     startActivityForResult(i, REQ_BTN);
                     finish();
@@ -102,7 +119,7 @@ public class Informazioakuadroabete_19 extends AppCompatActivity {
                 btnPreviousGame.setVisibility(View.VISIBLE);
                 btnPreviousGame.setOnClickListener(v -> {
                     mp.stop();
-                    Intent i = new Intent(Informazioakuadroabete_19.this,Egiagezurra_20.class);
+                    Intent i = new Intent(Informazioakuadroabete_19.this,Hizkisalda_18.class);
                     i.putExtra("pag_anterior",1);
                     startActivityForResult(i, REQ_BTN);
                     finish();
