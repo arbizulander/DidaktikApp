@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Komikia_8"
+    android:background="@drawable/fondoaplicacion"
     android:id="@+id/id_layoutKomikia">
 
     <android.support.v4.view.ViewPager

@@ -10,8 +10,13 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/btnNext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableLayout
             android:layout_width="match_parent"
@@ -19,7 +24,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/txt1_1"
@@ -150,7 +156,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/txt2_1"
@@ -281,7 +288,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/txt3_1"
@@ -412,7 +420,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/txt4_1"
@@ -543,7 +552,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/txt5_1"
@@ -585,7 +595,7 @@
                     android:id="@+id/txt5_5"
                     android:layout_width="25dp"
                     android:layout_height="wrap_content"
-                    android:text="J"
+                    android:text="G"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -674,7 +684,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/txt6_1"
@@ -805,7 +816,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/txt7_1"
@@ -936,7 +948,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/txt8_1"
@@ -1068,7 +1081,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/txt9_1"
@@ -1200,7 +1214,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/txt10_1"
@@ -1332,7 +1347,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/txt11_1"
@@ -1464,7 +1480,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/txt12_1"
@@ -1596,7 +1613,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/txt13_1"
@@ -1728,7 +1746,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/txt14_1"
@@ -1862,55 +1881,113 @@
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingTop="10dp">
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/respuesta1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Hizkirespuesta1"
+                    android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/imgCheck1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/checkgreen4" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/respuesta2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Hizkirespuesta2"
+                    android:textAlignment="center"
                     android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/imgCheck2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/checkgreen4" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/respuesta3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Hizkirespuesta3"
+                    android:textAlignment="center"
                     android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/imgCheck3_1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/checkgreen4" />
+
+                <ImageView
+                    android:id="@+id/imgCheck3_2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/checkgreen4" />
+
+                <ImageView
+                    android:id="@+id/imgCheck3_3"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/checkgreen4" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/respuesta4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Hizkirespuesta4"
+                    android:textAlignment="center"
                     android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/imgCheck4_1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/checkgreen4" />
+
+                <ImageView
+                    android:id="@+id/imgCheck4_2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/checkgreen4" />
             </TableRow>
         </TableLayout>
     </LinearLayout>

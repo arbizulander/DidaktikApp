@@ -5,34 +5,33 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
-import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 public class Hizkisalda_18 extends AppCompatActivity {
 
     private MediaPlayer mp, mp2;
     private ImageButton btnNext;
     private TextView respuesta1, respuesta2, respuesta3, respuesta4;
-    private boolean kultura,iguarrako,guk,ondarea,amurrio,refort,nursery;
-    private boolean kultura1,iguarrako2,guk3,ondarea5,amurrio6,refort7,nursery8;
+    private boolean blnErrejionalista, blnIngelesa, blnSmith, blnAchurraco, blnEklektikoa, blnSotoa, blnNursery;
+    private boolean blnErrejionalistaOK, blnIngelesaOK, blnSmithOK, blnAchurracoOK, blnEklektikoaOK, blnSotoaOK, blnNurseryOK;
     private boolean blnSinValor, blnPulsado, blnPintar;
     private Context cont = this;
     private MyOpenHelper db;
     private int pag_anterior;
     static final int REQ_BTN = 0;
     static final int REQ_BTNATRAS = 12;
+    private int contEstilosArkitektos = 0;
+    private int contArkitektos = 0;
+
+    private ImageView chk1,chk2,chk3_1,chk3_2,chk3_3,chk4_1,chk4_2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,22 +66,21 @@ public class Hizkisalda_18 extends AppCompatActivity {
         }
 
         //Booleans a falso
-        kultura = false;
-        iguarrako = false;
-        guk = false;
-        ondarea = false;
-        amurrio = false;
-        refort = false;
-        nursery = false;
+        blnErrejionalista = false;
+        blnIngelesa = false;
+        blnSmith = false;
+        blnAchurraco = false;
+        blnEklektikoa = false;
+        blnSotoa = false;
+        blnNursery = false;
 
-
-        kultura1 = false;
-        iguarrako2 = false;
-        guk3 = false;
-        ondarea5 = false;
-        amurrio6 = false;
-        refort7 = false;
-        nursery8 = false;
+        blnErrejionalistaOK = false;
+        blnIngelesaOK = false;
+        blnSmithOK = false;
+        blnAchurracoOK = false;
+        blnEklektikoaOK = false;
+        blnSotoaOK = false;
+        blnNurseryOK = false;
 
         blnSinValor = false;
         blnPulsado = false;
@@ -92,6 +90,14 @@ public class Hizkisalda_18 extends AppCompatActivity {
         respuesta2 = findViewById(R.id.respuesta2);
         respuesta3 = findViewById(R.id.respuesta3);
         respuesta4 = findViewById(R.id.respuesta4);
+
+        chk1 = findViewById(R.id.imgCheck1);
+        chk2 = findViewById(R.id.imgCheck2);
+        chk3_1 = findViewById(R.id.imgCheck3_1);
+        chk3_2 = findViewById(R.id.imgCheck3_2);
+        chk3_3 = findViewById(R.id.imgCheck3_3);
+        chk4_1 = findViewById(R.id.imgCheck4_1);
+        chk4_2 = findViewById(R.id.imgCheck4_2);
 
         //FILA 1
         TextView txt1_1Errejionalista = findViewById(R.id.txt1_1);
@@ -360,7 +366,6 @@ public class Hizkisalda_18 extends AppCompatActivity {
                         colorCode != Color.WHITE &&
                         colorCode != Color.YELLOW ||
 
-
                         textViewArray[j] == txt6_6Ingelesa && (colorCode == Color.BLUE || colorCode == Color.CYAN)||
                         textViewArray[j] == txt6_12Smith && (colorCode == Color.CYAN || colorCode == Color.GREEN) ||
                         textViewArray[j] == txt14_14ErrejionalistaEnd && (colorCode == Color.BLUE || colorCode == Color.MAGENTA) ||
@@ -373,7 +378,7 @@ public class Hizkisalda_18 extends AppCompatActivity {
 
                         //ERREJIONALISTA
                         if (txt1_1Errejionalista == textViewArray[j]){
-                            kultura = true;
+                            blnErrejionalista = true;
                             blnSinValor = false;
                         }
                         else{
@@ -382,23 +387,24 @@ public class Hizkisalda_18 extends AppCompatActivity {
                             colorCode = cd.getColor();
                         }
 
-                        if (txt14_14ErrejionalistaEnd == textViewArray[j] && kultura == true && colorCode == Color.GRAY){
-                            blnSinValor = false;
-                            kultura = false;
-                            blnPintar = true;
-                            for (int e = 0; e<textViewErrejionalista.length; e++){
-                                textViewErrejionalista[e].setBackgroundColor(Color.BLUE);
-                                kultura1 = true;
+                            if (txt14_14ErrejionalistaEnd == textViewArray[j] && blnErrejionalista == true && colorCode == Color.GRAY){
+                                blnSinValor = false;
+                                blnErrejionalista = false;
+                                blnPintar = true;
+                                blnErrejionalistaOK = true;
+                                contEstilosArkitektos+=1;
                                 comprobarFin();
+                                for (int e = 0; e<textViewErrejionalista.length; e++){
+                                    textViewErrejionalista[e].setBackgroundColor(Color.BLUE);
+                                }
                             }
-                        }
                         else{
                             blnSinValor = true;
                         }
 
                         //INGELESA
                         if (txt6_6Ingelesa == textViewArray[j]){
-                            iguarrako = true;
+                            blnIngelesa = true;
                             blnSinValor = false;
                         }
                         else{
@@ -406,12 +412,13 @@ public class Hizkisalda_18 extends AppCompatActivity {
                             cd = (ColorDrawable) txt6_6Ingelesa.getBackground();
                             colorCode = cd.getColor();
                         }
-                        if (txt6_13IngelesaEnd == textViewArray[j] && iguarrako == true && colorCode == Color.GRAY){
+                        if (txt6_13IngelesaEnd == textViewArray[j] && blnIngelesa == true && colorCode == Color.GRAY){
                             blnSinValor = false;
+                            blnIngelesaOK = true;
+                            contEstilosArkitektos+=1;
+                            comprobarFin();
                             for (int e = 0; e<textViewEIngelesa.length; e++){
                                 textViewEIngelesa[e].setBackgroundColor(Color.CYAN);
-                                iguarrako2 = true;
-                                comprobarFin();
                             }
                         }
                         else{
@@ -420,7 +427,7 @@ public class Hizkisalda_18 extends AppCompatActivity {
 
                         //SMITH
                         if (txt6_12Smith == textViewArray[j]){
-                            guk = true;
+                            blnSmith = true;
                             blnSinValor = false;
                         }
                         else{
@@ -428,12 +435,14 @@ public class Hizkisalda_18 extends AppCompatActivity {
                             cd = (ColorDrawable) txt6_12Smith.getBackground();
                             colorCode = cd.getColor();
                         }
-                        if (txt10_12SmithEnd == textViewArray[j] && guk == true && colorCode == Color.GRAY){
+                        if (txt10_12SmithEnd == textViewArray[j] && blnSmith == true && colorCode == Color.GRAY){
                             blnSinValor = false;
+                            contArkitektos+=1;
+                            blnSmithOK = true;
+                            comprobarFin();
                             for (int e = 0; e<textViewSmith.length; e++){
                                 textViewSmith[e].setBackgroundColor(Color.GREEN);
-                                guk3 = true;
-                                comprobarFin();
+
                             }
                         }
                         else{
@@ -441,21 +450,22 @@ public class Hizkisalda_18 extends AppCompatActivity {
                         }
 
                         //ACHUCARRO
-                        if (!blnPintar) {
+                        if (!blnPintar){
                             if (txt14_14ErrejionalistaEnd == textViewArray[j]) {
-                                ondarea = true;
+                                blnAchurraco = true;
                                 blnSinValor = false;
                             } else {
                                 blnSinValor = true;
                                 cd = (ColorDrawable) txt14_14ErrejionalistaEnd.getBackground();
                                 colorCode = cd.getColor();
                             }
-                            if (txt6_14AchucarroEnd == textViewArray[j] && ondarea == true && colorCode == Color.GRAY) {
+                            if (txt6_14AchucarroEnd == textViewArray[j] && blnAchurraco == true && colorCode == Color.GRAY) {
                                 blnSinValor = false;
+                                blnAchurracoOK = true;
+                                contArkitektos+=1;
+                                comprobarFin();
                                 for (int e = 0; e < textViewAchucarro.length; e++) {
                                     textViewAchucarro[e].setBackgroundColor(Color.MAGENTA);
-                                    ondarea5 = true;
-                                    comprobarFin();
                                 }
                             } else {
                                 blnSinValor = true;
@@ -463,9 +473,10 @@ public class Hizkisalda_18 extends AppCompatActivity {
                         }else{
                             blnPintar = false;
                         }
+
                         //EKLEKTIKOA
                         if (txt4_4Eklektikoa == textViewArray[j]){
-                            amurrio = true;
+                            blnEklektikoa = true;
                             blnSinValor = false;
                         }
                         else{
@@ -473,13 +484,14 @@ public class Hizkisalda_18 extends AppCompatActivity {
                             cd = (ColorDrawable) txt4_4Eklektikoa.getBackground();
                             colorCode = cd.getColor();
                         }
-                        if (txt13_4EklektikoaEnd  == textViewArray[j] && amurrio == true && colorCode == Color.GRAY){
+                        if (txt13_4EklektikoaEnd  == textViewArray[j] && blnEklektikoa == true && colorCode == Color.GRAY){
                             blnSinValor = false;
+                            contEstilosArkitektos+=1;
+                            blnEklektikoaOK = true;
+                            comprobarFin();
                             Log.d("mytag","PINTANDO EKLEKTIKOA");
                             for (int e = 0; e<textViewEklektikoa.length; e++){
                                 textViewEklektikoa[e].setBackgroundColor(Color.RED);
-                                amurrio6 = true;
-                                comprobarFin();
                             }
                         }
                         else{
@@ -488,7 +500,7 @@ public class Hizkisalda_18 extends AppCompatActivity {
 
                         //SOTOA
                         if (txt12_1Sotoa == textViewArray[j]){
-                            refort = true;
+                            blnSotoa = true;
                             blnSinValor = false;
                         }
                         else{
@@ -496,12 +508,13 @@ public class Hizkisalda_18 extends AppCompatActivity {
                             cd = (ColorDrawable) txt12_1Sotoa.getBackground();
                             colorCode = cd.getColor();
                         }
-                        if (txt12_5SotoaEnd == textViewArray[j] && refort == true && colorCode == Color.GRAY){
+                        if (txt12_5SotoaEnd == textViewArray[j] && blnSotoa == true && colorCode == Color.GRAY){
                             blnSinValor = false;
+                            blnSotoaOK = true;
+                            comprobarFin();
+
                             for (int e = 0; e<textViewSotoa.length; e++){
                                 textViewSotoa[e].setBackgroundColor(Color.WHITE);
-                                refort7 = true;
-                                comprobarFin();
                             }
                         }
                         else{
@@ -509,7 +522,7 @@ public class Hizkisalda_18 extends AppCompatActivity {
                         }
                         //NURSERY
                         if (txt8_8Nursery == textViewArray[j]){
-                            nursery = true;
+                            blnNursery = true;
                             blnSinValor = false;
                         }
                         else{
@@ -517,12 +530,13 @@ public class Hizkisalda_18 extends AppCompatActivity {
                             cd = (ColorDrawable) txt8_8Nursery.getBackground();
                             colorCode = cd.getColor();
                         }
-                        if (txt14_8NurseryEnd == textViewArray[j] && nursery == true && colorCode == Color.GRAY){
+                        if (txt14_8NurseryEnd == textViewArray[j] && blnNursery == true && colorCode == Color.GRAY){
                             blnSinValor = false;
+                            blnNurseryOK = true;
+                            comprobarFin();
                             for (int e = 0; e<textViewNursery.length; e++){
                                 textViewNursery[e].setBackgroundColor(Color.YELLOW);
-                                nursery8 = true;
-                                comprobarFin();
+
                             }
                         }
                         else{
@@ -657,6 +671,35 @@ public class Hizkisalda_18 extends AppCompatActivity {
                             contLetras[0] = j;
                             blnPulsado = true;
                         }
+
+                        //3 estilos de arkitektos
+                            Log.d("mytag","CONTADOR ESTILOS: "+contEstilosArkitektos);
+                        switch (contEstilosArkitektos){
+                            case 3:
+                                chk3_3.setVisibility(View.VISIBLE);
+                            case 2:
+                                chk3_2.setVisibility(View.VISIBLE);
+                            case 1:
+                            chk3_1.setVisibility(View.VISIBLE);
+                            break;
+                        }
+
+                        if (blnSotoaOK){
+                            chk1.setVisibility(View.VISIBLE);
+                        }
+
+                        if (blnNurseryOK){
+                            chk2.setVisibility(View.VISIBLE);
+                        }
+
+                            Log.d("mytag","CONTADOR ARKITEKTOS: "+contArkitektos);
+                        switch(contArkitektos){
+                            case 2:
+                                chk4_2.setVisibility(View.VISIBLE);
+                            case 1:
+                                chk4_1.setVisibility(View.VISIBLE);
+                                break;
+                        }
                     }
                 }
             });
@@ -680,22 +723,27 @@ public class Hizkisalda_18 extends AppCompatActivity {
     public void comprobarFin(){
 
         //Etxeko zerbitzuetarako tokia
-        if(refort7){
-            respuesta1.setVisibility(View.INVISIBLE);
+        if(blnSotoaOK){
+            respuesta1.setTextColor(Color.GREEN);
+            //respuesta1.setVisibility(View.INVISIBLE);
         }
         //Etxearen umeentzako zonaldea
-        if(nursery8){
-            respuesta2.setVisibility(View.INVISIBLE);
+        if(blnNurseryOK){
+            respuesta2.setTextColor(Color.GREEN);
+            //respuesta2.setVisibility(View.INVISIBLE);
         }
         //3 arkitektura estiloak
-        if(amurrio6 && kultura1 && iguarrako2){
-            respuesta3.setVisibility(View.INVISIBLE);
+        if(blnEklektikoaOK && blnErrejionalistaOK && blnIngelesaOK){
+            //respuesta3.setVisibility(View.INVISIBLE);
+            respuesta3.setTextColor(Color.GREEN);
         }
         //2 arkitekto harrantzitsuen abizenak
-        if(ondarea5 && guk3){
-            respuesta4.setVisibility(View.INVISIBLE);
+        if(blnAchurracoOK && blnSmithOK){
+            respuesta4.setTextColor(Color.GREEN);
+            //respuesta4.setVisibility(View.INVISIBLE);
         }
-        if(respuesta1.getVisibility() == View.INVISIBLE && respuesta2.getVisibility() == View.INVISIBLE && respuesta3.getVisibility() == View.INVISIBLE && respuesta4.getVisibility() == View.INVISIBLE){
+
+        if(blnErrejionalistaOK && blnIngelesaOK && blnSmithOK && blnAchurracoOK && blnEklektikoaOK && blnSotoaOK && blnNurseryOK){
             mp2.start();
             mp2.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 public void onCompletion(MediaPlayer mp) {

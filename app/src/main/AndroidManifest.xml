@@ -59,10 +59,12 @@
         <!-- JUEGOS -->
         <activity
             android:name=".Aukeratuargazkiegokia_1"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Elementuakbilatuargazkian_2"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -76,31 +78,39 @@
 
         <activity
             android:name=".Desberdintasunakbilatu_4"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Desberdintasunabilatu_4_argazki1"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Desberdintasunabilatu_4_argazki2"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Desberdintasunabilatu_4_argazki3"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Argazkiaaztertu_3"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Galderenerantzunaaukeratu_5"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Gallerypreview"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Esaldizuzenaaukeratu_6"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Argazkiaaztertu_7"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Komikia_8"
             android:screenOrientation="portrait" />
@@ -109,22 +119,27 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Debaterakogalderak_9"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Argazkia_10"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Erantzunzuzenaaukeratu_11"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Argazkiaktaulansailkatu_12"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Argazkiaksailkatu_13"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".Argazkiakordenatu_14"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -138,22 +153,28 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".Paragrafoabetehitzekin_15"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Informazioakuadroabete_16"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Hizkisalda_18"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Egiagezurra_20"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Erantzunzuzenaaukeratu_17"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Informazioakuadroabete_19"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".Sortzaileak"></activity>
     </application>
 

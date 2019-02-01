@@ -2,9 +2,10 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/idLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/idLayout"
+    android:background="@drawable/fondoaplicacion"
     tools:context=".Aukeratuargazkiegokia_1">
 
     <TextView
@@ -16,8 +17,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:layout_weight="1"
-        android:text="@string/txtDescripcion"
         android:background="@color/colorAccent"
+        android:text="@string/txtDescripcion"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,14 +41,14 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:visibility="invisible"
+        app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.984"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.967"
-        app:srcCompat="@drawable/imgnext"
-        app:backgroundTint="@color/colorPrimary"/>
+        app:srcCompat="@drawable/imgnext" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -72,6 +73,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/img2"
             android:scaleType="centerCrop" />
+
         <ImageButton
             android:id="@+id/imageButton3"
             android:layout_width="match_parent"
