@@ -47,7 +47,7 @@ public class Egiagezurra_20 extends AppCompatActivity {
         respuesta6 = findViewById(R.id.respuesta6);
         respuesta7 = findViewById(R.id.respuesta7);
         respuesta8 = findViewById(R.id.respuesta8);
-        DesactivarBotones();
+
 
         respuesta1.setOnClickListener(v -> {
             RespuestaCorrecta(respuesta1,respuesta2);
@@ -76,14 +76,8 @@ public class Egiagezurra_20 extends AppCompatActivity {
 
         });
 
-        mp = MediaPlayer.create(getApplicationContext(), R.raw.a7_2);
-        mp.start();
-        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
+        
                 ActivarBotones();
-            }
-        });
 
         pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
 
