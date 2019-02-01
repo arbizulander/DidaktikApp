@@ -29,7 +29,7 @@ public class splashscreen extends AppCompatActivity {
 
         mprogressBar = (ProgressBar) findViewById(R.id.progressBar2);
         ObjectAnimator anim = ObjectAnimator.ofInt(mprogressBar, "progress", 0, 100);
-        anim.setDuration(2500);
+        anim.setDuration(8000);
         anim.setInterpolator(new DecelerateInterpolator());
         anim.start();
 
