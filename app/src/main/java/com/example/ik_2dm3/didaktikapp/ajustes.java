@@ -113,11 +113,10 @@ public class ajustes extends AppCompatActivity {
     }
 
     public void reset(){
-Log.d("mytag","AAAA22222222222");
         db=new MyOpenHelper(this);
         try {
             db.ResetDatabase(this);
-            Toast.makeText(getApplicationContext(), "Base de Datos reseteada",
+            Toast.makeText(getApplicationContext(), "Datu-basea berrabiarazi da",
                     Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();

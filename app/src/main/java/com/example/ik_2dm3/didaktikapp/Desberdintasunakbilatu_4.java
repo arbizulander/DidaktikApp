@@ -25,7 +25,7 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
     private ImageButton Hurrengoa;
 
     static final int REQ_TEXT = 0;
-    private ImageButton btnNextGame, btnPreviousGame;
+    private ImageButton btnNextGame;
     static final int REQ_BTN = 0;
     static final int REQ_BTNATRAS = 12;
     private int pag_anterior, refrescar;
@@ -42,6 +42,7 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
     MediaPlayer mp;
 
     private View pantalla;
+    private float guardX, guardY;
     private float centreX, centreY;
     private Context cont = this;
 
@@ -197,6 +198,7 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
                 animacion.setAnimationListener(new Animation.AnimationListener(){
                     @Override
                     public void onAnimationStart(Animation arg0) {
+                        pulsado.setOnClickListener(null);
                     }
                     @Override
                     public void onAnimationRepeat(Animation arg0) {
@@ -205,12 +207,28 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
                     public void onAnimationEnd(Animation arg0) {
                         Double valor = 0.5;
                         array_botones[j].setAlpha(valor.floatValue());
+                        pulsado.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Log.d("mytag", "Volviendo imagen a posicion original");
+                                //pulsado.setScaleY((float)heightI);
+                                //pulsado.setScaleX((float)widthI);
+                                pulsado.setX(guardX);
+                                pulsado.setY(guardY);
+                                pulsado.setScaleX(1);
+                                pulsado.setScaleY(1);
+                                HabilitarDeshabilitarBtns(true );
+                                img1.setAlpha(1f);
+                                img2.setAlpha(1f);
+                                img3.setAlpha(1f);
+                                iniciar();
+                            }
+                        });
                     }
                 });
 
             }
         }
-
             //Log.d("mytag","COORDX:  "+pantalla.getX()+"  "+pantalla.getWidth());
             //Log.d("mytag","COORDY:  "+pantalla.getY()+"  "+pantalla.getHeight());
             //calcular punto del centro del layout
@@ -233,23 +251,27 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
             //Log.d("mytag", "VALORES: "+pulsado.getX()+"  "+(centreX-centreX_Width)+"  "+ pulsado.getY()+"  "+(centreY-centreY_Height));
 
             Log.d("mytag","VALORES INICIALES: "+pulsado.getX()+"  "+pulsado.getY());
+            guardX = pulsado.getX();
+            guardY = pulsado.getY();
+            pulsado.setEnabled(false);
+            pulsado.setClickable(false);
             Log.d("mytag","VALORES FINALES: "+(centreX-centreX_Img)+"  "+(centreY-centreY_Img));
 
             trans.setDuration(200);
             trans.setStartOffset(400);
             pulsado.startAnimation(trans);
             pulsado.setZ(111);
-
             trans.setAnimationListener(new Animation.AnimationListener(){
                 @Override
                 public void onAnimationStart(Animation arg0) {
+
                 }
                 @Override
                 public void onAnimationRepeat(Animation arg0) {
                 }
                 @Override
                 public void onAnimationEnd(Animation arg0) {
-
+                    pulsado.setEnabled(true);
                     Animation animacion = null;
                     if (pulsado == img1){
                         animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_scalex2_img1);
@@ -258,7 +280,6 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
                     }else if (pulsado == img3){
                         animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_scalex2_img3);
                     }
-
                     //poner pantalla en el centro del layout
                     pulsado.setX(centreX-centreX_Img);
                     pulsado.setY(centreY-centreY_Img);
@@ -268,7 +289,6 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
                     animacion.setAnimationListener(new Animation.AnimationListener(){
                         @Override
                         public void onAnimationStart(Animation arg0) {
-
                         }
                         @Override
                         public void onAnimationRepeat(Animation arg0) {
@@ -286,21 +306,6 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
                     });
                 }
             });
-            pulsado.setEnabled(true);
-            pulsado.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d("mytag", "Volviendo imagen a posicion original");
-                    //pulsado.setScaleY((float)heightI);
-                    //pulsado.setScaleX((float)widthI);
-                    finish();
-                    Intent i = new Intent(Desberdintasunakbilatu_4.this,Desberdintasunakbilatu_4.class);
-                    i.putExtra("pag_anterior",pag_anterior);
-                    i.putExtra("refrescar", 1);
-                    startActivityForResult(i, REQ_BTN);
-                }
-            });
-
             Log.d("mytag", "CENTROPANTALLA:  "+centreX +"  "+centreY);
     }
 
