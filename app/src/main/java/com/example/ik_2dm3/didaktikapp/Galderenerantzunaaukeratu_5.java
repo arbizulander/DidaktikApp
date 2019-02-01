@@ -90,7 +90,7 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
 
         //Style the spinner
         ArrayAdapter<String> datataAdapter;
-        datataAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, categorias);
+        datataAdapter = new ArrayAdapter<>(this,R.layout.spinner_item, categorias);
 
         //Dropdown layout style
         datataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -111,9 +111,9 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
                     //on selecting a spinner item
                     String item = parent.getItemAtPosition(position).toString();
 
-
+                    //spinner.
                     //show selected spinner item
-                    Toast.makeText(parent.getContext(),"Irabazi duzu:" +item, Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(parent.getContext(),"Irabazi duzu:" +item, Toast.LENGTH_SHORT).show();
 
                     Reproducir_cancion();
 
@@ -123,7 +123,7 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
                     //Log.d("mitag","" + position);
 
                     //show selected spinner item
-                    Toast.makeText(parent.getContext(),"Galdu duzu: "  +item, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(parent.getContext(),"Galdu duzu: "  +item, Toast.LENGTH_SHORT).show();
                 }
             }
 

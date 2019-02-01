@@ -517,8 +517,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         float distancia = originLocation.distanceTo(destino);
         String destinotexto = String.format("%.0f", distancia); //Quitamos los decimales
-        textodest.setText( "Parada " + (cont+1) + ": " + lista_paradas.get(cont).getNombre());
-        textodist.setText("Distancia: " + destinotexto + " metros");
+        textodest.setText( "Ondare " + (cont+1) + ": " + lista_paradas.get(cont).getNombre());
+        textodist.setText("Distantzia: " + destinotexto + " metro");
         lista.get(cont).setIcon(iconorojo);
         Log.d("mytag","latitud de " + lista_paradas.get(cont).getNombre() + ": " + lista_paradas.get(cont).getLatitud());
         Log.d("mytag","longitud de " + lista_paradas.get(cont).getNombre() + ": " + lista_paradas.get(cont).getLongitud());
@@ -535,14 +535,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     if(!lista_paradas.get(cont).isRealizado()){
         if(distancia <= 15 && !dentrozona){
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setMessage("Estas cerca de " + lista_paradas.get(cont).getNombre() + ", quieres hacer las actividades?" );
-            alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            alert.setMessage(lista_paradas.get(cont).getNombre() + " -(a)ren alboan zaude, jolasak egin nahi dituzu?" );
+            alert.setNegativeButton("EZ", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Log.d("mytag","has pulsado NO OK");
                 }
             });
-            alert.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+            alert.setPositiveButton("BAI", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 

@@ -51,8 +51,8 @@
     <string name="imagenjuego3">imagenJuego3</string>
     <string name="imagenboton">imagenboton</string>
     <string name="butAct">Actividades</string>
-    <string name="textodistancia">distancia</string>
-    <string name="textodestino">destino</string>
+    <string name="textodistancia">Distantzia</string>
+    <string name="textodestino">Helmuga</string>
 
     <!--Juego 2.2 galderen erantzuna-->
     <string name="kolorea">Kolore zerrenda</string>

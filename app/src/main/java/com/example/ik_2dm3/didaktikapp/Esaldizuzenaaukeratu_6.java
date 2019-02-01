@@ -78,7 +78,7 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
 
         //Style the spinner
         ArrayAdapter<String> datataAdapter;
-        datataAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, galderak);
+        datataAdapter = new ArrayAdapter<>(this,R.layout.spinner_item, galderak);
 
         //Dropdown layout style
         datataAdapter.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
