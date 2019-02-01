@@ -122,14 +122,9 @@ public class ViewPagerAdapter extends PagerAdapter {
 
                 }
             });
-
-
-
         }
         return view;
     }
-
-
 
 
     @Override
