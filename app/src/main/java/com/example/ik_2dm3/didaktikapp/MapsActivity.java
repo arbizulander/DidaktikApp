@@ -271,6 +271,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         .title(lista_paradas.get(i).getNombre())
                         .setIcon(iconogris));
             }
+
+
         /*******************************************
          * Añadimos un marcador en Txurdinaga PARA DESARROLLO*/
 
@@ -296,6 +298,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             //Llenamos la lista de marcadores
             lista = mapboxMap.getMarkers();
+
+
 
         /********************************************/
 
@@ -480,6 +484,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void getDistancia(){
+
+        //MARCAR COMPLETADOS LOS QUE ESTEN
+        Log.d("mytag","LLEGA AQUI AAAAA");
+        for (int i = 0; i < lista.size(); i++) {
+            if(lista_paradas.get(i).isRealizado()){
+                marcarCompletado();
+                Log.d("mytag","GetDistancia realizado");
+            }
+        }
 
         //Convertimos los pngs en iconos para usarlos mas tarde
         IconFactory iconFactory = IconFactory.getInstance(contex);
