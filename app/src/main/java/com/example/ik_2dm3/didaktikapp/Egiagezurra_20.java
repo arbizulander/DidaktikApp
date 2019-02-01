@@ -76,7 +76,7 @@ public class Egiagezurra_20 extends AppCompatActivity {
 
         });
 
-        
+
                 ActivarBotones();
 
         pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
