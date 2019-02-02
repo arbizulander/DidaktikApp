@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.IDN;
@@ -110,7 +111,7 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
                     spinner.setEnabled(false);
                     //on selecting a spinner item
                     String item = parent.getItemAtPosition(position).toString();
-
+                    ((TextView) parent.getChildAt(0)).setTextColor(Color.GREEN);
                     //spinner.
                     //show selected spinner item
                    // Toast.makeText(parent.getContext(),"Irabazi duzu:" +item, Toast.LENGTH_SHORT).show();
@@ -121,7 +122,7 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
                 }else{
                     String item = parent.getItemAtPosition(position).toString();
                     //Log.d("mitag","" + position);
-
+                    ((TextView) parent.getChildAt(0)).setTextColor(Color.RED);
                     //show selected spinner item
                     //Toast.makeText(parent.getContext(),"Galdu duzu: "  +item, Toast.LENGTH_SHORT).show();
                 }

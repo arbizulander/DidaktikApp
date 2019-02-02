@@ -104,7 +104,7 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
 
                     Reproducir_cancion();
                     //show selected spinner item
-                    Toast.makeText(parent.getContext(),"Irabazi duzu:" +item, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(parent.getContext(),"Irabazi duzu:" +item, Toast.LENGTH_SHORT).show();
                     ((TextView) parent.getChildAt(0)).setTextColor(Color.GREEN);
 
                     //anything else you want to do on item selection do  here
@@ -113,7 +113,7 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
 
                     ((TextView) parent.getChildAt(0)).setTextColor(Color.RED);
                     //show selected spinner item
-                    Toast.makeText(parent.getContext(),"Galdu duzu: "  +item, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(parent.getContext(),"Galdu duzu: "  +item, Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -17,7 +17,7 @@ public class Gallerypreview extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
         setContentView(R.layout.gallerypreview);
         Intent intent = getIntent();
         path = intent.getStringExtra("path");

@@ -363,14 +363,14 @@ public class Hizkisalda_18 extends AppCompatActivity {
                         colorCode != Color.GREEN &&
                         colorCode != Color.MAGENTA &&
                         colorCode != Color.RED &&
-                        colorCode != Color.WHITE &&
+                        colorCode != Color.DKGRAY &&
                         colorCode != Color.YELLOW ||
 
                         textViewArray[j] == txt6_6Ingelesa && (colorCode == Color.BLUE || colorCode == Color.CYAN)||
                         textViewArray[j] == txt6_12Smith && (colorCode == Color.CYAN || colorCode == Color.GREEN) ||
                         textViewArray[j] == txt14_14ErrejionalistaEnd && (colorCode == Color.BLUE || colorCode == Color.MAGENTA) ||
                         textViewArray[j] == txt4_4Eklektikoa && (colorCode == Color.BLUE || colorCode == Color.RED) ||
-                        textViewArray[j] == txt12_4 && (colorCode == Color.RED || colorCode == Color.WHITE) ||
+                        textViewArray[j] == txt12_4 && (colorCode == Color.RED || colorCode == Color.DKGRAY) ||
                         textViewArray[j] == txt8_8Nursery && (colorCode == Color.BLUE || colorCode == Color.YELLOW))
                         {
 
@@ -514,7 +514,7 @@ public class Hizkisalda_18 extends AppCompatActivity {
                             comprobarFin();
 
                             for (int e = 0; e<textViewSotoa.length; e++){
-                                textViewSotoa[e].setBackgroundColor(Color.WHITE);
+                                textViewSotoa[e].setBackgroundColor(Color.DKGRAY);
                             }
                         }
                         else{
@@ -629,8 +629,8 @@ public class Hizkisalda_18 extends AppCompatActivity {
                                         //txt12_4.setBackgroundColor(Color.WHITE);
                                     cd = (ColorDrawable) txt12_3.getBackground();
                                     colorCode = cd.getColor();
-                                    if (colorCode == Color.WHITE){
-                                        txt12_4.setBackgroundColor(Color.WHITE);
+                                    if (colorCode == Color.DKGRAY){
+                                        txt12_4.setBackgroundColor(Color.DKGRAY);
                                     }
                                     else {
                                         //Log.d("mytag", "PULSADO LETRA DE INGELESA");
