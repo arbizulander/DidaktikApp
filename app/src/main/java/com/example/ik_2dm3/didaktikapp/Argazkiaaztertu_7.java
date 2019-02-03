@@ -55,9 +55,9 @@ public class Argazkiaaztertu_7 extends AppCompatActivity {
                             db.close();
 
                             mp.stop();
-                            Intent e = new Intent(Argazkiaaztertu_7.this,Komikia_8.class);
-                            e.putExtra("pag_anterior",0);
-                            startActivityForResult(e, REQ_BTN);
+                            Intent e = new Intent();
+                            e.putExtra("result",1);
+                            setResult(Activity.RESULT_OK,e);
                             finish();
                         });
                         break;
