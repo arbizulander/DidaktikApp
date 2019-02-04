@@ -1,8 +1,10 @@
 package com.example.ik_2dm3.didaktikapp;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.icu.text.IDNA;
@@ -30,12 +32,32 @@ public class Informazioakuadroabete_16 extends AppCompatActivity {
     static final int REQ_BTN = 0;
     static final int REQ_BTNATRAS = 12;
 
+    BroadcastReceiver miBroadcast = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
+                Log.i("TAG", "Screen ON");
+            }
+            else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+                Log.i("TAG", "Screen OFF");
+                mp.stop();
+
+
+            }
+
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informazioakuadroabete_16);
         setTitle("Informazioa kuadroa bete");
+
+        registerReceiver(miBroadcast, new IntentFilter(Intent.ACTION_SCREEN_ON));
+        registerReceiver(miBroadcast, new IntentFilter(Intent.ACTION_SCREEN_OFF));
         btnPreviousGame = findViewById(R.id.btnPreviousGame);
         btnPreviousGame.setEnabled(false);
         btnPreviousGame.setVisibility(View.INVISIBLE);

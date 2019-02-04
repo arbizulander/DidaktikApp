@@ -1,8 +1,10 @@
 package com.example.ik_2dm3.didaktikapp;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +36,22 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
     private Context cont = this;
     static final int REQ_BTNATRAS = 12;
 
+    BroadcastReceiver miBroadcast = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
+                Log.i("TAG", "Screen ON");
+            }
+            else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+                Log.i("TAG", "Screen OFF");
+                mp.stop();
+
+            }
+
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +59,9 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
         setContentView(R.layout.activity_esaldizuzenaaukeratu_6);
 
         setTitle("Esaldi zuzena aukeratu");
+
+        registerReceiver(miBroadcast, new IntentFilter(Intent.ACTION_SCREEN_ON));
+        registerReceiver(miBroadcast, new IntentFilter(Intent.ACTION_SCREEN_OFF));
 
         btnNext = findViewById(R.id.btnNextGame);
         btnPreviousGame = findViewById(R.id.btnPreviousGame);

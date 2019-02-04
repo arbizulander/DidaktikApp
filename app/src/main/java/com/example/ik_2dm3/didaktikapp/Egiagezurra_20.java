@@ -1,8 +1,10 @@
 package com.example.ik_2dm3.didaktikapp;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
@@ -26,10 +28,30 @@ public class Egiagezurra_20 extends AppCompatActivity {
     private Button respuesta1, respuesta2, respuesta3, respuesta4, respuesta5, respuesta6, respuesta7, respuesta8;
     static final int REQ_BTNATRAS = 12;
 
+    BroadcastReceiver miBroadcast = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
+                Log.i("TAG", "Screen ON");
+            }
+            else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+                Log.i("TAG", "Screen OFF");
+                mp.stop();
+                mp2.stop();
+
+            }
+
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_egiagezurra_20);
+
+        registerReceiver(miBroadcast, new IntentFilter(Intent.ACTION_SCREEN_ON));
+        registerReceiver(miBroadcast, new IntentFilter(Intent.ACTION_SCREEN_OFF));
 
         setTitle("Egia edo gezurra");
         btnPreviousGame = findViewById(R.id.btnPreviousGame);

@@ -1,8 +1,10 @@
 package com.example.ik_2dm3.didaktikapp;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
@@ -33,11 +35,31 @@ public class Hizkisalda_18 extends AppCompatActivity {
 
     private ImageView chk1,chk2,chk3_1,chk3_2,chk3_3,chk4_1,chk4_2;
 
+    BroadcastReceiver miBroadcast = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
+                Log.i("TAG", "Screen ON");
+            }
+            else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+                Log.i("TAG", "Screen OFF");
+                mp.stop();
+                mp2.stop();
+
+            }
+
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //getSupportActionBar().hide();
         setContentView(R.layout.activity_hizkisalda_18);
+
+        registerReceiver(miBroadcast, new IntentFilter(Intent.ACTION_SCREEN_ON));
+        registerReceiver(miBroadcast, new IntentFilter(Intent.ACTION_SCREEN_OFF));
 
         btnNext = findViewById(R.id.btnNext);
         btnNext.setEnabled(false);

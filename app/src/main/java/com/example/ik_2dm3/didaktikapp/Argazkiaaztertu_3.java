@@ -1,9 +1,11 @@
 package com.example.ik_2dm3.didaktikapp;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -31,11 +33,29 @@ public class Argazkiaaztertu_3 extends AppCompatActivity {
     private int pag_anterior;
     static final int REQ_BTN = 0;
     static final int REQ_BTNATRAS = 12;
+
+    BroadcastReceiver miBroadcast = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
+                Log.i("TAG", "Screen ON");
+            }
+            else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+                Log.i("TAG", "Screen OFF");
+                mp.stop();
+
+            }
+
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_argazkiaaztertu_3);
         setTitle("Argazkia aztertu");
+        registerReceiver(miBroadcast, new IntentFilter(Intent.ACTION_SCREEN_ON));
+        registerReceiver(miBroadcast, new IntentFilter(Intent.ACTION_SCREEN_OFF));
         btnNext = findViewById(R.id.btnNext);
         btnPreviousGame = findViewById(R.id.btnPreviousGame);
 
