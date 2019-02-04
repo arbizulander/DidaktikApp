@@ -7,169 +7,191 @@
     android:background="@drawable/fondoaplicacion"
     tools:context=".Erantzunzuzenaaukeratu_17">
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="151dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="151dp"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:text="Zein urtetan bihurtu zen hotel bat?"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="16sp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/respuesta1"
-        android:layout_width="155dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/rippleeffect"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:text="2003"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.069"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="Zein urtetan bihurtu zen hotel bat?"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/respuesta2"
-        android:layout_width="155dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="27dp"
-        android:background="@drawable/rippleeffect"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:text="2017"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp">
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="151dp"
-        android:layout_marginEnd="151dp"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:text="Tomás Allendek zein urtetan zatitu zuen finka bi seme-alaben artean?"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/respuesta2" />
+            <Button
+                android:id="@+id/respuesta1"
+                android:layout_width="149dp"
+                android:layout_height="41dp"
+                android:background="@drawable/rippleeffect"
+                android:fontFamily="@font/josefin_slab_bold"
+                android:text="2003"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.069"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-    <Button
-        android:id="@+id/respuesta3"
-        android:layout_width="155dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="11dp"
-        android:background="@drawable/rippleeffect"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:text="1700"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+            <Button
+                android:id="@+id/respuesta2"
+                android:layout_width="151dp"
+                android:layout_height="41dp"
+                android:background="@drawable/rippleeffect"
+                android:fontFamily="@font/josefin_slab_bold"
+                android:text="2017"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/respuesta4"
-        android:layout_width="155dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="27dp"
-        android:background="@drawable/rippleeffect"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:text="1925"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="Tomás Allendek zein urtetan zatitu zuen finka bi seme-alaben artean?"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/respuesta2" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="151dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="151dp"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:layout_marginBottom="21dp"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:text="Zer bi finka sortu ziren horren ondorioz?"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/respuesta5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/respuesta4"
-        app:layout_constraintVertical_bias="0.0" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp">
 
-    <Button
-        android:id="@+id/respuesta5"
-        android:layout_width="155dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="9dp"
-        android:background="@drawable/rippleeffect"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:text="Kaialde eta Villa Ariatza ﬁnkak "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+            <Button
+                android:id="@+id/respuesta3"
+                android:layout_width="161dp"
+                android:layout_height="38dp"
+                android:background="@drawable/rippleeffect"
+                android:fontFamily="@font/josefin_slab_bold"
+                android:text="1700"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
-    <Button
-        android:id="@+id/respuesta6"
-        android:layout_width="155dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="27dp"
-        android:background="@drawable/rippleeffect"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:text="Villa Ariatza eta Eguzkilore"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+            <Button
+                android:id="@+id/respuesta4"
+                android:layout_width="160dp"
+                android:layout_height="41dp"
+                android:background="@drawable/rippleeffect"
+                android:fontFamily="@font/josefin_slab_bold"
+                android:text="1925"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="151dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="151dp"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:text="Ariatza eraikina dagoen finka norentzat izan zen? "
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/respuesta7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/respuesta6" />
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:gravity="center"
+            android:text="Zer bi finka sortu ziren horren ondorioz?"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/respuesta5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/respuesta4"
+            app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/respuesta7"
-        android:layout_width="155dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
-        android:background="@drawable/rippleeffect"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:text="Javi Hoyosentzat"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp">
 
-    <Button
-        android:id="@+id/respuesta8"
-        android:layout_width="155dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="27dp"
-        android:background="@drawable/rippleeffect"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:text="Luis Allenderentzat"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+            <Button
+                android:id="@+id/respuesta5"
+                android:layout_width="162dp"
+                android:layout_height="66dp"
+                android:background="@drawable/rippleeffect"
+                android:fontFamily="@font/josefin_slab_bold"
+                android:text="Kaialde eta Villa Ariatza ﬁnkak "
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <Button
+                android:id="@+id/respuesta6"
+                android:layout_width="162dp"
+                android:layout_height="66dp"
+                android:background="@drawable/rippleeffect"
+                android:fontFamily="@font/josefin_slab_bold"
+                android:text="Villa Ariatza eta Eguzkilore"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="Ariatza eraikina dagoen finka norentzat izan zen? "
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/respuesta7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/respuesta6" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp">
+
+            <Button
+                android:id="@+id/respuesta7"
+                android:layout_width="164dp"
+                android:layout_height="54dp"
+                android:background="@drawable/rippleeffect"
+                android:fontFamily="@font/josefin_slab_bold"
+                android:text="Javi Hoyosentzat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+            <Button
+                android:id="@+id/respuesta8"
+                android:layout_width="wrap_content"
+                android:layout_height="54dp"
+                android:background="@drawable/rippleeffect"
+                android:fontFamily="@font/josefin_slab_bold"
+                android:text="Luis Allenderentzat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnPreviousGame"

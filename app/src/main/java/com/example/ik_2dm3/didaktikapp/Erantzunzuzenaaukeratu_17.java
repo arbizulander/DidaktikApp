@@ -137,7 +137,8 @@ public class Erantzunzuzenaaukeratu_17 extends AppCompatActivity {
         }
     }
     public void RespuestaCorrecta(Button boton, Button boton2){
-        boton.setBackgroundColor(Color.GREEN);
+        boton.setBackgroundColor(Color.parseColor("#04B404"));
+        //boton.setBackgroundColor(Color.GREEN);
         SonidoRespuesta(R.raw.correct2, boton);
         boton.setEnabled(false);
         boton2.setEnabled(false);
