@@ -324,7 +324,23 @@ public class details_list extends AppCompatActivity {
 
                     try{
 
-                        CargarJuegos(lista_juegos, position);
+                        ID_juego = lista_juegos.get(position).getId_juego();
+                        titulo = lista_juegos.get(position).getNombre_juego();
+
+                        nombre_completo = "com.example.ik_2dm3.didaktikapp." + titulo + "_" + ID_juego;
+                        nombre_completo = nombre_completo.replace(" ", "");
+                        Log.d("mytag", "NOMBRE JUEGO: " + nombre_completo);
+                        //int cont = 0;
+                        //Log.d("mytag", "NOMBRE JUEGO: " +nombre_completo);
+                        i = null;
+                        try {
+                            i = new Intent(details_list.this, Class.forName(nombre_completo));
+                            i.putExtra("pag_anterior",1);
+                            i.putExtra("Description", lista_juegos.get(0).getTxtDescripcion());
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        startActivityForResult(i, REQ_OK);
 
                         //Intent intent = new Intent(details_list.this, details_list.class);
                         //int prueba = lista_juegos.get(position).getId_parada();
@@ -431,6 +447,8 @@ public class details_list extends AppCompatActivity {
             else {
                 if (pos < lista_juegos.size()) {
                     Log.d("mytag", "ESTOY EN EL ELSE");
+                    Log.d("mytag", "Activity: " + details_list.this);
+                    Log.d("mytag", "cont: " + cont);
                     contJuegos += 1;
                     CargarJuegos(lista_juegos, contJuegos);
                 }

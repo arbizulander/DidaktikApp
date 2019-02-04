@@ -18,7 +18,7 @@ import android.widget.ImageButton;
 public class Egiagezurra_20 extends AppCompatActivity {
 
 
-    private MediaPlayer mp, mp2;
+    private MediaPlayer  mp2;
     private ImageButton btnPreviousGame,btnNext;
     private Context cont = this;
     private MyOpenHelper db;
@@ -37,7 +37,6 @@ public class Egiagezurra_20 extends AppCompatActivity {
             }
             else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                 Log.i("TAG", "Screen OFF");
-                mp.stop();
                 mp2.stop();
 
             }
@@ -111,14 +110,12 @@ public class Egiagezurra_20 extends AppCompatActivity {
                 btnNext.setEnabled(true);
                 btnNext.setVisibility(View.VISIBLE);
                 btnNext.setOnClickListener(v -> {
-                    mp.stop();
                     finish();
                 });
 
                 btnPreviousGame.setEnabled(true);
                 btnPreviousGame.setVisibility(View.VISIBLE);
                 btnPreviousGame.setOnClickListener(v -> {
-                    mp.stop();
                     Intent i = new Intent(Egiagezurra_20.this, Informazioakuadroabete_19.class);
                     i.putExtra("pag_anterior", 1);
                     startActivityForResult(i, REQ_BTN);
@@ -173,7 +170,7 @@ public class Egiagezurra_20 extends AppCompatActivity {
                 i.putExtra("keydown",REQ_BTNATRAS);
                 setResult(RESULT_OK,i);
             }
-            mp.stop();
+            mp2.stop();
             Log.d("mytag","Has ido atras");
             finish();
         }
