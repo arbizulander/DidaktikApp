@@ -139,6 +139,7 @@
                     android:layout_weight="0"
                     android:text="Izenburua: Ariatza etxea"
                     android:textAlignment="center"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -153,6 +154,7 @@
                     android:layout_width="97dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:text="Egilea: "
                     android:textAlignment="textEnd" />
 
@@ -176,6 +178,7 @@
                     android:layout_width="98dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:text="Urtea: "
                     android:textAlignment="textEnd" />
 
@@ -198,6 +201,7 @@
                     android:id="@+id/textEstiloa"
                     android:layout_width="98dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:layout_weight="0"
                     android:text="Estiloa: "
                     android:textAlignment="textEnd" />
@@ -222,6 +226,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:text="Lurraren jabea: "
                     android:textAlignment="textEnd" />
 

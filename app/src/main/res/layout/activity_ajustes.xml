@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondoaplicacion"
     tools:context=".ajustes">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="380dp"
         android:layout_height="0dp"
+        android:layout_marginTop="30dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,13 +32,13 @@
             android:text="@string/Sortzaileak"
             android:textAlignment="center"
             android:textColor="@color/colorTexto"
-            android:textSize="30sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <!--<Button
             android:id="@+id/btnBertsioa_egiaztatu"
             android:layout_width="260dp"
             android:layout_height="55dp"
@@ -47,10 +49,11 @@
             android:text="@string/Bertsioa_egiaztatu"
             android:textAlignment="center"
             android:textColor="@color/colorTexto"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnIbilbidea" />
+            app:layout_constraintTop_toBottomOf="@+id/btnIbilbidea" />-->
 
         <Button
             android:id="@+id/btnReset"
@@ -60,13 +63,15 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="50dp"
             android:background="@drawable/rippleeffect"
+            android:fontFamily="@font/josefin_slab_bold"
             android:text="@string/Reset"
             android:textAlignment="center"
             android:textColor="@color/colorTexto"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnBertsioa_egiaztatu" />
+            app:layout_constraintTop_toBottomOf="@+id/btnSortzaileak" />
 
 
     </LinearLayout>

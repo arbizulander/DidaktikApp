@@ -121,6 +121,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ajustes"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Debaterakogalderak_9"

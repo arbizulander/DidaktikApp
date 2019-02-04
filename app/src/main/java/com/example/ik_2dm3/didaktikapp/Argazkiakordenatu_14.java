@@ -346,8 +346,8 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
                 setResult(RESULT_OK,i);
             }
             mp.stop();
-            if(mp2.isPlaying())
-                mp2.stop();
+            /*if(mp1.isPlaying())
+                mp1.stop();*/
             finish();
         }
         return super.onKeyDown(keyCode, event);

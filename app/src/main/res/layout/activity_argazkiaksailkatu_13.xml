@@ -27,6 +27,7 @@
         android:layout_marginBottom="8dp"
         android:contentDescription="aire"
         android:text="HAIZEZKOA"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/cestaAire"
         app:layout_constraintEnd_toStartOf="@+id/cuerda"
@@ -42,6 +43,7 @@
         android:layout_marginBottom="8dp"
         android:contentDescription="cuerda"
         android:text="HARIZKOA"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintBottom_toTopOf="@+id/cestaHarizkoa"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -54,6 +56,7 @@
         android:layout_marginBottom="8dp"
         android:contentDescription="Perkuzioa"
         android:text="PERKUSIOZKOA"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintBottom_toTopOf="@+id/cestaPerkuzioa"
         app:layout_constraintStart_toStartOf="parent" />
 

@@ -76,6 +76,7 @@
         android:layout_marginBottom="12dp"
         android:fontFamily="@font/josefin_slab_bold"
         android:text="@string/textoorden"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/respuesta3"
         app:layout_constraintEnd_toEndOf="parent"
