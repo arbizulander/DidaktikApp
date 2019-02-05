@@ -128,20 +128,6 @@ public class details_list extends AppCompatActivity {
         //Cogemos todos los nombres de las paradas que hay en la BD
 
 
-        //ponemos como background la imagen de BD de esa parada
-            /*try {
-            if (pr_actual.getImagen()!= null){
-                toImg(pr_actual.getImagen());
-            }
-            else{
-                contenido.setBackgroundResource(R.drawable.error);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
-
         int iDisplayWidth = getResources().getDisplayMetrics().widthPixels;
         Resources resources = getApplicationContext().getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
@@ -165,59 +151,10 @@ public class details_list extends AppCompatActivity {
             case 0:
                 Log.d("mytag", "...Cargando juegos viniendo desde el MAPA...");
                 CargarJuegos(lista_juegos,0);
-                /*Log.d("mytag", "...Cargando juegos viniendo desde el MAPA...");
-                try {
-                    titulo_juegos = new String [lista_juegos.size()];
-                    for (int i = 0; i<titulo_juegos.length; i++){
-                        titulo_juegos[i] = (i+1)+ "." + lista_juegos.get(i).getNombre_juego();
-                    }
-
-                    ID_juego = lista_juegos.get(u).getId_juego();
-                    titulo = lista_juegos.get(u).getNombre_juego();
-                    nombre_completo = "com.example.ik_2dm3.didaktikapp." + titulo + "_" + ID_juego;
-                    nombre_completo = nombre_completo.replace(" ", "");
-                    i = new Intent(this, Class.forName(nombre_completo));
-                    i.putExtra("Description", lista_juegos.get(0).getTxtDescripcion());
-                    i.putExtra("pag_anterior",0);
-
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-                startActivityForResult(i, REQ_OK);*/
                 break;
             case 1:
                 loadAlbumTask = new LoadAlbumImages();
                 loadAlbumTask.execute();
-                //juegosView = findViewById(R.id.paradas_lista_juegos);
-                //juegosView.setVisibility(View.VISIBLE);
-
-               /* titulo_juegos = new String [lista_juegos.size()];
-                for (int i = 0; i<titulo_juegos.length; i++){
-                    titulo_juegos[i] = (i+1)+ "." + lista_juegos.get(i).getNombre_juego();
-                }*/
-
-                //Pasamos array al ArrayAdapter para que salga en el ListView
-               //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, titulo_juegos);
-               // juegosView.setAdapter(adapter);
-
-                /*juegosView.setOnItemClickListener((parent, view, position, id) -> {
-
-                    ID_juego = lista_juegos.get(position).getId_juego();
-                    titulo = lista_juegos.get(position).getNombre_juego();
-                    nombre_completo = "com.example.ik_2dm3.didaktikapp." + titulo + "_" + ID_juego;
-                    nombre_completo = nombre_completo.replace(" ", "");
-                    Log.d("mytag", "NOMBRE JUEGO: " + nombre_completo);
-                    i = null;
-                    try {
-                        i = new Intent(this, Class.forName(nombre_completo));
-                        i.putExtra("Description", lista_juegos.get(0).getTxtDescripcion());
-                        i.putExtra("pag_anterior",1);
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    startActivityForResult(i, REQ_OK);
-                });
-                break;*/
         }
     }
 
@@ -240,23 +177,9 @@ public class details_list extends AppCompatActivity {
         alert.show();
     }
 
-    /*public void toImg(String byteArray) throws IOException {
-
-        decodedString = Base64.decode(byteArray, Base64.DEFAULT);
-        decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-
-        //Convert bitmap to drawable
-        drawable = new BitmapDrawable(getResources(), decodedByte);
-        contenido.setBackground(drawable);
-    }*/
-
     public Bitmap toImg(byte[] byteArray) throws IOException {
         Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-       /* View convertView = LayoutInflater.from(this).inflate(
-                R.layout.grid_item_card_list, parent, false);*/
-        //ImageView image = (ImageView) findViewById(R.id.galleryImage);
-        //image.setImageBitmap(Bitmap.createScaledBitmap(bmp, image.getWidth(), image.getHeight(), false));
-        //image.setImageResource(R.drawable.error);
+
         return bmp;
     }
 
@@ -279,11 +202,7 @@ public class details_list extends AppCompatActivity {
 
             //imagenes = new ImageItem();
             for (int i = 0; i<lista_juegos.size(); i++){
-                //titulo[i] = (i+1)+ "." + lista_paradas.get(i).getNombre();
                 byte [] data = lista_juegos.get(i).getImagen().getBytes();
-                //String prueba = lista_juegos.get(i).getImagen();
-
-                //byte [] data = prueba.getBytes();
                 byte[] decodedString = Base64.decode(data, Base64.DEFAULT);
 
                 if (data == null){
@@ -293,20 +212,8 @@ public class details_list extends AppCompatActivity {
                 }else{
                     decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                 }
-                //Log.d("mytag", "AÑADIENDO A IMANES: "+ lista_paradas.get(i).getImagen());
-                //Bitmap decodedByte = BitmapFactory.decodeByteArray(data, 0, data.length);
-               // Log.d("mytag", "BYTE ARRAY: "+data.length);
-
-                //Log.d("mytag", "BMP: "+bmp.toString());
                 imagenes.add(new ImageItem(decodedByte, lista_juegos.get(i).getNombre_juego()));
             }
-
-            /*db=new MyOpenHelper(cont);
-            lista_paradas = db.getDatos_Paradas();
-            db.close();
-
-            titulo = new String [lista_paradas.size()];*/
-
             return xml;
         }
 
@@ -330,8 +237,7 @@ public class details_list extends AppCompatActivity {
                         nombre_completo = "com.example.ik_2dm3.didaktikapp." + titulo + "_" + ID_juego;
                         nombre_completo = nombre_completo.replace(" ", "");
                         Log.d("mytag", "NOMBRE JUEGO: " + nombre_completo);
-                        //int cont = 0;
-                        //Log.d("mytag", "NOMBRE JUEGO: " +nombre_completo);
+
                         i = null;
                         try {
                             i = new Intent(details_list.this, Class.forName(nombre_completo));
@@ -342,13 +248,6 @@ public class details_list extends AppCompatActivity {
                         }
                         startActivityForResult(i, REQ_OK);
 
-                        //Intent intent = new Intent(details_list.this, details_list.class);
-                        //int prueba = lista_juegos.get(position).getId_parada();
-
-                        //meto el id en los extras para saber que parada es
-                        //intent.putExtra("id_parada", prueba);
-                        //intent.putExtra("pag_anterior",1);
-                        //startActivityForResult(intent, REQ_OK);
                     }catch (Exception e){
                         e.printStackTrace();
                     }
@@ -394,15 +293,10 @@ public class details_list extends AppCompatActivity {
                 song = data.get(position);
                 Log.d("mytag","IMAGEN: "+position+"   "+song.getImage());
                 Drawable d = new BitmapDrawable(getResources(), song.getImage());
-                //TextView txt = new TextView(activity);
-                //txt.setText(song.getTitle());
-
                 try {
-                    //Glide.with(activity).load((song.getImage()).r.d);
 
                     Glide.with(activity).load(d).into(holder.galleryImage);
                     holder.nombre_parada.setText(song.getTitle());
-                    //Glide.with(activity).load(txt).into(holder.nombre_parada);
 
                 } catch (Exception e) {}
                 return convertView;
@@ -418,9 +312,6 @@ public class details_list extends AppCompatActivity {
     public void CargarJuegos (ArrayList<Juegos> Listado_juegos, int pos){
         Log.d("mytag", "CARGANDO JUEGOS");
 
-        //lista_juegos = new ArrayList<Juegos>();
-        //lista_juegos = (ArrayList<Juegos>) db.getDatos_juegos_ID(pr_actual.getId_parada());
-
         Log.d("mytag","ESTADO JUEGO numero "+pos+" : "+Listado_juegos.get(pos).isRealizado());
 
 
@@ -432,8 +323,6 @@ public class details_list extends AppCompatActivity {
                 nombre_completo = "com.example.ik_2dm3.didaktikapp." + titulo + "_" + ID_juego;
                 nombre_completo = nombre_completo.replace(" ", "");
                 Log.d("mytag", "NOMBRE JUEGO: " + nombre_completo);
-                //int cont = 0;
-                //Log.d("mytag", "NOMBRE JUEGO: " +nombre_completo);
                 i = null;
                 try {
                     i = new Intent(this, Class.forName(nombre_completo));
@@ -462,10 +351,6 @@ public class details_list extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
-
-        /*if (requestCode == REQ_BTNATRAS){
-            Log.d("mytag", "VUELVES DEL ONKEYDOWN2");
-        }*/
         if (requestCode == REQ_OK) {
             Log.d("mytag", "VUELVES DEL ONKEYDOWN1");
             // Make sure the request was successful
@@ -575,8 +460,6 @@ public class details_list extends AppCompatActivity {
 
         image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 
-        //Log.d("mytag","" +image_uri.getPath());
-
         //abrir camara
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri );
@@ -608,10 +491,6 @@ public class details_list extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
     // Esto es lo que hace mi botón al pulsar ir a atrás
-            /*Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
-                    Toast.LENGTH_SHORT).show();*/
-            //return true;
-            //mp.stop();
             finish();
         }
         return super.onKeyDown(keyCode, event);

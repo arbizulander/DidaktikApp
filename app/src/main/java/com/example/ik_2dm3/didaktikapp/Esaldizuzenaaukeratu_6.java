@@ -46,9 +46,7 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
             else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                 Log.i("TAG", "Screen OFF");
                 mp.stop();
-
             }
-
         }
     };
 
@@ -171,9 +169,6 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
                 btnNext.setVisibility(View.VISIBLE);
                 btnNext.setOnClickListener(v -> {
                     mp.stop();
-                   /* Intent i = new Intent(Esaldizuzenaaukeratu_6.this, Esaldizuzenaaukeratu_6.class);
-                    i.putExtra("pag_anterior", 1);
-                    startActivityForResult(i, REQ_BTN);*/
                     finish();
                 });
                 break;
@@ -215,9 +210,6 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
     // Esto es lo que hace mi botón al pulsar ir a atrás
-            /*Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
-                    Toast.LENGTH_SHORT).show();*/
-            //return true;
             if (pag_anterior == 0){
                 Intent i = new Intent();
                 i.putExtra("keydown",REQ_BTNATRAS);

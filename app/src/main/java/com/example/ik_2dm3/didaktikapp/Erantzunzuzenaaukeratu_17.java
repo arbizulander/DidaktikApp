@@ -42,13 +42,9 @@ public class Erantzunzuzenaaukeratu_17 extends AppCompatActivity {
                 Log.i("TAG", "Screen OFF");
                 mp.stop();
                 mp2.stop();
-
             }
-
         }
     };
-
-
 
 
     @Override
@@ -142,7 +138,6 @@ public class Erantzunzuzenaaukeratu_17 extends AppCompatActivity {
                 "Oso ondo!!", Toast.LENGTH_SHORT);
         toast.show();
         boton.setBackgroundColor(Color.parseColor("#04B404"));
-        //boton.setBackgroundColor(Color.GREEN);
         SonidoRespuesta(R.raw.correct2, boton);
         boton.setEnabled(false);
         boton2.setEnabled(false);

@@ -31,22 +31,9 @@ public class ajustes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajustes);
 
-        //btnReset = findViewById(R.id.btnReset);
+        //btn creditos
         sortzaileak = findViewById(R.id.btnSortzaileak);
 
-/*
-        btnReset.setOnClickListener(v -> {
-            db=new MyOpenHelper(this);
-            try {
-                db.ResetDatabase(this);
-                Toast.makeText(getApplicationContext(), "Base de Datos reseteada",
-                        Toast.LENGTH_SHORT).show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            db.close();
-        });
-*/
         sortzaileak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +46,7 @@ public class ajustes extends AppCompatActivity {
             }
         });
 
-        // components from main.xml
+        //pide contraseña para resetear base de datos
         button = (Button) findViewById(R.id.btnReset);
         
         edittext = (EditText) findViewById(R.id.edittext);
@@ -87,17 +74,12 @@ public class ajustes extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-
-
                             //resultText.setText(editText.getText());
                         if(editText.getText().toString().equals(admin)){
                             reset();
                         }else{
                             Log.d("mytag","Contraseña incorrecta");
                         }
-
-
-
                     }
                 })
                 .setNegativeButton("Cancel",
@@ -130,9 +112,6 @@ public class ajustes extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 // Esto es lo que hace mi botón al pulsar ir a atrás
-           /* Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
-                    Toast.LENGTH_SHORT).show();*/
-            //return true;
             finish();
         }
         return super.onKeyDown(keyCode, event);

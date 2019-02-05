@@ -104,13 +104,6 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
         pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
         Log.d("mytag","pag anterior es " + pag_anterior);
 
-        if (valor != null) {
-            //txtDescripcion.setText(valor);
-        }
-        else{
-            //txtDescripcion.setText("ERROR AL CARGAR TEXTO");
-        }
-
         cargarImagenes();
         iniciar();
         HabilitarDeshabilitarBtns(false);
@@ -122,27 +115,7 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
     public void CargarSegunPag_anterior(int u){
         switch(u){
             case 0:
-                //PlaySound();
-                //Intent e = new Intent(Aukeratuargazkiegokia_1.this,Elementuakbilatuargazkian_2.class);
-                //e.putExtra("pag_anterior",1);
-                //startActivityForResult(e, REQ_BTN);
-                //finish();
-                //Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation);
-                //txtDescripcion.startAnimation(animacion);
-                /*animacion.setAnimationListener(new Animation.AnimationListener(){
-                    @Override
-                    public void onAnimationStart(Animation arg0) {
 
-                    }
-                    @Override
-                    public void onAnimationRepeat(Animation arg0) {
-
-                    }
-                    @Override
-                    public void onAnimationEnd(Animation arg0) {
-
-                    }
-                });*/
                 break;
 
             case 1:
@@ -160,34 +133,15 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
     }
 
     public void PlaySound(){
-        /*int sound_id = this.getResources().getIdentifier(fileName, "raw",
-                this.getPackageName());*/
-        //if(sound_id != 0) {
-            //mp = MediaPlayer.create(this, sound_id);
+
             mp.start();
             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 public void onCompletion(MediaPlayer mp) {
                     HabilitarDeshabilitarBtns(true);
                     Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_alpha1to0);
-                    //txtDescripcion.startAnimation(animacion);
-                    /*animacion.setAnimationListener(new Animation.AnimationListener(){
-                        @Override
-                        public void onAnimationStart(Animation arg0) {
-
-                        }
-                        @Override
-                        public void onAnimationRepeat(Animation arg0) {
-
-                        }
-                        @Override
-                        public void onAnimationEnd(Animation arg0) {
-                            txtDescripcion.setAlpha(0);
-                        }
-                    });*/
 
                 }
             });
-        //}
     }
 
     public void cargarImagenes(){
@@ -270,13 +224,9 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
         if (ValorImagen == imagen_correcta){
 
             HabilitarDeshabilitarBtns(false);
-            //pulsado.setEnabled(false);
 
             int valorcancion = R.raw.correct;
-            //Animation animacion=null;
 
-            //Log.d("mytag","COORDX:  "+pantalla.getX()+"  "+pantalla.getWidth());
-            //Log.d("mytag","COORDY:  "+pantalla.getY()+"  "+pantalla.getHeight());
             //calcular punto del centro del layout
             centreX=pantalla.getWidth()  / 2;
             centreY=pantalla.getHeight() / 2;
@@ -292,9 +242,6 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
              }else if (pulsado == img3){
                  trans = new TranslateAnimation(0,-(centreX-centreX_Img),pulsado.getY(), (centreY-centreY_Img));
             }
-
-            ///TranslateAnimation trans = new TranslateAnimation(pulsado.getX(),centreX-centreX_Img,pulsado.getY(), centreY-centreY_Img);
-            //Log.d("mytag", "VALORES: "+pulsado.getX()+"  "+(centreX-centreX_Width)+"  "+ pulsado.getY()+"  "+(centreY-centreY_Height));
 
             Log.d("mytag","VALORES INICIALES: "+pulsado.getX()+"  "+pulsado.getY());
             Log.d("mytag","VALORES FINALES: "+(centreX-centreX_Img)+"  "+(centreY-centreY_Img));
@@ -384,8 +331,6 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
                     "Txarto!!", Toast.LENGTH_SHORT);
             toast.show();
         }
-
-        //pulsado.setEnabled(true);
     }
 
     public void Reproducir_cancion (Context cont, int ID,ImageButton pulsado){
@@ -436,9 +381,6 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 // Esto es lo que hace mi botón al pulsar ir a atrás
-            /*Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
-                    Toast.LENGTH_SHORT).show();*/
-            //return true;
             if (pag_anterior == 0){
                 Intent i = new Intent();
                 i.putExtra("keydown",REQ_BTNATRAS);

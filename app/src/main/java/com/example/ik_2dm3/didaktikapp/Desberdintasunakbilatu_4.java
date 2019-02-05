@@ -81,10 +81,6 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
         //mp.start();
 
         btnNextGame = findViewById(R.id.btnNextGame);
-        //btnPreviousGame = findViewById(R.id.btnPreviousGame);
-
-        //btnPreviousGame.setEnabled(false);
-        //btnPreviousGame.setVisibility(View.INVISIBLE);
 
         btnNextGame.setEnabled(false);
         btnNextGame.setVisibility(View.INVISIBLE);
@@ -92,16 +88,6 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
         pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
         refrescar = getIntent().getIntExtra("refrescar", 0);
 
-        //Hurrengoa = findViewById(R.id.hurrengoa);
-
-        /*Hurrengoa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i=new Intent(getBaseContext(), Desberdintasunabilatu_4_argazki1.class);
-
-                startActivityForResult(i, REQ_TEXT);
-            }
-        });*/
         cargarImagenes();
         iniciar();
         HabilitarDeshabilitarBtns(false);
@@ -160,15 +146,6 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
                 break;
 
             case 1:
-                /*btnPreviousGame.setEnabled(true);
-                btnPreviousGame.setVisibility(View.VISIBLE);
-                btnPreviousGame.setOnClickListener(v -> {
-                    mp.stop();
-                    Intent i = new Intent(Elementuakbilatuargazkian_2.this,Aukeratuargazkiegokia_1.class);
-                    i.putExtra("pag_anterior",1);
-                    startActivityForResult(i, REQ_BTN);
-                    finish();
-                });*/
 
                 btnNextGame.setEnabled(true);
                 btnNextGame.setVisibility(View.VISIBLE);
@@ -249,8 +226,6 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
 
             }
         }
-            //Log.d("mytag","COORDX:  "+pantalla.getX()+"  "+pantalla.getWidth());
-            //Log.d("mytag","COORDY:  "+pantalla.getY()+"  "+pantalla.getHeight());
             //calcular punto del centro del layout
             centreX=pantalla.getWidth()  / 2;
             centreY=pantalla.getHeight() / 2;
@@ -266,9 +241,6 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
             }else if (pulsado == img3){
                 trans = new TranslateAnimation(0,-(centreX-centreX_Img),pulsado.getY(), (centreY-centreY_Img));
             }
-
-            ///TranslateAnimation trans = new TranslateAnimation(pulsado.getX(),centreX-centreX_Img,pulsado.getY(), centreY-centreY_Img);
-            //Log.d("mytag", "VALORES: "+pulsado.getX()+"  "+(centreX-centreX_Width)+"  "+ pulsado.getY()+"  "+(centreY-centreY_Height));
 
             Log.d("mytag","VALORES INICIALES: "+pulsado.getX()+"  "+pulsado.getY());
             guardX = pulsado.getX();
@@ -358,9 +330,6 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 // Esto es lo que hace mi botón al pulsar ir a atrás
-            /*Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
-                    Toast.LENGTH_SHORT).show();*/
-            //return true;
             if (pag_anterior == 0){
                 Intent i = new Intent();
                 i.putExtra("keydown",REQ_BTNATRAS);

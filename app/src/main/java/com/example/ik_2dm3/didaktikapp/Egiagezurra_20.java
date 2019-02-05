@@ -177,9 +177,6 @@ public class Egiagezurra_20 extends AppCompatActivity {
                 i.putExtra("keydown",REQ_BTNATRAS);
                 setResult(RESULT_OK,i);
             }
-            /*if (mp2.isPlaying()){
-                mp2.stop();
-            }*/
 
             Log.d("mytag","Has ido atras");
             finish();

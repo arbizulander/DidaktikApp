@@ -173,18 +173,7 @@ public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
                 else{
                     Log.d("mytag","JELOUUUU");
                     boton.setBackgroundColor(Color.TRANSPARENT);
-                    //boton.setBackgroundColor(Color.);
-                    //Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.rippleeffect);
-
-                    //BitmapDrawable background = new BitmapDrawable(getResources(), bitmap);
-                    //int actionBarBackground = getResources().getColor(R.color.colorPrimary);
-                    //boton.setBackgroundColor(actionBarBackground);
-
-                    //boton.setBackground(background);
-
                     ActivarBotones();
-                    //respuesta1.setBackground((int)R.drawable.rippleeffect);
-
                 }
             }
         });
