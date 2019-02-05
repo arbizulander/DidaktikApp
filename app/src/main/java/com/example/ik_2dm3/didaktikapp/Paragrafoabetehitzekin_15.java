@@ -18,6 +18,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class Paragrafoabetehitzekin_15 extends AppCompatActivity {
 
@@ -189,6 +190,9 @@ public class Paragrafoabetehitzekin_15 extends AppCompatActivity {
     }
     public void Comprobartexto(EditText campo, String respuesta){
         if(campo.getText().toString().toLowerCase().equals(respuesta)){
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Oso ondo!!", Toast.LENGTH_SHORT);
+            toast.show();
             campo.getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);
             campo.setInputType(InputType.TYPE_NULL);
             campo.setKeyListener(null);

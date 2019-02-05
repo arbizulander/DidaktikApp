@@ -122,7 +122,9 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
                     spinner.setEnabled(false);
                     //on selecting a spinner item
                     String item = parent.getItemAtPosition(position).toString();
-
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Oso ondo!!", Toast.LENGTH_SHORT);
+                    toast.show();
                     Reproducir_cancion();
                     //show selected spinner item
                     //Toast.makeText(parent.getContext(),"Irabazi duzu:" +item, Toast.LENGTH_SHORT).show();

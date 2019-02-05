@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Hizkisalda_18 extends AppCompatActivity {
 
@@ -743,7 +744,9 @@ public class Hizkisalda_18 extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
     public void comprobarFin(){
-
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Oso ondo!!", Toast.LENGTH_SHORT);
+        toast.show();
         //Etxeko zerbitzuetarako tokia
         if(blnSotoaOK){
             respuesta1.setTextColor(Color.GREEN);

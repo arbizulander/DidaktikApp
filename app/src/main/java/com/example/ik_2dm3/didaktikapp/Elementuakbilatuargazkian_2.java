@@ -87,6 +87,9 @@ public class Elementuakbilatuargazkian_2 extends AppCompatActivity {
         areaClick.setBackgroundColor(Color.TRANSPARENT);
         areaClick.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Oso ondo!!", Toast.LENGTH_SHORT);
+                toast.show();
                 MediaPlayer mp;
                 mp = MediaPlayer.create(getApplicationContext(), R.raw.correct);
                 mp.start();

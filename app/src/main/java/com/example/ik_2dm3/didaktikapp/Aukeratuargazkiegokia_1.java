@@ -376,12 +376,12 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
 
             Reproducir_cancion(this,valorcancion, pulsado);
             Toast toast = Toast.makeText(getApplicationContext(),
-                    "Has  ganado!!", Toast.LENGTH_SHORT);
+                    "Oso ondo!!", Toast.LENGTH_SHORT);
             toast.show();
         }
         else{
             Toast toast = Toast.makeText(getApplicationContext(),
-                    "ERROR!!", Toast.LENGTH_SHORT);
+                    "Txarto!!", Toast.LENGTH_SHORT);
             toast.show();
         }
 

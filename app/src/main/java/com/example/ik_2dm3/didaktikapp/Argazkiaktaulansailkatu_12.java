@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class Argazkiaktaulansailkatu_12 extends AppCompatActivity {
 
@@ -118,6 +119,9 @@ public class Argazkiaktaulansailkatu_12 extends AppCompatActivity {
             contador++;
             if(contador == 5){
                 //Fin de juego y victoria
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Oso ondo!!", Toast.LENGTH_SHORT);
+                toast.show();
                 mp2 = MediaPlayer.create(getApplicationContext(), R.raw.correct);
                 mp2.start();
                 mp2.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

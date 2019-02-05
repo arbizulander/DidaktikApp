@@ -17,6 +17,7 @@
         android:fontFamily="@font/josefin_slab_bold"
         android:text="@string/galdera"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.024"
         app:layout_constraintStart_toStartOf="parent"

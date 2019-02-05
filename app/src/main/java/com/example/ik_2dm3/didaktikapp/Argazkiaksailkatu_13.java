@@ -217,11 +217,14 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
 
                     if(view.getId()== R.id.arpa || view.getId()== R.id.bateria || view.getId()== R.id.triangulo ||
                             view.getId()== R.id.maraka || view.getId()== R.id.pianoa){
-                        Toast.makeText(getBaseContext(),"TXARTO:" , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(),"Txarto!!" , Toast.LENGTH_SHORT).show();
                         fallo();
                     }
 
                     if (view.getId() == R.id.flauta) {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Oso ondo!!", Toast.LENGTH_SHORT);
+                        toast.show();
                         Log.d("mytag", "ID ARPA"+view.getId());
                         caja = findViewById(R.id.flauta);
                         caja.setVisibility(view.GONE);
@@ -229,6 +232,9 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                         Cont ++;
                     }
                     if (view.getId() == R.id.trompeta) {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Oso ondo!!", Toast.LENGTH_SHORT);
+                        toast.show();
                         Log.d("mytag", "ID ARPA"+view.getId());
                         caja = findViewById(R.id.trompeta);
                         caja.setVisibility(view.GONE);
@@ -236,6 +242,9 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                         Cont ++;
                     }
                     if (view.getId() == R.id.clarinete) {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Oso ondo!!", Toast.LENGTH_SHORT);
+                        toast.show();
                         Log.d("mytag", "ID ARPA"+view.getId());
                         caja = findViewById(R.id.clarinete);
                         caja.setVisibility(view.GONE);
@@ -243,8 +252,12 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                         Cont ++;
                     }
                     if(Cont==9){
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Oso ondo!!", Toast.LENGTH_SHORT);
+                        toast.show();
                         switch (pag_anterior){
                             case 0:
+
                                 int i = 13;
                                 db=new MyOpenHelper(cont);
                                 db.ActualizarJuego_Id(i);
@@ -305,11 +318,14 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
 
                     if(view.getId()== R.id.clarinete || view.getId()== R.id.bateria || view.getId()== R.id.triangulo ||
                             view.getId()== R.id.maraka || view.getId()== R.id.flauta || view.getId()== R.id.trompeta ){
-                        Toast.makeText(getBaseContext(),"TXARTO:" , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(),"Txarto!!" , Toast.LENGTH_SHORT).show();
                         fallo();
                     }
 
                     if (view.getId() == R.id.arpa) {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Oso ondo!!", Toast.LENGTH_SHORT);
+                        toast.show();
                         Log.d("mytag", "ID ARPA"+view.getId());
                         caja = findViewById(R.id.arpa);
                         caja.setVisibility(view.GONE);
@@ -318,6 +334,9 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                     }
 
                     if (view.getId() == R.id.violin) {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Oso ondo!!", Toast.LENGTH_SHORT);
+                        toast.show();
                         Log.d("mytag", "ID ARPA"+view.getId());
                         caja = findViewById(R.id.violin);
                         caja.setVisibility(view.GONE);
@@ -325,6 +344,9 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                         Cont ++;
                     }
                     if (view.getId() == R.id.pianoa) {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Oso ondo!!", Toast.LENGTH_SHORT);
+                        toast.show();
                         Log.d("mytag", "ID ARPA"+view.getId());
                         caja = findViewById(R.id.pianoa);
                         caja.setVisibility(view.GONE);
@@ -332,6 +354,9 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                         Cont ++;
                     }
                     if(Cont ==9){
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Oso ondo!!", Toast.LENGTH_SHORT);
+                        toast.show();
                         switch (pag_anterior){
                             case 0:
                                 int i = 11;
@@ -396,13 +421,16 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
 
                     if(view.getId()== R.id.arpa || view.getId()== R.id.pianoa || view.getId()== R.id.flauta
                             || view.getId()== R.id.clarinete || view.getId()== R.id.violin || view.getId()== R.id.trompeta   ){
-                        Toast.makeText(getBaseContext(),"TXARTO:" , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(),"Txarto!!" , Toast.LENGTH_SHORT).show();
                         fallo();
 
                     }
 
 
                     if (view.getId() == R.id.bateria) {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Oso ondo!!", Toast.LENGTH_SHORT);
+                        toast.show();
                         Log.d("mytag", "ID ARPA"+view.getId());
                         caja = findViewById(R.id.bateria);
                         caja.setVisibility(view.GONE);
@@ -410,6 +438,9 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                         Cont ++;
                     }
                     if (view.getId() == R.id.maraka) {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Oso ondo!!", Toast.LENGTH_SHORT);
+                        toast.show();
                         Log.d("mytag", "ID ARPA"+view.getId());
                         caja = findViewById(R.id.maraka);
                         caja.setVisibility(view.GONE);
@@ -417,6 +448,9 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                         Cont ++;
                     }
                     if (view.getId() == R.id.triangulo) {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Oso ondo!!", Toast.LENGTH_SHORT);
+                        toast.show();
                         Log.d("mytag", "ID ARPA"+view.getId());
                         caja = findViewById(R.id.triangulo);
                         caja.setVisibility(view.GONE);
@@ -425,6 +459,9 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                     }
                     if(Cont ==9){
                         if(Cont ==9){
+                            Toast toast = Toast.makeText(getApplicationContext(),
+                                    "Oso ondo!!", Toast.LENGTH_SHORT);
+                            toast.show();
                             switch (pag_anterior){
                                 case 0:
                                     int i = 11;

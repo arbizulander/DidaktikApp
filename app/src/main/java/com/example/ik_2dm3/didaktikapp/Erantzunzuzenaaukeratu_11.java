@@ -17,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
 
@@ -129,12 +130,18 @@ public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
         });
     }
     public void RespuestaCorrecta(Button boton){
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Oso ondo!!", Toast.LENGTH_SHORT);
+        toast.show();
         boton.setBackgroundColor(Color.parseColor("#04B404"));
         SonidoRespuesta(R.raw.correct2, boton);
         DesactivarBotones();
 
     }
     public void RespuestaIncorrecta(Button boton){
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Txarto!!", Toast.LENGTH_SHORT);
+        toast.show();
         boton.setBackgroundColor(Color.RED);
         SonidoRespuesta(R.raw.fail2, boton);
     }

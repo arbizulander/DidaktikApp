@@ -126,7 +126,9 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
 
                     //do nothing
                 }else if(parent.getItemAtPosition(position).equals("Beltza")){
-
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Oso ondo!!", Toast.LENGTH_SHORT);
+                    toast.show();
                     spinner.setEnabled(false);
                     //on selecting a spinner item
                     String item = parent.getItemAtPosition(position).toString();

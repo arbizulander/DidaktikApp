@@ -202,12 +202,15 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
 
 
                     if (view.getId() == R.id.testua1) {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Oso ondo!!", Toast.LENGTH_SHORT);
+                        toast.show();
                         Log.d("mytag", "ONDO ONDO ONDO ONDO ONDO");
                         caja = findViewById(R.id.testua1);
                         caja.setVisibility(view.GONE);
                         correcto();
                     }else{
-                        Toast.makeText(getBaseContext(),"TXARTO:" , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(),"Txarto!!" , Toast.LENGTH_SHORT).show();
                         fallo();
                         Log.d("mytag", "TXARTO TXARTO TXARTO TXARTO TXARTO");
                     }
@@ -236,12 +239,15 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
 
 
                     if (view.getId() == R.id.testua2) {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Oso ondo!!", Toast.LENGTH_SHORT);
+                        toast.show();
                         Log.d("mytag", "ONDO ONDO ONDO ONDO ONDO");
                         caja = findViewById(R.id.testua2);
                         caja.setVisibility(view.GONE);
                         correcto();
                     }else{
-                        Toast.makeText(getBaseContext(),"TXARTO:" , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(),"Txarto!!" , Toast.LENGTH_SHORT).show();
                         fallo();
                         Log.d("mytag", "TXARTO TXARTO TXARTO TXARTO TXARTO");
                     }
@@ -270,12 +276,15 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
 
 
                     if (view.getId() == R.id.testua3) {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Oso ondo!!", Toast.LENGTH_SHORT);
+                        toast.show();
                         Log.d("mytag", "ONDO ONDO ONDO ONDO ONDO");
                         caja = findViewById(R.id.testua3);
                         caja.setVisibility(view.GONE);
                         correcto();
                     }else{
-                        Toast.makeText(getBaseContext(),"TXARTO:" , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(),"Txarto!!" , Toast.LENGTH_SHORT).show();
                         fallo();
                         Log.d("mytag", "TXARTO TXARTO TXARTO TXARTO TXARTO");
                     }
@@ -304,12 +313,15 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
 
 
                     if (view.getId() == R.id.testua4) {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Oso ondo!!", Toast.LENGTH_SHORT);
+                        toast.show();
                         Log.d("mytag", "ONDO ONDO ONDO ONDO ONDO");
                         caja = findViewById(R.id.testua4);
                         caja.setVisibility(view.GONE);
                         correcto();
                     }else{
-                        Toast.makeText(getBaseContext(),"TXARTO:" , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(),"Txarto!!" , Toast.LENGTH_SHORT).show();
                         fallo();
                         Log.d("mytag", "TXARTO TXARTO TXARTO TXARTO TXARTO");
                     }
