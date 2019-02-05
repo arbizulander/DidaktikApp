@@ -88,7 +88,7 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
         spinner.setEnabled(false);
 
         List<String> galderak = new ArrayList<>();
-        galderak.add(0, "Aukeratu galdera egokia");
+        galderak.add(0, "Aukeratu esaldi egokia hemendik sakatu");
         galderak.add("Bizkaiko zubia kolorez aldatu zen herritarren iritziz kolorea itsusia zelako");
         /*EGOKIA*/galderak.add("Kolorez aldatu zen beltzak erradiazioa xurgatzen zuelako eta beroaren ondorioz bere egitura dilatatzen zelako");
         galderak.add("Kolorez aldatu zen urtero margozten zelako eta kolore beltza garestia zelako");
@@ -112,7 +112,7 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
                     ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
                     ((TextView) parent.getChildAt(0)).setTextSize(10);
 */
-                if(parent.getItemAtPosition(position).equals("Aukeratu galdera egokia")){
+                if(parent.getItemAtPosition(position).equals("Aukeratu esaldi egokia hemendik sakatu")){
 
                     //do nothing
                 }else if(parent.getItemAtPosition(position).equals("Kolorez aldatu zen beltzak erradiazioa xurgatzen zuelako eta beroaren ondorioz bere egitura dilatatzen zelako")){

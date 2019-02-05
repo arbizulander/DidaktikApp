@@ -275,13 +275,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         /*******************************************
          * Añadimos un marcador en Txurdinaga PARA DESARROLLO*/
-
+/*
             //Onclick de marcador
             mapboxMap.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(@NonNull Marker marker) {
+
                     //Comprobacion a traves del nombre
                     if(marker.getTitle().equals(lista_paradas.get(cont).getNombre())){
+
                     for(int i = 0 ; i < lista.size();i++){
                         if(lista.get(i).getId() == marker.getId()){
                             Intent in = new Intent(MapsActivity.this, details_list.class);
@@ -294,7 +296,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
                     return true;
                 }
-            });
+
+            }
+            );*/
 
             //Llenamos la lista de marcadores
             lista = mapboxMap.getMarkers();
@@ -305,7 +309,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             mapboxMap.addMarker(new MarkerOptions()
                     .position(new LatLng(43.257895,-2.902738))
-                    .title("Marcador Prueba"))
+                    .title("Nuestro querido centro"))
                     .setIcon(iconogris);
         /********************************************/
 
@@ -349,17 +353,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         //OPCIONES DEL ZOOM
-       /* LocationLayerOptions options = LocationLayerOptions.builder(this)
+        LocationLayerOptions options = LocationLayerOptions.builder(this)
 
-                .maxZoom(16)
-                .minZoom(14)
-                .build();*/
+                .maxZoom(17)
+                .minZoom(12)
+                .build();
 
 
 
         //locationPlayerPlugin, el punto de localizacion. En estas líneas le damos formato.
-        //locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap, locationEngine, options);
-        locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap, locationEngine);
+        locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap, locationEngine, options);
+        //locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap, locationEngine);
 
         locationLayerPlugin.setLocationLayerEnabled(true);
         locationLayerPlugin.setCameraMode(CameraMode.TRACKING_COMPASS);
@@ -370,7 +374,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void setCameraPosition(Location location){
         mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),
-                location.getLongitude()), 13.0));
+                location.getLongitude()), 17.0));
     }
 
 

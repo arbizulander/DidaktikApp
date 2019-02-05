@@ -57,6 +57,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:textAlignment="center"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:textSize="18sp" />
 
             <TextView
@@ -85,7 +86,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
             <TextView
                 android:id="@+id/linea2"
@@ -123,6 +125,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:textAlignment="center"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -166,6 +169,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:inputType="textPersonName"
                 android:textAlignment="center" />
         </LinearLayout>
@@ -226,6 +230,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:inputType="textPersonName"
                 android:textAlignment="center" />
         </LinearLayout>
@@ -269,6 +274,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:inputType="textPersonName"
                 android:textAlignment="center" />
         </LinearLayout>
@@ -295,6 +301,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:inputType="textPersonName"
                 android:textAlignment="center" />
 

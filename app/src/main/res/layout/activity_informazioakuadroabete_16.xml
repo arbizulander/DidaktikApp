@@ -164,6 +164,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:ems="10"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:inputType="textPersonName"
                     android:textSize="15sp" />
             </LinearLayout>
@@ -188,6 +189,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:ems="10"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:inputType="textPersonName|number"
                     android:textSize="15sp" />
             </LinearLayout>
@@ -212,6 +214,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:ems="10"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:inputType="textPersonName"
                     android:textSize="15sp" />
             </LinearLayout>
@@ -236,6 +239,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:ems="10"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:inputType="textPersonName"
                     android:textSize="15sp" />
             </LinearLayout>

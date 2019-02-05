@@ -58,6 +58,7 @@
                 android:inputType="textPersonName"
                 android:textAlignment="center"
                 android:textSize="20sp"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -81,6 +82,7 @@
                 android:inputType="number"
                 android:textAlignment="center"
                 android:textSize="20sp"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/texto1" />
 
@@ -105,6 +107,7 @@
                 android:inputType="textPersonName"
                 android:textAlignment="center"
                 android:textSize="20sp"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
