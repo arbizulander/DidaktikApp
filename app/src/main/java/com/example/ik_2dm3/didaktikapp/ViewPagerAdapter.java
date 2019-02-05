@@ -107,19 +107,23 @@ public class ViewPagerAdapter extends PagerAdapter {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int i = 8;
-                    db=new MyOpenHelper(context);
-                    db.ActualizarJuego_Id(i);
-                    db.close();
+                    switch(pag_anterior){
+                        case 0:
+                            int i = 8;
+                            db=new MyOpenHelper(context);
+                            db.ActualizarJuego_Id(i);
+                            db.close();
 
-                    Intent returnIntent = new Intent();
-                    returnIntent.putExtra("result", 1);
-                    if(context instanceof Activity){
-                        ((Activity)context).setResult(Activity.RESULT_OK, returnIntent);
-                        Log.d("mytag","if cumplido");//ESTO FUNCIONA BIEN, PERO MANDA A LISTA VACIA DE ZIRGARRIAK
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtra("result", 1);
+                            if(context instanceof Activity){
+                                ((Activity)context).setResult(Activity.RESULT_OK, returnIntent);
+                            }
+                            ((Activity) context).finish();
+                            break;
+                        case 1:
+                            break;
                     }
-                    ((Activity) context).finish();
-
                 }
             });
         }

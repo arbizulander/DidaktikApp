@@ -533,7 +533,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //Comprobacion de que no este ya completado
 
     if(!lista_paradas.get(cont).isRealizado()){
-        if(distancia <= 15 && !dentrozona){
+        if(distancia <= 50 && !dentrozona){
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setMessage(lista_paradas.get(cont).getNombre() + " -(a)ren alboan zaude, jolasak egin nahi dituzu?" );
             alert.setNegativeButton("EZ", new DialogInterface.OnClickListener() {
@@ -607,6 +607,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             lista.get(cont).setIcon(iconoverde);
             subirCont();
             Log.d("mytag","" + cont);
+            butact.setVisibility(View.INVISIBLE);
+            dentrozona = false;
         }
     }
     /**********************************************************/
