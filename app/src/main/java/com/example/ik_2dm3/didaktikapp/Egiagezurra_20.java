@@ -127,7 +127,7 @@ public class Egiagezurra_20 extends AppCompatActivity {
     }
 
     public void RespuestaCorrecta(Button boton, Button boton2){
-        boton.setBackgroundColor(Color.GREEN);
+        boton.setBackgroundColor(Color.parseColor("#04B404"));
         SonidoRespuesta(R.raw.correct2, boton);
         boton.setEnabled(false);
         boton2.setEnabled(false);
@@ -170,7 +170,10 @@ public class Egiagezurra_20 extends AppCompatActivity {
                 i.putExtra("keydown",REQ_BTNATRAS);
                 setResult(RESULT_OK,i);
             }
-            mp2.stop();
+            /*if (mp2.isPlaying()){
+                mp2.stop();
+            }*/
+
             Log.d("mytag","Has ido atras");
             finish();
         }
