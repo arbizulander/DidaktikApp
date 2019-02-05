@@ -4,141 +4,185 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondoaplicacion"
     tools:context=".Sortzaileak">
 
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="104dp"
-        android:layout_height="27dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="11dp"
-        android:text="@string/Lander"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19"
-        tools:text="@string/Lander" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="30dp">
 
-    <TextView
-        android:id="@+id/textView21"
-        android:layout_width="123dp"
-        android:layout_height="27dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="14dp"
-        android:text="@string/Iñaki"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView20"
-        tools:text="@string/Iñaki" />
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="44dp"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="@string/Sortzaileak"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="35sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/Sortzaileak" />
 
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="79dp"
-        android:layout_height="27dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="11dp"
-        android:text="@string/Javi"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView18"
-        tools:text="@string/Javi" />
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="@string/Magisteritza"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-    <TextView
-        android:id="@+id/textView18"
-        android:layout_width="369dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="16dp"
-        android:text="@string/Txurdinaga"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="@string/Haizea_Gardeazabal"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView16"
+            tools:text="@string/Haizea_Gardeazabal" />
 
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="142dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="14dp"
-        android:text="@string/Haizea_Gardeazabal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView16"
-        tools:text="@string/Haizea_Gardeazabal" />
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="@string/Ane_arce"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12"
+            tools:text="@string/Ane_arce" />
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="73dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/Ane_arce"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12"
-        tools:text="@string/Ane_arce" />
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="@string/Sara_Aldekoa"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView13"
+            tools:text="@string/Sara_Aldekoa" />
 
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="92dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/Sara_Aldekoa"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13"
-        tools:text="@string/Sara_Aldekoa" />
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="@string/Naroa_Da_Costa1"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView14"
+            tools:text="@string/Naroa_Da_Costa1" />
 
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="114dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/Naroa_Da_Costa1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14"
-        tools:text="@string/Naroa_Da_Costa1" />
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="@string/Nerea_Garcia"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView15"
+            tools:text="@string/Nerea_Garcia" />
 
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="102dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/Nerea_Garcia"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15"
-        tools:text="@string/Nerea_Garcia" />
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="@string/Sheila_Aldekoa"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11"
+            tools:text="@string/Sheila_Aldekoa" />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="181dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="100dp"
-        android:text="@string/Sortzaileak"
-        android:textSize="35sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/Sortzaileak" />
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="@string/Txurdinaga"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="306dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/Magisteritza"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="@string/Lander"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView19"
+            tools:text="@string/Lander" />
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="125dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="7dp"
-        android:text="@string/Sheila_Aldekoa"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11"
-        tools:text="@string/Sheila_Aldekoa" />
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="@string/Iñaki"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView20"
+            tools:text="@string/Iñaki" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/josefin_slab_bold"
+            android:text="@string/Javi"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView18"
+            tools:text="@string/Javi" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/unilogo"
@@ -154,10 +198,10 @@
         android:src="@drawable/unilogo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintHorizontal_bias="0.945"
         app:layout_constraintStart_toEndOf="@+id/txurdilogo"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.375" />
+        app:layout_constraintVertical_bias="0.298" />
 
 
     <ImageView
@@ -165,7 +209,7 @@
         android:layout_width="140dp"
         android:layout_height="80dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="228dp"
+        android:layout_marginStart="204dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="@string/des_imgTx"
@@ -174,5 +218,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.98" />
+        app:layout_constraintVertical_bias="0.828" />
 </android.support.constraint.ConstraintLayout>

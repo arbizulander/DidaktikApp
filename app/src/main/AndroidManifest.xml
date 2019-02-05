@@ -27,6 +27,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".splashscreen"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -182,7 +183,9 @@
             android:name=".Informazioakuadroabete_19"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".Sortzaileak"></activity>
+        <activity android:name=".Sortzaileak"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
