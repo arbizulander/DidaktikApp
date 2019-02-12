@@ -3,25 +3,16 @@ package com.example.ik_2dm3.didaktikapp;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
-import android.media.Image;
-import android.os.Parcel;
 import android.support.annotation.NonNull;
 
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -37,8 +28,6 @@ import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
 
 import com.mapbox.api.directions.v5.DirectionsCriteria;
-import com.mapbox.geojson.Feature;
-import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Icon;
@@ -46,7 +35,6 @@ import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.PolygonOptions;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
-import com.mapbox.mapboxsdk.annotations.PolylineOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -62,21 +50,12 @@ import com.mapbox.mapboxsdk.plugins.locationlayer.LocationLayerOptions;
 import com.mapbox.mapboxsdk.plugins.locationlayer.modes.CameraMode;
 import com.mapbox.mapboxsdk.plugins.locationlayer.modes.RenderMode;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+
 import java.util.ArrayList;
 import java.util.List;
 
-//Clases para calcular rutas
 
-
-import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
-import com.mapbox.mapboxsdk.style.sources.Source;
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute;
-import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigation;
 import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigationOptions;
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
 import com.mapbox.api.directions.v5.models.DirectionsResponse;
@@ -88,10 +67,8 @@ import retrofit2.Response;
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,LocationEngineListener,
         PermissionsListener {
 
-    // variables para calcular la ruta
     private Point posicionOrigen;
     private Point posicionDestino;
-    private DirectionsRoute rutaActual;
     private static final String TAG = "DirectionsActivity";
     private static final int REQ_MAPA = 7;
     private NavigationMapRoute navigationMapRoute;
@@ -132,14 +109,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     //Guardamos los marcadores en una lista para poder configurarlos una vez creados
         private List<Marker> lista;
 
-    // JSON encoding/decoding
-    //public static final String JSON_CHARSET = "UTF-8";
-    //public static final String JSON_FIELD_REGION_NAME = "Getxo";
-
-   /* private static final LatLngBounds GETXO_BOUNDS = new LatLngBounds.Builder()
-            .include(new LatLng(43.334930444724705, -3.010872036887065)) // Northeast
-            .include(new LatLng(43.3228968359835, -3.01600064681665)) // Southwest
-            .build();*/
 
    //prueba mapa en bilbao
     private static final LatLngBounds GETXO_BOUNDS = new LatLngBounds.Builder()
@@ -204,8 +173,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             // Limites de Getxo
             mapboxMap.setLatLngBoundsForCameraTarget(GETXO_BOUNDS);
-           // mapboxMap.setMinZoomPreference(10);
-           // mapboxMap.setMaxZoomPreference(14);
+
             // Visualise bounds area
             showBoundsArea(mapboxMap);
         }catch(Exception e){
@@ -246,15 +214,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             LatLng laln = new LatLng(lista_paradas.get(i).getLatitud(), lista_paradas.get(i).getLongitud());
             puntos.add(laln);
         }
-        //Desactivacion de interaccion con el mapa
-        //mapboxMap.getUiSettings().setZoomGesturesEnabled(false);
 
-
-/*  GENERACION DE RUTAS ENTRE PUNTOS (HABRIA QUE OPTIMIZAR CON GEOJSONS DESCARGADOS), dejar desactivado por el momento
-        mapboxMap.addPolyline(new PolylineOptions()
-            .addAll(puntos)
-            .color(Color.parseColor("#3bb2d0"))
-            .width(8));*/
 //Convertimos los pngs en iconos para usarlos mas tarde
         IconFactory iconFactory = IconFactory.getInstance(contex);
         Icon iconorojo = iconFactory.fromResource(R.drawable.red_marker);
@@ -271,47 +231,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         .title(lista_paradas.get(i).getNombre())
                         .setIcon(iconogris));
             }
+            
 
-
-        /*******************************************
-         * Añadimos un marcador en Txurdinaga PARA DESARROLLO*/
-
-            //Onclick de marcador
-            mapboxMap.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
-                @Override
-                public boolean onMarkerClick(@NonNull Marker marker) {
-
-                    //Comprobacion a traves del nombre
-                    if(marker.getTitle().equals(lista_paradas.get(cont).getNombre())){
-
-                    for(int i = 0 ; i < lista.size();i++){
-                        if(lista.get(i).getId() == marker.getId()){
-                            Intent in = new Intent(MapsActivity.this, details_list.class);
-                            Log.d("mytag", "ID_PARADA: "+cont+1);
-                            in.putExtra("id_parada",cont+1);
-                            in.putExtra("pag_anterior", 0);
-                            startActivityForResult(in, REQ_MAPA);
-                        }
-                    }
-                }
-                    return true;
-                }
-
-            }
-            );
 
             //Llenamos la lista de marcadores
             lista = mapboxMap.getMarkers();
 
 
-
-        /********************************************/
-
-            mapboxMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(43.257895,-2.902738))
-                    .title("Nuestro querido centro"))
-                    .setIcon(iconogris);
-        /********************************************/
 
         enableLocation();
     }
@@ -508,14 +434,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         destino.setLatitude(lista_paradas.get(cont).getLatitud());
         destino.setLongitude(lista_paradas.get(cont).getLongitud());
 
-/*
-        if (lista_paradas.get(cont).isRealizado()) {
-            Log.d("mytag","" +lista_paradas.get(cont).getNombre() + "esta completado");
-            lista.get(cont).setIcon(iconoverde);
-            }*/
-
-        /*destino.setLatitude(43.257895);
-        destino.setLongitude(-2.902738);*/
 
         marcarCompletado();
 
@@ -550,8 +468,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
-                    ////listaDetalles.CargarJuegos(lista_juegos,0);
-
                     Intent  i = new Intent(MapsActivity.this, details_list.class);
                     Log.d("mytag", "ID_PARADA: "+cont+1);
                     i.putExtra("id_parada",cont+1);
@@ -566,38 +482,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         else{dentrozona = false;}
     }
-    /*
-    //CODIGO MARCADOR DE PRUEBA
-        Log.d("mytag","ESTADO DE PARADA 1: " + lista_paradas.get(cont).isRealizado());
-        if((distancia <= 60 && !dentrozona) && !lista_paradas.get(cont).isRealizado()){
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setMessage("Estas cerca del marcador de prueba quieres hacer las actividades?" );
-            alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Log.d("mytag","has pulsado NO OK");
-                }
-            });
-            alert.setPositiveButton("SI", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                    ////listaDetalles.CargarJuegos(lista_juegos,0);
-                    Log.d("mytag","ID_PARADA: " +(cont+1));
-                    Intent  i = new Intent(MapsActivity.this, details_list.class);
-                    i.putExtra("id_parada",cont+1);
-                    i.putExtra("pag_anterior", 0);
-                    startActivityForResult(i, REQ_MAPA);
-                }
-            });
-            alert.show();
-            butact.setVisibility(View.VISIBLE);
-            dentrozona = true;
-        }
-        else{dentrozona = false;
-            butact.setVisibility(View.INVISIBLE);
-        }
-        */
         ultimaParada();
 }
 
@@ -676,22 +560,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Log.d("mytag","HE VUELTO DEL JUEGO POR EL MAPA");
             lista_paradas = db.getDatos_Paradas();
             db.close();
-            /*contJuegos +=1;
-            Log.d("mytag","contJuegos es " + contJuegos);
-            Log.d("mytag","listajuegos size es " + lista_juegos.size());
-
-            if (contJuegos < lista_juegos.size()){
-                listaDetalles.CargarJuegos(lista_juegos, contJuegos);
-            }*/
         }
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            // Esto es lo que hace mi botón al pulsar ir a atrás
-            /*Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
-                    Toast.LENGTH_SHORT).show();*/
 
         }
         return super.onKeyDown(keyCode, event);
