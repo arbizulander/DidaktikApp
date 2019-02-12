@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 public class Argazkiaksailkatu_13 extends AppCompatActivity {
 
-
     private MediaPlayer mp ,mp1,mp2,mp3;
     ImageView caja;
     private ImageButton btnNext, btnPreviousGame;
@@ -47,7 +46,6 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                 mp2.stop();
                 mp1.stop();
             }
-
         }
     };
 
@@ -69,7 +67,6 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
         btnNext.setEnabled(false);
         btnNext.setVisibility(View.INVISIBLE);
 
-
         mp2 = MediaPlayer.create(this, R.raw.musica_juego_13 );
         ImageView arpa = findViewById(R.id.arpa);
         ImageView flauta = findViewById(R.id.flauta);
@@ -80,11 +77,6 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
         ImageView triangulo = findViewById(R.id.triangulo);
         ImageView clarinete = findViewById(R.id.clarinete);
         ImageView trompeta = findViewById(R.id.trompeta);
-
-
-        /*TextView aire = findViewById(R.id.aire);
-        TextView cuerda = findViewById(R.id.cuerda);
-        TextView perkuzioa = findViewById(R.id.perkuzioa);*/
 
         ImageView cestaAirea = findViewById(R.id.cestaAire);
         ImageView cestaHarizkoa = findViewById(R.id.cestaHarizkoa);
@@ -107,7 +99,6 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
         triangulo.setOnLongClickListener(ClickListener3);
         cestaPerkuzioa.setOnDragListener(dragListener3);
 /********************************************************************************/
-
         pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
 
         switch (pag_anterior){
@@ -120,8 +111,6 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                     mp.stop();
                     if(mp2.isPlaying())
                         mp2.stop();
-
-
                     finish();
                 });
 
@@ -139,7 +128,6 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
 
                 break;
         }
-
 
         arpa.setEnabled(false);
         pianoa.setEnabled(false);
@@ -171,8 +159,6 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
 
                 Log.d("mytag","Dentro del onCompletion");
 
-
-
             }
         });
         mp.start();
@@ -186,9 +172,6 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
             ClipData data = ClipData.newPlainText("", "");
             View.DragShadowBuilder myShadowBuilder = new View.DragShadowBuilder(v);
             v.startDrag(data, myShadowBuilder, v, 0);
-
-
-
             return false;
         }
     };
@@ -201,7 +184,6 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
             Log.d("mytag","CESTA AIRE");
             final View view = (View) event.getLocalState();
             int dragEvent = event.getAction();
-
 
             switch (dragEvent) {
                 case DragEvent.ACTION_DRAG_ENTERED:
@@ -275,14 +257,12 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                         }
 
                     }
-
             }
             return true;
         }
     };
 
     //LONGCLICK LISTENER
-
     View.OnLongClickListener ClickListener2 = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
@@ -297,15 +277,12 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
     };
 
     /*ºººººººººººººººCUERDAºººººººººººººººººººººººººººººººº*/
-
     final View.OnDragListener dragListener2 = new View.OnDragListener() {
         //ACCIONES QUE HACE DESPUES DEL LONGCLICK
         @Override
         public boolean onDrag(View v, DragEvent event) {
             final View view = (View) event.getLocalState();
             int dragEvent = event.getAction();
-
-
 
             switch (dragEvent) {
                 case DragEvent.ACTION_DRAG_ENTERED:
@@ -314,7 +291,6 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                     break;
                 //ACCION QUE HACE CUANDO TERMINA EL DRAG I LOS SUELTAS EN ALGUNA BIÑETA CON DRAG LSITENER
                 case DragEvent.ACTION_DROP:
-
 
                     if(view.getId()== R.id.clarinete || view.getId()== R.id.bateria || view.getId()== R.id.triangulo ||
                             view.getId()== R.id.maraka || view.getId()== R.id.flauta || view.getId()== R.id.trompeta ){
@@ -375,10 +351,6 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                         }
 
                     }
-
-
-
-
             }
             return true;
         }
@@ -394,8 +366,6 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
             View.DragShadowBuilder myShadowBuilder = new View.DragShadowBuilder(v);
             v.startDrag(data, myShadowBuilder, v, 0);
 
-
-
             return false;
         }
     };
@@ -409,8 +379,6 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
             final View view = (View) event.getLocalState();
             int dragEvent = event.getAction();
 
-
-
             switch (dragEvent) {
                 case DragEvent.ACTION_DRAG_ENTERED:
                     break;
@@ -423,9 +391,7 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                             || view.getId()== R.id.clarinete || view.getId()== R.id.violin || view.getId()== R.id.trompeta   ){
                         Toast.makeText(getBaseContext(),"Txarto!!" , Toast.LENGTH_SHORT).show();
                         fallo();
-
                     }
-
 
                     if (view.getId() == R.id.bateria) {
                         Toast toast = Toast.makeText(getApplicationContext(),
@@ -480,45 +446,31 @@ public class Argazkiaksailkatu_13 extends AppCompatActivity {
                             }
 
                         }
-
-
                     }
-
             }
             return true;
         }
     };
 
-
     public void correcto (){
-
         mp1 = MediaPlayer.create(this, R.raw.correct);
         mp1.start();
-
-
     }
 
     public void fallo (){
-
         mp1 = MediaPlayer.create(this, R.raw.fail);
         mp1.start();
     }
 
     public void musica_fondo (){
-
-
         mp2.start();
 
     }
-
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 // Esto es lo que hace mi botón al pulsar ir a atrás
-           /* Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
-                    Toast.LENGTH_SHORT).show();*/
-            //return true;
             if (pag_anterior == 0){
                 Intent i = new Intent();
                 i.putExtra("keydown",REQ_BTNATRAS);

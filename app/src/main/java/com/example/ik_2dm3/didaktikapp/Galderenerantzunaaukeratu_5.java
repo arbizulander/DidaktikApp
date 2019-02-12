@@ -135,17 +135,12 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
                     ((TextView) parent.getChildAt(0)).setTextColor(Color.GREEN);
                     //spinner.
                     //show selected spinner item
-                   // Toast.makeText(parent.getContext(),"Irabazi duzu:" +item, Toast.LENGTH_SHORT).show();
-
                     Reproducir_cancion();
-
                     //anything else you want to do on item selection do  here
                 }else{
                     String item = parent.getItemAtPosition(position).toString();
-                    //Log.d("mitag","" + position);
                     ((TextView) parent.getChildAt(0)).setTextColor(Color.RED);
                     //show selected spinner item
-                    //Toast.makeText(parent.getContext(),"Galdu duzu: "  +item, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -247,9 +242,6 @@ public class Galderenerantzunaaukeratu_5 extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 // Esto es lo que hace mi botón al pulsar ir a atrás
-           /* Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
-                    Toast.LENGTH_SHORT).show();*/
-            //return true;
             if (pag_anterior == 0){
                 Intent i = new Intent();
                 i.putExtra("keydown",REQ_BTNATRAS);

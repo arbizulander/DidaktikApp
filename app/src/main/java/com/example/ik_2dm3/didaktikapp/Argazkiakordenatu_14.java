@@ -41,9 +41,7 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
                 Log.i("TAG", "Screen OFF");
                 mp.stop();
                 mp2.stop();
-
             }
-
         }
     };
 
@@ -59,7 +57,6 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
         btnNext = findViewById(R.id.btnNext);
         btnNext.setEnabled(false);
         btnNext.setVisibility(View.INVISIBLE);
-
 
         ImageView puerto1 = findViewById(R.id.argazki1);
         ImageView puerto2 = findViewById(R.id.argazki2);
@@ -78,18 +75,14 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
             case 0:
                 break;
             case 1:
-
                 btnNext.setEnabled(true);
                 btnNext.setVisibility(View.VISIBLE);
                 btnNext.setOnClickListener(v -> {
                     mp.stop();
-
                     finish();
                 });
-
                 break;
         }
-
 
         /*ºººººººººººººººººººººººMEDIAPLAYERººººººººººººººººººººº*/
         mp = MediaPlayer.create(this, R.raw.a5_1);
@@ -101,23 +94,16 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
                 testu2.setEnabled(true);
                 testu3.setEnabled(true);
                 testu4.setEnabled(true);
-
-
-
                 Log.d("mytag","Dentro del onCompletion");
 
             }
         });
         mp.start();
 
-
-
-
         testu1.setEnabled(false);
         testu2.setEnabled(false);
         testu3.setEnabled(false);
         testu4.setEnabled(false);
-
 
         //Recojer clicl listeners
         /*ºººººººººººººººClickListenerºººººººººººººººººººººººººººººººº*/
@@ -130,10 +116,6 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
         puerto2.setOnDragListener(dragListener2);
         puerto3.setOnDragListener(dragListener3);
         puerto4.setOnDragListener(dragListener4);
-
-
-
-
     }
 
     //LONGCLICK LISTENER
@@ -191,7 +173,6 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
             final View view = (View) event.getLocalState();
             int dragEvent = event.getAction();
 
-
             switch (dragEvent) {
                 case DragEvent.ACTION_DRAG_ENTERED:
                     break;
@@ -214,8 +195,6 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
                         fallo();
                         Log.d("mytag", "TXARTO TXARTO TXARTO TXARTO TXARTO");
                     }
-
-
             }
             return true;
         }
@@ -228,7 +207,6 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
             final View view = (View) event.getLocalState();
             int dragEvent = event.getAction();
 
-
             switch (dragEvent) {
                 case DragEvent.ACTION_DRAG_ENTERED:
                     break;
@@ -236,7 +214,6 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
                     break;
                 //ACCION QUE HACE CUANDO TERMINA EL DRAG I LOS SUELTAS EN ALGUNA BIÑETA CON DRAG LSITENER
                 case DragEvent.ACTION_DROP:
-
 
                     if (view.getId() == R.id.testua2) {
                         Toast toast = Toast.makeText(getApplicationContext(),
@@ -251,8 +228,6 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
                         fallo();
                         Log.d("mytag", "TXARTO TXARTO TXARTO TXARTO TXARTO");
                     }
-
-
             }
             return true;
         }
@@ -265,7 +240,6 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
             final View view = (View) event.getLocalState();
             int dragEvent = event.getAction();
 
-
             switch (dragEvent) {
                 case DragEvent.ACTION_DRAG_ENTERED:
                     break;
@@ -273,7 +247,6 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
                     break;
                 //ACCION QUE HACE CUANDO TERMINA EL DRAG I LOS SUELTAS EN ALGUNA BIÑETA CON DRAG LSITENER
                 case DragEvent.ACTION_DROP:
-
 
                     if (view.getId() == R.id.testua3) {
                         Toast toast = Toast.makeText(getApplicationContext(),
@@ -288,8 +261,6 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
                         fallo();
                         Log.d("mytag", "TXARTO TXARTO TXARTO TXARTO TXARTO");
                     }
-
-
             }
             return true;
         }
@@ -302,7 +273,6 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
             final View view = (View) event.getLocalState();
             int dragEvent = event.getAction();
 
-
             switch (dragEvent) {
                 case DragEvent.ACTION_DRAG_ENTERED:
                     break;
@@ -310,7 +280,6 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
                     break;
                 //ACCION QUE HACE CUANDO TERMINA EL DRAG I LOS SUELTAS EN ALGUNA BIÑETA CON DRAG LSITENER
                 case DragEvent.ACTION_DROP:
-
 
                     if (view.getId() == R.id.testua4) {
                         Toast toast = Toast.makeText(getApplicationContext(),
@@ -340,7 +309,6 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
     }
 
     public void fallo (){
-
         mp1 = MediaPlayer.create(this, R.raw.fail);
         mp1.start();
     }
@@ -349,7 +317,6 @@ public class Argazkiakordenatu_14 extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 // Esto es lo que hace mi botón al pulsar ir a atrás
-
             if (pag_anterior == 0){
                 Intent i = new Intent();
                 i.putExtra("keydown",REQ_BTNATRAS);

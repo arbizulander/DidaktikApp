@@ -25,7 +25,6 @@ public class Function {
     static final String KEY_TIME = "date";
     static final String KEY_COUNT = "date";
 
-
     public static  boolean hasPermissions(Context context, String... permissions) {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
             for (String permission : permissions) {

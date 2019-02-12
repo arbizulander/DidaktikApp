@@ -23,7 +23,6 @@ public class Gallerypreview extends AppCompatActivity {
         path = intent.getStringExtra("path");
 
         Log.d("mytag", "ESTOY EN EL GALLERY PREVIEW");
-        //Log.d("mytag", "RUTA DE IMAGEN PULSADA : " +path);
 
         GalleryPreviewImg = (ImageView) findViewById(R.id.GalleryPreviewImg);
         Glide.with(Gallerypreview.this)

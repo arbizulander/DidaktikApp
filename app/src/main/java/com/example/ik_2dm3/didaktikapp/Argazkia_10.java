@@ -124,8 +124,6 @@ public class Argazkia_10 extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 // Esto es lo que hace mi botón al pulsar ir a atrás
-                /*Toast.makeText(getApplicationContext(), "Voy hacia atrás!!",
-                        Toast.LENGTH_SHORT).show();*/
             if (pag_anterior == 0){
                 Intent i = new Intent();
                 i.putExtra("keydown",REQ_BTNATRAS);

@@ -18,17 +18,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        /*if (!blnCargado) {
-            setTheme(R.style.SplashTheme);
-            blnCargado = true;
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }*/
-
-        //setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -39,25 +28,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this,menu_main.class);
             Log.d("mytag", "... ABRIENDO INTENT...");
             startActivityForResult(intent,REQ_BTN);
-            //AbrirLayout thread = new AbrirLayout(intent);
-            //thread.start();
-            //startActivityForResult(intent, REQ_BTN);
         });
     }
 
-    /*class AbrirLayout extends Thread {
-        private Intent i;
-
-        public AbrirLayout(Intent i) {
-            this.i = i;
-        }
-
-        @Override
-        public void run() {
-            runOnUiThread(() -> {
-                Log.d("mytag", "... ABRIENDO INTENT...");
-               startActivityForResult(i,REQ_BTN);
-            });
-        }
-    }*/
 }

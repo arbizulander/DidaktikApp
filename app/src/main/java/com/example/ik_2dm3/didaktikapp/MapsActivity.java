@@ -275,7 +275,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         /*******************************************
          * Añadimos un marcador en Txurdinaga PARA DESARROLLO*/
-/*
+
             //Onclick de marcador
             mapboxMap.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
                 @Override
@@ -298,7 +298,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
 
             }
-            );*/
+            );
 
             //Llenamos la lista de marcadores
             lista = mapboxMap.getMarkers();

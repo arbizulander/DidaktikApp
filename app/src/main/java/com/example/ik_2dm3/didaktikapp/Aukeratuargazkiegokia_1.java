@@ -34,7 +34,6 @@ import pl.droidsonroids.gif.GifImageView;
 
 import static android.os.SystemClock.sleep;
 
-
 public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
 
     //conexion BD
@@ -70,7 +69,6 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
     static final int REQ_BTN = 0;
     static final int REQ_BTNATRAS = 12;
 
-
     BroadcastReceiver miBroadcast = new BroadcastReceiver() {
 
         @Override
@@ -81,9 +79,7 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
             else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                 Log.i("TAG", "Screen OFF");
                 mp.stop();
-
             }
-
         }
     };
 
@@ -115,7 +111,6 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
     public void CargarSegunPag_anterior(int u){
         switch(u){
             case 0:
-
                 break;
 
             case 1:
@@ -139,7 +134,6 @@ public class Aukeratuargazkiegokia_1 extends AppCompatActivity {
                 public void onCompletion(MediaPlayer mp) {
                     HabilitarDeshabilitarBtns(true);
                     Animation animacion = AnimationUtils.loadAnimation(cont, R.anim.animation_alpha1to0);
-
                 }
             });
     }

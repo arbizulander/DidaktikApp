@@ -43,7 +43,6 @@ public class Erantzunzuzenaaukeratu_11 extends AppCompatActivity {
                 mp2.stop();
 
             }
-
         }
     };
 

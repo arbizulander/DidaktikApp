@@ -127,7 +127,6 @@ public class details_list extends AppCompatActivity {
         txtParada = pr_actual.getTexto();
         //Cogemos todos los nombres de las paradas que hay en la BD
 
-
         int iDisplayWidth = getResources().getDisplayMetrics().widthPixels;
         Resources resources = getApplicationContext().getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
@@ -140,9 +139,7 @@ public class details_list extends AppCompatActivity {
             gridView.setColumnWidth(Math.round(px));
         }
 
-
         CargarSegunPag_anterior(pag_anterior);
-
     }
 
     public void CargarSegunPag_anterior(int u){
@@ -419,16 +416,10 @@ public class details_list extends AppCompatActivity {
                                 break;
 
                             case 1:
-
                                 break;
                         }
-
-
-
                     }
-
                 }
-
             }
             catch (Exception e){
                 e.printStackTrace();

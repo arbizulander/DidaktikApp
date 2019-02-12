@@ -108,10 +108,7 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-/*
-                    ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
-                    ((TextView) parent.getChildAt(0)).setTextSize(10);
-*/
+
                 if(parent.getItemAtPosition(position).equals("Aukeratu esaldi egokia hemendik sakatu")){
 
                     //do nothing
@@ -132,9 +129,7 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
                 }else{
                     String item = parent.getItemAtPosition(position).toString();
 
-                    ((TextView) parent.getChildAt(0)).setTextColor(Color.RED);
-                    //show selected spinner item
-                    //Toast.makeText(parent.getContext(),"Galdu duzu: "  +item, Toast.LENGTH_SHORT).show();
+                    ((TextView) parent.getChildAt(0)).setTextColor(Color.RED);//show selected spinner item
                 }
             }
 
@@ -197,10 +192,8 @@ public class Esaldizuzenaaukeratu_6 extends AppCompatActivity {
                         finish();
                         break;
                     case 1:
-
                         break;
                 }
-
             }
         });
     }

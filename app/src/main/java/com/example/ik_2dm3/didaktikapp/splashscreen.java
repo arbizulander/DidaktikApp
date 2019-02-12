@@ -42,9 +42,6 @@ public class splashscreen extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animator animation) {
 
-                //ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(splashscreen.this);
-                //Intent intent = new Intent(splashscreen.this, MainActivity.class);
-                //startActivity(intent, options.toBundle());
                 Intent intent = new Intent(splashscreen.this,MainActivity.class);
                 AbrirLayout thread = new AbrirLayout(intent);
                 thread.start();

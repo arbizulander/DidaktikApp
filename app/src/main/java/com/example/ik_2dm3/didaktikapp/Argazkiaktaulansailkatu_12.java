@@ -25,8 +25,6 @@ public class Argazkiaktaulansailkatu_12 extends AppCompatActivity {
     private int contador = 0;
     static final int REQ_BTNATRAS = 12;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,8 +89,6 @@ public class Argazkiaktaulansailkatu_12 extends AppCompatActivity {
                     finish();
                 });
 
-
-
                 btnPreviousGame.setEnabled(true);
                 btnPreviousGame.setVisibility(View.VISIBLE);
                 btnPreviousGame.setOnClickListener(v -> {
@@ -102,7 +98,6 @@ public class Argazkiaktaulansailkatu_12 extends AppCompatActivity {
                     startActivityForResult(i, REQ_BTN);
                     finish();
                 });
-
                 break;
         }
         mp = MediaPlayer.create(getApplicationContext(), R.raw.a4_3);

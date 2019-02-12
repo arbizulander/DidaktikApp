@@ -42,7 +42,6 @@ public class Debaterakogalderak_9 extends AppCompatActivity {
                 mp.stop();
 
             }
-
         }
     };
 
@@ -74,7 +73,6 @@ public class Debaterakogalderak_9 extends AppCompatActivity {
         komenta.setVisibility(View.INVISIBLE);
         fotodebate = (ImageView) findViewById(R.id.fotodebate);
         fotodebate.setVisibility(View.INVISIBLE);
-
 
         pag_anterior = getIntent().getIntExtra("pag_anterior", 0);
 
@@ -156,11 +154,8 @@ public class Debaterakogalderak_9 extends AppCompatActivity {
                                 }
                             });
                         }
-
                     ;}
                 });
-            //}}
-        //);
     }
 
     @Override

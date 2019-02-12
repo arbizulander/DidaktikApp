@@ -23,7 +23,6 @@ import java.util.ArrayList;
 
 public class Desberdintasunakbilatu_4 extends AppCompatActivity {
 
-
     private ImageButton Hurrengoa;
 
     static final int REQ_TEXT = 0;
@@ -64,7 +63,6 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
                 mp.stop();
 
             }
-
         }
     };
 
@@ -78,7 +76,6 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
         registerReceiver(miBroadcast, new IntentFilter(Intent.ACTION_SCREEN_OFF));
 
         mp = MediaPlayer.create(this, R.raw.a2_1);
-        //mp.start();
 
         btnNextGame = findViewById(R.id.btnNextGame);
 
@@ -119,7 +116,6 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
     public void iniciar(){
 
         cargarBotones();
-
         //MOSTRAMOS LA IMAGEN
         for(int i=0; i<array_botones.length; i++) {
             array_botones[i].setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -142,11 +138,8 @@ public class Desberdintasunakbilatu_4 extends AppCompatActivity {
     public void CargarSegunPag_anterior(int u){
         switch(u){
             case 0:
-
                 break;
-
             case 1:
-
                 btnNextGame.setEnabled(true);
                 btnNextGame.setVisibility(View.VISIBLE);
                 btnNextGame.setOnClickListener(v -> {

@@ -369,7 +369,6 @@ public class Hizkisalda_18 extends AppCompatActivity {
         TextView[] textViewEklektikoa = {txt4_4Eklektikoa,txt5_4,txt6_4,txt7_4,txt8_4,txt9_4,txt10_4,txt11_4,txt12_4,txt13_4EklektikoaEnd};
         TextView[] textViewSotoa = {txt12_1Sotoa,txt12_2,txt12_3,txt12_4,txt12_5SotoaEnd};
         TextView[] textViewNursery = {txt8_8Nursery,txt9_8,txt10_8,txt11_8,txt12_8,txt13_8,txt14_8NurseryEnd};
-        // textViewArray ={txt1_1,txt1_2,txt1_3,txt1_4};
 
         final int[] contLetras = {0} ;
         for (int i = 0; i < textViewArray.length; i++){
@@ -566,10 +565,6 @@ public class Hizkisalda_18 extends AppCompatActivity {
                             blnSinValor = true;
                         }
 
-                    /*if (){
-                        blnSinValor = false;
-                    }*/
-
                         if (blnPulsado){
                             Log.d("mytag","SEGUNDA LETRA PULSADA");
                             // Drawable d = getResources().getColor(Color.GRAY);
@@ -615,7 +610,7 @@ public class Hizkisalda_18 extends AppCompatActivity {
                                     }
                                 }
                                 if (textViewArray[contLetras[0]] == txt14_14ErrejionalistaEnd || textViewArray[j] == txt14_14ErrejionalistaEnd){
-                                    //txt14_14ErrejionalistaEnd.setBackgroundColor(Color.BLUE);
+
                                     cd = (ColorDrawable) txt13_13.getBackground();
                                     colorCode = cd.getColor();
                                     if (colorCode == Color.BLUE){
@@ -631,7 +626,6 @@ public class Hizkisalda_18 extends AppCompatActivity {
                                     }
                                 }
                                 if (textViewArray[contLetras[0]] == txt4_4Eklektikoa || textViewArray[j] == txt4_4Eklektikoa){
-                                    //txt4_4Eklektikoa.setBackgroundColor(Color.RED);
 
                                     cd = (ColorDrawable) txt5_4.getBackground();
                                     colorCode = cd.getColor();
@@ -639,7 +633,6 @@ public class Hizkisalda_18 extends AppCompatActivity {
                                         txt4_4Eklektikoa.setBackgroundColor(Color.RED);
                                     }
                                     else {
-                                        //Log.d("mytag", "PULSADO LETRA DE INGELESA");
                                         cd = (ColorDrawable) txt5_5.getBackground();
                                         colorCode = cd.getColor();
                                         if (colorCode == Color.BLUE){
@@ -649,14 +642,14 @@ public class Hizkisalda_18 extends AppCompatActivity {
 
                                 }
                                 if (textViewArray[contLetras[0]] == txt12_4 || textViewArray[j] == txt12_4){
-                                        //txt12_4.setBackgroundColor(Color.WHITE);
+
                                     cd = (ColorDrawable) txt12_3.getBackground();
                                     colorCode = cd.getColor();
                                     if (colorCode == Color.DKGRAY){
                                         txt12_4.setBackgroundColor(Color.DKGRAY);
                                     }
                                     else {
-                                        //Log.d("mytag", "PULSADO LETRA DE INGELESA");
+
                                         cd = (ColorDrawable) txt11_4.getBackground();
                                         colorCode = cd.getColor();
                                         if (colorCode == Color.RED){
@@ -665,7 +658,7 @@ public class Hizkisalda_18 extends AppCompatActivity {
                                     }
                                 }
                                 if (textViewArray[contLetras[0]] == txt8_8Nursery || textViewArray[j] == txt8_8Nursery){
-                                    //txt8_8Nursery.setBackgroundColor(Color.YELLOW);
+
 
                                     cd = (ColorDrawable) txt8_9.getBackground();
                                     colorCode = cd.getColor();
@@ -673,7 +666,7 @@ public class Hizkisalda_18 extends AppCompatActivity {
                                         txt8_8Nursery.setBackgroundColor(Color.YELLOW);
                                 }
                                     else {
-                                        //Log.d("mytag", "PULSADO LETRA DE INGELESA");
+
                                         cd = (ColorDrawable) txt7_7.getBackground();
                                         colorCode = cd.getColor();
                                         if (colorCode == Color.BLUE){

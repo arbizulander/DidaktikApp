@@ -32,24 +32,10 @@ public class menu_main extends AppCompatActivity {
         setContentView(R.layout.activity_menu_main);
         setTitle("Menua");
 
-        //btnHome = (Button) findViewById(R.id.btnHome);
         btnIbilbidea = findViewById(R.id.btnIbilbidea);
         btnGaleria = findViewById(R.id.btnGaleria);
         btnOndareak = findViewById(R.id.btnOndareak);
         btnAjustes = findViewById(R.id.btnAjustes);
-        //btnHome.setOnClickListener(new View.OnClickListener() {
-        //@Override
-        //public void onClick(View v) {
-        //
-        //
-        //Intent intent = new Intent(menu_main.this,MainActivity.class);
-        //
-        //
-        //
-        //startActivityForResult(intent, REQ_BTN);
-        //
-        //}
-        //});Override
 
         btnIbilbidea.setOnClickListener(v -> {
 

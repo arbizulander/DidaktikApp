@@ -68,30 +68,6 @@ public class list extends AppCompatActivity {
         setTitle("Ondareak");
 
         gridView = findViewById(R.id.gridView);
-        //paradasView = findViewById(R.id.paradas_lista);
-
-        //Cogemos todos los nombres de las paradas que hay en la BD
-
-        //Los pasamos a un array para poder hacer el ArrayAdapter con el ListView
-        //titulo = new String [lista_paradas.size()];
-
-
-        //Pasamos array al ArrayAdapter para que salga en el ListView
-        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, titulo);
-        paradasView.setAdapter(adapter);
-
-        paradasView.setOnItemClickListener((parent, view, position, id) -> {
-            int item = position;
-
-            Intent intent = new Intent(list.this, details_list.class);
-            int prueba = lista_paradas.get(item).getId_parada();
-
-            //meto el id en los extras para saber que parada es
-            intent.putExtra("id_parada", prueba);
-            intent.putExtra("pag_anterior",1);
-            startActivityForResult(intent, REQ_OK);
-        });*/
-
 
         int iDisplayWidth = getResources().getDisplayMetrics().widthPixels;
         Resources resources = getApplicationContext().getResources();
@@ -112,11 +88,6 @@ public class list extends AppCompatActivity {
 
     public Bitmap toImg(byte[] byteArray) throws IOException {
         Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-       /* View convertView = LayoutInflater.from(this).inflate(
-                R.layout.grid_item_card_list, parent, false);*/
-        //ImageView image = (ImageView) findViewById(R.id.galleryImage);
-        //image.setImageBitmap(Bitmap.createScaledBitmap(bmp, image.getWidth(), image.getHeight(), false));
-        //image.setImageResource(R.drawable.error);
         return bmp;
     }
 
@@ -150,19 +121,10 @@ public class list extends AppCompatActivity {
                 }else{
                     decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                 }
-                //Log.d("mytag", "AÑADIENDO A IMANES: "+ lista_paradas.get(i).getImagen());
-                //Bitmap decodedByte = BitmapFactory.decodeByteArray(data, 0, data.length);
                 Log.d("mytag", "BYTE ARRAY: "+data.length);
 
-                //Log.d("mytag", "BMP: "+bmp.toString());
                 imagenes.add(new ImageItem(decodedByte, lista_paradas.get(i).getNombre()));
             }
-
-            /*db=new MyOpenHelper(cont);
-            lista_paradas = db.getDatos_Paradas();
-            db.close();
-
-            titulo = new String [lista_paradas.size()];*/
 
             return xml;
         }
@@ -197,27 +159,6 @@ public class list extends AppCompatActivity {
                 }
             });
         }
-
-        /*public void aniadir_imgGaleria (){
-
-            files = dir.listFiles();
-            File imgFile = new File(files[files.length-1].toString());
-
-            Log.d("mytag","RUTA AL VOLVER DE LA CAMARA de ultima img:  " + imgFile);
-
-            HashMap<String, String> map = new HashMap<String, String>();
-
-            Long tsLong = System.currentTimeMillis()/1000;
-            String ts = tsLong.toString();
-
-            map.put("album_name", "DidaktikApp");
-            map.put("path", imgFile.toString());
-            map.put("timestamp", ts);
-            map.put("date", null);
-            map.put("date", null);
-
-            imageList.add(map);
-        }*/
 
         class SingleAlbumAdapter extends BaseAdapter {
             private Activity activity;
@@ -258,15 +199,10 @@ public class list extends AppCompatActivity {
                 song = data.get(position);
                 Log.d("mytag","IMAGEN: "+position+"   "+song.getImage());
                 Drawable d = new BitmapDrawable(getResources(), song.getImage());
-                //TextView txt = new TextView(activity);
-                //txt.setText(song.getTitle());
 
                 try {
-                    //Glide.with(activity).load((song.getImage()).r.d);
-
                     Glide.with(activity).load(d).into(holder.galleryImage);
                     holder.nombre_parada.setText(song.getTitle());
-                    //Glide.with(activity).load(txt).into(holder.nombre_parada);
 
                 } catch (Exception e) {}
                 return convertView;
