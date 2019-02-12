@@ -7,70 +7,7 @@
     android:background="@drawable/fondoaplicacion"
     tools:context=".Informazioakuadroabete_16">
 
-    <!--android:background="@drawable/casaej16"-->
 
-
-
-
-    <!--<EditText
-        android:id="@+id/texto1"
-        android:layout_width="137dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="472dp"
-        android:layout_marginTop="72dp"
-        android:background="@color/blue"
-        android:ems="10"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/texto2"
-        android:layout_width="42dp"
-        android:layout_height="22dp"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="96dp"
-        android:background="@color/blue"
-        android:ems="10"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:inputType="number"
-        android:textAlignment="center"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/texto3"
-        android:layout_width="86dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="488dp"
-        android:layout_marginTop="148dp"
-        android:background="@color/blue"
-        android:ems="10"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/texto4"
-        android:layout_width="158dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="196dp"
-        android:layout_marginEnd="32dp"
-        android:background="@color/blue"
-        android:ems="10"
-        android:fontFamily="@font/josefin_slab_bold"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnPreviousGame"

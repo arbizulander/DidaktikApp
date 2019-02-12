@@ -38,22 +38,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!--<Button
-            android:id="@+id/btnBertsioa_egiaztatu"
-            android:layout_width="260dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/rippleeffect"
-            android:text="@string/Bertsioa_egiaztatu"
-            android:textAlignment="center"
-            android:textColor="@color/colorTexto"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnIbilbidea" />-->
+
 
         <Button
             android:id="@+id/btnReset"

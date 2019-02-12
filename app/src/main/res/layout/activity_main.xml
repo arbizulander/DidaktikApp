@@ -61,15 +61,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.979" />
 
-    <!--<ImageView
-        android:id="@+id/getxo"
-        android:layout_width="296dp"
-        android:layout_height="210dp"
-        android:layout_centerHorizontal="true"
-        android:scaleType="fitXY"
-        android:src="@drawable/getxo"
-        tools:layout_editor_absoluteX="44dp"
-        tools:layout_editor_absoluteY="37dp" />-->
+
 
     <TextView
         android:id="@+id/textViewTitulo"
